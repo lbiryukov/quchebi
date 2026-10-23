@@ -159,8 +159,24 @@ Index-aligned with `core.districts` / `core.places`. Place without a polygon has
 `ai` = 1 when the categories/description come from an LLM (UI shows the "оценка ИИ" chip).
 Optional fields omitted when unknown.
 
+## Conventions fixed during implementation (24/10/2026)
+
+- `core.f[]` always has `ka`, `k`, `len`, `c`, `hn`; `len = 0` for points and polygons.
+- `core.places[].parent` is an index into `core.districts`.
+- `eponyms.e[].o` is `"ge"` or `"fo"` (omitted when unknown).
+- House row with a building/korpus but no range: `[raw, n, lit, sub, lat, lon, null, corp]`.
+- The same pair of streets may appear several times in `x` with different crossing points.
+- `name_history` rows without `feature_id` or with confidence < 0.5 are not exported.
+- `ai = 1` when the eponym or any of its categories comes from an LLM.
+- Unreferenced eponyms and families are dropped; indices are re-assigned.
+- Size budget: ≤ 1.2 MB gzip for all data files (measured ≈ 1.0 MB on real data).
+- `manifest.tiles` = `{basemap, glyphs, sprites, minzoom, maxzoom, bbox, center, bytes,
+  files: {"tiles/<path>": {bytes, sha256}}}`, built from `app/public/tiles/tiles-manifest.json`.
+
 ## Tiles (separate, large)
 
 `app/public/tiles/tbilisi.pmtiles` (Protomaps basemap extract, z0–15, bbox of Tbilisi),
 `app/public/tiles/fonts/<fontstack>/<range>.pbf`, `app/public/tiles/sprites/light.json|png`
-(+ `@2x`). Listed under `manifest.tiles` with sha256.
+(+ `@2x`). Listed under `manifest.tiles` with sha256. Source of truth for tile files is
+`app/public/tiles/tiles-manifest.json` written by `pipeline/tiles`; Medium and Italic glyph
+ranges that lack Georgian letters are filled from Regular (`glyph_fallback`).

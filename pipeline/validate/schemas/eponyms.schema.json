@@ -1,0 +1,64 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://quchebi.local/schemas/eponyms.schema.json",
+ "title": "Quchebi pack eponyms.json: taxonomy, kind aliases, eponyms",
+ "type": "object",
+ "required": ["v", "taxonomy", "kinds", "e"],
+ "additionalProperties": false,
+ "properties": {
+  "v": {"const": 1},
+  "taxonomy": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/node",
+    "required": ["id", "ru", "aliases", "children"],
+    "properties": {"children": {"type": "array", "items": {"$ref": "#/$defs/node"}}}
+   }
+  },
+  "kinds": {
+   "type": "object",
+   "propertyNames": {"$ref": "#/$defs/kind"},
+   "additionalProperties": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "e": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": ["k", "src", "ai"],
+    "additionalProperties": false,
+    "properties": {
+     "ka": {"$ref": "#/$defs/name"},
+     "ru": {"$ref": "#/$defs/name"},
+     "en": {"$ref": "#/$defs/name"},
+     "q": {"type": "string", "pattern": "^Q[0-9]+$"},
+     "k": {"$ref": "#/$defs/kind"},
+     "cat": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+     "occ": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+     "g": {"enum": ["m", "f"]},
+     "b": {"type": "integer"},
+     "d": {"type": "integer"},
+     "o": {"enum": ["ge", "fo"]},
+     "desc": {"$ref": "#/$defs/name"},
+     "src": {"type": "string", "minLength": 1},
+     "conf": {"type": "number", "minimum": 0, "maximum": 1},
+     "ai": {"enum": [0, 1]}
+    }
+   }
+  }
+ },
+ "$defs": {
+  "name": {"type": "string", "minLength": 1},
+  "kind": {"enum": ["person", "persons_multi", "group", "fictional_character", "toponym", "event_date",
+                    "nature", "concept", "object", "no_eponym", "unknown"]},
+  "node": {
+   "type": "object",
+   "required": ["id", "ru", "aliases"],
+   "properties": {
+    "id": {"type": "string", "pattern": "^[a-z_]+([.][a-z_]+)?$"},
+    "ru": {"type": "string", "minLength": 1},
+    "aliases": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "children": {"type": "array"}
+   }
+  }
+ }
+}

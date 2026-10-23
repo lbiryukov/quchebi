@@ -1,0 +1,27 @@
+{
+  "_note": "Synthetic hard article (invented names) and a hand-written history-extractor answer for it.",
+  "record": {
+    "source": "enc2008", "title": "მზიურის ქუჩა", "page": "77", "text_hash": "abc123", "entry": "article",
+    "needs_llm": true,
+    "facts": {"title": "მზიურის ქუჩა", "kind": "street", "district_2008": "ვაკე-საბურთალოს", "place": "ვაკე",
+              "former": [{"name_ka": "ბაღნარის ქუჩა", "confidence": 0.4}], "confidence": 0.4,
+              "issues": ["complex"]}
+  },
+  "text": "მზიურის ქუჩა, ვაკე-საბურთალოს რ-ნი (ვაკე); ჭავჭავაძის გამზირიდან ხეობამდე. ქუჩა შედგება ორი მონაკვეთისაგან. ერთ მონაკვეთს ერქვა ბაღნარის ქუჩა, მეორეს – ტყის შესახვევი. გაერთიანებულ ქუჩას 1922 მუზეუმის ქუჩა დაერქვა, 1953 მზიურის სახელი ეწოდა.",
+  "answer": {
+    "batch": "h001",
+    "results": [
+      {"id": "enc2008:77:abc123:მზიურის ქუჩა",
+       "former_names": [
+         {"name_ka": "ბაღნარის ქუჩა", "to_year": 1922},
+         {"name_ka": "ტყის შესახვევი", "to_year": 1922},
+         {"name_ka": "მუზეუმის ქუჩა", "from_year": 1922, "to_year": 1953},
+         {"name_ka": "ფიქტიური ქუჩა", "from_year": 1900}
+       ],
+       "named_after": {"name_ka": "მზიური", "note_ru": "солнечная (название-понятие)"},
+       "confidence": 0.85,
+       "evidence": ["ერთ მონაკვეთს ერქვა ბაღნარის ქუჩა, მეორეს – ტყის შესახვევი",
+                    "1922 მუზეუმის ქუჩა დაერქვა, 1953 მზიურის სახელი ეწოდა"]}
+    ]
+  }
+}

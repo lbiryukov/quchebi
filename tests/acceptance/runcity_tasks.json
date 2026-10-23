@@ -1,0 +1,6896 @@
+{
+ "v": 1,
+ "about": "Приёмочный набор: реальные загадки прошлых игр «Бегущий город» в Тбилиси. Пересказ своими словами; исходные тексты не публикуются. См. README.md.",
+ "built": "24/10/2026",
+ "sources": [
+  "https://www.runcity.org/ru/events/call2026/routes/all/",
+  "https://www.runcity.org/ru/events/moderntbilisi2023/routes/all/",
+  "https://www.runcity.org/ru/events/plans2025tbilisi/routes/all/",
+  "https://www.runcity.org/ru/events/tbilisi2022/routes/all/",
+  "https://www.runcity.org/ru/events/tbilisi2023/routes/all/",
+  "https://www.runcity.org/ru/events/tbilisi2024/routes/all/",
+  "https://www.runcity.org/ru/events/tbilisi2025/routes/all/",
+  "https://www.runcity.org/ru/events/teplotbilisi2023/routes/all/"
+ ],
+ "metric": "решается >= 90% заданий с solvable_by_search=true",
+ "tasks": [
+  {
+   "id": "call2026-812",
+   "event": "call2026",
+   "event_title": "Звонок другу (2026, тбилисские КП)",
+   "kp": 812,
+   "kp_dupes": [],
+   "kp_point": [
+    41.708403,
+    44.797314
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Номер КП совпадает с междугородним телефонным кодом; нужна улица имени этого города, дом 4.",
+   "answer": {
+    "street_ru": "Санкт-Петербургская улица",
+    "street_ka": "სანკტ-პეტერბურგის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "4",
+    "corner_with": null,
+    "raw_address": "Ул. Санкт-Петербурга, д. 4"
+   },
+   "facts": [
+    "812 — телефонный код Санкт-Петербурга",
+    "в Тбилиси есть улица в честь этого города"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "петербург дом:4",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "санкт-петербург",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-851",
+   "event": "call2026",
+   "event_title": "Звонок другу (2026, тбилисские КП)",
+   "kp": 851,
+   "kp_dupes": [
+    933
+   ],
+   "kp_point": [
+    41.701822,
+    44.792587
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Глава знаменитого романа, где литераторы ждут погибшего председателя, отсылает к фамилии; нужен дом 26 на одноимённой улице.",
+   "answer": {
+    "street_ru": "улица Александра Грибоедова",
+    "street_ka": "ალექსანდრე გრიბოედოვის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "26",
+    "corner_with": null,
+    "raw_address": "Ул. Грибоедова, д. 26"
+   },
+   "facts": [
+    "глава «Мастера и Маргариты» называется «Дело было у Грибоедова»",
+    "нужна улица Грибоедова"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст",
+    "тип"
+   ],
+   "queries": [
+    {
+     "q": "грибоедов дом:26",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "грибоедов дом:26?",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "тип:улица грибоедов",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ],
+   "note": "КП 933 — онлайн-вариант той же загадки"
+  },
+  {
+   "id": "call2026-852",
+   "event": "call2026",
+   "event_title": "Звонок другу (2026, тбилисские КП)",
+   "kp": 852,
+   "kp_dupes": [],
+   "kp_point": [
+    41.707177,
+    44.777364
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Право на звонок при задержании и коронная фраза адвоката из сериала ведут к телефонному сервису с обыгранным названием.",
+   "answer": {
+    "street_ru": "улица Василия Барнова",
+    "street_ka": "ვასილ ბარნოვის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "73",
+    "corner_with": null,
+    "raw_address": "Ул. Васил Барнов, д. 73"
+   },
+   "facts": [
+    "сервис Better Call Sasha обыгрывает «Better Call Saul»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (телефонный сервис)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "call2026-853",
+   "event": "call2026",
+   "event_title": "Звонок другу (2026, тбилисские КП)",
+   "kp": 853,
+   "kp_dupes": [],
+   "kp_point": [
+    41.707938,
+    44.771693
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Картинка с жетоном для таксофона: столько же лари в девяностые — купюра с портретом композитора; нужен дом 32 его улицы.",
+   "answer": {
+    "street_ru": "улица Захария Палиашвили",
+    "street_ka": "ზაქარია ფალიაშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "32",
+    "corner_with": null,
+    "raw_address": "ул. Захария Палиашвили, д. 32"
+   },
+   "facts": [
+    "жетон стоил 2 копейки",
+    "на купюре 2 лари прежней серии — Захарий Палиашвили",
+    "Палиашвили — композитор"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:композитор дом:32",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "палиашвили дом:32",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-854",
+   "event": "call2026",
+   "event_title": "Звонок другу (2026, тбилисские КП)",
+   "kp": 854,
+   "kp_dupes": [],
+   "kp_point": [
+    41.689221,
+    44.809429
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Шуточный диалог из слов-перевёртышей намекает, что вторая реплика — анаграмма названия улицы; нужен дом 9.",
+   "answer": {
+    "street_ru": "улица Самгебро",
+    "street_ka": "სამღებროს ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "9",
+    "corner_with": null,
+    "raw_address": "Ул. Самгебро, д. 9"
+   },
+   "facts": [
+    "«нофелет» — «телефон» задом наперёд",
+    "«бес грома» — анаграмма «Самгебро»"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "самгебро дом:9",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "самгебро дом:9?",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "самгебро",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-855",
+   "event": "call2026",
+   "event_title": "Звонок другу (2026, тбилисские КП)",
+   "kp": 855,
+   "kp_dupes": [],
+   "kp_point": [
+    41.714595,
+    44.793491
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "corner",
+    "old_name",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Тёзки персонажей Зощенко и Чехова дают старые имена двух улиц; на их углу по путеводителю 1890 года работал телеграф.",
+   "answer": {
+    "street_ru": "проспект Давида Агмашенебели",
+    "street_ka": "დავით აღმაშენებლის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "144",
+    "corner_with": "улица Луи Пастера",
+    "raw_address": "Угол пр. Давида Агмашенебели и ул. Луи Пастера, д. 144"
+   },
+   "facts": [
+    "в 1890 году это угол Михайловской и Аптекарской",
+    "Михайловская — ныне пр. Агмашенебели",
+    "Аптекарская — ныне ул. Луи Пастера"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "x",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:михайловск x:(было:аптекарск)",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "было:михайловск дом:144",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "агмашенебели x:(пастер) дом:144",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-5",
+   "event": "moderntbilisi2023",
+   "event_title": "Тбилисский модерн (21/01/2023)",
+   "kp": 5,
+   "kp_dupes": [],
+   "kp_point": [
+    41.702447,
+    44.784866
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Фото страницы знаменитой грузинской азбуки, где из двух букв выходит фраза; нужен дом 15 на улице её составителя.",
+   "answer": {
+    "street_ru": "улица Якова Гогебашвили",
+    "street_ka": "იაკობ გოგებაშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "15",
+    "corner_with": null,
+    "raw_address": "ул. Якова Гогебашвили, д. 15"
+   },
+   "facts": [
+    "азбука «Деда эна» — Якоб Гогебашвили",
+    "Гогебашвили — педагог"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "био",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:педагог дом:15",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "био:\"деда эна\"",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "гогебашвили дом:15",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-6",
+   "event": "moderntbilisi2023",
+   "event_title": "Тбилисский модерн (21/01/2023)",
+   "kp": 6,
+   "kp_dupes": [],
+   "kp_point": [
+    41.706109,
+    44.788911
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Три короткие подсказки (местоимение, строчка из детского стишка, возглас рыцарей) складываются в название улицы; нужен дом 6.",
+   "answer": {
+    "street_ru": "улица Вашловани",
+    "street_ka": "ვაშლოვანის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "6",
+    "corner_with": null,
+    "raw_address": "ул. Вашловани, д. 6"
+   },
+   "facts": [
+    "ваш + лова + ни = Вашловани"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "вашлован дом:6",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ],
+   "note": "в разборе улица не названа явно, определена по координатам КП"
+  },
+  {
+   "id": "moderntbilisi2023-11",
+   "event": "moderntbilisi2023",
+   "event_title": "Тбилисский модерн (21/01/2023)",
+   "kp": 11,
+   "kp_dupes": [],
+   "kp_point": [
+    41.710262,
+    44.796608
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Новогодний фильм про Третью улицу Строителей подсказывает прозвище; нужен проспект царя с тем же прозвищем, дом напротив 91.",
+   "answer": {
+    "street_ru": "проспект Давида Агмашенебели",
+    "street_ka": "დავით აღმაშენებლის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "91",
+    "corner_with": null,
+    "raw_address": "пр. Давида Агмашенебели, напротив д. 91"
+   },
+   "facts": [
+    "Давид IV — Строитель (Агмашенебели)",
+    "«Ирония судьбы» — 3-я улица Строителей"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "кто",
+    "дом",
+    "био",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:проспект кто:царь дом:91",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:проспект био:строитель",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "агмашенебели дом:91",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-13",
+   "event": "moderntbilisi2023",
+   "event_title": "Тбилисский модерн (21/01/2023)",
+   "kp": 13,
+   "kp_dupes": [],
+   "kp_point": [
+    41.71197,
+    44.793529
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "old_name",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Улица прежде носила имя баснописца; нынешний её тёзка — дирижёр, но героям басни о квартете он бы не помог. Дом 10.",
+   "answer": {
+    "street_ru": "улица Джансуга Кахидзе",
+    "street_ka": "ჯანსუღ კახიძის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "10",
+    "corner_with": null,
+    "raw_address": "ул. Джансуга Кахидзе, д. 10"
+   },
+   "facts": [
+    "раньше — улица Крылова",
+    "Джансуг Кахидзе — дирижёр и композитор"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "было",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:дирижёр было:крылов",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "было:крылов дом:10",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кахидзе дом:10",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-16",
+   "event": "moderntbilisi2023",
+   "event_title": "Тбилисский модерн (21/01/2023)",
+   "kp": 16,
+   "kp_dupes": [],
+   "kp_point": [
+    41.704999,
+    44.801501
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "old_name",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "По фрагменту старой карты опознать улицу, бывшую Реутовскую, и найти на ней дом 5-7.",
+   "answer": {
+    "street_ru": "улица Георгия Мазниашвили",
+    "street_ka": "გიორგი მაზნიაშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5-7",
+    "corner_with": null,
+    "raw_address": "ул. Мазниашвили, д. 5-7"
+   },
+   "facts": [
+    "раньше — Реутовская улица",
+    "ныне улица Мазниашвили"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:реутов",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "было:реутов дом:5",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "мазниашвили дом:5",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-34",
+   "event": "moderntbilisi2023",
+   "event_title": "Тбилисский модерн (21/01/2023)",
+   "kp": 34,
+   "kp_dupes": [],
+   "kp_point": [
+    41.691056,
+    44.804666
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "По фото понять, чей сегодня день: святого покровителя города; нужен дом 6 на его улице.",
+   "answer": {
+    "street_ru": "улица Або Тбилели",
+    "street_ka": "აბო თბილელის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "6",
+    "corner_with": null,
+    "raw_address": "ул. Або Тбилели, д. 6"
+   },
+   "facts": [
+    "Або Тбилели — святой покровитель Тбилиси",
+    "день памяти 21 января по новому стилю"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:святой дом:6",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "або тбилели дом:6",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "або дом:6",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-60",
+   "event": "plans2025tbilisi",
+   "event_title": "Большие планы: город на горах (2025)",
+   "kp": 60,
+   "kp_dupes": [],
+   "kp_point": [
+    41.716749,
+    44.716478
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Жильё внутри холмов, как у сказочных народцев; найти жилой комплекс с английским «холмистым» названием.",
+   "answer": {
+    "street_ru": "ЖК Greenhill",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "ЖК Greenhill"
+   },
+   "facts": [
+    "ши и хоббиты живут в холмах",
+    "ЖК Greenhill"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (жилой комплекс)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "plans2025tbilisi-61",
+   "event": "plans2025tbilisi",
+   "event_title": "Большие планы: город на горах (2025)",
+   "kp": 61,
+   "kp_dupes": [],
+   "kp_point": [
+    41.728949,
+    44.743147
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Схема бывшей подвесной дороги к парку на озере; найти её начальную станцию.",
+   "answer": {
+    "street_ru": "улица Шалвы Нуцубидзе",
+    "street_ka": "შალვა ნუცუბიძის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "75б",
+    "corner_with": null,
+    "raw_address": "ул. Ш. Нуцубидзе, д. 75б"
+   },
+   "facts": [
+    "нижняя станция канатной дороги к озеру Лиси"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (станция канатной дороги)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "plans2025tbilisi-62",
+   "event": "plans2025tbilisi",
+   "event_title": "Большие планы: город на горах (2025)",
+   "kp": 62,
+   "kp_dupes": [],
+   "kp_point": [
+    41.713637,
+    44.718566
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Грузинский фильм 1959 года о девушке, ушедшей воевать в мужском платье; топоним из названия даёт дорогу, нужен дом 67.",
+   "answer": {
+    "street_ru": "Цхнетское шоссе",
+    "street_ka": "წყნეთის გზატკეცილი",
+    "alt_ka": [],
+    "kind": "highway",
+    "house": "67",
+    "corner_with": null,
+    "raw_address": "Цхнетское шоссе, д. 67 (следующий дом — Багеби, корп. 1)"
+   },
+   "facts": [
+    "фильм «Майя из Цхнети»",
+    "шоссе названо по посёлку Цхнети"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст",
+    "тип"
+   ],
+   "queries": [
+    {
+     "q": "цхнет дом:67",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "цхнет тип:шоссе",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-63",
+   "event": "plans2025tbilisi",
+   "event_title": "Большие планы: город на горах (2025)",
+   "kp": 63,
+   "kp_dupes": [],
+   "kp_point": [
+    41.716582,
+    44.724266
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "По составу руководителей и завещанной коллекции понять, о каком учреждении речь, и найти его нынешнее здание.",
+   "answer": {
+    "street_ru": "Университетская улица",
+    "street_ka": "უნივერსიტეტის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "11",
+    "corner_with": null,
+    "raw_address": "Университетская ул., д. 11 (библиотека ТГУ)"
+   },
+   "facts": [
+    "библиотека Тбилисского университета"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (библиотека)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "plans2025tbilisi-64",
+   "event": "plans2025tbilisi",
+   "event_title": "Большие планы: город на горах (2025)",
+   "kp": 64,
+   "kp_dupes": [],
+   "kp_point": [
+    41.730697,
+    44.738916
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Карта с отметками: понять, что на ней изображено, и найти организацию, которая её составила.",
+   "answer": {
+    "street_ru": "улица Шалвы Нуцубидзе",
+    "street_ka": "შალვა ნუცუბიძის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "77м",
+    "corner_with": null,
+    "raw_address": "ул. Ш. Нуцубидзе, д. 77м"
+   },
+   "facts": [
+    "Национальный центр сейсмического мониторинга"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (научный центр)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "plans2025tbilisi-65",
+   "event": "plans2025tbilisi",
+   "event_title": "Большие планы: город на горах (2025)",
+   "kp": 65,
+   "kp_dupes": [],
+   "kp_point": [
+    41.720282,
+    44.714965
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "old_name",
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Улицу Владимира поиск путает с футболистом-однофамильцем; позже её назвали в честь журналистки, родившейся в Нью-Йорке. Дом 1.",
+   "answer": {
+    "street_ru": "улица Анны Политковской",
+    "street_ka": "ანა პოლიტკოვსკაიას ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1",
+    "corner_with": null,
+    "raw_address": "Ул. Анны Политковской, д. 1"
+   },
+   "facts": [
+    "раньше — улица Владимира Джикия, строителя Рионской ГЭС",
+    "Анна Политковская — журналистка, родилась в Нью-Йорке"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "био",
+    "кто",
+    "пол",
+    "дом"
+   ],
+   "queries": [
+    {
+     "q": "было:(био:гэс)",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кто:журналист пол:ж дом:1",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "было:джикия дом:1",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-66",
+   "event": "plans2025tbilisi",
+   "event_title": "Большие планы: город на горах (2025)",
+   "kp": 66,
+   "kp_dupes": [],
+   "kp_point": [
+    41.729456,
+    44.732774
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Актёр начинал с роли архитектора, потом не раз играл правителей, последний раз — в фильме про август 1944-го. Дом 21.",
+   "answer": {
+    "street_ru": "улица Рамаза Чхиквадзе",
+    "street_ka": "რამაზ ჩხიკვაძის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "21",
+    "corner_with": null,
+    "raw_address": "Ул. Рамаз Чхиквадзе, д. 21"
+   },
+   "facts": [
+    "Рамаз Чхиквадзе — актёр",
+    "играл монархов и Сталина («В августе 44-го»)"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:актёр дом:21",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "чхиквадзе дом:21",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "чхиквадзе дом:21?",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-105",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 105,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690160966306,
+    44.811819059247
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park"
+   ],
+   "needs_media": null,
+   "summary_ru": "Сад, оставшийся от снесённого замка, восточнее церкви с конным памятником; там выдают конверт с игрой.",
+   "answer": {
+    "street_ru": "сад у церкви Метехи",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "garden",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "сад у церкви Метехи"
+   },
+   "facts": [
+    "сад около церкви Метехи"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "безымянный сад у церкви; в пакете нет такого объекта",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-108",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 108,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690791,
+    44.817602
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "latin_sign",
+    "old_name",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Google подписывает дома проспекта двумя разными латинскими сокращениями, будто его переименовали; нужен дом 12.",
+   "answer": {
+    "street_ru": "проспект Святой Царицы Кетеван",
+    "street_ka": "წმინდა ქეთევან დედოფლის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "12",
+    "corner_with": null,
+    "raw_address": "пр. Кетеван Дедофали, д. 12"
+   },
+   "facts": [
+    "на Google: av. K.Tsamebuli и av. K.Dedofali",
+    "Кетеван — царица, причислена к святым",
+    "в 1990–2005 — улица Кетеван Цамебули"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "dedofali дом:12",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "tsamebuli дом:12",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "кетеван дом:12",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-110",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 110,
+   "kp_dupes": [],
+   "kp_point": [
+    41.698635,
+    44.818272
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Американский спутниковый снимок 1965 года; найти отмеченную огороженную территорию.",
+   "answer": {
+    "street_ru": "пантеон Ходживанк",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "пантеон Ходживанк у собора Цминда Самеба"
+   },
+   "facts": [
+    "пантеон Ходживанк на краю парка"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (пантеон)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-111",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 111,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690513966306,
+    44.830103059379
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Улиц в честь трёх морей нет, а племя, давшее имя четвёртому морю, оставило след и в Тбилиси. Дом 7.",
+   "answer": {
+    "street_ru": "улица Каспи",
+    "street_ka": "კასპის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "7",
+    "corner_with": null,
+    "raw_address": "ул. Каспская, д. 7"
+   },
+   "facts": [
+    "Каспийское море названо по народу каспиев",
+    "улица названа по городу Каспи"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст",
+    "тип"
+   ],
+   "queries": [
+    {
+     "q": "каспи дом:7",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "тип:улица каспи",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-112",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 112,
+   "kp_dupes": [],
+   "kp_point": [
+    41.695124966306,
+    44.813433061104
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Свод законов из семи частей, начиная с моисеевых; нужен дом 5 на улице того, кто его составил.",
+   "answer": {
+    "street_ru": "улица Вахтанга VI",
+    "street_ka": "ვახტანგ VI ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5",
+    "corner_with": null,
+    "raw_address": "ул. Вахтанга VI, д. 5"
+   },
+   "facts": [
+    "свод законов собрал Вахтанг VI"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:царь вахтанг дом:5",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "\"вахтанг vi\" дом:5",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "вахтанг дом:5",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-114",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 114,
+   "kp_dupes": [],
+   "kp_point": [
+    41.694335966306,
+    44.814498060809
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "other",
+    "house_number",
+    "corner"
+   ],
+   "needs_media": "video",
+   "summary_ru": "Видео из музыкального спектакля; базара почти нет, но район остался — нужна одноимённая району улица, дом 27.",
+   "answer": {
+    "street_ru": "улица Авлабари",
+    "street_ka": "ავლაბარის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "27",
+    "corner_with": "улица Месхишвили (24), улица Армази (1)",
+    "raw_address": "Авлабарская ул., д. 27"
+   },
+   "facts": [
+    "в «Хануме» поют про Авлабар",
+    "Авлабарская, 27 = Месхишвили, 24 = Армази, 1"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "авлабар тип:улица дом:27",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "авлабар дом:27",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-119",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 119,
+   "kp_dupes": [],
+   "kp_point": [
+    41.697797966306,
+    44.814214062104
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Старое фото с отражением храма и вывеской лимонадов; найти заведение, где висят такие снимки.",
+   "answer": {
+    "street_ru": "кафе у собора Цминда Самеба",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "кафе при входе на территорию собора Самеба"
+   },
+   "facts": [
+    "отражение храма Самеба, надпись «воды Лагидзе»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (кафе)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-120",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 120,
+   "kp_dupes": [],
+   "kp_point": [
+    41.683855966306,
+    44.827161056889
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Учреждение на скале над набережной, где женились; найти круговую развязку в начале этой набережной.",
+   "answer": {
+    "street_ru": "Левая набережная",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "embankment",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Дворец торжественных ритуалов, Левая набережная"
+   },
+   "facts": [
+    "Дворец торжественных ритуалов",
+    "Левая набережная"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "нужно знать здание (POI), набережная в загадке не названа",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-122",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 122,
+   "kp_dupes": [],
+   "kp_point": [
+    41.686447966306,
+    44.820294057859
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Картинка-намёк на историческое сражение; найти памятник ему между двумя проезжими частями.",
+   "answer": {
+    "street_ru": "набережная Вахтанга Горгасали",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "embankment",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "мемориал битвы при Крцаниси на набережной"
+   },
+   "facts": [
+    "битва при Крцаниси, 300 арагвинцев"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "памятник (POI) по картинке",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-125",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 125,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690787966306,
+    44.828167059482
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Стихи о вине ведут к имению поэта, давшему имя улице; номер дома — высшая степень шотландского масонского устава.",
+   "answer": {
+    "street_ru": "улица Цинандали",
+    "street_ka": "წინანდალის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "33",
+    "corner_with": null,
+    "raw_address": "Ул. Цинандали, д. 33"
+   },
+   "facts": [
+    "стихи Александра Чавчавадзе, имение в Цинандали",
+    "33 — высший градус Шотландского устава"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст",
+    "кто"
+   ],
+   "queries": [
+    {
+     "q": "цинандал дом:33",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "кто:place.ge_city дом:33",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-130",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 130,
+   "kp_dupes": [],
+   "kp_point": [
+    41.682483966306,
+    44.825817056376
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Карта 1887 года с исчезнувшим мостом; найти табличку у переправы, заменившей его.",
+   "answer": {
+    "street_ru": "плотина Ортачальской ГЭС",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "у плотины Ортачальской ГЭС"
+   },
+   "facts": [
+    "Мадатовский мост снесён",
+    "рядом построены плотина и новый мост"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "место у плотины по старой карте",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-131",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 131,
+   "kp_dupes": [],
+   "kp_point": [
+    41.683280966306,
+    44.823459056674
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Памятник с двумя копиями: в Москве шпага поднята, в Тбилиси опущена; посчитать грозди в венке.",
+   "answer": {
+    "street_ru": "памятник Багратиону",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "памятник Багратиону напротив ул. Вахтанга Горгасали, 37"
+   },
+   "facts": [
+    "памятник генералу Багратиону"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (памятник)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-142",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 142,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690822966306,
+    44.808485059495
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "latin_sign",
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Килограмм хлопка и железа весят одинаково: в Яндексе и Google этот ряд назван по-разному, прав Google. Дом 7.",
+   "answer": {
+    "street_ru": "Бамбис-риги",
+    "street_ka": "ბამბის რიგი",
+    "alt_ka": [],
+    "kind": "row",
+    "house": "7",
+    "corner_with": null,
+    "raw_address": "Бамбис-риги, д. 7"
+   },
+   "facts": [
+    "на Google — Bambis Rigi (Хлопковый ряд)",
+    "на Яндексе — Железные ряды"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:ряд",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "bambis дом:7",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "бамбис",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-143",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 143,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690805,
+    44.808461
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "latin_sign"
+   ],
+   "needs_media": null,
+   "summary_ru": "Два слова в названии улочки кажутся латинскими или латышскими, а на деле это грузинский «ряд». Дом 7.",
+   "answer": {
+    "street_ru": "Бамбис-риги",
+    "street_ka": "ბამბის რიგი",
+    "alt_ka": [],
+    "kind": "row",
+    "house": "7",
+    "corner_with": null,
+    "raw_address": "Бамбис-риги, д. 7"
+   },
+   "facts": [
+    "Bambis rigi — хлопковые ряды по-грузински"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:ряд дом:7",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "bambis rigi",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-144",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 144,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690969966306,
+    44.80759205955
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Караван-сарай армянской семьи позапрошлого века, ныне музей; найти повозку в цокольном зале.",
+   "answer": {
+    "street_ru": "улица Сиони",
+    "street_ka": "სიონის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "8",
+    "corner_with": null,
+    "raw_address": "ул. Сиони, д. 8 (Музей истории Тбилиси)"
+   },
+   "facts": [
+    "Музей истории Тбилиси в караван-сарае Арцруни"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (музей)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-145",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 145,
+   "kp_dupes": [],
+   "kp_point": [
+    41.689739966306,
+    44.80445105909
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Только фото дома в проезде и номер 4; адрес определяется по изображению.",
+   "answer": {
+    "street_ru": "1-й переулок Ладо Асатиани",
+    "street_ka": "ლადო ასათიანის I შესახვევი",
+    "alt_ka": [],
+    "kind": "lane",
+    "house": "4",
+    "corner_with": null,
+    "raw_address": "1-й подъём Ладо Асатиани, д. 4"
+   },
+   "facts": [
+    "1-й подъём (переулок) Ладо Асатиани"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "место определяется только по фотографии",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-146",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 146,
+   "kp_dupes": [],
+   "kp_point": [
+    41.692001966306,
+    44.807636059936
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "По-русски, в отличие от английского, неясно, в честь чего назван мост — как с великим романом. Памятник южнее его западного конца.",
+   "answer": {
+    "street_ru": "мост Мира",
+    "street_ka": "მშვიდობის ხიდი",
+    "alt_ka": [],
+    "kind": "bridge",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "мост Мира, памятник поэту в 100 м к югу"
+   },
+   "facts": [
+    "мир/мiр — «Война и мир»",
+    "мост Мира (Bridge of Peace)"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:мост мир",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:мост мшвидоб",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-147",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 147,
+   "kp_dupes": [],
+   "kp_point": [
+    41.688948966306,
+    44.805416058794
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other",
+    "corner"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Картинка-рецепт кукурузной каши даёт название улицы; в её начале — дом 14 по соседнему подъёму.",
+   "answer": {
+    "street_ru": "улица Гоми",
+    "street_ka": "გომის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null,
+    "corner_with": "подъём Бетлеми",
+    "raw_address": "ул. Гоми, начало улицы"
+   },
+   "facts": [
+    "рецепт блюда гоми",
+    "рядом подъём Бетлеми"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "текст",
+    "x",
+    "тип"
+   ],
+   "queries": [
+    {
+     "q": "гоми",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "гоми x:(тип:подъём)",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-180",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 180,
+   "kp_dupes": [],
+   "kp_point": [
+    41.695339932612,
+    44.855809122362
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Ребус складывается в фамилию; западнее её дома 22 стоит верхняя станция канатки.",
+   "answer": {
+    "street_ru": "улица Давида Квачантирадзе",
+    "street_ka": "დავით კვაჭანტირაძის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "22",
+    "corner_with": null,
+    "raw_address": "пр. Квачантирадзе, д. 22"
+   },
+   "facts": [
+    "ква + чан + тир + ад = Квачантирадзе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "квачантирадзе дом:22",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-181",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 181,
+   "kp_dupes": [],
+   "kp_point": [
+    41.687412966306,
+    44.849413058219
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Схема участка железной дороги со станцией метро; найти здание с мозаикой на фасадах.",
+   "answer": {
+    "street_ru": "здание у метро Самгори",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "здание с мозаикой у ж/д и метро «Самгори»"
+   },
+   "facts": [
+    "железная дорога, метро «Самгори»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "здание (POI) по схеме",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-182",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 182,
+   "kp_dupes": [],
+   "kp_point": [
+    41.694236966306,
+    44.854865060772
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Кинематографическая и живописная «школы» и кириллическая буква-число ведут к школе с номером; церковь рядом.",
+   "answer": {
+    "street_ru": "школа № 90",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "школа № 90 и церковь Св. Георгия в Вазисубани"
+   },
+   "facts": [
+    "«червь» в кириллице — 90",
+    "школа № 90"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (школа, церковь)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-183",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 183,
+   "kp_dupes": [],
+   "kp_point": [
+    41.706738966306,
+    44.88255606545
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Если Пятая авеню — это улица Такаишвили, то где у нашего «Центрального парка» стоит статуя человека в очках?",
+   "answer": {
+    "street_ru": "памятник Махатме Ганди",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Центральный парк Варкетили, памятник Ганди"
+   },
+   "facts": [
+    "улица Сесилии Такаишвили — граница парка Варкетили",
+    "памятник Махатме Ганди"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (памятник)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-184",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 184,
+   "kp_dupes": [],
+   "kp_point": [
+    41.699106966306,
+    44.873310062594
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Звезда у Дворца шахмат в парке Вере; найти в Варкетили объект, посвящённый той же шахматистке.",
+   "answer": {
+    "street_ru": "Варкетили-3, 1-й микрорайон",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "neighbourhood",
+    "house": "34",
+    "corner_with": null,
+    "raw_address": "Варкетили-3, 1-й мкр., корп. 34"
+   },
+   "facts": [
+    "мурал шахматистке в Варкетили"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "мурал (POI) в микрорайоне",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-185",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 185,
+   "kp_dupes": [],
+   "kp_point": [
+    41.698927966306,
+    44.882983062527
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Картинка с адресом, записанным наспех от руки; найти дом в микрорайоне.",
+   "answer": {
+    "street_ru": "Варкетили-3, 2-й микрорайон",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "neighbourhood",
+    "house": "2а",
+    "corner_with": null,
+    "raw_address": "Вазисубани-3, 2-й мкр., д. 2-а (по OSM — Варкетили-3)"
+   },
+   "facts": [
+    "адрес в микрорайоне без улицы"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "адрес по addr:place в микрорайоне, не улица; нужна картинка",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-191",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 191,
+   "kp_dupes": [],
+   "kp_point": [
+    41.701734966306,
+    44.830878063577
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Фото пингвина с «фраком»; если бы у птицы были сапоги, получилось бы название улицы. Дом 28.",
+   "answer": {
+    "street_ru": "улица Абули",
+    "street_ka": "აბულის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "28",
+    "corner_with": null,
+    "raw_address": "ул. Абули, д. 28"
+   },
+   "facts": [
+    "пингвин Адели",
+    "замена даёт «Абули»"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "абули дом:28",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-192",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 192,
+   "kp_dupes": [],
+   "kp_point": [
+    41.698409966306,
+    44.792950062333
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "old_name"
+   ],
+   "needs_media": "image",
+   "summary_ru": "По исторической справке найти улицу (бывшую Тхинвальскую) и место, откуда сделан старый снимок с видом на Мтацминду.",
+   "answer": {
+    "street_ru": "улица Заала Кикодзе",
+    "street_ka": "ზაალ ქიქოძის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "ул. Заала Кикодзе (бывш. Тхинвальская)"
+   },
+   "facts": [
+    "бывшая Тхинвальская улица",
+    "ныне улица Заала Кикодзе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:тхинвал",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "заал кикодзе",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-193",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 193,
+   "kp_dupes": [],
+   "kp_point": [
+    41.701904966306,
+    44.795074063641
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Три знаменитых яблока — из мифа, науки и Библии; нужно четвёртое, посвящённое любви.",
+   "answer": {
+    "street_ru": "проспект Шота Руставели",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "27",
+    "corner_with": null,
+    "raw_address": "двор дома 27 по пр. Шота Руставели (скульптура Церетели)"
+   },
+   "facts": [
+    "скульптура «Яблоко любви» Зураба Церетели"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (скульптура во дворе)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2022-194",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 194,
+   "kp_dupes": [],
+   "kp_point": [
+    41.698753966306,
+    44.799617062462
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park",
+    "number_in_name"
+   ],
+   "needs_media": "audio",
+   "summary_ru": "Песня о сапёрных лопатках напоминает о трагедии; найти парк, названный по этой дате, и памятник актёру в нём.",
+   "answer": {
+    "street_ru": "парк 9 апреля",
+    "street_ka": "9 აპრილის სახელობის ბაღი",
+    "alt_ka": [],
+    "kind": "garden",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "парк 9 Апреля"
+   },
+   "facts": [
+    "события 9 апреля 1989 года",
+    "в парке памятник Рамазу Чхиквадзе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст",
+    "кто"
+   ],
+   "queries": [
+    {
+     "q": "тип:сквер,парк апрел",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кто:event.date тип:сквер,парк",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "\"9 апреля\" тип:сквер,парк",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-195",
+   "event": "tbilisi2022",
+   "event_title": "Бегущий Город Тбилиси 2022 (29/10/2022)",
+   "kp": 195,
+   "kp_dupes": [],
+   "kp_point": [
+    41.675147966306,
+    44.834196053634
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Вид местности в 1887 году; к зданию на месте слияния проток сейчас можно подъехать от проспекта адмирала.",
+   "answer": {
+    "street_ru": "автовокзал Ортачала",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "автовокзал Ортачала"
+   },
+   "facts": [
+    "слияние двух проток Куры",
+    "автовокзал Ортачала"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (автовокзал)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2023-24",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 24,
+   "kp_dupes": [],
+   "kp_point": [
+    41.709747,
+    44.779348
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Цвета банкнот: красная укажет проспект, жёлто-бежевая — здание и стоящий восточнее памятник.",
+   "answer": {
+    "street_ru": "проспект Ильи Чавчавадзе",
+    "street_ka": "ილია ჭავჭავაძის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "пр. Ильи Чавчавадзе, памятник Джавахишвили у ТГУ"
+   },
+   "facts": [
+    "на 20 лари — Илья Чавчавадзе",
+    "на 5 лари — здание ТГУ и Иванэ Джавахишвили"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст",
+    "кто"
+   ],
+   "queries": [
+    {
+     "q": "тип:проспект чавчавадзе",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "тип:проспект кто:писатель",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ],
+   "note": "памятник Джавахишвили (POI) — уже на месте"
+  },
+  {
+   "id": "tbilisi2023-27",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 27,
+   "kp_dupes": [],
+   "kp_point": [
+    41.706966,
+    44.765524
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Опера о поэте впервые прозвучала в театре на проспекте его имени; нужна улица композитора, бюст напротив дома 18.",
+   "answer": {
+    "street_ru": "улица Димитрия Аракишвили",
+    "street_ka": "დიმიტრი არაყიშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "18",
+    "corner_with": null,
+    "raw_address": "ул. Дмитрия Аракишвили, напротив д. 18"
+   },
+   "facts": [
+    "опера «Сказание о Шота Руставели» — Дмитрий Аракишвили",
+    "премьера 1919 года в театре на пр. Руставели"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "био",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:композитор дом:18",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "био:руставели кто:композитор",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "аракишвили дом:18",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-40",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 40,
+   "kp_dupes": [],
+   "kp_point": [
+    41.709755,
+    44.768549
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Картинка с атрибутами вокально-инструментального ансамбля; найти парк с тем же названием, верхний вход.",
+   "answer": {
+    "street_ru": "парк Мзиури",
+    "street_ka": "მზიური პარკი",
+    "alt_ka": [],
+    "kind": "park",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "парк Мзиури"
+   },
+   "facts": [
+    "ВИА «Мзиури» Дворца пионеров"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:парк мзиури",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "мзиури",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-55",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 55,
+   "kp_dupes": [],
+   "kp_point": [
+    41.698872,
+    44.797128
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Роман и стихи с одинаковым названием; найти созвучную улицу и дом ниже дома 2.",
+   "answer": {
+    "street_ru": "улица Бесики",
+    "street_ka": "ბესიკის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "2",
+    "corner_with": null,
+    "raw_address": "ул. Бесики, ниже д. 2"
+   },
+   "facts": [
+    "«Бесы»: роман Достоевского и стихи Пушкина",
+    "созвучие «бесы» — «Бесики»"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "имя",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "имя:^бес дом:2",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "бесики дом:2",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-69",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 69,
+   "kp_dupes": [],
+   "kp_point": [
+    41.707516966306,
+    44.740654065741
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Почётный титул-тавтограмма «Отец Отечества»; нужен проспект грузинского носителя титула, дом 80.",
+   "answer": {
+    "street_ru": "проспект Ильи Чавчавадзе",
+    "street_ka": "ილია ჭავჭავაძის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "80",
+    "corner_with": null,
+    "raw_address": "пр. Ильи Чавчавадзе, д. 80"
+   },
+   "facts": [
+    "Pater Patriae: Цицерон, Цезарь, Пётр I",
+    "в Грузии так зовут Илью Чавчавадзе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:проспект кто:писатель дом:80",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:проспект чавчавадзе дом:80",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-70",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 70,
+   "kp_dupes": [],
+   "kp_point": [
+    41.716264,
+    44.722831
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "direction",
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Библейские цитаты и намеренно неверный падеж указывают на реку; найти самый западный переход через неё.",
+   "answer": {
+    "street_ru": "мост Магливи",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "bridge",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "мост Магливи над рекой Вере"
+   },
+   "facts": [
+    "река Вере",
+    "самый западный мост над Вере — Магливи"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "рядом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:мост рядом:(тип:река вере)~50",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "маглив",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ],
+   "note": "в OSM мост может называться иначе; DSL не умеет «самый западный» — выбор по карте"
+  },
+  {
+   "id": "tbilisi2023-71",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 71,
+   "kp_dupes": [],
+   "kp_point": [
+    41.727131,
+    44.718837
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Дома на мостах есть во Флоренции и Эрфурте; нужен обратный случай — мост на жилых корпусах. Дом 12 рядом.",
+   "answer": {
+    "street_ru": "«Sky bridge»",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "корпуса «Sky bridge», дом 12 через дорогу"
+   },
+   "facts": [
+    "советские корпуса «Sky bridge»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (жилой комплекс)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2023-72",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 72,
+   "kp_dupes": [],
+   "kp_point": [
+    41.721918,
+    44.721184
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "audio",
+   "summary_ru": "Две песни и рекорд посещаемости ведут к бразильскому стадиону; найти одноимённый тбилисский объект и дом 15 севернее.",
+   "answer": {
+    "street_ru": "стадион «Маракана»",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": "15",
+    "corner_with": null,
+    "raw_address": "тбилисская «Маракана», д. 15 (XV) севернее"
+   },
+   "facts": [
+    "стадион Маракана",
+    "тёзка района Диди Дигоми — футболист Диди"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (стадион)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2023-73",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 73,
+   "kp_dupes": [],
+   "kp_point": [
+    41.725155,
+    44.716431
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Адрес, наспех записанный на обрывке: первая «цифра» — буква; квартал, дом и подъезд в массиве имени поэта.",
+   "answer": {
+    "street_ru": "кварталы Важа-Пшавела",
+    "street_ka": "ვაჟა-ფშაველას კვარტალები",
+    "alt_ka": [],
+    "kind": "neighbourhood",
+    "house": "4",
+    "corner_with": null,
+    "raw_address": "Важа Пшавела, V квартал, д. 4"
+   },
+   "facts": [
+    "V квартал массива Важа-Пшавела"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "важа тип:микрорайон",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "кварталы важа",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ],
+   "note": "номера домов по addr:place; дом в пакете может не найтись"
+  },
+  {
+   "id": "tbilisi2023-74",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 74,
+   "kp_dupes": [],
+   "kp_point": [
+    41.717242,
+    44.723952
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "house_number",
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Система образования названа по старейшему университету, срок её первой ступени даёт номер дома на нужной улице.",
+   "answer": {
+    "street_ru": "Университетская улица",
+    "street_ka": "უნივერსიტეტის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "4",
+    "corner_with": null,
+    "raw_address": "Университетская ул., д. 4"
+   },
+   "facts": [
+    "Болонская система, бакалавриат — 4 года",
+    "улица названа в честь университета"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "университет тип:улица дом:4",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "университетская дом:4",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-75",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 75,
+   "kp_dupes": [],
+   "kp_point": [
+    41.713618,
+    44.717628
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "old_name",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Старая карта со стёртым названием улицы, ведущей к пригородному посёлку; нужен дом 75 по этой дороге.",
+   "answer": {
+    "street_ru": "проспект Ильи Чавчавадзе",
+    "street_ka": "ილია ჭავჭავაძის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "75",
+    "corner_with": null,
+    "raw_address": "пр. Ильи Чавчавадзе, д. 75"
+   },
+   "facts": [
+    "на карте 1887 года — Цхнетская улица",
+    "ныне пр. Ильи Чавчавадзе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "дом",
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:цхнет дом:75",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:проспект чавчавадзе дом:75",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-76",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 76,
+   "kp_dupes": [],
+   "kp_point": [
+    41.738707,
+    44.742028
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Китайская мера длины прячется в названии озера; найти бесполезную ныне начальную точку пути к нему.",
+   "answer": {
+    "street_ru": "станция канатной дороги к озеру Лиси",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "заброшенная станция канатной дороги у озера Лиси"
+   },
+   "facts": [
+    "«ли» — китайская мера длины",
+    "озеро Лиси"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (станция канатной дороги)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2023-77",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 77,
+   "kp_dupes": [],
+   "kp_point": [
+    41.725544,
+    44.74464
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Картинка с видом на мозаику; найти дом, от угла которого сделан снимок.",
+   "answer": {
+    "street_ru": "дом у метро Делиси",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "дом напротив около метро «Делиси»"
+   },
+   "facts": [
+    "мозаика Церетели на бывшем доме профсоюзов"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "дом определяется по картинке",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2023-78",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 78,
+   "kp_dupes": [],
+   "kp_point": [
+    41.701497,
+    44.754095
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park",
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Две сказочные черепахи — растроганная и с аллергией на молодость; найти, где обитают черепахи.",
+   "answer": {
+    "street_ru": "Черепашье озеро",
+    "street_ka": "კუს ტბა",
+    "alt_ka": [],
+    "kind": "lake",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Черепашье озеро"
+   },
+   "facts": [
+    "Тортилла и Морла — черепахи",
+    "Черепашье озеро (Кус-Тба)"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:озеро черепаш",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:озеро кус",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "тип:озеро",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-79",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 79,
+   "kp_dupes": [],
+   "kp_point": [
+    41.720399,
+    44.776494
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Схема трёх станций метро, названных по университетам; нужна самая правая из них.",
+   "answer": {
+    "street_ru": "станция метро Технический университет",
+    "street_ka": "ტექნიკური უნივერსიტეტი",
+    "alt_ka": [],
+    "kind": "metro",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "метро «Технический университет»"
+   },
+   "facts": [
+    "станции: Государственный, Медицинский и Технический университет"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:метро университет",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:метро техни",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-80",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 80,
+   "kp_dupes": [],
+   "kp_point": [
+    41.75798,
+    44.774187
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Изобретатель стихотворной «лесенки», описавший дорогу в Тифлис; найти его памятник и дом 1 рядом.",
+   "answer": {
+    "street_ru": "памятник Маяковскому",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": "1",
+    "corner_with": null,
+    "raw_address": "3-й квартал массива Дигоми, д. 1"
+   },
+   "facts": [
+    "Владимир Маяковский"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (памятник)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2023-81",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 81,
+   "kp_dupes": [],
+   "kp_point": [
+    41.712071,
+    44.751663
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Матроним: как звался бы сын царицы по матери; найти одноимённую улицу, но не в Надзаладеви.",
+   "answer": {
+    "street_ru": "проспект Михаила Тамарашвили",
+    "street_ka": "მიხეილ თამარაშვილის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "ул. Михаила Тамарашвили"
+   },
+   "facts": [
+    "Георгий Лаша — сын царицы Тамары → «Тамарашвили»",
+    "одноимённая улица в Надзаладеви — не та"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "текст",
+    "район"
+   ],
+   "queries": [
+    {
+     "q": "тамарашвили",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "тамарашвили -район:надзаладеви",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-82",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 82,
+   "kp_dupes": [],
+   "kp_point": [
+    41.763598,
+    44.76694
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Скульптор поставил у кремля копию памятника героям ополчения; сократив город до имени, найти другой его памятник.",
+   "answer": {
+    "street_ru": "памятник святой Нино",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "памятник св. Нино, Музей археологии севернее"
+   },
+   "facts": [
+    "Нижний Новгород → НиНо",
+    "памятник святой Нино работы Церетели"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (памятник, музей)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2023-83",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 83,
+   "kp_dupes": [],
+   "kp_point": [
+    41.71005,
+    44.783996
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "rename_chain",
+    "old_name",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Будущий президент и его сверстник-диссидент; набережная и улица, носившие имена вождей, переименованы в их честь. Дом 54.",
+   "answer": {
+    "street_ru": "улица Мераба Костава",
+    "street_ka": "მერაბ კოსტავას ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "54",
+    "corner_with": null,
+    "raw_address": "ул. Мераба Костава, д. 54"
+   },
+   "facts": [
+    "бывшая улица Ленина",
+    "бывшая набережная Сталина — ныне Гамсахурдия"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "дом",
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:ленин дом:54",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "было:ленин тип:улица",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "костава дом:54",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-84",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 84,
+   "kp_dupes": [],
+   "kp_point": [
+    41.708668,
+    44.780579
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Расшифровка названия эмулятора и московский арт-центр на бывшем производстве; найти тбилисский аналог.",
+   "answer": {
+    "street_ru": "Винзавод № 1",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "арт-пространство «Винзавод № 1»"
+   },
+   "facts": [
+    "WINE — Wine Is Not an Emulator",
+    "Винзавод"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (арт-центр)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2023-85",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 85,
+   "kp_dupes": [],
+   "kp_point": [
+    41.694541966306,
+    44.801978060886
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park",
+    "eponym_occupation"
+   ],
+   "needs_media": null,
+   "summary_ru": "Поэт веселился на приёме у реки, а у северного притока загрустил; найти его бюст в сквере его имени.",
+   "answer": {
+    "street_ru": "Пушкинский сквер",
+    "street_ka": "პუშკინის პარკი",
+    "alt_ka": [
+     "პუშკინის სკვერი"
+    ],
+    "kind": "garden",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "сквер Пушкина"
+   },
+   "facts": [
+    "Пушкин в Тифлисе в 1829 году",
+    "«На холмах Грузии…», Арагва"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "кто",
+    "свой",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:сквер,парк кто:поэт свой:нет",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:сквер,парк пушкин",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-86",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 86,
+   "kp_dupes": [],
+   "kp_point": [
+    41.711862,
+    44.751558
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "square_or_park"
+   ],
+   "needs_media": null,
+   "summary_ru": "Его зовут не «парком века» — перепутаны гласные; найти этот парк и подземный переход из него.",
+   "answer": {
+    "street_ru": "парк Ваке",
+    "street_ka": "ვაკის პარკი",
+    "alt_ka": [],
+    "kind": "park",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "парк Ваке"
+   },
+   "facts": [
+    "«века» → «Ваке»"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:парк ваке",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-87",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 87,
+   "kp_dupes": [],
+   "kp_point": [
+    41.707148,
+    44.774896
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park",
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Сады бывают названы по расположению или по растениям; нужен названный по форме.",
+   "answer": {
+    "street_ru": "Круглый сад",
+    "street_ka": "მრგვალი ბაღი",
+    "alt_ka": [],
+    "kind": "garden",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Круглый сад"
+   },
+   "facts": [
+    "висячие сады, «Вишнёвый сад»",
+    "Круглый сад (Мргвали баги)"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:сквер кругл",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "мргвал",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-88",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 88,
+   "kp_dupes": [],
+   "kp_point": [
+    41.710652,
+    44.762879
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "direction",
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Музыка, звучащая 26 мая и перед матчами; нужна не улица композитора, а параллельная ей магистраль к северу, дом 33.",
+   "answer": {
+    "street_ru": "проспект Ильи Чавчавадзе",
+    "street_ka": "ილია ჭავჭავაძის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "33",
+    "corner_with": null,
+    "raw_address": "пр. Ильи Чавчавадзе, д. 33"
+   },
+   "facts": [
+    "гимн Грузии — музыка Захария Палиашвили",
+    "к северу параллельно ул. Палиашвили идёт пр. Чавчавадзе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "рядом",
+    "тип",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "рядом:(палиашвили)~300 тип:проспект дом:33",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:проспект чавчавадзе дом:33",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ],
+   "note": "DSL не умеет «параллельно севернее» — помогает рядом:"
+  },
+  {
+   "id": "tbilisi2023-89",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 89,
+   "kp_dupes": [],
+   "kp_point": [
+    41.709217,
+    44.771779
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "День памяти святого князя совпадает с днём его грозного тёзки-пророка; дом 13 на его проспекте.",
+   "answer": {
+    "street_ru": "проспект Ильи Чавчавадзе",
+    "street_ka": "ილია ჭავჭავაძის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "13",
+    "corner_with": null,
+    "raw_address": "пр. Ильи Чавчавадзе, д. 13"
+   },
+   "facts": [
+    "Илья Чавчавадзе канонизирован",
+    "20 июля — Илья Праведный и Илья Пророк"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:проспект кто:святой дом:13",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:проспект чавчавадзе дом:13",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-90",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 90,
+   "kp_dupes": [],
+   "kp_point": [
+    41.699560966306,
+    44.797541062764
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Ребус складывается в название проспекта; дом 17, дверь с вывеской рядом с главным входом.",
+   "answer": {
+    "street_ru": "проспект Шота Руставели",
+    "street_ka": "შოთა რუსთაველის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "17",
+    "corner_with": null,
+    "raw_address": "пр. Шота Руставели, д. 17"
+   },
+   "facts": [
+    "руст + аве + ли = Руставели",
+    "арт-клуб «Химериони»"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "руставели дом:17",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-93",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 93,
+   "kp_dupes": [],
+   "kp_point": [
+    41.699526966306,
+    44.801465062751
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "old_name",
+    "square_or_park"
+   ],
+   "needs_media": null,
+   "summary_ru": "Сад: верх назван по событию примерно тридцатилетней давности, низ — по поэту, целиком носил имя тогдашнего царя.",
+   "answer": {
+    "street_ru": "парк Георгия Леонидзе",
+    "street_ka": "გიორგი ლეონიძის ბაღი",
+    "alt_ka": [
+     "9 აპრილის სახელობის ბაღი"
+    ],
+    "kind": "garden",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Александровский сад, нижняя часть"
+   },
+   "facts": [
+    "бывший Александровский сад",
+    "верх — парк 9 Апреля, низ — сад Георгия Леонидзе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "тип",
+    "кто",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:александров тип:сквер,парк",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:сквер,парк кто:поэт было:александров",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "леонидзе тип:сквер,парк",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-96",
+   "event": "tbilisi2023",
+   "event_title": "Бегущий Город Тбилиси 2023 (28/10/2023)",
+   "kp": 96,
+   "kp_dupes": [],
+   "kp_point": [
+    41.694383966306,
+    44.800012060827
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Внутри неё два театра, а по сути и площадь; найти театр, чьё название не совпадает с площадью.",
+   "answer": {
+    "street_ru": "театр Грибоедова",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "ТЦ «Галерея», театр Грибоедова"
+   },
+   "facts": [
+    "ТЦ «Галерея» у площади Свободы",
+    "театр Грибоедова"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (театр в торговом центре)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-11",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 11,
+   "kp_dupes": [],
+   "kp_point": [
+    41.709597,
+    44.797673
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Фрагмент карты 1887 года; найти мемориальную доску на месте, отмеченном стрелкой.",
+   "answer": {
+    "street_ru": "площадь Марджанишвили",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "square",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "место лютеранской кирхи у метро «Марджанишвили»"
+   },
+   "facts": [
+    "лютеранская кирха у нынешнего метро «Марджанишвили»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "место по старой карте (POI)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-61",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 61,
+   "kp_dupes": [],
+   "kp_point": [
+    41.735654,
+    44.794733
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Знакомые условия съёма квартиры с латинским словом про залог; французское производное от него — название улицы. Дом 20.",
+   "answer": {
+    "street_ru": "улица Депо",
+    "street_ka": "დეპოს ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "20",
+    "corner_with": null,
+    "raw_address": "ул. Депо, д. 20"
+   },
+   "facts": [
+    "depositum → dépôt",
+    "улица Депо"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст",
+    "тип"
+   ],
+   "queries": [
+    {
+     "q": "депо дом:20",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "депо дом:20?",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "тип:улица депо",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-62",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 62,
+   "kp_dupes": [],
+   "kp_point": [
+    41.770287,
+    44.809925
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Детские хроники волшебной страны в одном из переводов; найти монумент с похожим названием.",
+   "answer": {
+    "street_ru": "монумент «Хроники Грузии»",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "монумент «Хроники Грузии»"
+   },
+   "facts": [
+    "«Хроники Нарнии»",
+    "монумент «Хроники Грузии»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (монумент)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-63",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 63,
+   "kp_dupes": [],
+   "kp_point": [
+    41.792093,
+    44.815746
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Большому озеру не нужен мол; выяснив другое имя озера, найти одноимённое сооружение с двумя «л».",
+   "answer": {
+    "street_ru": "Глдани-молл",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "ТЦ «Глдани-молл»"
+   },
+   "facts": [
+    "Большое озеро — Глдани",
+    "мол / молл"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (торговый центр)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-64",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 64,
+   "kp_dupes": [],
+   "kp_point": [
+    41.777065,
+    44.806291
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "number_in_name",
+    "corner"
+   ],
+   "needs_media": null,
+   "summary_ru": "Будь число в названии улицы на 10 меньше, адрес «не нашёлся бы»; памятник у перекрёстка в середине улицы.",
+   "answer": {
+    "street_ru": "улица 414-й Анапской дивизии",
+    "street_ka": "ანაპის 414-ე დივიზიას ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null,
+    "corner_with": "улица Чаргали",
+    "raw_address": "ул. 414-й Анапской Дивизии, угол ул. Чаргали"
+   },
+   "facts": [
+    "HTTP 404 — не найдено, 414 — слишком длинный URI",
+    "памятник — у перекрёстка с улицей Чаргали"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "текст",
+    "имя",
+    "регэксп",
+    "x"
+   ],
+   "queries": [
+    {
+     "q": "414",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "имя:/414/",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "x:(чаргали) 414",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-65",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 65,
+   "kp_dupes": [],
+   "kp_point": [
+    41.721991,
+    44.78965
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Рационализатор из скетча предлагал привязать это к ногам балерин; найти вход B у объекта с таким названием.",
+   "answer": {
+    "street_ru": "стадион «Динамо»",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "стадион «Динамо», вход B"
+   },
+   "facts": [
+    "«привяжи к ноге динаму»",
+    "стадион «Динамо»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (стадион)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-71",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 71,
+   "kp_dupes": [],
+   "kp_point": [
+    41.717354,
+    44.787623
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "old_name"
+   ],
+   "needs_media": null,
+   "summary_ru": "Песня сравнивает город с застрявшим во льдах судном; объект раньше носил имя его экипажа, искать среди мостов.",
+   "answer": {
+    "street_ru": "мост Царицы Тамары",
+    "street_ka": "თამარ მეფის ხიდი",
+    "alt_ka": [],
+    "kind": "bridge",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "мост Тамар Мепе (бывш. мост Челюскинцев)"
+   },
+   "facts": [
+    "«как Челюскин во льдах» — «Машина времени»",
+    "раньше — мост Челюскинцев",
+    "первый альбом — «Реки и мосты»"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "было"
+   ],
+   "queries": [
+    {
+     "q": "тип:мост было:челюскин",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "было:челюскин",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-72",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 72,
+   "kp_dupes": [],
+   "kp_point": [
+    41.717282,
+    44.798864
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "old_name"
+   ],
+   "needs_media": null,
+   "summary_ru": "Право не свидетельствовать против себя: в кино — поправка, у нас — статья основного закона; улица называлась так же.",
+   "answer": {
+    "street_ru": "улица Гии Канчели",
+    "street_ka": "გია ყანჩელის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "17",
+    "corner_with": null,
+    "raw_address": "ул. Гии Канчели (бывш. ул. Конституции), напротив д. 17"
+   },
+   "facts": [
+    "основной закон — Конституция",
+    "бывшая улица Конституции",
+    "Google Maps ещё показывает старое имя"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:конституц",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "конституц",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "канчели",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-73",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 73,
+   "kp_dupes": [],
+   "kp_point": [
+    41.712849,
+    44.798325
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Знаменитые грузинские глаголы с восемью согласными подряд; у нужной улицы в русской записи шесть, на деле пять. Дом 97.",
+   "answer": {
+    "street_ru": "улица Михаила Цинамдзгвришвили",
+    "street_ka": "მიხეილ წინამძღვრიშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "97",
+    "corner_with": null,
+    "raw_address": "ул. Цинамдзгвришвили, д. 97"
+   },
+   "facts": [
+    "пять согласных подряд в грузинском написании",
+    "«дз» — одна грузинская буква"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "имя",
+    "дом",
+    "регэксп",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "имя:/\\С{5}/ дом:97",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "имя:/\\С{6}/ дом:97",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "цинамдзгвришвили дом:97",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-75",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 75,
+   "kp_dupes": [],
+   "kp_point": [
+    41.714086,
+    44.793129
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Учёный, в честь которого назван антарктический полуостров и остров; его процесс там не нужен из-за холода. Дом 1а.",
+   "answer": {
+    "street_ru": "улица Луи Пастера",
+    "street_ka": "ლუი პასტერის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1а",
+    "corner_with": null,
+    "raw_address": "ул. Луи Пастера, д. 1а"
+   },
+   "facts": [
+    "Пастер — пастеризация",
+    "остров и полуостров Пастера в Антарктиде"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "свой",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:учёный свой:нет дом:1а",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кто:наука свой:нет дом:1а",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "пастер дом:1а",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-77",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 77,
+   "kp_dupes": [],
+   "kp_point": [
+    41.720311,
+    44.795372
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Третий революционный кружок назвал Церетели; нужна улица писателя — одного из его основателей, дом 18.",
+   "answer": {
+    "street_ru": "улица Эгнате Ниношвили",
+    "street_ka": "ეგნატე ნინოშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "18",
+    "corner_with": null,
+    "raw_address": "ул. Эгнате Ниношвили, д. 18"
+   },
+   "facts": [
+    "«Месаме-даси» — «третья группа»",
+    "писатель-основатель — Эгнате Ниношвили"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "био",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:писатель био:месаме",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кто:писатель дом:18",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "ниношвили дом:18",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-78",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 78,
+   "kp_dupes": [],
+   "kp_point": [
+    41.719328,
+    44.801988
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Название торгового центра будто дали два персонажа сказки, у которых каждое слово кончается одинаково.",
+   "answer": {
+    "street_ru": "улица Цотне Дадиани",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "street",
+    "house": "7",
+    "corner_with": null,
+    "raw_address": "ТЦ «Карвасла», ул. Цотне Дадиани, д. 7"
+   },
+   "facts": [
+    "Тофсла и Вифсла",
+    "ТЦ «Карвасла»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (торговый центр)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-79",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 79,
+   "kp_dupes": [],
+   "kp_point": [
+    41.7156,
+    44.794269
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Ранняя экранизация восточного сборника сказок называлась «дворцом» с полным числом ночей; нужен дворец, где осталась одна.",
+   "answer": {
+    "street_ru": "улица Ивана Каргаретели",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "street",
+    "house": "6",
+    "corner_with": null,
+    "raw_address": "дворец Ольденбургского, ул. И. Каргаретели, д. 6"
+   },
+   "facts": [
+    "«Дворец одной ночи»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (дворец)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-80",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 80,
+   "kp_dupes": [],
+   "kp_point": [
+    41.712961,
+    44.791163
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "corner",
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Три фильма с одной актрисой; улица, упирающаяся в Узнадзе, на одной карте носит её имя. Дом 1.",
+   "answer": {
+    "street_ru": "улица Ордэ Дгебуадзе",
+    "street_ka": "ორდე დგებუაძის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1",
+    "corner_with": "улица Дмитрия Узнадзе",
+    "raw_address": "ул. Ордэ Дгебуадзе, д. 1"
+   },
+   "facts": [
+    "фильмы Одри Хепбёрн",
+    "на Яндекс-картах — ул. Одри Дгебуадзе",
+    "улица упирается в ул. Узнадзе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "x",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "x:(узнадзе) дом:1",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "одри x:(узнадзе)",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ],
+   "note": "ответ без подглядывания находится только перебором улиц, пересекающих Узнадзе"
+  },
+  {
+   "id": "tbilisi2024-81",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 81,
+   "kp_dupes": [],
+   "kp_point": [
+    41.722227,
+    44.787075
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Статья, где скрыты железнодорожные слова, о первой детской железной дороге; найти кассу этой дороги.",
+   "answer": {
+    "street_ru": "парк Муштаид",
+    "street_ka": "მუშტაიდის ბაღი",
+    "alt_ka": [],
+    "kind": "garden",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Детская железная дорога в парке Муштаид"
+   },
+   "facts": [
+    "первая детская железная дорога — парк Муштаид"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "текст",
+    "тип"
+   ],
+   "queries": [
+    {
+     "q": "муштаид",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "тип:сквер,парк муштаид",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-82",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 82,
+   "kp_dupes": [],
+   "kp_point": [
+    41.717888,
+    44.795629
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Легенды холодной войны о «бесцветной» газировке; найти действующее производство советского ответа.",
+   "answer": {
+    "street_ru": "улица Михаила Цинамдзгвришвили",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "street",
+    "house": "150",
+    "corner_with": null,
+    "raw_address": "производство вод Лагидзе, ул. Цинамдзгвришвили, д. 150"
+   },
+   "facts": [
+    "воды Лагидзе"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (завод)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-83",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 83,
+   "kp_dupes": [],
+   "kp_point": [
+    41.715264,
+    44.793486
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Туманные пророчества оракула; вспомнив, кому посвящено святилище, найти тбилисскую достопримечательность его имени.",
+   "answer": {
+    "street_ru": "кинотеатр «Аполло»",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "кинотеатр «Аполло»"
+   },
+   "facts": [
+    "Дельфийский оракул — Аполлон"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (кинотеатр)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-84",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 84,
+   "kp_dupes": [],
+   "kp_point": [
+    41.718751,
+    44.800202
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Фрагмент работы великого испанца, не поместившийся в крошечный музей; найти этот музей.",
+   "answer": {
+    "street_ru": "улица Нико Пиросмани",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "street",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "музей-квартира Нико Пиросмани"
+   },
+   "facts": [
+    "портрет Пиросмани работы Пикассо"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (музей-квартира)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-88",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 88,
+   "kp_dupes": [],
+   "kp_point": [
+    41.698744,
+    44.811414
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "rename_chain",
+    "old_name",
+    "house_number",
+    "latin_sign"
+   ],
+   "needs_media": null,
+   "summary_ru": "Синеволосая героиня сериала и неудачные бомбы; улица-тупик (Khevi) раньше носила имя техника покушения 1881 года. Дом 8.",
+   "answer": {
+    "street_ru": "улица Тамар Схиртладзе",
+    "street_ka": "თამარ სხირტლაძის ქუჩა",
+    "alt_ka": [
+     "ელენე ახვლედიანის ხეობა",
+     "ელენე ახვლედიანის ხევი"
+    ],
+    "kind": "street",
+    "house": "8",
+    "corner_with": null,
+    "raw_address": "ул. Елены Ахвледиани (Khevi), д. 8"
+   },
+   "facts": [
+    "покушением 1881 года технически руководил Николай Кибальчич",
+    "улица Кибальчича → Елены Ахвледиани (Khevi)",
+    "в OSM ныне улица Тамар Схиртладзе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:кибальчич дом:8",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "ахвледиани дом:8",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "khevi ахвледиани",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-89",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 89,
+   "kp_dupes": [],
+   "kp_point": [
+    41.703398,
+    44.803469
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": "audio",
+   "summary_ru": "Песня о тайном аккорде библейского царя; нужен проспект его тёзки, в имени которого есть и «четвёртая ступень». Дом 14.",
+   "answer": {
+    "street_ru": "проспект Давида Агмашенебели",
+    "street_ka": "დავით აღმაშენებლის გამზირი",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "14",
+    "corner_with": null,
+    "raw_address": "пр. Давида Агмашенебели, д. 14"
+   },
+   "facts": [
+    "«Аллилуйя» Коэна — аккорд царя Давида, начинается с «the fourth»",
+    "Давид IV Строитель"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:проспект кто:царь давид дом:14",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "агмашенебели дом:14",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-90",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 90,
+   "kp_dupes": [],
+   "kp_point": [
+    41.718411,
+    44.790592
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "video",
+   "summary_ru": "Видео с удалённым последним титром; найти упомянутое место с учётом года съёмки и берега.",
+   "answer": {
+    "street_ru": "проспект Давида Агмашенебели",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "162",
+    "corner_with": null,
+    "raw_address": "старые корпуса «Грузия-фильм», пр. Агмашенебели, д. 162"
+   },
+   "facts": [
+    "киностудия «Грузия-фильм»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (киностудия) по видео",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-91",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 91,
+   "kp_dupes": [],
+   "kp_point": [
+    41.70244,
+    44.811084
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "number_in_name"
+   ],
+   "needs_media": null,
+   "summary_ru": "Два убийства 1963 года и буддийский календарь дают число; найти на карте объект с таким номером.",
+   "answer": {
+    "street_ru": "о. п. 2506 км",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "железнодорожная станция «2506 км»"
+   },
+   "facts": [
+    "Кеннеди и Нго Динь Зьем, ноябрь 1963",
+    "по буддийскому календарю — 2506 год"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "железнодорожные остановочные пункты не входят в пакет",
+   "dsl_keys": [
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "2506",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-92",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 92,
+   "kp_dupes": [],
+   "kp_point": [
+    41.719288,
+    44.792
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "old_name",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Минеральная вода, которую век назад рекламировали как радиоактивную; улица раньше называлась так же. Дом 11.",
+   "answer": {
+    "street_ru": "улица Мурмана Лебанидзе",
+    "street_ka": "მურმან ლებანიძის ქუჩა",
+    "alt_ka": [
+     "მურმან ლებანიძეს ქუჩა"
+    ],
+    "kind": "street",
+    "house": "11",
+    "corner_with": null,
+    "raw_address": "ул. Мурман Лебанидзе (бывш. Боржомская), д. 11"
+   },
+   "facts": [
+    "вода «Боржоми»",
+    "бывшая Боржомская улица"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:боржом дом:11",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "боржом дом:11",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-93",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 93,
+   "kp_dupes": [],
+   "kp_point": [
+    41.708496,
+    44.794409
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Один, два и три звонка; нужное учреждение носит имя человека, создавшего в Москве «свободный» театр.",
+   "answer": {
+    "street_ru": "театр Марджанишвили",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "театр им. Марджанишвили"
+   },
+   "facts": [
+    "три звонка — театр",
+    "Константин Марджанишвили, «Свободный театр»"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (театр)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2024-94",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 94,
+   "kp_dupes": [],
+   "kp_point": [
+    41.706499,
+    44.7956
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Вымершая птица из детской книги; на улице — уменьшительное имя режиссёра, разделившего награду с коллегой. Дом 10.",
+   "answer": {
+    "street_ru": "улица Додо Абашидзе",
+    "street_ka": "დოდო აბაშიძის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "10",
+    "corner_with": null,
+    "raw_address": "ул. Додо Абашидзе, д. 10"
+   },
+   "facts": [
+    "додо из «Алисы»",
+    "Давид (Додо) Абашидзе — режиссёр «Ашик-Кериба» вместе с Параджановым"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:режиссёр дом:10",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "додо дом:10",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-96",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 96,
+   "kp_dupes": [],
+   "kp_point": [
+    41.70836,
+    44.799558
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "old_name",
+    "square_or_park"
+   ],
+   "needs_media": null,
+   "summary_ru": "Фамилия активистки звучит как место, где маркиз ни при чём, а имя — цветок; так раньше звали парк.",
+   "answer": {
+    "street_ru": "Сад Ильи",
+    "street_ka": "ილიას ბაღი",
+    "alt_ka": [],
+    "kind": "garden",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "парк Роз (он же парк Ильи)"
+   },
+   "facts": [
+    "Роза Паркс",
+    "бывший Парк роз (Розовый сад)"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "было",
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "было:роз тип:сквер,парк",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "было:вард",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "ильи тип:сквер,парк",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-97",
+   "event": "tbilisi2024",
+   "event_title": "Бегущий Город Тбилиси 2024 (26/10/2024)",
+   "kp": 97,
+   "kp_dupes": [],
+   "kp_point": [
+    41.704163,
+    44.798936
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Поэт похоронен на склоне горы, сидит в названном в его честь театре; найти, где он стоит.",
+   "answer": {
+    "street_ru": "улица Дмитрия Узнадзе",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "street",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "памятник Грибоедову на ул. Узнадзе"
+   },
+   "facts": [
+    "памятник Грибоедову (стоя)"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (памятник)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2025-90",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 90,
+   "kp_dupes": [],
+   "kp_point": [
+    41.71374,
+    44.830161
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Гора, название которой похоже на индуистские слова; на ней три храма, нужен самый старый, маленький и западный.",
+   "answer": {
+    "street_ru": "гора Махата",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Воскресенский монастырь на горе Махата"
+   },
+   "facts": [
+    "гора Махата",
+    "Воскресенский монастырь"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (монастырь на горе)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2025-93",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 93,
+   "kp_dupes": [],
+   "kp_point": [
+    41.708167,
+    44.839884
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": "audio",
+   "summary_ru": "Солист и хормейстер, получивший звезду вместе с ансамблем; на его улице нужен дом 24, которого нет на картах.",
+   "answer": {
+    "street_ru": "улица Темура Кевхишвили",
+    "street_ka": "თემურ ქევხიშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "24",
+    "corner_with": null,
+    "raw_address": "Ул. Темура Кевхишвили, д. 24"
+   },
+   "facts": [
+    "Темур Кевхишвили — солист и хормейстер",
+    "ансамбль «Дариали», звезда на пр. Руставели"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:хормейстер дом:24",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кто:хормейстер дом:24?",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кевхишвили дом:24",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-94",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 94,
+   "kp_dupes": [],
+   "kp_point": [
+    41.698883,
+    44.876931
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "direction",
+    "house_number",
+    "square_or_park"
+   ],
+   "needs_media": null,
+   "summary_ru": "Три парка, которые вместе есть только в одной столице; объект её имени и улица, уходящая от него на восток. Дом 16.",
+   "answer": {
+    "street_ru": "улица Борцов за единство Грузии",
+    "street_ka": "საქართველოს ერთიანობისთვის მებრძოლთა ქუჩა",
+    "alt_ka": [
+     "საქართველოს ერთიანობისთვის მებრძოლთას ქუჩა"
+    ],
+    "kind": "street",
+    "house": "16",
+    "corner_with": null,
+    "raw_address": "Ул. Борцов за Единство Грузии, д. 16"
+   },
+   "facts": [
+    "Аркадия, Победы, Эспланада — парки Риги",
+    "Рижский парк (сквер)"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "x",
+    "тип",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "x:(тип:сквер рижск)~в дом:16",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "x:(рижск)~в дом:16",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "x:(рижск)~в",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-95",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 95,
+   "kp_dupes": [],
+   "kp_point": [
+    41.695085,
+    44.844243
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Ребус из минерала из компьютерной игры и индийской столицы; дом 101а.",
+   "answer": {
+    "street_ru": "улица Кварели",
+    "street_ka": "ყვარელის ქუჩა",
+    "alt_ka": [
+     "ყვარლის ქუჩა"
+    ],
+    "kind": "street",
+    "house": "101а",
+    "corner_with": null,
+    "raw_address": "Кварельская ул., д. 101а"
+   },
+   "facts": [
+    "кварц + Дели = Кварели"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кварел дом:101а",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "kvareli дом:101а",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-96",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 96,
+   "kp_dupes": [],
+   "kp_point": [
+    41.68749,
+    44.848438
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "rename_chain",
+    "old_name",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Старая улица со временем стала проспектом святой, а своё имя отдала параллельной дороге из города. Дом 3.",
+   "answer": {
+    "street_ru": "Кахетинское шоссе",
+    "street_ka": "კახეთის გზატკეცილი",
+    "alt_ka": [],
+    "kind": "highway",
+    "house": "3",
+    "corner_with": null,
+    "raw_address": "Кахетинское шоссе, д. 3"
+   },
+   "facts": [
+    "Кахетинская улица → пр. Кетеван Дедофали",
+    "имя перешло Кахетинскому шоссе"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "дом",
+    "текст",
+    "было"
+   ],
+   "queries": [
+    {
+     "q": "кахет тип:шоссе дом:3",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кахет тип:шоссе дом:3?",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кахет -было:кахет",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-97",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 97,
+   "kp_dupes": [],
+   "kp_point": [
+    41.689384,
+    44.844313
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Наука о строении винограда и биохимия виноделия; грузинский учёный, основавший институт своего имени. Дом 2.",
+   "answer": {
+    "street_ru": "улица Серги Дурмишидзе",
+    "street_ka": "სერგი დურმიშიძის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "2",
+    "corner_with": null,
+    "raw_address": "Ул. Сергея Дурмишидзе, д. 2"
+   },
+   "facts": [
+    "Сергей Дурмишидзе — биохимик",
+    "основатель Института биохимии"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "био"
+   ],
+   "queries": [
+    {
+     "q": "кто:наука дом:2",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кто:биохимик",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "био:биохим",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-98",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 98,
+   "kp_dupes": [],
+   "kp_point": [
+    41.703159,
+    44.846801
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Регион виноградной лозы, как в названии журнала патриархии; таких «регионов» в городе несколько, нужен первый.",
+   "answer": {
+    "street_ru": "Вазисубани",
+    "street_ka": "ვაზისუბანი",
+    "alt_ka": [],
+    "kind": "neighbourhood",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "1-й микрорайон Вазисубани, корп. 16 и 17"
+   },
+   "facts": [
+    "вази — лоза, убани — район",
+    "1-й микрорайон Вазисубани"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "вазисубан тип:микрорайон",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "вазисубан",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-110",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 110,
+   "kp_dupes": [
+    310
+   ],
+   "kp_point": [
+    41.687798,
+    44.815424
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number",
+    "corner"
+   ],
+   "needs_media": null,
+   "summary_ru": "Изобретатель трамвая, троллейбуса и лифта; улица его семьи, дом 10 на углу бывшего переулка.",
+   "answer": {
+    "street_ru": "улица Братьев Сименс",
+    "street_ka": "ძმები სიმენსების ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "10",
+    "corner_with": null,
+    "raw_address": "Ул. Братьев Сименс, д. 10"
+   },
+   "facts": [
+    "Вернер фон Сименс — изобретатель",
+    "улица названа в честь братьев Сименс"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:изобретатель дом:10",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "кто:братья дом:10",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "сименс дом:10",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ],
+   "note": "КП 310 — вариант той же загадки для «Сфинкса»"
+  },
+  {
+   "id": "tbilisi2025-126",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 126,
+   "kp_dupes": [],
+   "kp_point": [
+    41.696479,
+    44.80569
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Место под номером 50 на выданном плане города 1800 года; найти фрагмент старой стены.",
+   "answer": {
+    "street_ru": "улица Николоза Бараташвили",
+    "street_ka": "ნიკოლოზ ბარათაშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "23",
+    "corner_with": "улица Чахрухадзе",
+    "raw_address": "Ул. Николая Бараташвили, д. 23, в створе ул. Чахрухадзе"
+   },
+   "facts": [
+    "место ворот на плане 1800 года"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "место определяется по бумажному плану 1800 года",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2025-301",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 301,
+   "kp_dupes": [],
+   "kp_point": [
+    41.687434,
+    44.810263
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Пятничная молитва вместо полуденной; учреждение названо в честь этого события.",
+   "answer": {
+    "street_ru": "Ботаническая улица",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "street",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Джума-мечеть"
+   },
+   "facts": [
+    "Джума-мечеть"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (мечеть)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2025-302",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 302,
+   "kp_dupes": [],
+   "kp_point": [
+    41.674384,
+    44.833322
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Станция метро, бывшая конечной всё лето, и баллада о её цветке; улица с именем отца композитора. Дом 16.",
+   "answer": {
+    "street_ru": "улица Шалвы Давиташвили",
+    "street_ka": "შალვა დავითაშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "16",
+    "corner_with": null,
+    "raw_address": "ул. Шалвы Давиташвили, д. 16"
+   },
+   "facts": [
+    "«Баллада о самгорском цветке» — музыка Мери Давиташвили",
+    "отчество Шалвовна",
+    "дом 16 иногда указан как 34"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "шалв давиташвили дом:16",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "давиташвили дом:16?",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-303",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 303,
+   "kp_dupes": [],
+   "kp_point": [
+    41.687148,
+    44.810547
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Термы под Падуей называются так же, как тбилисские бани; нужен первый одноимённый переулок, дом 10.",
+   "answer": {
+    "street_ru": "1-й переулок Абано",
+    "street_ka": "აბანოს I შესახვევი",
+    "alt_ka": [],
+    "kind": "lane",
+    "house": "10",
+    "corner_with": null,
+    "raw_address": "1-й пер. Абано, д. 10"
+   },
+   "facts": [
+    "Абано-Терме у Падуи",
+    "бани Абано"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "№",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "абано тип:переулок №:1 дом:10",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "абано дом:10",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-304",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 304,
+   "kp_dupes": [],
+   "kp_point": [
+    41.697493,
+    44.800323
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Художник, которого поэт звал то ангелом, то чёртом; его картина дала имя духам. Музей на его улице.",
+   "answer": {
+    "street_ru": "улица Ладо Гудиашвили",
+    "street_ka": "ლადო გუდიაშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "11",
+    "corner_with": null,
+    "raw_address": "Ул. Ладо Гудиашвили, д. 11"
+   },
+   "facts": [
+    "Ладо Гудиашвили — художник",
+    "музей на его улице, д. 11"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "тип",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:художник тип:улица дом:11",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "гудиашвили тип:улица",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-305",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 305,
+   "kp_dupes": [],
+   "kp_point": [
+    41.701441966306,
+    44.795165063467
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Два крылатых романсовых выражения из уст литературного героя; найти музей однофамильца первой исполнительницы.",
+   "answer": {
+    "street_ru": "проспект Шота Руставели",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "27",
+    "corner_with": null,
+    "raw_address": "Пр. Шота Руставели, д. 27 (музей Церетели)"
+   },
+   "facts": [
+    "Тамара Церетели",
+    "музей Зураба Церетели"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (музей)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2025-306",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 306,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690909966306,
+    44.801229059527
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Диаграмма для гадания без одного очевидного элемента; понять, что за пятна, и найти подходящий музей.",
+   "answer": {
+    "street_ru": "улица Галактиона Табидзе",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "street",
+    "house": "15",
+    "corner_with": null,
+    "raw_address": "Ул. Галактиона Табидзе, д. 15 (музей чая)"
+   },
+   "facts": [
+    "гадание на чаинках",
+    "музей чая"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (музей)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2025-307",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 307,
+   "kp_dupes": [],
+   "kp_point": [
+    41.675945,
+    44.829567
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "corner"
+   ],
+   "needs_media": null,
+   "summary_ru": "Двое почти однофамильцев: в конце улицы одного — площадь другого; севернее памятника на соседней улице — кафе.",
+   "answer": {
+    "street_ru": "улица Гии Гулуа",
+    "street_ka": "გია გულუას ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null,
+    "corner_with": "площадь Димитрия Гулиа",
+    "raw_address": "ул. Гии Гулуа у пл. Димитрия Гулиа"
+   },
+   "facts": [
+    "Дмитрий Гулиа и Гия Гулуа",
+    "кафе на ул. Гулуа севернее памятника Гулиа"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "x",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "гулуа x:(гулиа)",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "гулуа",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-308",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 308,
+   "kp_dupes": [],
+   "kp_point": [
+    41.674283,
+    44.826917
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Пословица о беде и воротах, поэма о бедах Грузии; улица с именем отца её автора. Дом 5.",
+   "answer": {
+    "street_ru": "улица Георгия Гурамишвили",
+    "street_ka": "გიორგი გურამიშვილის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5",
+    "corner_with": null,
+    "raw_address": "Ул. Георгия Гурамишвили, д. 5"
+   },
+   "facts": [
+    "«Беды Грузии» — Давид Гурамишвили",
+    "отец поэта — Георгий"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "гиорги гурамишвили дом:5",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "георгия гурамишвили дом:5",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "гурамишвили дом:5",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-309",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 309,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690159966306,
+    44.807312059247
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "По канонам учреждение должно быть открыто в выходной, а по закону ценится меньше учебного; выбрать крупнейшее.",
+   "answer": {
+    "street_ru": "улица Коте Абхази",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "street",
+    "house": "45",
+    "corner_with": null,
+    "raw_address": "Ул. Котэ Абхази (Leselidze St), д. 45 (Большая синагога)"
+   },
+   "facts": [
+    "Большая синагога"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (синагога)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2025-311",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 311,
+   "kp_dupes": [],
+   "kp_point": [
+    41.694459966306,
+    44.804322060855
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Песни с альбома другого «БГ» про день из одного металла; улица с таким названием в переводе, галерея в доме 25.",
+   "answer": {
+    "street_ru": "улица Верцхли",
+    "street_ka": "ვერცხლის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "25",
+    "corner_with": null,
+    "raw_address": "Ул. Серебряная (Верцхли), д. 25"
+   },
+   "facts": [
+    "альбом «День серебра»",
+    "верцхли — серебро"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "текст",
+    "дом"
+   ],
+   "queries": [
+    {
+     "q": "серебр",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "верцхл дом:25",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-312",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 312,
+   "kp_dupes": [],
+   "kp_point": [
+    41.680538,
+    44.824144
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Гвардеец из сериала в шлеме-собаке; исторический деятель носил шлем с головой волка. Дом 47.",
+   "answer": {
+    "street_ru": "улица Вахтанга Горгасали",
+    "street_ka": "ვახტანგ გორგასლის ქუჩა",
+    "alt_ka": [
+     "ვახტანგ გორგასალის ქუჩა"
+    ],
+    "kind": "street",
+    "house": "47",
+    "corner_with": null,
+    "raw_address": "Ул. Вахтанга Горгасали, д. 47"
+   },
+   "facts": [
+    "«Горгасали» — «волчья голова»",
+    "Вахтанг Горгасали — царь"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "тип",
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:царь тип:улица дом:47",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "горгасал тип:улица дом:47",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "горгасал тип:улица дом:47?",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-313",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 313,
+   "kp_dupes": [],
+   "kp_point": [
+    41.687568966306,
+    44.816950058278
+   ],
+   "category": "Лев",
+   "categories": [
+    "Лев"
+   ],
+   "task_type": [
+    "eponym_occupation"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Интерьер здания, посвящённого одному материалу; найти улицу его архитектора, граффити между домами 6 и 8.",
+   "answer": {
+    "street_ru": "улица Александра Шимкевича",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "street",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Ул. А. Шимкевича (бывш. Fabrika turn), между д. 6 и 8"
+   },
+   "facts": [
+    "Музей шёлка",
+    "архитектор Александр Шимкевич",
+    "бывший переулок Фабрики (Fabrika turn)"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "текст",
+    "было"
+   ],
+   "queries": [
+    {
+     "q": "шимкевич",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "было:фабрик",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ],
+   "note": "в OSM на 23/10/2026 улицы Шимкевича нет — проверка данных"
+  },
+  {
+   "id": "tbilisi2025-314",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 314,
+   "kp_dupes": [],
+   "kp_point": [
+    41.686828966306,
+    44.809318058001
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Река на картинке связывает три объекта и совпадает с одним; в нём двигаться к западу до крайнего моста.",
+   "answer": {
+    "street_ru": "Ботанический сад",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "мост у водопада в Ботаническом саду"
+   },
+   "facts": [
+    "речка Цавкисисцкали (Легвтахеви)",
+    "Бамбуковая и Кипарисовая аллеи"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "мост внутри ботанического сада",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2025-315",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 315,
+   "kp_dupes": [],
+   "kp_point": [
+    41.695634966306,
+    44.802999061295
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "corner",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Два романа 1862 года — о волонтёре девяносто второго и о князе с говорящей фамилией; место, где одна улица упирается в другую.",
+   "answer": {
+    "street_ru": "улица Александра Дюма",
+    "street_ka": "ალექსანდრე დიუმას ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "31",
+    "corner_with": "улица Верцхли",
+    "raw_address": "Ул. А. Дюма, д. 31, угол ул. Верцхли"
+   },
+   "facts": [
+    "Дюма — «Волонтёр девяносто второго года»",
+    "А.К. Толстой — «Князь Серебряный» → ул. Верцхли"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "x",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "дюма x:(верцхли)",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "x:(серебр) дюма",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-316",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 316,
+   "kp_dupes": [],
+   "kp_point": [
+    41.691072966306,
+    44.811759059588
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park",
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Огород у стены, разделявшей город; найти её фрагмент в Тбилиси.",
+   "answer": {
+    "street_ru": "площадь Европы",
+    "street_ka": "ევროპის მოედანი",
+    "alt_ka": [],
+    "kind": "square",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "фрагмент Берлинской стены на пл. Европы"
+   },
+   "facts": [
+    "Берлинская стена"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "нужно знать, где стоит фрагмент стены (POI)",
+   "dsl_keys": [],
+   "queries": []
+  },
+  {
+   "id": "tbilisi2025-317",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 317,
+   "kp_dupes": [],
+   "kp_point": [
+    41.688752966306,
+    44.811187058721
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Лев",
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park"
+   ],
+   "needs_media": null,
+   "summary_ru": "Птицы, знакомые по фильму и школе, вместе — легенда об основании города; скульптура их встречи и учреждение рядом.",
+   "answer": {
+    "street_ru": "площадь Вахтанга Горгасали",
+    "street_ka": "ვახტანგ გორგასალის მოედანი",
+    "alt_ka": [],
+    "kind": "square",
+    "house": "3",
+    "corner_with": null,
+    "raw_address": "Пл. В. Горгасали, д. 3"
+   },
+   "facts": [
+    "сокол и фазан из легенды о Вахтанге Горгасали"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст",
+    "дом"
+   ],
+   "queries": [
+    {
+     "q": "тип:площадь горгасал",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:площадь горгасал дом:3",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-318",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 318,
+   "kp_dupes": [],
+   "kp_point": [
+    41.693253966306,
+    44.811353060404
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "eponym_occupation"
+   ],
+   "needs_media": null,
+   "summary_ru": "Поэт, воспевший крылатого коня; среди многих объектов его имени нужен тот, что зовут подъёмом или спуском.",
+   "answer": {
+    "street_ru": "подъём Николоза Бараташвили",
+    "street_ka": "ნიკოლოზ ბარათაშვილის აღმართი",
+    "alt_ka": [],
+    "kind": "ascent",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Спуск Николая Бараташвили (Nikoloz Baratashvili Rise)"
+   },
+   "facts": [
+    "«Мерани» — Николоз Бараташвили",
+    "Nikoloz Baratashvili Rise"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "кто:поэт тип:подъём,спуск",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "бараташвили тип:подъём,спуск",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-319",
+   "event": "tbilisi2025",
+   "event_title": "Бегущий Город Тбилиси 2025 (25/10/2025)",
+   "kp": 319,
+   "kp_dupes": [],
+   "kp_point": [
+    41.709087966306,
+    44.788998066329
+   ],
+   "category": "Сфинкс",
+   "categories": [
+    "Сфинкс"
+   ],
+   "task_type": [
+    "square_or_park"
+   ],
+   "needs_media": "video",
+   "summary_ru": "Кадр из фильма о старом квартале: квартал даёт топоним, а украденные дрова — тип объекта.",
+   "answer": {
+    "street_ru": "парк Вере",
+    "street_ka": "ვერის ბაღი",
+    "alt_ka": [],
+    "kind": "garden",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "парк Вере"
+   },
+   "facts": [
+    "«Мелодии Верийского квартала»",
+    "дрова — бывшие деревья, значит парк"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:сквер,парк вер",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:сквер,парк вере",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-3",
+   "event": "teplotbilisi2023",
+   "event_title": "Тёплые буквы. Тбилисский словарь (18/03/2023)",
+   "kp": 3,
+   "kp_dupes": [],
+   "kp_point": [
+    41.698115,
+    44.8049
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Одно из имён реки выводят из мегрельского «грызть»; нужна одноимённая улица, дом 3.",
+   "answer": {
+    "street_ru": "улица Мтквари",
+    "street_ka": "მტკვრის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3",
+    "corner_with": null,
+    "raw_address": "ул. Мтквари, д. 3"
+   },
+   "facts": [
+    "река Мтквари (Кура)"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст",
+    "тип"
+   ],
+   "queries": [
+    {
+     "q": "мтквар дом:3",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "мтквар тип:улица",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-12",
+   "event": "teplotbilisi2023",
+   "event_title": "Тёплые буквы. Тбилисский словарь (18/03/2023)",
+   "kp": 12,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690851,
+    44.807379
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Название священной горы знакомо геймерам и киноманам по другим поводам; нужна улица её имени, дом 13.",
+   "answer": {
+    "street_ru": "улица Сиони",
+    "street_ka": "სიონის ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "13",
+    "corner_with": null,
+    "raw_address": "ул. Сиони, д. 13"
+   },
+   "facts": [
+    "гора Сион"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "сион дом:13",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-13",
+   "event": "teplotbilisi2023",
+   "event_title": "Тёплые буквы. Тбилисский словарь (18/03/2023)",
+   "kp": 13,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690239,
+    44.809294
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": null,
+   "summary_ru": "Тэтчер, Бисмарк, Дзержинский, Тони Старк — найти «ряд», названный их общим прозвищем.",
+   "answer": {
+    "street_ru": "Ркинис-риги",
+    "street_ka": "რკინის რიგი",
+    "alt_ka": [],
+    "kind": "row",
+    "house": "11",
+    "corner_with": null,
+    "raw_address": "Ркинис-риги, д. 11"
+   },
+   "facts": [
+    "все они «железные»",
+    "Ркинис-риги — Железный ряд"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:ряд",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:ряд железн",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "ркинис",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-14",
+   "event": "teplotbilisi2023",
+   "event_title": "Тёплые буквы. Тбилисский словарь (18/03/2023)",
+   "kp": 14,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690044966306,
+    44.801405059204
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Тавтология вроде «галактики Млечный Путь»; из первого слова получить имя и найти улицу, дом 24.",
+   "answer": {
+    "street_ru": "улица Галактиона Табидзе",
+    "street_ka": "გალაკტიონ ტაბიძის ქუჩა",
+    "alt_ka": [
+     "გალაქტიონ ტაბიძის ქუჩა"
+    ],
+    "kind": "street",
+    "house": "24",
+    "corner_with": null,
+    "raw_address": "ул. Галактиона Табидзе, д. 24"
+   },
+   "facts": [
+    "галактика → Галактион"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "галактион дом:24",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-18",
+   "event": "teplotbilisi2023",
+   "event_title": "Тёплые буквы. Тбилисский словарь (18/03/2023)",
+   "kp": 18,
+   "kp_dupes": [],
+   "kp_point": [
+    41.688912,
+    44.810029
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "letter_pattern",
+    "house_number"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Диалог о художнике и его картине: фамилия художника и «бро» складываются в название улицы. Дом 21.",
+   "answer": {
+    "street_ru": "улица Самгебро",
+    "street_ka": "სამღებროს ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "21",
+    "corner_with": null,
+    "raw_address": "ул. Самгебро, д. 21"
+   },
+   "facts": [
+    "Николай Ге",
+    "«сам Ге — бро» → Самгебро"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "дом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "самгебро дом:21",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ],
+   "note": "в разборе улица не названа явно, определена по координатам КП"
+  },
+  {
+   "id": "teplotbilisi2023-19",
+   "event": "teplotbilisi2023",
+   "event_title": "Тёплые буквы. Тбилисский словарь (18/03/2023)",
+   "kp": 19,
+   "kp_dupes": [],
+   "kp_point": [
+    41.690034,
+    44.795175
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "old_name",
+    "other"
+   ],
+   "needs_media": "image",
+   "summary_ru": "Картинка с кухонным предметом; улицу не переименовывали, а просто перевели.",
+   "answer": {
+    "street_ru": "улица Амаглеба",
+    "street_ka": "ამაღლების ქუჩა",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "ул. Амаглеба (Вознесенская)"
+   },
+   "facts": [
+    "Вознесенская улица = Амаглеба"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "вознесен",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "амаглеб",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-24",
+   "event": "teplotbilisi2023",
+   "event_title": "Тёплые буквы. Тбилисский словарь (18/03/2023)",
+   "kp": 24,
+   "kp_dupes": [],
+   "kp_point": [
+    41.691204,
+    44.799005
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "eponym_occupation",
+    "corner",
+    "house_number"
+   ],
+   "needs_media": null,
+   "summary_ru": "Поэт трёх загробных путешествий и существо, воспетое другим поэтом; кафе первого на улице второго.",
+   "answer": {
+    "street_ru": "улица Михаила Лермонтова",
+    "street_ka": "მიხეილ ლერმონტოვის ქუჩა",
+    "alt_ka": [
+     "გიგა ლორთქიფანიძის ქუჩა"
+    ],
+    "kind": "street",
+    "house": "15",
+    "corner_with": "улица Гиги Лорткипанидзе, 1",
+    "raw_address": "ул. Лермонтова, 15 = Гиги Лорткипанидзе, 1"
+   },
+   "facts": [
+    "Данте — арт-кафе «Данте»",
+    "«Демон» Лермонтова",
+    "один дом: Лермонтова, 15 и Гиги Лорткипанидзе, 1"
+   ],
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "кто",
+    "свой",
+    "дом",
+    "текст",
+    "было"
+   ],
+   "queries": [
+    {
+     "q": "кто:поэт свой:нет дом:15",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "лермонтов дом:15",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "было:лермонтов дом:1",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-25",
+   "event": "teplotbilisi2023",
+   "event_title": "Тёплые буквы. Тбилисский словарь (18/03/2023)",
+   "kp": 25,
+   "kp_dupes": [],
+   "kp_point": [
+    41.689769,
+    44.80593
+   ],
+   "category": "неизвестно",
+   "categories": [
+    "неизвестно"
+   ],
+   "task_type": [
+    "other"
+   ],
+   "needs_media": "audio",
+   "summary_ru": "Аудио и фото, о которых спорит весь интернет; вспомнить название явления и найти посвящённое ему учреждение.",
+   "answer": {
+    "street_ru": "Музей иллюзий",
+    "street_ka": null,
+    "alt_ka": [],
+    "kind": "other",
+    "house": null,
+    "corner_with": null,
+    "raw_address": "Музей иллюзий"
+   },
+   "facts": [
+    "«Лорел или Янни», цвет платья — иллюзии"
+   ],
+   "solvable_by_search": false,
+   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (музей)",
+   "dsl_keys": [],
+   "queries": []
+  }
+ ]
+}

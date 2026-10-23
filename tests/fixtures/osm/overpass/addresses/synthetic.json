@@ -1,0 +1,198 @@
+{
+ "version": 0.6,
+ "generator": "synthetic",
+ "osm3s": {
+  "timestamp_osm_base": "2026-10-20T00:00:00Z"
+ },
+ "elements": [
+  {
+   "type": "way",
+   "id": 501,
+   "center": {
+    "lat": 41.7201809,
+    "lon": 44.7906018
+   },
+   "tags": {
+    "addr:housenumber": "3",
+    "addr:street": "ლადო ასათიანის ქუჩა"
+   }
+  },
+  {
+   "type": "way",
+   "id": 502,
+   "center": {
+    "lat": 41.7283228,
+    "lon": 44.7803719
+   },
+   "tags": {
+    "addr:housenumber": "5",
+    "addr:street": "ლადო ასათიანის ქუჩა"
+   }
+  },
+  {
+   "type": "way",
+   "id": 503,
+   "center": {
+    "lat": 41.7198191,
+    "lon": 44.792407
+   },
+   "tags": {
+    "addr:housenumber": "7ა",
+    "addr:street": "Lado Asatiani Street"
+   }
+  },
+  {
+   "type": "way",
+   "id": 504,
+   "center": {
+    "lat": 41.7201357,
+    "lon": 44.7948141
+   },
+   "tags": {
+    "addr:housenumber": "9",
+    "addr:street": "ლადო ასათიანის ქ."
+   }
+  },
+  {
+   "type": "way",
+   "id": 505,
+   "center": {
+    "lat": 41.7201357,
+    "lon": 44.7954158
+   },
+   "tags": {
+    "addr:housenumber": "11",
+    "addr:street": "ᲚᲐᲓᲝ ᲐᲡᲐᲗᲘᲐᲜᲘᲡ ᲥᲣᲩᲐ"
+   }
+  },
+  {
+   "type": "way",
+   "id": 506,
+   "center": {
+    "lat": 41.7201357,
+    "lon": 44.7960176
+   },
+   "tags": {
+    "addr:housenumber": "13",
+    "addr:street": "ლადო ასათიანის"
+   }
+  },
+  {
+   "type": "way",
+   "id": 507,
+   "center": {
+    "lat": 41.7201357,
+    "lon": 44.7966193
+   },
+   "tags": {
+    "addr:housenumber": "15",
+    "addr:street": "ლადო ასათინის ქუჩა"
+   }
+  },
+  {
+   "type": "way",
+   "id": 508,
+   "center": {
+    "lat": 41.7256088,
+    "lon": 44.7863895
+   },
+   "tags": {
+    "addr:housenumber": "2",
+    "addr:street": "გორგასალის ქუჩა"
+   }
+  },
+  {
+   "type": "way",
+   "id": 509,
+   "center": {
+    "lat": 41.7037163,
+    "lon": 44.7683367
+   },
+   "tags": {
+    "addr:housenumber": "27",
+    "addr:street": "თიანეთის ქუჩა"
+   }
+  },
+  {
+   "type": "way",
+   "id": 510,
+   "center": {
+    "lat": 41.7209046,
+    "lon": 44.7839824
+   },
+   "tags": {
+    "addr:housenumber": "4",
+    "addr:place": "სოლოლაკი"
+   }
+  },
+  {
+   "type": "way",
+   "id": 511,
+   "center": {
+    "lat": 41.72,
+    "lon": 44.7851859
+   },
+   "tags": {
+    "addr:housenumber": "6",
+    "addr:place": "გლდანის მე-7 მიკრო რაიონი"
+   }
+  },
+  {
+   "type": "way",
+   "id": 512,
+   "center": {
+    "lat": 41.7209046,
+    "lon": 44.7938512
+   },
+   "tags": {
+    "addr:housenumber": "office 208",
+    "addr:street": "კოსტავას ქუჩა"
+   }
+  },
+  {
+   "type": "way",
+   "id": 513,
+   "center": {
+    "lat": 41.7190954,
+    "lon": 44.7938512
+   },
+   "tags": {
+    "addr:housenumber": "27;29",
+    "addr:street": "კოსტავას ქუჩა"
+   }
+  },
+  {
+   "type": "way",
+   "id": 514,
+   "center": {
+    "lat": 41.7218093,
+    "lon": 44.7938512
+   },
+   "tags": {
+    "addr:housenumber": "1",
+    "addr:place": "ლილო. კოსტავას ქუჩა"
+   }
+  },
+  {
+   "type": "node",
+   "id": 515,
+   "lat": 41.7028117,
+   "lon": 44.79,
+   "tags": {
+    "addr:housenumber": "1"
+   }
+  },
+  {
+   "type": "relation",
+   "id": 516,
+   "center": {
+    "lat": 41.721357,
+    "lon": 44.7914442
+   },
+   "tags": {
+    "addr:housenumber": "2",
+    "addr:street": "ლადო ასათიანის II შესახვევი"
+   }
+  }
+ ]
+}

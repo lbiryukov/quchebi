@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.pmtiles binary
+*.pbf binary
+*.png binary
+*.sqlite binary

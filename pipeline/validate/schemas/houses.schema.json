@@ -1,0 +1,36 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://quchebi.local/schemas/houses.schema.json",
+ "title": "Quchebi pack houses.json: rows [raw, n, lit, sub, lat_e5, lon_e5, n_to|null, corp]",
+ "type": "object",
+ "required": ["v", "h", "place"],
+ "additionalProperties": false,
+ "properties": {
+  "v": {"const": 1},
+  "h": {"$ref": "#/$defs/byIndex"},
+  "place": {"$ref": "#/$defs/byIndex"}
+ },
+ "$defs": {
+  "byIndex": {
+   "type": "object",
+   "propertyNames": {"pattern": "^(0|[1-9][0-9]*)$"},
+   "additionalProperties": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/row"}}
+  },
+  "row": {
+   "type": "array",
+   "minItems": 6,
+   "maxItems": 8,
+   "prefixItems": [
+    {"type": "string", "minLength": 1},
+    {"type": "integer", "minimum": 0},
+    {"type": "string"},
+    {"type": "string"},
+    {"type": "integer"},
+    {"type": "integer"},
+    {"type": ["integer", "null"]},
+    {"type": "string", "minLength": 1}
+   ],
+   "items": false
+  }
+ }
+}

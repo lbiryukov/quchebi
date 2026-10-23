@@ -1,0 +1,26 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://quchebi.local/schemas/areas.schema.json",
+ "title": "Quchebi pack areas.json: polygons index-aligned with core.districts / core.places",
+ "type": "object",
+ "required": ["v", "districts", "places"],
+ "additionalProperties": false,
+ "properties": {
+  "v": {"const": 1},
+  "districts": {"type": "array", "items": {"$ref": "#/$defs/area"}},
+  "places": {"type": "array", "items": {"$ref": "#/$defs/area"}}
+ },
+ "$defs": {
+  "area": {
+   "type": "object",
+   "required": ["poly"],
+   "additionalProperties": false,
+   "properties": {
+    "poly": {
+     "type": "array",
+     "items": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 2}}
+    }
+   }
+  }
+ }
+}

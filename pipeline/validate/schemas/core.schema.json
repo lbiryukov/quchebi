@@ -1,0 +1,121 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://quchebi.local/schemas/core.schema.json",
+ "title": "Quchebi pack core.json (docs/pack-format.md)",
+ "type": "object",
+ "required": ["v", "kinds", "districts", "places", "f", "fam", "x", "xp", "xd", "near"],
+ "additionalProperties": false,
+ "properties": {
+  "v": {"const": 1},
+  "kinds": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object",
+    "required": ["code", "ka", "ru", "syn", "group"],
+    "additionalProperties": false,
+    "properties": {
+     "code": {"type": "string", "pattern": "^[a-z_]+$"},
+     "ka": {"type": "string"},
+     "ru": {"type": "string", "minLength": 1},
+     "syn": {"type": "array", "items": {"type": "string", "minLength": 1}},
+     "group": {"enum": ["", "street*", "lane*", "water*", "area*"]}
+    }
+   }
+  },
+  "districts": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "minProperties": 1,
+    "properties": {
+     "ka": {"$ref": "#/$defs/name"},
+     "ru": {"$ref": "#/$defs/name"},
+     "en": {"$ref": "#/$defs/name"}
+    }
+   }
+  },
+  "places": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": ["kind"],
+    "additionalProperties": false,
+    "properties": {
+     "ka": {"$ref": "#/$defs/name"},
+     "ru": {"$ref": "#/$defs/name"},
+     "en": {"$ref": "#/$defs/name"},
+     "kind": {"type": "string", "minLength": 1},
+     "parent": {"$ref": "#/$defs/index"},
+     "c": {"$ref": "#/$defs/pt"},
+     "km2": {"type": "number", "minimum": 0}
+    }
+   }
+  },
+  "f": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": ["ka", "k", "len", "c", "hn"],
+    "additionalProperties": false,
+    "properties": {
+     "ka": {"$ref": "#/$defs/name"},
+     "ru": {"$ref": "#/$defs/name"},
+     "en": {"$ref": "#/$defs/name"},
+     "k": {"$ref": "#/$defs/index"},
+     "o": {"type": "integer", "minimum": 0},
+     "fam": {"$ref": "#/$defs/index"},
+     "par": {"$ref": "#/$defs/index"},
+     "d": {"$ref": "#/$defs/indexList"},
+     "p": {"$ref": "#/$defs/indexList"},
+     "len": {"type": "integer", "minimum": 0},
+     "c": {"$ref": "#/$defs/pt"},
+     "bb": {"type": "array", "items": {"type": "integer"}, "minItems": 4, "maxItems": 4},
+     "alt": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/name"}},
+     "old": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/old"}},
+     "hn": {"type": "integer", "minimum": 0},
+     "q": {"type": "string", "pattern": "^Q[0-9]+(;Q[0-9]+)*$"},
+     "ar": {"oneOf": [{"$ref": "#/$defs/index"}, {"type": "null"}]}
+    }
+   }
+  },
+  "fam": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+     "ka": {"$ref": "#/$defs/name"},
+     "ru": {"$ref": "#/$defs/name"},
+     "e": {"$ref": "#/$defs/index"}
+    }
+   }
+  },
+  "x": {"$ref": "#/$defs/intList"},
+  "xp": {"$ref": "#/$defs/intList"},
+  "xd": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 255}},
+  "near": {"$ref": "#/$defs/intList"}
+ },
+ "$defs": {
+  "name": {"type": "string", "minLength": 1},
+  "index": {"type": "integer", "minimum": 0},
+  "indexList": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
+  "intList": {"type": "array", "items": {"type": "integer"}},
+  "pt": {"type": "array", "items": {"type": "integer"}, "minItems": 2, "maxItems": 2},
+  "old": {
+   "type": "object",
+   "additionalProperties": false,
+   "anyOf": [{"required": ["ka"]}, {"required": ["ru"]}, {"required": ["lat"]}],
+   "properties": {
+    "ka": {"$ref": "#/$defs/name"},
+    "ru": {"$ref": "#/$defs/name"},
+    "lat": {"$ref": "#/$defs/name"},
+    "from": {"type": "integer"},
+    "to": {"type": "integer"},
+    "e": {"$ref": "#/$defs/index"},
+    "src": {"type": "string", "minLength": 1}
+   }
+  }
+ }
+}

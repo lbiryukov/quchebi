@@ -72,7 +72,8 @@ points: inside; polygons: intersects). Inside relations the zone acts as describ
 ### Text
 - Skeleton: lowercase → transliterate Georgian and Cyrillic to Latin (`app/src/search/normalize.js`,
   mirrored by `pipeline/names/translit.py`, shared vectors `tests/vectors/translit.json`) →
-  drop everything but `[a-z0-9]` → `gh→g`, `q→k`, `w→v`, `y→i`. A bare word matches when its
+  drop everything but `[a-z0-9]` → `gh→g`, `q→k`, `w→v`, `y→i`, `f→p` (Georgian ფ is written
+  both «п» and «ф» in Russian). A bare word matches when its
   skeleton is a substring of the skeleton of any name variant of the feature (ka, ru, en, alt,
   old ka/ru/lat). Quoted text is one token (spaces are dropped by the skeleton anyway).
 - `имя:^x` / `имя:x$`: prefix/suffix on the skeleton of the **base name** (name without the type
@@ -147,6 +148,28 @@ Parse errors: `{error: {pos, len, message, suggestions: [...]}}` with `pos` in c
 - at a key position: keys whose names/synonyms start with the typed prefix;
 - after `key:`: values for enumerated keys with counts in the current zone (`detail: "41"`);
 - inside `x:(` etc.: recursive.
+
+## Extensions and decisions made in the implementation (24/10/2026)
+
+None of these change the meaning of queries written to the spec above.
+- Equivalent spellings: `x:word` / `рядом:word` = `x:(word)`; full compass names after `~`
+  (`~восток`); units `км`/`м` in `длина` and `рядом`; Roman numerals in `век`; `>`/`<` also for
+  `№` and `век`; typographic quotes, `≥`, `≤`; spaces after `:` and around `,`; plural forms and an
+  unambiguous 3+ letter prefix in `тип:`; pattern classes `\с \г \C \V` besides `\С \Г`; the word
+  «и» is skipped with a warning.
+- An unclosed bracket, quote or pattern at the end of the line is closed automatically with a
+  warning; `parse(text, {strict: true})` makes it an error.
+- `зона:` and `сорт:` are lifted to the top level; inside a subquery or under `-` they are an error.
+  Default zone mode is the zone's own rule (`ZoneMasks.rule`); `зона:вкл` restores it.
+- Subqueries of `x:`, `рядом:`, `семья:` are evaluated fully without the zone (houses included);
+  the zone applies only to the crossing point / geometry.
+- `имя:x` and `имя:"…"` match current names only (not old names); bare words match old names too.
+- `век:`: if only one life year is known, the other is taken as ±70 years.
+- Fuzzy fallback: a bare word with no exact hits matches skeleton tokens within Damerau–Levenshtein
+  1 (4–5 letters) or 2 (6+ letters), `x` = `ks`; a warning lists the fuzzy pairs.
+- API additions: `evaluate()` may return `error` (unknown enumerated value) with `count = 0`;
+  `run(text, index, ctx)` parses and evaluates; `prepare(index, {all})` warms caches;
+  `complete()` items carry `from`/`to` (range to replace).
 
 ## Golden examples (must hold on the real pack; counts are checked against SQL in tests)
 

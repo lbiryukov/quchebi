@@ -1,7 +1,7 @@
 """Logging setup shared by all pipeline stages.
 
-Every stage calls ``get_logger(__name__)``; the first call configures a rotating
-file handler in ``logs/pipeline.log`` plus a console handler. A per-process
+Every stage calls ``get_logger(__name__)``; the first call configures an append-mode
+file handler in ``logs/pipeline.log`` (archived when over 20 MB) plus a console handler. A per-process
 ``RUN_ID`` is attached to every record so one pipeline run can be grepped out.
 """
 from __future__ import annotations
@@ -11,7 +11,6 @@ import sys
 import time
 import uuid
 from contextlib import contextmanager
-from logging.handlers import RotatingFileHandler
 from typing import Iterator
 
 from pipeline.config import LOGS
@@ -32,12 +31,15 @@ def setup_logging(level: int = logging.INFO, logfile: str = "pipeline.log") -> N
     if _configured:
         return
     LOGS.mkdir(parents=True, exist_ok=True)
+    _archive_if_large(LOGS / logfile)
     fmt = logging.Formatter(
         "%(asctime)s %(levelname)-7s [%(run_id)s] %(name)s: %(message)s", "%d/%m/%Y %H:%M:%S"
     )
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
-    fh = RotatingFileHandler(LOGS / logfile, maxBytes=5_000_000, backupCount=5, encoding="utf-8")
+    # Plain append handler: several pipeline processes may log at once, and size-based
+    # rotation of a shared file is unreliable on Windows. Large files are archived at startup.
+    fh = logging.FileHandler(LOGS / logfile, mode="a", encoding="utf-8", delay=True)
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(fmt)
     fh.addFilter(_RunIdFilter())
@@ -55,6 +57,15 @@ def setup_logging(level: int = logging.INFO, logfile: str = "pipeline.log") -> N
     for noisy in ("urllib3", "pdfminer", "requests"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
     _configured = True
+
+
+def _archive_if_large(path, limit: int = 20_000_000) -> None:
+    """Move a log file over ``limit`` bytes aside as ``<name>-<timestamp>.log`` (best effort)."""
+    try:
+        if path.exists() and path.stat().st_size > limit:
+            path.rename(path.with_name(f"{path.stem}-{time.strftime('%Y%m%d-%H%M%S')}{path.suffix}"))
+    except OSError:
+        pass  # another process holds or already moved it
 
 
 def get_logger(name: str) -> logging.Logger:

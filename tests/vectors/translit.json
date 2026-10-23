@@ -111,6 +111,46 @@
   {
    "in": "შოთა რუსთაველის",
    "out": "shotarustavelis"
+  },
+  {
+   "in": "Юрий Гагарин",
+   "out": "iuriigagarin"
+  },
+  {
+   "in": "улица Мцыри",
+   "out": "ulitsamtsiri"
+  },
+  {
+   "in": "Эрекле",
+   "out": "erekle"
+  },
+  {
+   "in": "подъём",
+   "out": "podem"
+  },
+  {
+   "in": "Фалиашвили",
+   "out": "paliashvili"
+  },
+  {
+   "in": "ფალიაშვილი",
+   "out": "paliashvili"
+  },
+  {
+   "in": "Палиашвили",
+   "out": "paliashvili"
+  },
+  {
+   "in": "Fabrika",
+   "out": "pabrika"
+  },
+  {
+   "in": "Щорса",
+   "out": "shchorsa"
+  },
+  {
+   "in": "Ильи Чавчавадзе",
+   "out": "ilichavchavadze"
   }
  ],
  "ka_to_ru": [
@@ -139,5 +179,5 @@
    "out": "26 маисис"
   }
  ],
- "notes": "skeleton: lowercase (Mtavruli->Mkhedruli), ё->е, дж->j, per-char ka/ru->lat, keep [a-z0-9], then gh->g q->k w->v y->i. ka_to_ru: per-char, word-initial ე -> э."
+ "notes": "skeleton: lowercase (Mtavruli->Mkhedruli), ё->е, дж->j, per-char ka/ru->lat (ru: ю->iu, я->ia, ы->y, э->e, ъ/ь->'', ф->f, х->kh, ц->ts, ч->ch, ш->sh, щ->shch, ж->zh, й->i), keep [a-z0-9], then gh->g, q->k, w->v, y->i, f->p. ka_to_ru: per-char, word-initial ე -> э."
 }

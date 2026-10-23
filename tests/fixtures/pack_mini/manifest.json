@@ -1,0 +1,41 @@
+{
+ "v": 1,
+ "version": "20261024-mini",
+ "built": "24/10/2026",
+ "osm": "2026-10-23T19:42:11Z",
+ "files": {
+  "core.json": {
+   "bytes": 11851,
+   "sha256": "90a2fc1ffccba3fbe248a7acf57bc4c46c5e9b8f1b64211fa72a304e0d3a0ace"
+  },
+  "eponyms.json": {
+   "bytes": 8155,
+   "sha256": "e9544ae4620e189f48003e490630c150fbbc853dca8f3da041050bd19ac20482"
+  },
+  "geom.json": {
+   "bytes": 606,
+   "sha256": "d9bebfca0f766fd5294c5171523d18416bbb2fafc84f898b11404ea33cc68d17"
+  },
+  "houses.json": {
+   "bytes": 2003,
+   "sha256": "18aa907b2af1c27299a37cdf15abbab23eb6ece978e549ea9fcf2f39e3ba70d3"
+  },
+  "areas.json": {
+   "bytes": 307,
+   "sha256": "1516736611dc513e15e9c3ddcb13c4b5a2206696e333171f6074bd1da06441de"
+  }
+ },
+ "tiles": {},
+ "counts": {
+  "features": 26,
+  "streets": 16,
+  "houses": 59,
+  "crossings": 26,
+  "eponyms": 16
+ },
+ "attribution": [
+  "© OpenStreetMap contributors, ODbL",
+  "Wikidata, CC0",
+  "Test fixture: hand-made, approximate geometry"
+ ]
+}

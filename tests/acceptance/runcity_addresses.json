@@ -1,0 +1,6355 @@
+{
+ "v": 1,
+ "about": "Латинские написания адресов с карточек КП прошлых игр в Тбилиси; ответ — улица OSM, найденная по сходству имени и расстоянию до точки КП. Проверяет поиск по латинице.",
+ "built": "24/10/2026",
+ "items": [
+  {
+   "id": "call2026-800-addr",
+   "event": "call2026",
+   "kp": 800,
+   "kp_point": [
+    41.690984,
+    44.79763
+   ],
+   "raw_address": "Ул. Г. Лорткипанидзе (Giga Lortkipanidze St.), д. 8. Кафе Concept",
+   "latin": "Giga Lortkipanidze St",
+   "answer": {
+    "street_ka": "გიგა ლორთქიფანიძის ქუჩა",
+    "street_ru": "улица М. Лермонтова",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "8"
+   },
+   "match": {
+    "distance_m": 10,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "giga lortkipanidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "giga lortkipanidze дом:8",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-801-addr",
+   "event": "call2026",
+   "kp": 801,
+   "kp_point": [
+    41.696616,
+    44.796455
+   ],
+   "raw_address": "пер. П. Ингороква (Pavle Ingorokva Turn)",
+   "latin": "Pavle Ingorokva Turn",
+   "answer": {
+    "street_ka": "პავლე ინგოროყვას შესახვევი",
+    "street_ru": "переулок Павле Ингороква",
+    "alt_ka": [],
+    "kind": "lane",
+    "house": null
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "pavle ingorokva",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-802-addr",
+   "event": "call2026",
+   "kp": 802,
+   "kp_point": [
+    41.707732,
+    44.784364
+   ],
+   "raw_address": "Пр. Петра Меликишвили (Petre Melikishvili Ave.), д. 5",
+   "latin": "Petre Melikishvili Ave",
+   "answer": {
+    "street_ka": "პეტრე მელიქიშვილის გამზირი",
+    "street_ru": "проспект Петра Меликишвили",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "5"
+   },
+   "match": {
+    "distance_m": 24,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "petre melikishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "petre melikishvili дом:5",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-803-addr",
+   "event": "call2026",
+   "kp": 803,
+   "kp_point": [
+    41.689569,
+    44.801454
+   ],
+   "raw_address": "Ул. Ладо Асатиани (Lado Asatiani St.), д. 30",
+   "latin": "Lado Asatiani St",
+   "answer": {
+    "street_ka": "ლადო ასათიანის ქუჩა",
+    "street_ru": "улица Ладо Асатиани",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "30"
+   },
+   "match": {
+    "distance_m": 10,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "lado asatiani",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "lado asatiani дом:30",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-804-addr",
+   "event": "call2026",
+   "kp": 804,
+   "kp_point": [
+    41.708655,
+    44.772584
+   ],
+   "raw_address": "Пр. Ильи Чавчавадзе (Ilia Chavchavadze Ave.), д. 26",
+   "latin": "Ilia Chavchavadze Ave",
+   "answer": {
+    "street_ka": "ილია ჭავჭავაძის გამზირი",
+    "street_ru": "проспект Ильи Чавчавадзе",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "26"
+   },
+   "match": {
+    "distance_m": 24,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "ilia chavchavadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ilia chavchavadze дом:26",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-805-addr",
+   "event": "call2026",
+   "kp": 805,
+   "kp_point": [
+    41.696186,
+    44.799357
+   ],
+   "raw_address": "Пр. Шота Руставели (Shota Rustaveli Ave.), д. 6",
+   "latin": "Shota Rustaveli Ave",
+   "answer": {
+    "street_ka": "შოთა რუსთაველის გამზირი",
+    "street_ru": "проспект Шота Руставели",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "6"
+   },
+   "match": {
+    "distance_m": 27,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "shota rustaveli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "shota rustaveli дом:6",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-806-addr",
+   "event": "call2026",
+   "kp": 806,
+   "kp_point": [
+    41.690899,
+    44.798655
+   ],
+   "raw_address": "ул. Геронтия Кикодзе (Geronti Kikodze St.), д. 8",
+   "latin": "Geronti Kikodze St",
+   "answer": {
+    "street_ka": "გერონტი ქიქოძის ქუჩა",
+    "street_ru": "улица Геронтия Кикодзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "8"
+   },
+   "match": {
+    "distance_m": 8,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "geronti kikodze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "geronti kikodze дом:8",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-808-addr",
+   "event": "call2026",
+   "kp": 808,
+   "kp_point": [
+    41.695899,
+    44.801154
+   ],
+   "raw_address": "Ул. Ладо Гудиашвили (L. Gudiashvili St.), д. 10",
+   "latin": "L. Gudiashvili St",
+   "answer": {
+    "street_ka": "ლადო გუდიაშვილის ქუჩა",
+    "street_ru": "улица Ладо Гудиашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "10"
+   },
+   "match": {
+    "distance_m": 8,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "gudiashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "gudiashvili дом:10",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-813-addr",
+   "event": "call2026",
+   "kp": 813,
+   "kp_point": [
+    41.696643,
+    44.803541
+   ],
+   "raw_address": "Ул. Бараташвили (Nikoloz Baratashvili St.), д. 2",
+   "latin": "Nikoloz Baratashvili St",
+   "answer": {
+    "street_ka": "ნიკოლოზ ბარათაშვილის გამზირი",
+    "street_ru": "проспект Николая Бараташвили",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "2"
+   },
+   "match": {
+    "distance_m": 15,
+    "score": 0.95
+   },
+   "queries": [
+    {
+     "q": "nikoloz baratashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "nikoloz baratashvili дом:2",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-815-addr",
+   "event": "call2026",
+   "kp": 815,
+   "kp_point": [
+    41.693051,
+    44.805312
+   ],
+   "raw_address": "Ул. Антон Каталикос (Anton Katalikos St.), д. 26",
+   "latin": "Anton Katalikos St",
+   "answer": {
+    "street_ka": "ანტონ კათალიკოსის ქუჩა",
+    "street_ru": "улица Ходашени",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "26"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "anton katalikos",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "anton katalikos дом:26",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-816-addr",
+   "event": "call2026",
+   "kp": 816,
+   "kp_point": [
+    41.705711,
+    44.787994
+   ],
+   "raw_address": "ул. Мераб Костава (Merab Kostava St.), д. 14",
+   "latin": "Merab Kostava St",
+   "answer": {
+    "street_ka": "მერაბ კოსტავას ქუჩა",
+    "street_ru": "улица Мераба Костава",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "14"
+   },
+   "match": {
+    "distance_m": 15,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "merab kostava",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "merab kostava дом:14",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-817-addr",
+   "event": "call2026",
+   "kp": 817,
+   "kp_point": [
+    41.704089,
+    44.80229
+   ],
+   "raw_address": "Пр. Давида Агмашенебели (Davit Aghmashenebeli Ave.), д. 26",
+   "latin": "Davit Aghmashenebeli Ave",
+   "answer": {
+    "street_ka": "დავით აღმაშენებლის გამზირი",
+    "street_ru": "Проспект Плеханова",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "26"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "davit aghmashenebeli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "davit aghmashenebeli дом:26",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "call2026-818-addr",
+   "event": "call2026",
+   "kp": 818,
+   "kp_point": [
+    41.710321,
+    44.793981
+   ],
+   "raw_address": "Ул. Д. Узнадзе (D. Uznadze St.), д. 85",
+   "latin": "D. Uznadze St",
+   "answer": {
+    "street_ka": "დიმიტრი უზნაძის ქუჩა",
+    "street_ru": "улица Дмитрия Узнадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "85"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 0.75
+   },
+   "queries": [
+    {
+     "q": "uznadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "uznadze дом:85",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-1-addr",
+   "event": "moderntbilisi2023",
+   "kp": 1,
+   "kp_point": [
+    41.703131,
+    44.787033
+   ],
+   "raw_address": "Ул. Коте Макашвили (Kote Makashvili St.), д. 10",
+   "latin": "Kote Makashvili St",
+   "answer": {
+    "street_ka": "კოტე მაყაშვილის ქუჩა",
+    "street_ru": "улица Котэ Макашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "10"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "kote makashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "kote makashvili дом:10",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-3-addr",
+   "event": "moderntbilisi2023",
+   "kp": 3,
+   "kp_point": [
+    41.705744,
+    44.787065
+   ],
+   "raw_address": "Ул. Тамар Човелидзе (Tamar Chovelidze St.), д. 5-7",
+   "latin": "Tamar Chovelidze St",
+   "answer": {
+    "street_ka": "თამარ ჭოველიძის ქუჩა",
+    "street_ru": "улица Тамары Човелидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5-7"
+   },
+   "match": {
+    "distance_m": 8,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "tamar chovelidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "tamar chovelidze дом:5",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-4-addr",
+   "event": "moderntbilisi2023",
+   "kp": 4,
+   "kp_point": [
+    41.706136,
+    44.784238
+   ],
+   "raw_address": "Ул. Дмитрия Бакрадзе (Dimitri Bakradze St.), д. 23",
+   "latin": "Dimitri Bakradze St",
+   "answer": {
+    "street_ka": "დიმიტრი ბაქრაძის ქუჩა",
+    "street_ru": "улица Дмитрия Бакрадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "23"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "dimitri bakradze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "dimitri bakradze дом:23",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-10-addr",
+   "event": "moderntbilisi2023",
+   "kp": 10,
+   "kp_point": [
+    41.70861,
+    44.794682
+   ],
+   "raw_address": "Ул. Котэ Марджанишвили (K. Marjanishvili St.), д. 8",
+   "latin": "K. Marjanishvili St",
+   "answer": {
+    "street_ka": "კოტე მარჯანიშვილის ქუჩა",
+    "street_ru": "улица Котэ Марджанишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "8"
+   },
+   "match": {
+    "distance_m": 9,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "marjanishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "marjanishvili дом:8",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-15-addr",
+   "event": "moderntbilisi2023",
+   "kp": 15,
+   "kp_point": [
+    41.715791,
+    44.795069
+   ],
+   "raw_address": "Ул. Ии Каргаретели (I. Kargareteli St.), д. 3Б",
+   "latin": "I. Kargareteli St",
+   "answer": {
+    "street_ka": "ია კარგარეთელის ქუჩა",
+    "street_ru": "улица Ии Каргаретели",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 11,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "i kargareteli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "i kargareteli дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-17-addr",
+   "event": "moderntbilisi2023",
+   "kp": 17,
+   "kp_point": [
+    41.706439,
+    44.803153
+   ],
+   "raw_address": "Ул. Колау Надирадзе (Kolaus Nadiradze St.), д. 9",
+   "latin": "Kolaus Nadiradze St",
+   "answer": {
+    "street_ka": "კოლაუ ნადირაძის ქუჩა",
+    "street_ru": "улица Колау Надирадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "9"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "kolaus nadiradze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "kolaus nadiradze дом:9",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-18-addr",
+   "event": "moderntbilisi2023",
+   "kp": 18,
+   "kp_point": [
+    41.709074,
+    44.803406
+   ],
+   "raw_address": "Ул. Георгия Мазниашвили (G. Mazniashvili St.), д. 16",
+   "latin": "G. Mazniashvili St",
+   "answer": {
+    "street_ka": "გიორგი მაზნიაშვილის ქუჩა",
+    "street_ru": "улица Гиорги Мазниашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "16"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "mazniashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "mazniashvili дом:16",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-20-addr",
+   "event": "moderntbilisi2023",
+   "kp": 20,
+   "kp_point": [
+    41.703664,
+    44.801876
+   ],
+   "raw_address": "Ул. Роме (Rome St.), д. 4",
+   "latin": "Rome St",
+   "answer": {
+    "street_ka": "რომის ქუჩა",
+    "street_ru": "улица Роми",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "4"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "rome",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "rome дом:4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-31-addr",
+   "event": "moderntbilisi2023",
+   "kp": 31,
+   "kp_point": [
+    41.696358,
+    44.801945
+   ],
+   "raw_address": "Ул. Александра Пушкина (A. Pushkin St.), д. 10",
+   "latin": "A. Pushkin St",
+   "answer": {
+    "street_ka": "ალექსანდრე პუშკინის ქუჩა",
+    "street_ru": "улица Александра Пушкина",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "10"
+   },
+   "match": {
+    "distance_m": 64,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "pushkin",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "pushkin дом:10",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-32-addr",
+   "event": "moderntbilisi2023",
+   "kp": 32,
+   "kp_point": [
+    41.692833,
+    44.800084
+   ],
+   "raw_address": "Ул. Георгия Леонидзе (G. Leonidze St.), д. 3",
+   "latin": "G. Leonidze St",
+   "answer": {
+    "street_ka": "გიორგი ლეონიძის ქუჩა",
+    "street_ru": "улица Гиорги Леонидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 14,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "leonidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "leonidze дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-33-addr",
+   "event": "moderntbilisi2023",
+   "kp": 33,
+   "kp_point": [
+    41.690259,
+    44.799811
+   ],
+   "raw_address": "Ул. Иване Мачабели (I. Machabeli St.), д. 13",
+   "latin": "I. Machabeli St",
+   "answer": {
+    "street_ka": "ივანე მაჩაბლის ქუჩა",
+    "street_ru": "улица Иване Мачабли",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "13"
+   },
+   "match": {
+    "distance_m": 11,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "i machabeli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "i machabeli дом:13",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-35-addr",
+   "event": "moderntbilisi2023",
+   "kp": 35,
+   "kp_point": [
+    41.690863,
+    44.808104
+   ],
+   "raw_address": "Бамбис Риги (Bambis Rigi), д. 7",
+   "latin": "Bambis Rigi",
+   "answer": {
+    "street_ka": "ბამბის რიგი",
+    "street_ru": "Ватный ряд",
+    "alt_ka": [],
+    "kind": "row",
+    "house": "7"
+   },
+   "match": {
+    "distance_m": 6,
+    "score": 1.0
+   },
+   "queries": [
+    {
+     "q": "bambis rigi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "bambis rigi дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-36-addr",
+   "event": "moderntbilisi2023",
+   "kp": 36,
+   "kp_point": [
+    41.69095,
+    44.807444
+   ],
+   "raw_address": "Ул. Сиони (Sioni St.), д. 8",
+   "latin": "Sioni St",
+   "answer": {
+    "street_ka": "სიონის ქუჩა",
+    "street_ru": "улица Сиони",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "8"
+   },
+   "match": {
+    "distance_m": 1,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "sioni",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "sioni дом:8",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-37-addr",
+   "event": "moderntbilisi2023",
+   "kp": 37,
+   "kp_point": [
+    41.689129,
+    44.809714
+   ],
+   "raw_address": "Ул. Вахтанга Горгасали (Gorgasali St.), д. 3. Здание отеля \"King Gorgasali\"",
+   "latin": "Gorgasali St",
+   "answer": {
+    "street_ka": "ვახტანგ გორგასლის ქუჩა",
+    "street_ru": "улица Вахтанга Горгасали",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 49,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "gorgasali",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "gorgasali дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-38-addr",
+   "event": "moderntbilisi2023",
+   "kp": 38,
+   "kp_point": [
+    41.689095,
+    44.795144
+   ],
+   "raw_address": "Ул. Коджорская (Kojori St.) / Ул. Гизо Нишнианидзе (Gizo Nishnianidze St.), д. 3",
+   "latin": "Kojori St",
+   "answer": {
+    "street_ka": "გიზო ნიშნიანიძის ქუჩა",
+    "street_ru": "Коджорская улица",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 0,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "kojori",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "kojori дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-38-addr2",
+   "event": "moderntbilisi2023",
+   "kp": 38,
+   "kp_point": [
+    41.689095,
+    44.795144
+   ],
+   "raw_address": "Ул. Коджорская (Kojori St.) / Ул. Гизо Нишнианидзе (Gizo Nishnianidze St.), д. 3",
+   "latin": "Gizo Nishnianidze St",
+   "answer": {
+    "street_ka": "გიზო ნიშნიანიძის ქუჩა",
+    "street_ru": "Коджорская улица",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 0,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "gizo nishnianidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-39-addr",
+   "event": "moderntbilisi2023",
+   "kp": 39,
+   "kp_point": [
+    41.692941,
+    44.795037
+   ],
+   "raw_address": "Ул. Чонкадзе (D. Chonqadze St.), д. 12",
+   "latin": "D. Chonqadze St",
+   "answer": {
+    "street_ka": "დანიელ ჭონქაძის ქუჩა",
+    "street_ru": "улица Даниела Чонкадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "12"
+   },
+   "match": {
+    "distance_m": 8,
+    "score": 0.83
+   },
+   "queries": [
+    {
+     "q": "chonqadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "chonqadze дом:12",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-40-addr",
+   "event": "moderntbilisi2023",
+   "kp": 40,
+   "kp_point": [
+    41.690311,
+    44.80127
+   ],
+   "raw_address": "Ул. Галактиона Табидзе (Galaktioni St.), д. 17",
+   "latin": "Galaktioni St",
+   "answer": {
+    "street_ka": "გალაკტიონ ტაბიძის ქუჩა",
+    "street_ru": "улица Галактиона Табидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "17"
+   },
+   "match": {
+    "distance_m": 1,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "galaktioni",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "galaktioni дом:17",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "moderntbilisi2023-99-addr",
+   "event": "moderntbilisi2023",
+   "kp": 99,
+   "kp_point": [
+    41.689981,
+    44.793926
+   ],
+   "raw_address": "Ул. Амаглеба (Amaghleba St.), д. 19. Коворкинг Melias",
+   "latin": "Amaghleba St",
+   "answer": {
+    "street_ka": "ამაღლების ქუჩა",
+    "street_ru": "улица Амаглеба",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "19"
+   },
+   "match": {
+    "distance_m": 14,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "amaghleba",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "amaghleba дом:19",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-1-addr",
+   "event": "plans2025tbilisi",
+   "kp": 1,
+   "kp_point": [
+    41.722923,
+    44.713671
+   ],
+   "raw_address": "Ул. Анны Политковской, д. 3 (Anna Politkovskaya St. 3)",
+   "latin": "Anna Politkovskaya St",
+   "answer": {
+    "street_ka": "ანა პოლიტკოვსკაიას ქუჩა",
+    "street_ru": "улица Анны Политковской",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 287,
+    "score": 0.98
+   },
+   "queries": [
+    {
+     "q": "anna politkovskaya",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "anna politkovskaya дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-3-addr",
+   "event": "plans2025tbilisi",
+   "kp": 3,
+   "kp_point": [
+    41.720692,
+    44.73224
+   ],
+   "raw_address": "Ул. Петре Кавтарадзе, д. 38 (Petre Kavtaradze St., 38)",
+   "latin": "Petre Kavtaradze St",
+   "answer": {
+    "street_ka": "პეტრე ქავთარაძის ქუჩა",
+    "street_ru": "улица Петра Кавтарадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "38"
+   },
+   "match": {
+    "distance_m": 90,
+    "score": 1.05
+   },
+   "queries": [
+    {
+     "q": "petre kavtaradze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "petre kavtaradze дом:38",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-4-addr",
+   "event": "plans2025tbilisi",
+   "kp": 4,
+   "kp_point": [
+    41.728636,
+    44.721292
+   ],
+   "raw_address": "Ул. Бесарион Жгенти (Besarion Zhghenti St.), д. 98",
+   "latin": "Besarion Zhghenti St",
+   "answer": {
+    "street_ka": "ბესარიონ ჟღენტის ქუჩა",
+    "street_ru": "улица Бесариона Жгенти",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "98"
+   },
+   "match": {
+    "distance_m": 108,
+    "score": 1.04
+   },
+   "queries": [
+    {
+     "q": "besarion zhghenti",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "besarion zhghenti дом:98",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-5-addr",
+   "event": "plans2025tbilisi",
+   "kp": 5,
+   "kp_point": [
+    41.726001,
+    44.74506
+   ],
+   "raw_address": "Ул. Фердинанд Тавадзе (Perdinand Tavadze St.), д. 1а",
+   "latin": "Perdinand Tavadze St",
+   "answer": {
+    "street_ka": "ფერდინანდ თავაძის ქუჩა",
+    "street_ru": "улица Фердинанда Тавадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1а"
+   },
+   "match": {
+    "distance_m": 65,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "perdinand tavadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "perdinand tavadze дом:1а",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-6-addr",
+   "event": "plans2025tbilisi",
+   "kp": 6,
+   "kp_point": [
+    41.719124,
+    44.727017
+   ],
+   "raw_address": "Ул. Джурха Надирадзе, 32-34 (Jurkha Nadiradze St., 32-34)",
+   "latin": "Jurkha Nadiradze St",
+   "answer": {
+    "street_ka": "ჯურხა ნადირაძის ქუჩა",
+    "street_ru": "улица Джурха Надирадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 1,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "jurkha nadiradze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-11-addr",
+   "event": "plans2025tbilisi",
+   "kp": 11,
+   "kp_point": [
+    41.727525,
+    44.742449
+   ],
+   "raw_address": "Ул. Ш. Нуцубидзе (Shalva Nutsubidze St.), д. 56",
+   "latin": "Shalva Nutsubidze St",
+   "answer": {
+    "street_ka": "შალვა ნუცუბიძის ქუჩა",
+    "street_ru": "улица Шалвы Нуцубидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "56"
+   },
+   "match": {
+    "distance_m": 65,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "shalva nutsubidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "shalva nutsubidze дом:56",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-13-addr",
+   "event": "plans2025tbilisi",
+   "kp": 13,
+   "kp_point": [
+    41.718385,
+    44.71472
+   ],
+   "raw_address": "Ул. Александра (Саши) Иоселиани (Alexander (Sasha) Ioseliani St.), д. 21",
+   "latin": "Alexander  Sasha  Ioseliani St",
+   "answer": {
+    "street_ka": "ალექსანდრე (საშა) იოსელიანის ქუჩა",
+    "street_ru": "улица Александре (Саши) Иоселиани",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "21"
+   },
+   "match": {
+    "distance_m": 2,
+    "score": 1.04
+   },
+   "queries": [
+    {
+     "q": "alexander sasha ioseliani",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "alexander sasha ioseliani дом:21",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-14-addr",
+   "event": "plans2025tbilisi",
+   "kp": 14,
+   "kp_point": [
+    41.727448,
+    44.716117
+   ],
+   "raw_address": "Ул. Эрмиле Бедия (Bedias str.), д. 4",
+   "latin": "Bedias str",
+   "answer": {
+    "street_ka": "ერმილე ბედიას ქუჩა",
+    "street_ru": "улица Эрмиле Бедия",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "4"
+   },
+   "match": {
+    "distance_m": 68,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "bedias",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "bedias дом:4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "plans2025tbilisi-17-addr",
+   "event": "plans2025tbilisi",
+   "kp": 17,
+   "kp_point": [
+    41.724691,
+    44.715891
+   ],
+   "raw_address": "5 квартал пр. Важа-Пшавела, д. 4 (Vazha-Pshavela Ave. V Q. bldg. 4)",
+   "latin": "Vazha-Pshavela Ave. V Q. bldg",
+   "answer": {
+    "street_ka": "ვაჟა-ფშაველას გამზირი",
+    "street_ru": "проспект Важи-Пшавелы",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "4"
+   },
+   "match": {
+    "distance_m": 226,
+    "score": 0.97
+   },
+   "queries": [
+    {
+     "q": "vazha pshavela v",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "vazha pshavela v дом:4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-0-addr",
+   "event": "tbilisi2019",
+   "kp": 0,
+   "kp_point": [
+    41.692002,
+    44.812648
+   ],
+   "raw_address": "Ул. Винный подъем (Wine Rise), д. 7",
+   "latin": "Wine Rise",
+   "answer": {
+    "street_ka": "ღვინის აღმართი",
+    "street_ru": "Винный подъём",
+    "alt_ka": [],
+    "kind": "ascent",
+    "house": "7"
+   },
+   "match": {
+    "distance_m": 13,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "wine",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "wine дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-1-addr",
+   "event": "tbilisi2019",
+   "kp": 1,
+   "kp_point": [
+    41.690196,
+    44.807927
+   ],
+   "raw_address": "ул. Котэ Афхази (Kote Afkhazi st.), д. 51",
+   "latin": "Kote Afkhazi st",
+   "answer": {
+    "street_ka": "კოტე აფხაზის ქუჩა",
+    "street_ru": "улица Коте Апхази",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "51"
+   },
+   "match": {
+    "distance_m": 10,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "kote afkhazi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "kote afkhazi дом:51",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-2-addr",
+   "event": "tbilisi2019",
+   "kp": 2,
+   "kp_point": [
+    41.690408,
+    44.799591
+   ],
+   "raw_address": "Ул. Мачабели (Ivane Machabeli st.), д. 11",
+   "latin": "Ivane Machabeli st",
+   "answer": {
+    "street_ka": "ივანე მაჩაბლის ქუჩა",
+    "street_ru": "улица Иване Мачабли",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "11"
+   },
+   "match": {
+    "distance_m": 28,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "ivane machabeli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ivane machabeli дом:11",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-12-addr",
+   "event": "tbilisi2019",
+   "kp": 12,
+   "kp_point": [
+    41.688725,
+    44.806725
+   ],
+   "raw_address": "ул. Гоми (Gomi st.)",
+   "latin": "Gomi st",
+   "answer": {
+    "street_ka": "გომის ქუჩა",
+    "street_ru": "улица Гоми",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 34,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "gomi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-13-addr",
+   "event": "tbilisi2019",
+   "kp": 13,
+   "kp_point": [
+    41.688733,
+    44.805572
+   ],
+   "raw_address": "Перекресток ул. Гоми (Gomi st.) и ул. Асканской (Ascana st.)",
+   "latin": "Ascana st",
+   "answer": {
+    "street_ka": "ასკანას ქუჩა",
+    "street_ru": "улица Аскана",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 25,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "ascana",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-14-addr",
+   "event": "tbilisi2019",
+   "kp": 14,
+   "kp_point": [
+    41.689903,
+    44.80561
+   ],
+   "raw_address": "Угол Бетлемской ул. (Betlemi str.) и 1-го Асканского туп. (Ascana I Dead End)",
+   "latin": "Betlemi str",
+   "answer": {
+    "street_ka": "ბეთლემის ქუჩა",
+    "street_ru": "улица Бетлеми",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "betlemi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-14-addr2",
+   "event": "tbilisi2019",
+   "kp": 14,
+   "kp_point": [
+    41.689903,
+    44.80561
+   ],
+   "raw_address": "Угол Бетлемской ул. (Betlemi str.) и 1-го Асканского туп. (Ascana I Dead End)",
+   "latin": "Ascana I Dead End",
+   "answer": {
+    "street_ka": "ასკანის I ჩიხი",
+    "street_ru": "1-ый тупик Аскана",
+    "alt_ka": [],
+    "kind": "dead_end",
+    "house": null
+   },
+   "match": {
+    "distance_m": 22,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "ascana",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-15-addr",
+   "event": "tbilisi2019",
+   "kp": 15,
+   "kp_point": [
+    41.695828,
+    44.806522
+   ],
+   "raw_address": "Ул. Иоанна Шавтели (Ioane Shavteli st,) д. 13",
+   "latin": "Ioane Shavteli st",
+   "answer": {
+    "street_ka": "იოანე შავთელის ქუჩა",
+    "street_ru": "улица Иоана Шавтели",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "13"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.04
+   },
+   "queries": [
+    {
+     "q": "ioane shavteli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ioane shavteli дом:13",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-17-addr",
+   "event": "tbilisi2019",
+   "kp": 17,
+   "kp_point": [
+    41.688217,
+    44.810835
+   ],
+   "raw_address": "Банная ул. (Abano st.), спуск к речке между домами 2 и 21.",
+   "latin": "Abano st",
+   "answer": {
+    "street_ka": "აბანოს ქუჩა",
+    "street_ru": "улица Абано",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 16,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "abano",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-20-addr",
+   "event": "tbilisi2019",
+   "kp": 20,
+   "kp_point": [
+    41.69187,
+    44.815625
+   ],
+   "raw_address": "Угол пр. Кетеван Цамебули (Ketevan Tsamebuli av.) и площади Авлабари (Avlabari)",
+   "latin": "Avlabari",
+   "answer": {
+    "street_ka": "ავლაბრის მოედანი",
+    "street_ru": "площадь Авлабари",
+    "alt_ka": [],
+    "kind": "square",
+    "house": null
+   },
+   "match": {
+    "distance_m": 20,
+    "score": 0.99
+   },
+   "queries": [
+    {
+     "q": "avlabari",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-22-addr",
+   "event": "tbilisi2019",
+   "kp": 22,
+   "kp_point": [
+    41.692795,
+    44.813495
+   ],
+   "raw_address": "Армазская ул. (Armazi st.), д. 27/12",
+   "latin": "Armazi st",
+   "answer": {
+    "street_ka": "არმაზის ქუჩა",
+    "street_ru": "улица Армази",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "27/12"
+   },
+   "match": {
+    "distance_m": 6,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "armazi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "armazi дом:27/12",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-23-addr",
+   "event": "tbilisi2019",
+   "kp": 23,
+   "kp_point": [
+    41.693905,
+    44.814595
+   ],
+   "raw_address": "Ул. Владимира Месхишвили (Lado Meskhishvili st.), 20",
+   "latin": "Lado Meskhishvili st",
+   "answer": {
+    "street_ka": "ლადო მესხიშვილის ქუჩა",
+    "street_ru": "улица Ладо Месхишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "lado meskhishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-24-addr",
+   "event": "tbilisi2019",
+   "kp": 24,
+   "kp_point": [
+    41.695271,
+    44.813104
+   ],
+   "raw_address": "Ул. Вахтанга VI (Vakhtang VI st.), д. 3",
+   "latin": "Vakhtang VI st",
+   "answer": {
+    "street_ka": "ვახტანგ VI ქუჩა",
+    "street_ru": "улица Вахтанг Мееквсе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 8,
+    "score": 0.88
+   },
+   "queries": [
+    {
+     "q": "vakhtang vi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "vakhtang vi дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-25-addr",
+   "event": "tbilisi2019",
+   "kp": 25,
+   "kp_point": [
+    41.694654,
+    44.811891
+   ],
+   "raw_address": "Ул. Иорская, д. 7 (Iori st.)",
+   "latin": "Iori st",
+   "answer": {
+    "street_ka": "იორის ქუჩა",
+    "street_ru": "улица Иори",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "7"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "iori",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "iori дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-26-addr",
+   "event": "tbilisi2019",
+   "kp": 26,
+   "kp_point": [
+    41.693344,
+    44.811746
+   ],
+   "raw_address": "Начало ул. Периствалеба (Feristvaleba st). Преображенский монастырь.",
+   "latin": "Feristvaleba st",
+   "answer": {
+    "street_ka": "ფერისცვალების ქუჩა",
+    "street_ru": "улица Перисцвалеба",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 222,
+    "score": 0.97
+   },
+   "queries": [
+    {
+     "q": "feristvaleba",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-29-addr",
+   "event": "tbilisi2019",
+   "kp": 29,
+   "kp_point": [
+    41.696885,
+    44.80974
+   ],
+   "raw_address": "Мост Н. Бараташвили (Nikoloz Baratashvili Bridge)",
+   "latin": "Nikoloz Baratashvili Bridge",
+   "answer": {
+    "street_ka": "ნიკოლოზ ბარათაშვილის ხიდი",
+    "street_ru": "мост Николая Бараташвили",
+    "alt_ka": [],
+    "kind": "bridge",
+    "house": null
+   },
+   "match": {
+    "distance_m": 55,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "nikoloz baratashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-30-addr",
+   "event": "tbilisi2019",
+   "kp": 30,
+   "kp_point": [
+    41.69336,
+    44.809735
+   ],
+   "raw_address": "Мост Н. Бараташвили (Nikoloz Baratashvili Bridge)",
+   "latin": "Nikoloz Baratashvili Bridge",
+   "answer": {
+    "street_ka": "ნიკოლოზ ბარათაშვილის აღმართი",
+    "street_ru": "подъём Николая Бараташвили",
+    "alt_ka": [],
+    "kind": "ascent",
+    "house": null
+   },
+   "match": {
+    "distance_m": 132,
+    "score": 0.91
+   },
+   "queries": [
+    {
+     "q": "nikoloz baratashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-31-addr",
+   "event": "tbilisi2019",
+   "kp": 31,
+   "kp_point": [
+    41.691722,
+    44.811328
+   ],
+   "raw_address": "Парк Рике. (Rike park)",
+   "latin": "Rike park",
+   "answer": {
+    "street_ka": "რიყე",
+    "street_ru": "Рике",
+    "alt_ka": [],
+    "kind": "other",
+    "house": null
+   },
+   "match": {
+    "distance_m": 245,
+    "score": 0.87
+   },
+   "queries": [
+    {
+     "q": "rike",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-38-addr",
+   "event": "tbilisi2019",
+   "kp": 38,
+   "kp_point": [
+    41.775012,
+    44.794189
+   ],
+   "raw_address": "Пр. Давида Гурамишвили (David Guramishvili av.), д. 84",
+   "latin": "David Guramishvili av",
+   "answer": {
+    "street_ka": "დავით გურამიშვილის გამზირი",
+    "street_ru": "проспект Давида Гурамишвили",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "84"
+   },
+   "match": {
+    "distance_m": 52,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "david guramishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "david guramishvili дом:84",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-43-addr",
+   "event": "tbilisi2019",
+   "kp": 43,
+   "kp_point": [
+    41.775856,
+    44.799891
+   ],
+   "raw_address": "Ул. Уреки (Ureki st.), д. 2",
+   "latin": "Ureki st",
+   "answer": {
+    "street_ka": "ურეკის ქუჩა",
+    "street_ru": "улица Уреки",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "2"
+   },
+   "match": {
+    "distance_m": 18,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "ureki",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ureki дом:2",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-49-addr",
+   "event": "tbilisi2019",
+   "kp": 49,
+   "kp_point": [
+    41.690087,
+    44.810845
+   ],
+   "raw_address": "Ул. Подъем Метехи (Metekhi Rise) рядом с площадью Европы.",
+   "latin": "Metekhi Rise",
+   "answer": {
+    "street_ka": "მეტეხის აღმართი",
+    "street_ru": "подъем Метехи",
+    "alt_ka": [],
+    "kind": "ascent",
+    "house": null
+   },
+   "match": {
+    "distance_m": 78,
+    "score": 1.05
+   },
+   "queries": [
+    {
+     "q": "metekhi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-55-addr",
+   "event": "tbilisi2019",
+   "kp": 55,
+   "kp_point": [
+    41.702617,
+    44.790659
+   ],
+   "raw_address": "Ул. Екатерины Габашвили (Ekaterine Gabashvili st.), д. 4",
+   "latin": "Ekaterine Gabashvili st",
+   "answer": {
+    "street_ka": "ეკატერინე გაბაშვილის ქუჩა",
+    "street_ru": "улица Екатерины Габашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "4"
+   },
+   "match": {
+    "distance_m": 48,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "ekaterine gabashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ekaterine gabashvili дом:4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-57-addr",
+   "event": "tbilisi2019",
+   "kp": 57,
+   "kp_point": [
+    41.707803,
+    44.788599
+   ],
+   "raw_address": "Ул. Нико Николадзе (Niko Nikoladze st.), д. 1-А",
+   "latin": "Niko Nikoladze st",
+   "answer": {
+    "street_ka": "ნიკო ნიკოლაძის ქუჩა",
+    "street_ru": "улица Нико Николадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1"
+   },
+   "match": {
+    "distance_m": 66,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "niko nikoladze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "niko nikoladze дом:1",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-58-addr",
+   "event": "tbilisi2019",
+   "kp": 58,
+   "kp_point": [
+    41.707635,
+    44.792118
+   ],
+   "raw_address": "Мост Галактиона Табидзе (Galaktion Tabidze Bridge).",
+   "latin": "Galaktion Tabidze Bridge",
+   "answer": {
+    "street_ka": "გალაკტიონ ტაბიძის ხიდი",
+    "street_ru": "мост Галактиона Табидзе",
+    "alt_ka": [],
+    "kind": "bridge",
+    "house": null
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "galaktion tabidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-59-addr",
+   "event": "tbilisi2019",
+   "kp": 59,
+   "kp_point": [
+    41.708688,
+    44.794843
+   ],
+   "raw_address": "Ул. Марджанишвили (Kote Marjanishvili st.), д. 8",
+   "latin": "Kote Marjanishvili st",
+   "answer": {
+    "street_ka": "კოტე მარჯანიშვილის ქუჩა",
+    "street_ru": "улица Котэ Марджанишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "8"
+   },
+   "match": {
+    "distance_m": 10,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "kote marjanishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "kote marjanishvili дом:8",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-65-addr",
+   "event": "tbilisi2019",
+   "kp": 65,
+   "kp_point": [
+    41.692006,
+    44.804247
+   ],
+   "raw_address": "Ул. Антона Каталикоси (Anton Katalikosi st.), д. 6",
+   "latin": "Anton Katalikosi st",
+   "answer": {
+    "street_ka": "ანტონ კათალიკოსის ქუჩა",
+    "street_ru": "улица Ходашени",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "6"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.04
+   },
+   "queries": [
+    {
+     "q": "anton katalikosi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "anton katalikosi дом:6",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-68-addr",
+   "event": "tbilisi2019",
+   "kp": 68,
+   "kp_point": [
+    41.687908,
+    44.811913
+   ],
+   "raw_address": "Ул. Иосифа Гришашвили (Ioseb Grishashvili St.), д. 11",
+   "latin": "Ioseb Grishashvili St",
+   "answer": {
+    "street_ka": "იოსებ გრიშაშვილის ქუჩა",
+    "street_ru": "улица Иосифа Гришашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "11"
+   },
+   "match": {
+    "distance_m": 1,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "ioseb grishashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ioseb grishashvili дом:11",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-73-addr",
+   "event": "tbilisi2019",
+   "kp": 73,
+   "kp_point": [
+    41.69894,
+    44.796072
+   ],
+   "raw_address": "Ул. Грибоедова (Alexander Griboedov St.), д. 4.",
+   "latin": "Alexander Griboedov St",
+   "answer": {
+    "street_ka": "ალექსანდრე გრიბოედოვის ქუჩა",
+    "street_ru": "улица Александра Грибоедова",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "4"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 0.94
+   },
+   "queries": [
+    {
+     "q": "alexander griboedov",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "alexander griboedov дом:4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-74-addr",
+   "event": "tbilisi2019",
+   "kp": 74,
+   "kp_point": [
+    41.696821,
+    44.795583
+   ],
+   "raw_address": "Ул. Вахтанга Котетишвили (Vakhtang Kotetishvili St.), д. 7",
+   "latin": "Vakhtang Kotetishvili St",
+   "answer": {
+    "street_ka": "ვახტანგ კოტეტიშვილის ქუჩა",
+    "street_ru": "улица Вахтанга Котетишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "7"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "vakhtang kotetishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "vakhtang kotetishvili дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-75-addr",
+   "event": "tbilisi2019",
+   "kp": 75,
+   "kp_point": [
+    41.69737,
+    44.805776
+   ],
+   "raw_address": "Ул. Георгия Атонели (Atoneli St.), д. 3",
+   "latin": "Atoneli St",
+   "answer": {
+    "street_ka": "გიორგი ათონელის ქუჩა",
+    "street_ru": "улица Георгия Атонели",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 8,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "atoneli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "atoneli дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-77-addr",
+   "event": "tbilisi2019",
+   "kp": 77,
+   "kp_point": [
+    41.694434,
+    44.796962
+   ],
+   "raw_address": "Ул. П. Ингороквы (Pavle Ingorokva St.), д. 14",
+   "latin": "Pavle Ingorokva St",
+   "answer": {
+    "street_ka": "პავლე ინგოროყვას ქუჩა",
+    "street_ru": "улица Павла Ингороквы",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "14"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "pavle ingorokva",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "pavle ingorokva дом:14",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-96-addr",
+   "event": "tbilisi2019",
+   "kp": 96,
+   "kp_point": [
+    41.709837,
+    44.801613
+   ],
+   "raw_address": "Угол ул. Киты Абашидзе (Kita Abashidze St.) и Ивана Джавахишвили (Ivane Javakhishvili St.)",
+   "latin": "Kita Abashidze St",
+   "answer": {
+    "street_ka": "კიტა აბაშიძის ქუჩა",
+    "street_ru": "улица Кита Абашидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 17,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "kita abashidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-96-addr2",
+   "event": "tbilisi2019",
+   "kp": 96,
+   "kp_point": [
+    41.709837,
+    44.801613
+   ],
+   "raw_address": "Угол ул. Киты Абашидзе (Kita Abashidze St.) и Ивана Джавахишвили (Ivane Javakhishvili St.)",
+   "latin": "Ivane Javakhishvili St",
+   "answer": {
+    "street_ka": "ივანე ჯავახიშვილის ქუჩა",
+    "street_ru": "улица Иване Джавахишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 8,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "ivane javakhishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-97-addr",
+   "event": "tbilisi2019",
+   "kp": 97,
+   "kp_point": [
+    41.695804,
+    44.788975
+   ],
+   "raw_address": "Подъем Св. Давида (Mama Daviti Rise) - продолжение Мтацминдской ул. (Mtatsminda St.)",
+   "latin": "Mama Daviti Rise",
+   "answer": {
+    "street_ka": "მამა დავითის აღმართი",
+    "street_ru": "подъём Мама Давити",
+    "alt_ka": [],
+    "kind": "ascent",
+    "house": null
+   },
+   "match": {
+    "distance_m": 23,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "mama daviti",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-97-addr2",
+   "event": "tbilisi2019",
+   "kp": 97,
+   "kp_point": [
+    41.695804,
+    44.788975
+   ],
+   "raw_address": "Подъем Св. Давида (Mama Daviti Rise) - продолжение Мтацминдской ул. (Mtatsminda St.)",
+   "latin": "Mtatsminda St",
+   "answer": {
+    "street_ka": "მთაწმინდას ქუჩა",
+    "street_ru": "улица Мтацминда",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 103,
+    "score": 1.05
+   },
+   "queries": [
+    {
+     "q": "mtatsminda",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2019-98-addr",
+   "event": "tbilisi2019",
+   "kp": 98,
+   "kp_point": [
+    41.685637,
+    44.813061
+   ],
+   "raw_address": "Гора Карфухи (Kharfukhi Turn)",
+   "latin": "Kharfukhi Turn",
+   "answer": {
+    "street_ka": "ხარფუხის შესახვევი",
+    "street_ru": "переулок Харпухи",
+    "alt_ka": [],
+    "kind": "lane",
+    "house": null
+   },
+   "match": {
+    "distance_m": 111,
+    "score": 1.04
+   },
+   "queries": [
+    {
+     "q": "kharfukhi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-1-addr",
+   "event": "tbilisi2021",
+   "kp": 1,
+   "kp_point": [
+    41.73319,
+    44.769523
+   ],
+   "raw_address": "Ул. Очамчире (Ochamchire st), д. 1",
+   "latin": "Ochamchire st",
+   "answer": {
+    "street_ka": "ოჩამჩირის ქუჩა",
+    "street_ru": "улица Очамчире",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "ochamchire",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ochamchire дом:1",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-15-addr",
+   "event": "tbilisi2021",
+   "kp": 15,
+   "kp_point": [
+    41.717216,
+    44.778331
+   ],
+   "raw_address": "Ул. Мераба Костава (Merab Kostava str.), д. 68.",
+   "latin": "Merab Kostava str",
+   "answer": {
+    "street_ka": "კონსტანტინე გამსახურდიას გამზირი",
+    "street_ru": "улица Мераба Коставы",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "68"
+   },
+   "match": {
+    "distance_m": 34,
+    "score": 0.94
+   },
+   "queries": [
+    {
+     "q": "merab kostava",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "merab kostava дом:68",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-16-addr",
+   "event": "tbilisi2021",
+   "kp": 16,
+   "kp_point": [
+    41.718452,
+    44.777462
+   ],
+   "raw_address": "Пр. Пекина (Pekini ave.), д. 2",
+   "latin": "Pekini ave",
+   "answer": {
+    "street_ka": "პეკინის გამზირი",
+    "street_ru": "проспект Пекина",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "2"
+   },
+   "match": {
+    "distance_m": 39,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "pekini",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "pekini дом:2",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-24-addr",
+   "event": "tbilisi2021",
+   "kp": 24,
+   "kp_point": [
+    41.690439,
+    44.801334
+   ],
+   "raw_address": "ул. Г. Табидзе (Galaktion Tabidze St), д. 18",
+   "latin": "Galaktion Tabidze St",
+   "answer": {
+    "street_ka": "გალაკტიონ ტაბიძის ქუჩა",
+    "street_ru": "улица Галактиона Табидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "18"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "galaktion tabidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "galaktion tabidze дом:18",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-25-addr",
+   "event": "tbilisi2021",
+   "kp": 25,
+   "kp_point": [
+    41.726052,
+    44.774834
+   ],
+   "raw_address": "Ул. Жиули Шартава (Zhiuli Shartava St), д. 3",
+   "latin": "Zhiuli Shartava St",
+   "answer": {
+    "street_ka": "ჟიული შარტავას ქუჩა",
+    "street_ru": "улица Жиули Шартава",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 24,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "zhiuli shartava",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "zhiuli shartava дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-27-addr",
+   "event": "tbilisi2021",
+   "kp": 27,
+   "kp_point": [
+    41.691819,
+    44.801956
+   ],
+   "raw_address": "Ул. Ш. Дадиани (Shalva Dadiani St), д. 7",
+   "latin": "Shalva Dadiani St",
+   "answer": {
+    "street_ka": "შალვა დადიანის ქუჩა",
+    "street_ru": "улица Ш. Дадиани",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "7"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "shalva dadiani",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "shalva dadiani дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-29-addr",
+   "event": "tbilisi2021",
+   "kp": 29,
+   "kp_point": [
+    41.69395,
+    44.798909
+   ],
+   "raw_address": "Площадь в конце улицы Сулхан-Саба (Sulkhan-Saba St), перед зданием Правительства Грузии.",
+   "latin": "Sulkhan-Saba St",
+   "answer": {
+    "street_ka": "სულხან-საბას ქუჩა",
+    "street_ru": "улица Сулхан-Сабы",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 20,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "sulkhan saba",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-31-addr",
+   "event": "tbilisi2021",
+   "kp": 31,
+   "kp_point": [
+    41.695989,
+    44.793733
+   ],
+   "raw_address": "Ул. Вахтанга Мосидзе (Vakhtang Mosidze St), д. 4",
+   "latin": "Vakhtang Mosidze St",
+   "answer": {
+    "street_ka": "ვახტანგ მოსიძეს ქუჩა",
+    "street_ru": "улица Вахтанга Мосидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "4"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "vakhtang mosidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "vakhtang mosidze дом:4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-35-addr",
+   "event": "tbilisi2021",
+   "kp": 35,
+   "kp_point": [
+    41.697816,
+    44.794768
+   ],
+   "raw_address": "Ул. Бесик (Besik st), д. 9.",
+   "latin": "Besik st",
+   "answer": {
+    "street_ka": "ბესიკის ქუჩა",
+    "street_ru": "улица Бесики",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "9"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 0.99
+   },
+   "queries": [
+    {
+     "q": "besik",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "besik дом:9",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-36-addr",
+   "event": "tbilisi2021",
+   "kp": 36,
+   "kp_point": [
+    41.69834,
+    44.792724
+   ],
+   "raw_address": "Ул. Элисбара Зедгенидзе (Elizbar Zedgenidze St), д. 5/9",
+   "latin": "Elizbar Zedgenidze St",
+   "answer": {
+    "street_ka": "ელიზბარ ზედგინიძის ქუჩა",
+    "street_ru": "улица Элизбара Зедгенидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5/9"
+   },
+   "match": {
+    "distance_m": 0,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "elizbar zedgenidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "elizbar zedgenidze дом:5/9",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-41-addr",
+   "event": "tbilisi2021",
+   "kp": 41,
+   "kp_point": [
+    41.691471,
+    44.795991
+   ],
+   "raw_address": "Ул. Д.Чонкадзе (Daniel Chonqadze), д. 8",
+   "latin": "Daniel Chonqadze",
+   "answer": {
+    "street_ka": "დანიელ ჭონქაძის ქუჩა",
+    "street_ru": "улица Даниела Чонкадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "8"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.0
+   },
+   "queries": [
+    {
+     "q": "daniel chonqadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "daniel chonqadze дом:8",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-48-addr",
+   "event": "tbilisi2021",
+   "kp": 48,
+   "kp_point": [
+    41.720504,
+    44.782636
+   ],
+   "raw_address": "2-й проезд Б. Квернадзе (Bidzina Kvernadze II turn), д. 7.",
+   "latin": "Bidzina Kvernadze II turn",
+   "answer": {
+    "street_ka": "ბიძინა კვერნაძის II შესახვევი",
+    "street_ru": "2-й переулок Бидзины Квернадзе",
+    "alt_ka": [],
+    "kind": "lane",
+    "house": "7"
+   },
+   "match": {
+    "distance_m": 39,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "bidzina kvernadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "bidzina kvernadze дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-50-addr",
+   "event": "tbilisi2021",
+   "kp": 50,
+   "kp_point": [
+    41.722421,
+    44.787258
+   ],
+   "raw_address": "Ул. Маяковского (Vladimir Maikovski str.)",
+   "latin": "Vladimir Maikovski str",
+   "answer": {
+    "street_ka": "ვლადიმერ მაიაკოვსკის ქუჩა",
+    "street_ru": "улица Владимира Маяковского",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 11,
+    "score": 1.05
+   },
+   "queries": [
+    {
+     "q": "vladimir maikovski",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-53-addr",
+   "event": "tbilisi2021",
+   "kp": 53,
+   "kp_point": [
+    41.711629,
+    44.781877
+   ],
+   "raw_address": "Ул. Верико Анджапаридзе (Veriko Anjaparidze st.), д. 16.",
+   "latin": "Veriko Anjaparidze st",
+   "answer": {
+    "street_ka": "ვერიკო ანჯაფარიძის ქუჩა",
+    "street_ru": "улица Верико Анджапаридзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "16"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "veriko anjaparidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "veriko anjaparidze дом:16",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-54-addr",
+   "event": "tbilisi2021",
+   "kp": 54,
+   "kp_point": [
+    41.70728,
+    44.774963
+   ],
+   "raw_address": "Пл. Круглый сад (Mrgvali Baghi Sq.)",
+   "latin": "Mrgvali Baghi Sq",
+   "answer": {
+    "street_ka": "მრგვალი ბაღი",
+    "street_ru": null,
+    "alt_ka": [],
+    "kind": "garden",
+    "house": null
+   },
+   "match": {
+    "distance_m": 29,
+    "score": 0.94
+   },
+   "queries": [
+    {
+     "q": "mrgvali baghi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-55-addr",
+   "event": "tbilisi2021",
+   "kp": 55,
+   "kp_point": [
+    41.707076,
+    44.777782
+   ],
+   "raw_address": "Пеул. Василя Барнова (Vasil Barnov st), д. 73.",
+   "latin": "Vasil Barnov st",
+   "answer": {
+    "street_ka": "ვასილ ბარნოვის ქუჩა",
+    "street_ru": "улица Василя Барнова",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "73"
+   },
+   "match": {
+    "distance_m": 13,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "vasil barnov",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "vasil barnov дом:73",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-60-addr",
+   "event": "tbilisi2021",
+   "kp": 60,
+   "kp_point": [
+    41.700623,
+    44.791903
+   ],
+   "raw_address": "Ул. Тамар Абакелия (Tamar Abakelia st.), д. 5.",
+   "latin": "Tamar Abakelia st",
+   "answer": {
+    "street_ka": "თამარ აბაკელიას ქუჩა",
+    "street_ru": "улица Тамары Абакелии",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5"
+   },
+   "match": {
+    "distance_m": 6,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "tamar abakelia",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "tamar abakelia дом:5",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-61-addr",
+   "event": "tbilisi2021",
+   "kp": 61,
+   "kp_point": [
+    41.700836,
+    44.792622
+   ],
+   "raw_address": "Ул. братьев Зубалашвили (Dzmebi Zubalashvilebi St), д. 21.",
+   "latin": "Dzmebi Zubalashvilebi St",
+   "answer": {
+    "street_ka": "ძმები ზუბალაშვილების ქუჩა",
+    "street_ru": "улица Братьев Зубалашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "21"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "dzmebi zubalashvilebi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "dzmebi zubalashvilebi дом:21",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-66-addr",
+   "event": "tbilisi2021",
+   "kp": 66,
+   "kp_point": [
+    41.705191,
+    44.791421
+   ],
+   "raw_address": "Ул. Лео Киачели (Leo Kiacheli St.), д. 7а-8.",
+   "latin": "Leo Kiacheli St",
+   "answer": {
+    "street_ka": "ლეო ქიაჩელის ქუჩა",
+    "street_ru": "улица Лео Киачели",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "7а-8"
+   },
+   "match": {
+    "distance_m": 29,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "leo kiacheli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "leo kiacheli дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-80-addr",
+   "event": "tbilisi2021",
+   "kp": 80,
+   "kp_point": [
+    41.708459,
+    44.777677
+   ],
+   "raw_address": "ул. Эквтиме Такаишвили (Ekvtime Takaishvili str.), д. 5",
+   "latin": "Ekvtime Takaishvili str",
+   "answer": {
+    "street_ka": "ექვთიმე თაყაიშვილის ქუჩა",
+    "street_ru": "улица Эквтиме Такаишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5"
+   },
+   "match": {
+    "distance_m": 0,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "ekvtime takaishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ekvtime takaishvili дом:5",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-84-addr",
+   "event": "tbilisi2021",
+   "kp": 84,
+   "kp_point": [
+    41.713591,
+    44.797611
+   ],
+   "raw_address": "Ул. М. Цинамзгвришвили (Mikheili Tsinamdzghvrishvili St), д. 118.",
+   "latin": "Mikheili Tsinamdzghvrishvili St",
+   "answer": {
+    "street_ka": "მიხეილ წინამძღვრიშვილის ქუჩა",
+    "street_ru": "улица Михеила Цинамдзгвришвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "118"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "mikheili tsinamdzghvrishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "mikheili tsinamdzghvrishvili дом:118",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-95-addr",
+   "event": "tbilisi2021",
+   "kp": 95,
+   "kp_point": [
+    41.713591,
+    44.79035
+   ],
+   "raw_address": "ул. О. Дгебуадзе (Orde Dgebuadze St.), д. 1",
+   "latin": "Orde Dgebuadze St",
+   "answer": {
+    "street_ka": "ორდე დგებუაძის ქუჩა",
+    "street_ru": "улица Ордэ Дгебуадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1"
+   },
+   "match": {
+    "distance_m": 72,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "orde dgebuadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "orde dgebuadze дом:1",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2021-104-addr",
+   "event": "tbilisi2021",
+   "kp": 104,
+   "kp_point": [
+    41.693143,
+    44.801777
+   ],
+   "raw_address": "Площадь Свободы (Freedom Square).",
+   "latin": "Freedom Square",
+   "answer": {
+    "street_ka": "თავისუფლების მოედანი",
+    "street_ru": "площадь Свободы",
+    "alt_ka": [],
+    "kind": "square",
+    "house": null
+   },
+   "match": {
+    "distance_m": 13,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "freedom",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-7-addr",
+   "event": "tbilisi2022",
+   "kp": 7,
+   "kp_point": [
+    41.691161,
+    44.819321
+   ],
+   "raw_address": "Ул. Изашвили (Izashvili str.), д. 9.",
+   "latin": "Izashvili str",
+   "answer": {
+    "street_ka": "ნიკოლოზ იზაშვილის ქუჩა",
+    "street_ru": "улица Николоза Изашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "9"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 0.8
+   },
+   "queries": [
+    {
+     "q": "izashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "izashvili дом:9",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-8-addr",
+   "event": "tbilisi2022",
+   "kp": 8,
+   "kp_point": [
+    41.690886,
+    44.817411
+   ],
+   "raw_address": "Пр. царицы Кетеван, (St.Queen Ketevan Av.), д. 12",
+   "latin": "St.Queen Ketevan Av",
+   "answer": {
+    "street_ka": "წმინდა ქეთევან დედოფლის გამზირი",
+    "street_ru": "проспект Святой Царицы Кетеван",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "12"
+   },
+   "match": {
+    "distance_m": 16,
+    "score": 0.9
+   },
+   "queries": [
+    {
+     "q": "queen ketevan",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "queen ketevan дом:12",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-9-addr",
+   "event": "tbilisi2022",
+   "kp": 9,
+   "kp_point": [
+    41.693402,
+    44.817067
+   ],
+   "raw_address": "Ул. Гурджаанская (Gurjaani str.), д. 18.",
+   "latin": "Gurjaani str",
+   "answer": {
+    "street_ka": "გურჯაანის ქუჩა",
+    "street_ru": "улица Гурджаани",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "18"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "gurjaani",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "gurjaani дом:18",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-10-addr",
+   "event": "tbilisi2022",
+   "kp": 10,
+   "kp_point": [
+    41.698652966306,
+    44.818296062424
+   ],
+   "raw_address": "Ул. Гумбри (Gumbri str,), д. 35.",
+   "latin": "Gumbri str",
+   "answer": {
+    "street_ka": "გუმბრის ქუჩა",
+    "street_ru": "улица Гумбри",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "35"
+   },
+   "match": {
+    "distance_m": 133,
+    "score": 1.04
+   },
+   "queries": [
+    {
+     "q": "gumbri",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "gumbri дом:35",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-11-addr",
+   "event": "tbilisi2022",
+   "kp": 11,
+   "kp_point": [
+    41.690496,
+    44.830079
+   ],
+   "raw_address": "Ул. Каспская (Kaspi str), д. 7",
+   "latin": "Kaspi str",
+   "answer": {
+    "street_ka": "კასპის ქუჩა",
+    "street_ru": "улица Каспи",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "7"
+   },
+   "match": {
+    "distance_m": 6,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "kaspi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "kaspi дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-14-addr",
+   "event": "tbilisi2022",
+   "kp": 14,
+   "kp_point": [
+    41.694318,
+    44.814474
+   ],
+   "raw_address": "Авлабарская ул. (Avlabari str.), д. 27",
+   "latin": "Avlabari str",
+   "answer": {
+    "street_ka": "ავლაბარის ქუჩა",
+    "street_ru": "улица Авлабари",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "27"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "avlabari",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "avlabari дом:27",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-15-addr",
+   "event": "tbilisi2022",
+   "kp": 15,
+   "kp_point": [
+    41.691662,
+    44.81228
+   ],
+   "raw_address": "Ул. Перитсвалеба (Peritsvaleba или Feristsvaleba str),",
+   "latin": "Peritsvaleba или Feristsvaleba str",
+   "answer": {
+    "street_ka": "ფერისცვალების ქუჩა",
+    "street_ru": "улица Перисцвалеба",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 57,
+    "score": 1.02
+   },
+   "queries": [
+    {
+     "q": "peritsvaleba feristsvaleba",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-16-addr",
+   "event": "tbilisi2022",
+   "kp": 16,
+   "kp_point": [
+    41.690971,
+    44.814649
+   ],
+   "raw_address": "Ул. Исани (Isani str.), д. 23",
+   "latin": "Isani str",
+   "answer": {
+    "street_ka": "ისნის ქუჩა",
+    "street_ru": "улица Исани",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "23"
+   },
+   "match": {
+    "distance_m": 6,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "isani",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "isani дом:23",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-17-addr",
+   "event": "tbilisi2022",
+   "kp": 17,
+   "kp_point": [
+    41.696685,
+    44.813605
+   ],
+   "raw_address": "Ул. Месхишвили (Meskhishvili str.), д. 48.",
+   "latin": "Meskhishvili str",
+   "answer": {
+    "street_ka": "ლადო მესხიშვილის ქუჩა",
+    "street_ru": "улица Ладо Месхишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "48"
+   },
+   "match": {
+    "distance_m": 6,
+    "score": 0.94
+   },
+   "queries": [
+    {
+     "q": "meskhishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "meskhishvili дом:48",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-19-addr",
+   "event": "tbilisi2022",
+   "kp": 19,
+   "kp_point": [
+    41.69778,
+    44.81419
+   ],
+   "raw_address": "Ул. Самрекло (Samreklo str.), д. 24-26.",
+   "latin": "Samreklo str",
+   "answer": {
+    "street_ka": "სამრეკლოს ქუჩა",
+    "street_ru": "улица Самрекло",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "24-26"
+   },
+   "match": {
+    "distance_m": 30,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "samreklo",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "samreklo дом:24",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-24-addr",
+   "event": "tbilisi2022",
+   "kp": 24,
+   "kp_point": [
+    41.688882,
+    44.820383
+   ],
+   "raw_address": "Пр. Кетеван (Ketevan Dedofali av.), д. 33",
+   "latin": "Ketevan Dedofali av",
+   "answer": {
+    "street_ka": "წმინდა ქეთევან დედოფლის გამზირი",
+    "street_ru": "проспект Святой Царицы Кетеван",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "33"
+   },
+   "match": {
+    "distance_m": 32,
+    "score": 0.83
+   },
+   "queries": [
+    {
+     "q": "ketevan dedofali",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ketevan dedofali дом:33",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-28-addr",
+   "event": "tbilisi2022",
+   "kp": 28,
+   "kp_point": [
+    41.684443,
+    44.82001
+   ],
+   "raw_address": "Ул. Николоза (Карло). Чхеидзе (Nikoloz (Karlo) Chkheidze str.), д. 1.",
+   "latin": "Nikoloz  Karlo  Chkheidze str",
+   "answer": {
+    "street_ka": "ნიკოლოზ (კარლო) ჩხეიძის ქუჩა",
+    "street_ru": "улица Николоза (Карло) Чхеидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1"
+   },
+   "match": {
+    "distance_m": 40,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "nikoloz karlo chkheidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "nikoloz karlo chkheidze дом:1",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-29-addr",
+   "event": "tbilisi2022",
+   "kp": 29,
+   "kp_point": [
+    41.68234,
+    44.823342
+   ],
+   "raw_address": "Ул. Вахтанга Горгасали (Vakhtang Gorgasali St), д. 39, 39-а, 39-б",
+   "latin": "Vakhtang Gorgasali St",
+   "answer": {
+    "street_ka": "ვახტანგ გორგასლის ქუჩა",
+    "street_ru": "улица Вахтанга Горгасали",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "39"
+   },
+   "match": {
+    "distance_m": 27,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "vakhtang gorgasali",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "vakhtang gorgasali дом:39",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-35-addr",
+   "event": "tbilisi2022",
+   "kp": 35,
+   "kp_point": [
+    41.686772,
+    44.814587
+   ],
+   "raw_address": "Ул. И. Цуртавели (Iakob Tsurtaveli str.), д. 1",
+   "latin": "Iakob Tsurtaveli str",
+   "answer": {
+    "street_ka": "იაკობ ცურტაველის ქუჩა",
+    "street_ru": "улица Иакоба Цуртавели",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1"
+   },
+   "match": {
+    "distance_m": 2,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "iakob tsurtaveli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "iakob tsurtaveli дом:1",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-45-addr",
+   "event": "tbilisi2022",
+   "kp": 45,
+   "kp_point": [
+    41.689722,
+    44.804427
+   ],
+   "raw_address": "1-й подъем Ладо Асатиани (Lado Asatiani str. I turn), д. 4.",
+   "latin": "Lado Asatiani str. I turn",
+   "answer": {
+    "street_ka": "ლადო ასათიანის I შესახვევი",
+    "street_ru": "1-ый переулок Ладо Асатиани",
+    "alt_ka": [],
+    "kind": "lane",
+    "house": "4"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "lado asatiani",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "lado asatiani дом:4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-47-addr",
+   "event": "tbilisi2022",
+   "kp": 47,
+   "kp_point": [
+    41.688931,
+    44.805392
+   ],
+   "raw_address": "Подъем Бетлеми (Betlemi rise), д. 14.",
+   "latin": "Betlemi rise",
+   "answer": {
+    "street_ka": "ბეთლემის აღმართი",
+    "street_ru": "подъём Бетлеми",
+    "alt_ka": [],
+    "kind": "ascent",
+    "house": "14"
+   },
+   "match": {
+    "distance_m": 25,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "betlemi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "betlemi дом:14",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-49-addr",
+   "event": "tbilisi2022",
+   "kp": 49,
+   "kp_point": [
+    41.691204,
+    44.806036
+   ],
+   "raw_address": "ул. Григория Хантцетели (Grigol Khandzteli Str), д. 13",
+   "latin": "Grigol Khandzteli Str",
+   "answer": {
+    "street_ka": "გრიგოლ ხანძთელის ქუჩა",
+    "street_ru": "улица Григола Хандзтели",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "13"
+   },
+   "match": {
+    "distance_m": 6,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "grigol khandzteli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "grigol khandzteli дом:13",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-80-addr",
+   "event": "tbilisi2022",
+   "kp": 80,
+   "kp_point": [
+    41.695321966306,
+    44.855785061178
+   ],
+   "raw_address": "Ул. Давида Квачантирадзе (Davit Kvachantiradze str.), д. 22.",
+   "latin": "Davit Kvachantiradze str",
+   "answer": {
+    "street_ka": "დავით კვაჭანტირაძის ქუჩა",
+    "street_ru": "улица Давида Квачантирадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "22"
+   },
+   "match": {
+    "distance_m": 101,
+    "score": 1.05
+   },
+   "queries": [
+    {
+     "q": "davit kvachantiradze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "davit kvachantiradze дом:22",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-81-addr",
+   "event": "tbilisi2022",
+   "kp": 81,
+   "kp_point": [
+    41.687395,
+    44.849389
+   ],
+   "raw_address": "Цаленджихская ул. (Tsalenjikha St), д. 6",
+   "latin": "Tsalenjikha St",
+   "answer": {
+    "street_ka": "წალენჯიხის ქუჩა",
+    "street_ru": "улица Цаленджиха",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "6"
+   },
+   "match": {
+    "distance_m": 82,
+    "score": 1.05
+   },
+   "queries": [
+    {
+     "q": "tsalenjikha",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "tsalenjikha дом:6",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-83-addr",
+   "event": "tbilisi2022",
+   "kp": 83,
+   "kp_point": [
+    41.706721,
+    44.882532
+   ],
+   "raw_address": "Ул. Сесилии Такаишвили (Sesilia Takaishvili str.), д. 33.",
+   "latin": "Sesilia Takaishvili str",
+   "answer": {
+    "street_ka": "სესილია თაყაიშვილის ქუჩა",
+    "street_ru": "улица Сесилии Такаишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "33"
+   },
+   "match": {
+    "distance_m": 23,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "sesilia takaishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "sesilia takaishvili дом:33",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-84-addr",
+   "event": "tbilisi2022",
+   "kp": 84,
+   "kp_point": [
+    41.699089,
+    44.873286
+   ],
+   "raw_address": "Ул. Борцов за Единство Грузии (Sakartvelos Ertianobisatvis Mebrdzolta St), д. 4.",
+   "latin": "Sakartvelos Ertianobisatvis Mebrdzolta St",
+   "answer": {
+    "street_ka": "საქართველოს ერთიანობისთვის მებრძოლთა ქუჩა",
+    "street_ru": "улица Борцов за единство Грузии",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "4"
+   },
+   "match": {
+    "distance_m": 55,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "sakartvelos ertianobisatvis mebrdzolta",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "sakartvelos ertianobisatvis mebrdzolta дом:4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-86-addr",
+   "event": "tbilisi2022",
+   "kp": 86,
+   "kp_point": [
+    41.70315,
+    44.880751
+   ],
+   "raw_address": "Перекресток ул. Ильи Сухишвили (Ilia Sukhishvili str) и ул. Сесилии Такаишвили (Sesilia Takaishvili str.)",
+   "latin": "Ilia Sukhishvili str",
+   "answer": {
+    "street_ka": "ილია სუხიშვილის ქუჩა",
+    "street_ru": "улица Ильи Сухишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 70,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "ilia sukhishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-88-addr",
+   "event": "tbilisi2022",
+   "kp": 88,
+   "kp_point": [
+    41.684303,
+    44.853223
+   ],
+   "raw_address": "Ул. Мевеле (Mevele St), д. 3.",
+   "latin": "Mevele St",
+   "answer": {
+    "street_ka": "მეველეს ქუჩა",
+    "street_ru": "улица Мевеле",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 60,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "mevele",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "mevele дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-91-addr",
+   "event": "tbilisi2022",
+   "kp": 91,
+   "kp_point": [
+    41.701717,
+    44.830854
+   ],
+   "raw_address": "Ул. Абули (Abuli str.), д. 28",
+   "latin": "Abuli str",
+   "answer": {
+    "street_ka": "აბულის ქუჩა",
+    "street_ru": "улица Абули",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "28"
+   },
+   "match": {
+    "distance_m": 29,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "abuli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "abuli дом:28",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2022-95-addr",
+   "event": "tbilisi2022",
+   "kp": 95,
+   "kp_point": [
+    41.67513,
+    44.834172
+   ],
+   "raw_address": "Ул. Димитрия Гулиа (Dimitri Gulia str.),. д. 5.",
+   "latin": "Dimitri Gulia str",
+   "answer": {
+    "street_ka": "დიმიტრი გულიას ქუჩა",
+    "street_ru": "улица Димитрия Гулиа",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5"
+   },
+   "match": {
+    "distance_m": 76,
+    "score": 1.05
+   },
+   "queries": [
+    {
+     "q": "dimitri gulia",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "dimitri gulia дом:5",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-18-addr",
+   "event": "tbilisi2023",
+   "kp": 18,
+   "kp_point": [
+    41.7069,
+    44.756753
+   ],
+   "raw_address": "ул. Нико Цхведадзе (Tskhvedadze str), д. 34",
+   "latin": "Tskhvedadze str",
+   "answer": {
+    "street_ka": "ნიკო ცხვედაძის ქუჩა",
+    "street_ru": "улица Нико Цхведадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "34"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "tskhvedadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "tskhvedadze дом:34",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-25-addr",
+   "event": "tbilisi2023",
+   "kp": 25,
+   "kp_point": [
+    41.708332,
+    44.757681
+   ],
+   "raw_address": "ул. Ираклия Абашидзе (Irakli Abashidze Str), д. 68",
+   "latin": "Irakli Abashidze Str",
+   "answer": {
+    "street_ka": "ირაკლი აბაშიძის ქუჩა",
+    "street_ru": "улица Ираклия Абашидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "68"
+   },
+   "match": {
+    "distance_m": 14,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "irakli abashidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "irakli abashidze дом:68",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-28-addr",
+   "event": "tbilisi2023",
+   "kp": 28,
+   "kp_point": [
+    41.709791,
+    44.772868
+   ],
+   "raw_address": "ул. Атени (Ateni str.), д. 3",
+   "latin": "Ateni str",
+   "answer": {
+    "street_ka": "ატენის ქუჩა",
+    "street_ru": "улица Атени",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 50,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "ateni",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ateni дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-32-addr",
+   "event": "tbilisi2023",
+   "kp": 32,
+   "kp_point": [
+    41.705016,
+    44.780115
+   ],
+   "raw_address": "ул. Акакия Шанидзе (A. Shanidze str.), д. 28",
+   "latin": "A. Shanidze str",
+   "answer": {
+    "street_ka": "აკაკი შანიძის ქუჩა",
+    "street_ru": "улица Акаки Шанидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "28"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.01
+   },
+   "queries": [
+    {
+     "q": "shanidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "shanidze дом:28",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-36-addr",
+   "event": "tbilisi2023",
+   "kp": 36,
+   "kp_point": [
+    41.70659,
+    44.778095
+   ],
+   "raw_address": "Ул. Корнелия Кекелидзе (Korneli Kekelidze Str), д. 14",
+   "latin": "Korneli Kekelidze Str",
+   "answer": {
+    "street_ka": "კორნელი კეკელიძის ქუჩა",
+    "street_ru": "улица Корнелия Кекелидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "14"
+   },
+   "match": {
+    "distance_m": 20,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "korneli kekelidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "korneli kekelidze дом:14",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-41-addr",
+   "event": "tbilisi2023",
+   "kp": 41,
+   "kp_point": [
+    41.712076,
+    44.774885
+   ],
+   "raw_address": "Шоссе Чабуа Амиреджиби (Chabua Amirejibi Highway), д. 6.",
+   "latin": "Chabua Amirejibi Highway",
+   "answer": {
+    "street_ka": "ჭაბუა ამირეჯიბის გზატკეცილი",
+    "street_ru": "шоссе Чабуи Амиреджиби",
+    "alt_ka": [],
+    "kind": "highway",
+    "house": "6"
+   },
+   "match": {
+    "distance_m": 45,
+    "score": 1.06
+   },
+   "queries": [
+    {
+     "q": "chabua amirejibi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "chabua amirejibi дом:6",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2023-54-addr",
+   "event": "tbilisi2023",
+   "kp": 54,
+   "kp_point": [
+    41.703338,
+    44.78983
+   ],
+   "raw_address": "Ул. братьев Какабадзе (Brothers Kakabadze str. или Dzmebi Kakabadzeebi St), д. 3.",
+   "latin": "Brothers Kakabadze str. или Dzmebi Kakabadzeebi St",
+   "answer": {
+    "street_ka": "ძმები კაკაბაძეების ქუჩა",
+    "street_ru": "улица Дзмеби Какабадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "brothers kakabadze dzmebi kakabadzeebi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "brothers kakabadze dzmebi kakabadzeebi дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-3-addr",
+   "event": "tbilisi2024",
+   "kp": 3,
+   "kp_point": [
+    41.722019,
+    44.790026
+   ],
+   "raw_address": "Ул. Георгия Цабадзе (Tsabadze str),",
+   "latin": "Tsabadze str",
+   "answer": {
+    "street_ka": "გიორგი ცაბაძის ქუჩა",
+    "street_ru": "улица Гиорги Цабадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 33,
+    "score": 0.94
+   },
+   "queries": [
+    {
+     "q": "tsabadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-8-addr",
+   "event": "tbilisi2024",
+   "kp": 8,
+   "kp_point": [
+    41.722019,
+    44.787269
+   ],
+   "raw_address": "Ул. В. Маяковского (V. Majakovskij str)",
+   "latin": "V. Majakovskij str",
+   "answer": {
+    "street_ka": "ვლადიმერ მაიაკოვსკის ქუჩა",
+    "street_ru": "улица Владимира Маяковского",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 32,
+    "score": 0.83
+   },
+   "queries": [
+    {
+     "q": "v majakovskij",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-9-addr",
+   "event": "tbilisi2024",
+   "kp": 9,
+   "kp_point": [
+    41.704048,
+    44.798848
+   ],
+   "raw_address": "Сквер между домами 2 и 4 по ул. Д. Узнадзе (Dimitri Uznadze St)",
+   "latin": "Dimitri Uznadze St",
+   "answer": {
+    "street_ka": "დიმიტრი უზნაძის ქუჩა",
+    "street_ru": "улица Дмитрия Узнадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 20,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "dimitri uznadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-17-addr",
+   "event": "tbilisi2024",
+   "kp": 17,
+   "kp_point": [
+    41.712901,
+    44.79082
+   ],
+   "raw_address": "Ул. О. Дгебуадзе (Odge Dgebuadze str), д. 1",
+   "latin": "Odge Dgebuadze str",
+   "answer": {
+    "street_ka": "ორდე დგებუაძის ქუჩა",
+    "street_ru": "улица Ордэ Дгебуадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.0
+   },
+   "queries": [
+    {
+     "q": "odge dgebuadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "odge dgebuadze дом:1",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-21-addr",
+   "event": "tbilisi2024",
+   "kp": 21,
+   "kp_point": [
+    41.7172,
+    44.787759
+   ],
+   "raw_address": "Наб. Н. Бараташвили (Nikoloz Baratashvili Named Left Bank)",
+   "latin": "Nikoloz Baratashvili Named Left Bank",
+   "answer": {
+    "street_ka": "ნიკოლოზ ბარათაშვილის სახელობის მარცხენა სანაპირო",
+    "street_ru": "левая набережная Николоза Бараташвили",
+    "alt_ka": [],
+    "kind": "embankment",
+    "house": null
+   },
+   "match": {
+    "distance_m": 221,
+    "score": 0.93
+   },
+   "queries": [
+    {
+     "q": "nikoloz baratashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-22-addr",
+   "event": "tbilisi2024",
+   "kp": 22,
+   "kp_point": [
+    41.720045,
+    44.795288
+   ],
+   "raw_address": "Пр. Царицы Тамар (Queen Tamar Ave), д. 18.",
+   "latin": "Queen Tamar Ave",
+   "answer": {
+    "street_ka": "თამარ მეფის გამზირი",
+    "street_ru": "проспект Тамар Мепе",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "18"
+   },
+   "match": {
+    "distance_m": 11,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "queen tamar",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "queen tamar дом:18",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-23-addr",
+   "event": "tbilisi2024",
+   "kp": 23,
+   "kp_point": [
+    41.71736,
+    44.798794
+   ],
+   "raw_address": "Ул. Чубинашвили (G. Chubinashvili str), д. 55.",
+   "latin": "G. Chubinashvili str",
+   "answer": {
+    "street_ka": "გიორგი ჩუბინაშვილის ქუჩა",
+    "street_ru": "улица Гиорги Чубинашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "55"
+   },
+   "match": {
+    "distance_m": 6,
+    "score": 0.89
+   },
+   "queries": [
+    {
+     "q": "chubinashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "chubinashvili дом:55",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-25-addr",
+   "event": "tbilisi2024",
+   "kp": 25,
+   "kp_point": [
+    41.718907,
+    44.802238
+   ],
+   "raw_address": "Ул. Цотне Дадиани (Tsotne Dadiani str), д. 7.",
+   "latin": "Tsotne Dadiani str",
+   "answer": {
+    "street_ka": "ცოტნე დადიანის ქუჩა",
+    "street_ru": "улица Цотне Дадиани",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "7"
+   },
+   "match": {
+    "distance_m": 15,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "tsotne dadiani",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "tsotne dadiani дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-27-addr",
+   "event": "tbilisi2024",
+   "kp": 27,
+   "kp_point": [
+    41.721508,
+    44.802734
+   ],
+   "raw_address": "Ул. Закария Вешапури (Zakaria Veshapuri str), д. 8",
+   "latin": "Zakaria Veshapuri str",
+   "answer": {
+    "street_ka": "ზაქარია ვეშაპურის ქუჩა",
+    "street_ru": "улица Закарии Вешапури",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "8"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "zakaria veshapuri",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "zakaria veshapuri дом:8",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-33-addr",
+   "event": "tbilisi2024",
+   "kp": 33,
+   "kp_point": [
+    41.701059,
+    44.809013
+   ],
+   "raw_address": "Ул. Нино Чхеидзе (Nino Chkheidze str), д. 32",
+   "latin": "Nino Chkheidze str",
+   "answer": {
+    "street_ka": "ნინო ჩხეიძის ქუჩა",
+    "street_ru": "улица Нино Чхеидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "32"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "nino chkheidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "nino chkheidze дом:32",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-34-addr",
+   "event": "tbilisi2024",
+   "kp": 34,
+   "kp_point": [
+    41.698225,
+    44.810113
+   ],
+   "raw_address": "Ул. Елены Ахвледиани (Elene Akhvlediani Khevi), д. 3",
+   "latin": "Elene Akhvlediani Khevi",
+   "answer": {
+    "street_ka": "ელენე ახვლედიანის ქუჩა",
+    "street_ru": "улица Елены Ахвледиани",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 40,
+    "score": 0.99
+   },
+   "queries": [
+    {
+     "q": "elene akhvlediani khevi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "elene akhvlediani khevi дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-35-addr",
+   "event": "tbilisi2024",
+   "kp": 35,
+   "kp_point": [
+    41.701557,
+    44.811923
+   ],
+   "raw_address": "Ул. Михаила Бухаидзе (Mikheil Bukhaidze str)",
+   "latin": "Mikheil Bukhaidze str",
+   "answer": {
+    "street_ka": "მიხეილ ბუხაიძის ქუჩა",
+    "street_ru": "улица Михеила Бухаидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "mikheil bukhaidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-37-addr",
+   "event": "tbilisi2024",
+   "kp": 37,
+   "kp_point": [
+    41.702364,
+    44.811113
+   ],
+   "raw_address": "Тупик Чаисубани (Chaisubani turn)",
+   "latin": "Chaisubani turn",
+   "answer": {
+    "street_ka": "ჩაისუბანის შესახვევი",
+    "street_ru": "переулок Чаисубани",
+    "alt_ka": [],
+    "kind": "lane",
+    "house": null
+   },
+   "match": {
+    "distance_m": 10,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "chaisubani",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-38-addr",
+   "event": "tbilisi2024",
+   "kp": 38,
+   "kp_point": [
+    41.71795,
+    44.795758
+   ],
+   "raw_address": "Ул. К. Поцхверашвили (Kote Potskhverashvili str), д. 2",
+   "latin": "Kote Potskhverashvili str",
+   "answer": {
+    "street_ka": "კოტე ფოცხვერაშვილის ქუჩა",
+    "street_ru": "улица Коте Поцхверашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "2"
+   },
+   "match": {
+    "distance_m": 2,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "kote potskhverashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "kote potskhverashvili дом:2",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-40-addr",
+   "event": "tbilisi2024",
+   "kp": 40,
+   "kp_point": [
+    41.71403,
+    44.793035
+   ],
+   "raw_address": "Ул. Луи Пастера (L. Pasteur str), д. 1а.",
+   "latin": "L. Pasteur str",
+   "answer": {
+    "street_ka": "ლუი პასტერის ქუჩა",
+    "street_ru": "улица Луи Пастера",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "1а"
+   },
+   "match": {
+    "distance_m": 12,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "pasteur",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "pasteur дом:1а",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-41-addr",
+   "event": "tbilisi2024",
+   "kp": 41,
+   "kp_point": [
+    41.706457,
+    44.795522
+   ],
+   "raw_address": "Ул. Додо Абашидзе (D. Abashidze str), д. 10",
+   "latin": "D. Abashidze str",
+   "answer": {
+    "street_ka": "დოდო აბაშიძის ქუჩა",
+    "street_ru": "улица Додо Абашидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "10"
+   },
+   "match": {
+    "distance_m": 5,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "abashidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "abashidze дом:10",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-42-addr",
+   "event": "tbilisi2024",
+   "kp": 42,
+   "kp_point": [
+    41.711805,
+    44.797361
+   ],
+   "raw_address": "Ул. Зураба Чавчавадзе (Zurab Chavchavadze st), д. 5",
+   "latin": "Zurab Chavchavadze st",
+   "answer": {
+    "street_ka": "ზურაბ ჭავჭავძის ქუჩა",
+    "street_ru": "улица Зураба Чавчавадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5"
+   },
+   "match": {
+    "distance_m": 6,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "zurab chavchavadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "zurab chavchavadze дом:5",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-43-addr",
+   "event": "tbilisi2024",
+   "kp": 43,
+   "kp_point": [
+    41.719438,
+    44.792271
+   ],
+   "raw_address": "Ул. Мурман Лебанидзе (Murman Lebanidze st), д. 11",
+   "latin": "Murman Lebanidze st",
+   "answer": {
+    "street_ka": "მურმან ლებანიძის ქუჩა",
+    "street_ru": "улица Борджоми",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "11"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "murman lebanidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "murman lebanidze дом:11",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2024-44-addr",
+   "event": "tbilisi2024",
+   "kp": 44,
+   "kp_point": [
+    41.714146,
+    44.798255
+   ],
+   "raw_address": "Ул. Ивана Джавахишвили (Ivane Javachishvili st), д. 104",
+   "latin": "Ivane Javachishvili st",
+   "answer": {
+    "street_ka": "ივანე ჯავახიშვილის ქუჩა",
+    "street_ru": "улица Иване Джавахишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "104"
+   },
+   "match": {
+    "distance_m": 12,
+    "score": 1.02
+   },
+   "queries": [
+    {
+     "q": "ivane javachishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ivane javachishvili дом:104",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-12-addr",
+   "event": "tbilisi2025",
+   "kp": 12,
+   "kp_point": [
+    41.674325,
+    44.833397
+   ],
+   "raw_address": "ул. Шалвы Давиташвили (Davitashvili str,), д. 16",
+   "latin": "Davitashvili str",
+   "answer": {
+    "street_ka": "შალვა დავითაშვილის ქუჩა",
+    "street_ru": "улица Шалвы Давиташвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "16"
+   },
+   "match": {
+    "distance_m": 30,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "davitashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "davitashvili дом:16",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-13-addr",
+   "event": "tbilisi2025",
+   "kp": 13,
+   "kp_point": [
+    41.68236,
+    44.824083
+   ],
+   "raw_address": "Ул. Вахтанга Горгасали (V. Gorgasali St.), д. 2",
+   "latin": "V. Gorgasali St",
+   "answer": {
+    "street_ka": "ვახტანგ გორგასლის ქუჩა",
+    "street_ru": "улица Вахтанга Горгасали",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "2"
+   },
+   "match": {
+    "distance_m": 18,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "v gorgasali",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "v gorgasali дом:2",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-15-addr",
+   "event": "tbilisi2025",
+   "kp": 15,
+   "kp_point": [
+    41.691207,
+    44.803479
+   ],
+   "raw_address": "Пл. Ладо Гудиашвили (L. Gudiashvili square), д. 2",
+   "latin": "L. Gudiashvili square",
+   "answer": {
+    "street_ka": "ლადო გუდიაშვილის მოედანი",
+    "street_ru": "Площадь Ладо Гудиашвили",
+    "alt_ka": [],
+    "kind": "square",
+    "house": "2"
+   },
+   "match": {
+    "distance_m": 28,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "gudiashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "gudiashvili дом:2",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-17-addr",
+   "event": "tbilisi2025",
+   "kp": 17,
+   "kp_point": [
+    41.68705,
+    44.81058
+   ],
+   "raw_address": "1-й пер. Абано (Abano Turn), д. 10",
+   "latin": "Abano Turn",
+   "answer": {
+    "street_ka": "აბანოს I შესახვევი",
+    "street_ru": "1-й переулок Абано",
+    "alt_ka": [],
+    "kind": "lane",
+    "house": "10"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "abano",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "abano дом:10",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-18-addr",
+   "event": "tbilisi2025",
+   "kp": 18,
+   "kp_point": [
+    41.687313,
+    44.810083
+   ],
+   "raw_address": "Ботаническая ул. (Botanikuli St.), д. 32",
+   "latin": "Botanikuli St",
+   "answer": {
+    "street_ka": "ბოტანიკურის ქუჩა",
+    "street_ru": "улица Ботаникури",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "32"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "botanikuli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "botanikuli дом:32",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-20-addr",
+   "event": "tbilisi2025",
+   "kp": 20,
+   "kp_point": [
+    41.690142,
+    44.807288
+   ],
+   "raw_address": "Ул. Котэ Абхази (Leselidze St), д. 45",
+   "latin": "Leselidze St",
+   "answer": {
+    "street_ka": "კოტე აფხაზის ქუჩა",
+    "street_ru": "улица Коте Апхази",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "45"
+   },
+   "match": {
+    "distance_m": 32,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "leselidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "leselidze дом:45",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-23-addr",
+   "event": "tbilisi2025",
+   "kp": 23,
+   "kp_point": [
+    41.688735,
+    44.811163
+   ],
+   "raw_address": "Пл. В. Горгасали (Gorgasali square), д. 3.",
+   "latin": "Gorgasali square",
+   "answer": {
+    "street_ka": "ვახტანგ გორგასალის მოედანი",
+    "street_ru": "площадь Вахтанга Горгасали",
+    "alt_ka": [],
+    "kind": "square",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 184,
+    "score": 0.73
+   },
+   "queries": [
+    {
+     "q": "gorgasali",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "gorgasali дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-25-addr",
+   "event": "tbilisi2025",
+   "kp": 25,
+   "kp_point": [
+    41.696306,
+    44.80648
+   ],
+   "raw_address": "Ул. Шавтели (Shavteli St.), д. 26.",
+   "latin": "Shavteli St",
+   "answer": {
+    "street_ka": "შავთელის ქუჩა",
+    "street_ru": "улица Шавтели",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "26"
+   },
+   "match": {
+    "distance_m": 198,
+    "score": 1.01
+   },
+   "queries": [
+    {
+     "q": "shavteli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "shavteli дом:26",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-26-addr",
+   "event": "tbilisi2025",
+   "kp": 26,
+   "kp_point": [
+    41.696472,
+    44.8058
+   ],
+   "raw_address": "Ул. Николая Бараташвили (N. Baratashvili St.), д. 23.",
+   "latin": "N. Baratashvili St",
+   "answer": {
+    "street_ka": "ნიკოლოზ ბარათაშვილის გამზირი",
+    "street_ru": "проспект Николая Бараташвили",
+    "alt_ka": [],
+    "kind": "avenue",
+    "house": "23"
+   },
+   "match": {
+    "distance_m": 11,
+    "score": 0.95
+   },
+   "queries": [
+    {
+     "q": "baratashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "baratashvili дом:23",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-34-addr",
+   "event": "tbilisi2025",
+   "kp": 34,
+   "kp_point": [
+    41.702567,
+    44.796564
+   ],
+   "raw_address": "Ул. Аполлона Кутателадзе (Apollon Kutateladze St.), д. 4.",
+   "latin": "Apollon Kutateladze St",
+   "answer": {
+    "street_ka": "აპოლონ ქუთათელაძის ქუჩა",
+    "street_ru": "улица Аполона Кутателадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "4"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.05
+   },
+   "queries": [
+    {
+     "q": "apollon kutateladze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "apollon kutateladze дом:4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-35-addr",
+   "event": "tbilisi2025",
+   "kp": 35,
+   "kp_point": [
+    41.697608,
+    44.80018
+   ],
+   "raw_address": "Ул. Ладо Гудиашвили (Lado Gudiashvili St.), д. 11",
+   "latin": "Lado Gudiashvili St",
+   "answer": {
+    "street_ka": "ლადო გუდიაშვილის ქუჩა",
+    "street_ru": "улица Ладо Гудиашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "11"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "lado gudiashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "lado gudiashvili дом:11",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-42-addr",
+   "event": "tbilisi2025",
+   "kp": 42,
+   "kp_point": [
+    41.682552,
+    44.821424
+   ],
+   "raw_address": "Ул. Русудан Меписашвили (Mepisashvili St.), д. 3-б",
+   "latin": "Mepisashvili St",
+   "answer": {
+    "street_ka": "რუსუდან მეფისაშვილის ქუჩა",
+    "street_ru": "улица Русудан Меписашвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "3"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "mepisashvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "mepisashvili дом:3",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-44-addr",
+   "event": "tbilisi2025",
+   "kp": 44,
+   "kp_point": [
+    41.683783,
+    44.820532
+   ],
+   "raw_address": "Ул. Нугзара Шатаидзе (Nugzar Shataidze St. или Berdzeni St.), д. 5.",
+   "latin": "Nugzar Shataidze St. или Berdzeni St",
+   "answer": {
+    "street_ka": "ნუგზარ შატაიძის ქუჩა",
+    "street_ru": "улица Нугзара Шатаидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5"
+   },
+   "match": {
+    "distance_m": 1,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "nugzar shataidze berdzeni",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "nugzar shataidze berdzeni дом:5",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-46-addr",
+   "event": "tbilisi2025",
+   "kp": 46,
+   "kp_point": [
+    41.684349,
+    44.819395
+   ],
+   "raw_address": "Ул. Николая Лордкипанидзе (Niko Lortkipanidze St.), д. 2.",
+   "latin": "Niko Lortkipanidze St",
+   "answer": {
+    "street_ka": "ნიკო ლორთქიფანიძის ქუჩა",
+    "street_ru": "улица Нико Лорткипанидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "2"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "niko lortkipanidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "niko lortkipanidze дом:2",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-49-addr",
+   "event": "tbilisi2025",
+   "kp": 49,
+   "kp_point": [
+    41.681069,
+    44.821807
+   ],
+   "raw_address": "1-й пер. Нодара Табидзе (Nodar Tabidze I turn), д. 2",
+   "latin": "Nodar Tabidze I turn",
+   "answer": {
+    "street_ka": "ნოდარ ტაბიძის I შესახვევი",
+    "street_ru": "1-й переулок Нодара Табидзе",
+    "alt_ka": [],
+    "kind": "lane",
+    "house": "2"
+   },
+   "match": {
+    "distance_m": 26,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "nodar tabidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "nodar tabidze дом:2",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-50-addr",
+   "event": "tbilisi2025",
+   "kp": 50,
+   "kp_point": [
+    41.685174,
+    44.815678
+   ],
+   "raw_address": "Ул. Низами, или Низами Гянджеви (Nizami Ganjavi St), д. 7",
+   "latin": "Nizami Ganjavi St",
+   "answer": {
+    "street_ka": "ნიზამი განჯევის ქუჩა",
+    "street_ru": "улица Низами Ганджеви",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "7"
+   },
+   "match": {
+    "distance_m": 2,
+    "score": 1.0
+   },
+   "queries": [
+    {
+     "q": "nizami ganjavi",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "nizami ganjavi дом:7",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-51-addr",
+   "event": "tbilisi2025",
+   "kp": 51,
+   "kp_point": [
+    41.695617,
+    44.802975
+   ],
+   "raw_address": "Ул. А. Дюма (Aleksandre. Diuma St.), д. 31",
+   "latin": "Aleksandre. Diuma St",
+   "answer": {
+    "street_ka": "ალექსანდრე დიუმას ქუჩა",
+    "street_ru": "улица Александра Дюма",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "31"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 0.91
+   },
+   "queries": [
+    {
+     "q": "aleksandre diuma",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "aleksandre diuma дом:31",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-53-addr",
+   "event": "tbilisi2025",
+   "kp": 53,
+   "kp_point": [
+    41.69417,
+    44.806433
+   ],
+   "raw_address": "Площадь Ираклия II (Erekle Square)",
+   "latin": "Erekle Square",
+   "answer": {
+    "street_ka": "ერეკლე მეორის ქუჩა",
+    "street_ru": "улица Эрекле Меори",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 25,
+    "score": 0.8
+   },
+   "queries": [
+    {
+     "q": "erekle",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-65-addr",
+   "event": "tbilisi2025",
+   "kp": 65,
+   "kp_point": [
+    41.676057,
+    44.829631
+   ],
+   "raw_address": "Площадь Гиа Гулуа (Gulua Sq.)",
+   "latin": "Gulua Sq",
+   "answer": {
+    "street_ka": "გია გულუას ქუჩა",
+    "street_ru": "улица Гии Гулуа",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 9,
+    "score": 0.82
+   },
+   "queries": [
+    {
+     "q": "gulua",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-66-addr",
+   "event": "tbilisi2025",
+   "kp": 66,
+   "kp_point": [
+    41.677832,
+    44.832828
+   ],
+   "raw_address": "1-й тупик Дмитрия Гулиа (Dimitri Gulia I Dead-end).",
+   "latin": "Dimitri Gulia I Dead-end",
+   "answer": {
+    "street_ka": "დიმიტრი გულიას I ჩიხი",
+    "street_ru": "1-й тупик Димитрия Гулиа",
+    "alt_ka": [],
+    "kind": "dead_end",
+    "house": null
+   },
+   "match": {
+    "distance_m": 34,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "dimitri gulia",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "tbilisi2025-67-addr",
+   "event": "tbilisi2025",
+   "kp": 67,
+   "kp_point": [
+    41.674171,
+    44.826931
+   ],
+   "raw_address": "Ул. Георгия Гурамишвили (Giorgi Guramishvili St.), д. 5",
+   "latin": "Giorgi Guramishvili St",
+   "answer": {
+    "street_ka": "გიორგი გურამიშვილის ქუჩა",
+    "street_ru": "улица Гиорги Гурамишвили",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5"
+   },
+   "match": {
+    "distance_m": 19,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "giorgi guramishvili",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "giorgi guramishvili дом:5",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-0-addr",
+   "event": "teplotbilisi2023",
+   "kp": 0,
+   "kp_point": [
+    41.701062,
+    44.80225
+   ],
+   "raw_address": "Парк у Сухого моста, на пересечении Мостовой улицы (Khidis St.) и набережной Звиада Гамсахурдиа (Zviad Gamsakhurdia Enbankment). Амфитеатр на склоне, над шахмат",
+   "latin": "Khidis St",
+   "answer": {
+    "street_ka": "ხიდის ქუჩა",
+    "street_ru": "улица Хиди",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 59,
+    "score": 0.97
+   },
+   "queries": [
+    {
+     "q": "khidis",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-0-addr2",
+   "event": "teplotbilisi2023",
+   "kp": 0,
+   "kp_point": [
+    41.701062,
+    44.80225
+   ],
+   "raw_address": "Парк у Сухого моста, на пересечении Мостовой улицы (Khidis St.) и набережной Звиада Гамсахурдиа (Zviad Gamsakhurdia Enbankment). Амфитеатр на склоне, над шахмат",
+   "latin": "Zviad Gamsakhurdia Enbankment",
+   "answer": {
+    "street_ka": "ზვიად გამსახურდიას სანაპირო",
+    "street_ru": "набережная Звиада Гамсахурдиа",
+    "alt_ka": [],
+    "kind": "embankment",
+    "house": null
+   },
+   "match": {
+    "distance_m": 35,
+    "score": 0.99
+   },
+   "queries": [
+    {
+     "q": "zviad gamsakhurdia",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-2-addr",
+   "event": "teplotbilisi2023",
+   "kp": 2,
+   "kp_point": [
+    41.694247,
+    44.806435
+   ],
+   "raw_address": "Площадь Ираклия II (Erekle II Square)",
+   "latin": "Erekle II Square",
+   "answer": {
+    "street_ka": "ერეკლე მეორის ქუჩა",
+    "street_ru": "улица Эрекле Меори",
+    "alt_ka": [],
+    "kind": "street",
+    "house": null
+   },
+   "match": {
+    "distance_m": 33,
+    "score": 0.94
+   },
+   "queries": [
+    {
+     "q": "erekle ii",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-5-addr",
+   "event": "teplotbilisi2023",
+   "kp": 5,
+   "kp_point": [
+    41.694425,
+    44.804267
+   ],
+   "raw_address": "Серебряная ул. (Vertskhli St.), д. 25",
+   "latin": "Vertskhli St",
+   "answer": {
+    "street_ka": "ვერცხლის ქუჩა",
+    "street_ru": "улица Верцхли",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "25"
+   },
+   "match": {
+    "distance_m": 1,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "vertskhli",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "vertskhli дом:25",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-6-addr",
+   "event": "teplotbilisi2023",
+   "kp": 6,
+   "kp_point": [
+    41.689827,
+    44.807289
+   ],
+   "raw_address": "Ул. Туманяна (Tumanian Str.), д. 12",
+   "latin": "Tumanian Str",
+   "answer": {
+    "street_ka": "ჰოვანეს თუმანიანის ქუჩა",
+    "street_ru": "улица Ованеса Туманяна",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "12"
+   },
+   "match": {
+    "distance_m": 4,
+    "score": 0.8
+   },
+   "queries": [
+    {
+     "q": "tumanian",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "tumanian дом:12",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-11-addr",
+   "event": "teplotbilisi2023",
+   "kp": 11,
+   "kp_point": [
+    41.697385,
+    44.803189
+   ],
+   "raw_address": "Площадь Орбелиани (Orbeliani Square)",
+   "latin": "Orbeliani Square",
+   "answer": {
+    "street_ka": "გრიგოლ ორბელიანის მოედანი",
+    "street_ru": "площадь Григория Орбелиани",
+    "alt_ka": [],
+    "kind": "square",
+    "house": null
+   },
+   "match": {
+    "distance_m": 68,
+    "score": 0.81
+   },
+   "queries": [
+    {
+     "q": "orbeliani",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-15-addr",
+   "event": "teplotbilisi2023",
+   "kp": 15,
+   "kp_point": [
+    41.699018,
+    44.804219
+   ],
+   "raw_address": "Тупик Вахтанга Орбелиани (Vakhtang Orbeliani Ch.), д. 20/4",
+   "latin": "Vakhtang Orbeliani Ch",
+   "answer": {
+    "street_ka": "ვახტანგ ორბელიანი ქუჩა",
+    "street_ru": "улица Вахтанга Орбелиани",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "20/4"
+   },
+   "match": {
+    "distance_m": 24,
+    "score": 0.99
+   },
+   "queries": [
+    {
+     "q": "vakhtang orbeliani ch",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "vakhtang orbeliani ch дом:20/4",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-16-addr",
+   "event": "teplotbilisi2023",
+   "kp": 16,
+   "kp_point": [
+    41.696443,
+    44.806225
+   ],
+   "raw_address": "Ул. Чахрухадзе (Chakhrukhadze St.), д. 28 (угол Бараташвили)",
+   "latin": "Chakhrukhadze St",
+   "answer": {
+    "street_ka": "ჩახრუხაძეს ქუჩა",
+    "street_ru": "улица Чахрухадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "28"
+   },
+   "match": {
+    "distance_m": 34,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "chakhrukhadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "chakhrukhadze дом:28",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-21-addr",
+   "event": "teplotbilisi2023",
+   "kp": 21,
+   "kp_point": [
+    41.694605,
+    44.803211
+   ],
+   "raw_address": "Ул. Калистрата Цинцадзе (Kalistrate Tsintsadze St.), д. 23",
+   "latin": "Kalistrate Tsintsadze St",
+   "answer": {
+    "street_ka": "კალისტრატე ცინცაძის ქუჩა",
+    "street_ru": "улица Каллистрата Цинцадзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "23"
+   },
+   "match": {
+    "distance_m": 7,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "kalistrate tsintsadze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "kalistrate tsintsadze дом:23",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-22-addr",
+   "event": "teplotbilisi2023",
+   "kp": 22,
+   "kp_point": [
+    41.695646,
+    44.803366
+   ],
+   "raw_address": "Ул. Шоты Нишнианидзе (Shota Nishnianidze St.), д. 5",
+   "latin": "Shota Nishnianidze St",
+   "answer": {
+    "street_ka": "შოთა ნიშნიაძის ქუჩა",
+    "street_ru": "улица Шота Нишнианидзе",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "5"
+   },
+   "match": {
+    "distance_m": 3,
+    "score": 1.08
+   },
+   "queries": [
+    {
+     "q": "shota nishnianidze",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "shota nishnianidze дом:5",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  },
+  {
+   "id": "teplotbilisi2023-99-addr",
+   "event": "teplotbilisi2023",
+   "kp": 99,
+   "kp_point": [
+    41.690642,
+    44.792659
+   ],
+   "raw_address": "ул. Окрокана (Oqroyana St.), д. 13. Пространство «Зазеркалье»",
+   "latin": "Oqroyana St",
+   "answer": {
+    "street_ka": "ოქროყანას ქუჩა",
+    "street_ru": "улица Окрокана",
+    "alt_ka": [],
+    "kind": "street",
+    "house": "13"
+   },
+   "match": {
+    "distance_m": 22,
+    "score": 1.07
+   },
+   "queries": [
+    {
+     "q": "oqroyana",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "oqroyana дом:13",
+     "mode": "latin",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
+  }
+ ]
+}

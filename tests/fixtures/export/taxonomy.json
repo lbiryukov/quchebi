@@ -1,0 +1,17 @@
+{
+ "version": "test",
+ "categories": [
+  {"id": "lit", "ru": "Литература", "children": [
+   {"id": "lit.poet", "ru": "поэт"},
+   {"id": "lit.writer", "ru": "писатель, прозаик"}]},
+  {"id": "power", "ru": "Власть и политика", "children": [
+   {"id": "power.public", "ru": "общественный деятель"},
+   {"id": "power.revolutionary", "ru": "революционер, деятель нацдвижения"}]},
+  {"id": "place", "ru": "Топонимы", "aliases": ["топонимы", "место"], "children": [
+   {"id": "place.mountain", "ru": "гора, хребет, перевал"}]},
+  {"id": "biz", "ru": "Меценаты и предприниматели", "children": [
+   {"id": "biz.patron", "ru": "меценат, благотворитель"}]},
+  {"id": "event", "ru": "События и даты", "children": [
+   {"id": "event.date", "ru": "памятная дата (26 мая, 9 апреля)"}]}
+ ]
+}

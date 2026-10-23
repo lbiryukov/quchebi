@@ -79,6 +79,28 @@ computeZoneMasks(index, polygon /* [[lat, lon], ...] */, { rule: 'default'|'touc
 encodeZone(polygon) -> string ; decodeZone(string) -> polygon
 ```
 
+## Implementation notes (24/10/2026, as built)
+
+- `Bitset`: `and/or/andNot/xor/not` return a new set; `iand/ior/iandNot/ixor/inot` mutate in place;
+  also `has/get/set/count/forEach/toArray/first/intersects` and an iterator.
+- `Index` extras used by the DSL: `textBits, nameBits, resolveKind, resolveWho, resolveArea,
+  resolveDistrict, occupationBits, eponymBits, oldEponymBits, familyClosure, crossingBits,
+  nearBits, nearPointBits, suggest` (MiniSearch), `warmup()` (runs on idle in the browser).
+- `index.houses(i)` returns raw pack rows `[raw, n, lit, sub, lat, lon, n_to?, corp?]`.
+- `adj` has `mask` (direction mask of the street at that crossing); one entry per crossing point,
+  so a neighbour can repeat.
+- House semantics: a range "3-5" covers only its own parity side; `=3` excludes ranges and
+  korpus rows; `дом:3а` also matches "3ა/1".
+- `ZoneMasks` extras: `featRule, contains, forRule, housesInside, refreshHouses, recompute`;
+  `counts.houses = null` until houses.json is loaded.
+- `decodeZone` throws an Error with a Russian message; `tryDecodeZone` returns null.
+- `store/pack.js`: `loadPack` downloads data files on first run; tiles via
+  `downloadPack({includeTiles: true})` (skips files with an unchanged sha256, atomic switch);
+  also `checkForUpdate, packStatus, removePack, tileEntries`.
+- Service worker: never precache `data/*.json` or `tiles/*` with Workbox; answer them from the
+  `pack-v<version>` cache via `caches.match`, and serve HTTP Range requests for `.pmtiles`
+  from the cached file.
+
 ## Storage
 
 | what | where | notes |
