@@ -1,0 +1,22 @@
+{
+  "name": "Quchebi — улицы Тбилиси для «Бегущего города»",
+  "short_name": "Quchebi",
+  "description": "Офлайн-поиск улиц и топонимов Тбилиси: ka/ru/lat, запросы, эпонимы, дома, пересечения, зона.",
+  "lang": "ru",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#F3F5F9",
+  "theme_color": "#1D3B6E",
+  "categories": ["navigation", "travel", "games"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

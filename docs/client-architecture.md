@@ -100,6 +100,16 @@ encodeZone(polygon) -> string ; decodeZone(string) -> polygon
 - Service worker: never precache `data/*.json` or `tiles/*` with Workbox; answer them from the
   `pack-v<version>` cache via `caches.match`, and serve HTTP Range requests for `.pmtiles`
   from the cached file.
+- UI modules (`app/src/ui/`): state, dom, format, feature, dsledit, query-input, chips, search,
+  card, router, theme, header, mapctl, mapscreen, zonectl, zonescreen, ready, assets, update,
+  logscreen, about. `app/src/map/`: map.js (layers), basemap.js (PMTiles from Cache Storage →
+  File → FileSource, else network, else plain background with our streets), geomutil.js (area,
+  +50 m buffer, self-intersection repair, union of districts).
+- Service worker routing (as built): `data/*` and `tiles/*` → `caches.match` over all caches,
+  network fallback; `.pmtiles` Range → 206 from the cached file; requests with `no-store`/`reload`
+  go network-first; glyphs/sprites not in the pack go to runtime cache `basemap-assets-v1`.
+- Lazy chunks: MapLibre + PMTiles + Protomaps style (~300 KB gzip) and Terra Draw (~35 KB gzip)
+  load when the map or zone editing opens; the start bundle is ~100 KB gzip.
 
 ## Storage
 

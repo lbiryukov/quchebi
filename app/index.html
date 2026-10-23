@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Quchebi: офлайн-поиск улиц Тбилиси для игры «Бегущий город»">
+  <meta name="theme-color" content="#1D3B6E" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0E131B" media="(prefers-color-scheme: dark)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Quchebi">
+  <meta name="format-detection" content="telephone=no">
+  <title>Quchebi</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <script>
+    // Apply the saved theme before first paint (mirrored to localStorage by the settings UI).
+    try {
+      var t = localStorage.getItem('quchebi.theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) { /* storage may be blocked */ }
+  </script>
+  <script type="module" src="./src/main.js"></script>
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar">
+      <button id="zone-plate" class="zone-plate none" type="button" aria-label="Зона соревнований">
+        <span class="dot" aria-hidden="true"></span><span id="zone-plate-text">Зона не задана</span>
+      </button>
+      <div id="net-status" class="net-status" aria-live="polite"></div>
+    </header>
+
+    <main id="screens" class="screens">
+      <div id="boot" class="boot" role="status">
+        <div class="plate-big"><span class="ka">ქუჩები</span><span class="lat">Quchebi</span></div>
+        <div id="boot-text">Загрузка…</div>
+        <div class="progress" aria-hidden="true"><i id="boot-bar"></i></div>
+      </div>
+
+      <section id="screen-search" class="screen" data-screen="search" aria-label="Поиск">
+        <div id="search-out" class="search-screen"></div>
+      </section>
+      <section id="screen-map" class="screen map-screen" data-screen="map" aria-label="Карта"></section>
+      <section id="screen-zone" class="screen map-screen" data-screen="zone" aria-label="Зона"></section>
+      <section id="screen-ready" class="screen pad" data-screen="ready" aria-label="Готовность"></section>
+      <section id="screen-log" class="screen pad" data-screen="log" aria-label="Журнал"></section>
+      <section id="screen-about" class="screen pad" data-screen="about" aria-label="О приложении"></section>
+    </main>
+
+    <div id="search-dock" class="dock" hidden></div>
+
+    <nav class="tabbar" aria-label="Разделы">
+      <button type="button" data-nav="search" aria-current="page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+        <span>Поиск</span>
+      </button>
+      <button type="button" data-nav="map">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></svg>
+        <span>Карта</span>
+      </button>
+      <button type="button" data-nav="zone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l6-3 9 4-2 10-8 2-5-6z" stroke-dasharray="3 2"/><circle cx="10" cy="4" r="1.6" fill="currentColor"/><circle cx="19" cy="8" r="1.6" fill="currentColor"/><circle cx="4" cy="14" r="1.6" fill="currentColor"/></svg>
+        <span>Зона</span>
+      </button>
+      <button type="button" data-nav="ready">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16.5 9"/></svg>
+        <span>Готовность</span>
+      </button>
+    </nav>
+  </div>
+
+  <div id="sheet-root"></div>
+  <div id="update-banner" class="update-banner" hidden>
+    <span class="txt">Доступна новая версия приложения</span>
+    <button type="button" class="btn small" id="update-later">Позже</button>
+    <button type="button" class="btn small" id="update-now">Обновить</button>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript>Для работы Quchebi нужен JavaScript.</noscript>
+</body>
+</html>
