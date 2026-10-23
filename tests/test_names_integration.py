@@ -56,7 +56,8 @@ def test_performance_13k(ways):
         best = min(best, time.perf_counter() - t0)
     log.info("parse_name: %d ways in %.2fs (best of 3)", len(ways), best)
     assert len(ways) > 13_000
-    assert best < 2.0, best
+    # ~0.9 s on an idle machine; offline pipeline step, so the bound only catches regressions.
+    assert best < 4.0, best
 
 
 def test_family_count(parsed):
