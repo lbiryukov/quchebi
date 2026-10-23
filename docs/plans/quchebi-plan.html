@@ -1,0 +1,942 @@
+<title>План проекта Quchebi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Georgian:wght@400;600;700&family=Unbounded:wght@500;700&display=swap">
+<style>
+/* Layout: одна колонка чтения ~72ch; таблицы, схемы и макет телефона выходят шире в собственных контейнерах. Акцент — эмаль уличной таблички + саперави. */
+:root{
+  --bg:#F4F6F9; --surface:#FFFFFF; --ink:#152033; --muted:#566278; --line:#D9DFE8; --soft:#EBEFF5;
+  --enamel:#1D3B6E; --enamel-ink:#FFFFFF; --accent:#8A2242; --accent-soft:#F6E6EC;
+  --ok:#2D7A4E; --ok-soft:#E3F2E9; --warn:#9A6200; --warn-soft:#FBF0DC; --bad:#A8322D;
+  --code-bg:#EDF1F6; --code-ink:#1C2A44; --link:#1D3B6E;
+  --f-display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  --f-ka:"Noto Sans Georgian","BPG Arial","Sylfaen",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E131B; --surface:#151C27; --ink:#E5EAF2; --muted:#9AA6B8; --line:#283245; --soft:#1B2331;
+    --enamel:#33599A; --enamel-ink:#FFFFFF; --accent:#E8839F; --accent-soft:#3A1F2A;
+    --ok:#6CC795; --ok-soft:#18321F; --warn:#E3B05A; --warn-soft:#352A14; --bad:#F08A84;
+    --code-bg:#1A2230; --code-ink:#D6E0F0; --link:#9DBBF0; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E131B; --surface:#151C27; --ink:#E5EAF2; --muted:#9AA6B8; --line:#283245; --soft:#1B2331;
+  --enamel:#33599A; --enamel-ink:#FFFFFF; --accent:#E8839F; --accent-soft:#3A1F2A;
+  --ok:#6CC795; --ok-soft:#18321F; --warn:#E3B05A; --warn-soft:#352A14; --bad:#F08A84;
+  --code-bg:#1A2230; --code-ink:#D6E0F0; --link:#9DBBF0; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:1040px;margin:0 auto}
+.col{max-width:72ch}
+h1,h2,h3{text-wrap:balance;line-height:1.25;margin:0}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.7rem,4.4vw,2.6rem);letter-spacing:-.01em}
+h2{font-family:var(--f-display);font-weight:500;font-size:clamp(1.25rem,2.6vw,1.6rem);padding-top:8px}
+h3{font-size:1.08rem;font-weight:600}
+p{margin:0}
+a{color:var(--link)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ka{font-family:var(--f-ka)}
+code,kbd,.mono{font-family:var(--f-mono);font-size:.88em}
+code{background:var(--code-bg);color:var(--code-ink);padding:.08em .35em;border-radius:4px;overflow-wrap:break-word;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+pre{font-family:var(--f-mono);font-size:.86rem;line-height:1.55;background:var(--code-bg);color:var(--code-ink);
+  padding:14px 16px;border-radius:8px;overflow-x:auto;margin:0}
+pre code{background:none;padding:0;white-space:pre}
+section{display:grid;gap:16px;padding-block:28px;border-top:1px solid var(--line)}
+section > .col{display:grid;gap:12px}
+.eyebrow{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lead{font-size:1.1rem;color:var(--ink)}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+
+/* Шапка: эмалевая табличка */
+header.top{display:grid;gap:20px;padding-block:28px 24px}
+.plate{display:inline-grid;gap:2px;background:var(--enamel);color:var(--enamel-ink);border-radius:10px;
+  padding:12px 18px 10px;border:3px solid var(--enamel);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55);justify-self:start;max-width:100%}
+.plate .ka{font-size:clamp(1.5rem,5vw,2.1rem);font-weight:700;line-height:1.1}
+.plate .lat{font-family:var(--f-body);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;opacity:.92}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.9rem}
+.meta b{color:var(--ink);font-weight:600}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px}
+nav.toc a{font-size:.84rem;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  padding:4px 10px;border-radius:999px}
+nav.toc a:hover{border-color:var(--enamel)}
+
+/* Цифры */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:2px;align-content:start}
+.stat .v{font-family:var(--f-display);font-size:1.45rem;font-weight:500;font-variant-numeric:tabular-nums}
+.stat .k{font-size:.84rem;color:var(--muted);line-height:1.35}
+
+/* Таблицы */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--soft)}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right}
+
+/* Чипы и метки */
+.pill{display:inline-block;font-size:.76rem;font-weight:600;padding:1px 8px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
+.pill.main{background:var(--enamel);color:var(--enamel-ink)}
+.pill.enrich{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+.pill.check{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.pill.no{background:var(--soft);color:var(--muted);border-color:var(--line)}
+.pill.ai{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+
+/* Поток импорта */
+ol.flow{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;counter-reset:st}
+ol.flow li{counter-increment:st;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:6px;align-content:start;position:relative}
+ol.flow li::before{content:counter(st);font-family:var(--f-display);font-size:.8rem;color:var(--enamel-ink);background:var(--enamel);
+  width:24px;height:24px;border-radius:50%;display:grid;place-items:center}
+ol.flow li b{font-size:.95rem}
+ol.flow li span{font-size:.84rem;color:var(--muted);line-height:1.4}
+
+/* Две колонки */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start}
+.two > *{min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.card h3{font-size:1rem}
+ul.tight{margin:0;padding-left:1.1em;display:grid;gap:4px}
+ul.tight li::marker{color:var(--muted)}
+
+/* Макет телефона */
+.mock{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:720px){.mock{grid-template-columns:1fr}}
+.phone{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:14px 12px 16px;display:grid;gap:10px;
+  box-shadow:0 1px 0 var(--line),0 12px 32px -18px rgba(20,32,51,.35);max-width:340px;width:100%}
+.ph-bar{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ph-zone{font-size:.78rem;font-weight:600;background:var(--ok-soft);color:var(--ok);border:1px solid var(--ok);padding:3px 10px;border-radius:999px}
+.ph-off{font-size:.72rem;color:var(--muted)}
+.ph-q{font-family:var(--f-mono);font-size:.8rem;background:var(--code-bg);color:var(--code-ink);border:1.5px solid var(--enamel);border-radius:12px;padding:10px 12px;word-break:break-word}
+.ph-q .k{color:var(--accent);font-weight:600}
+.ph-explain{font-size:.78rem;color:var(--muted);line-height:1.35}
+.ph-chips{display:flex;gap:6px;flex-wrap:wrap}
+.ph-chips span{font-size:.74rem;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
+.ph-chips span.on{background:var(--enamel);color:var(--enamel-ink);border-color:var(--enamel)}
+.res{border:1px solid var(--line);border-radius:12px;padding:9px 11px;display:grid;gap:3px;background:var(--bg)}
+.res .ka{font-size:.95rem;font-weight:600;line-height:1.3}
+.res .ru{font-size:.82rem}
+.res .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+.res .tags span{font-size:.68rem;padding:1px 7px;border-radius:999px;background:var(--soft);color:var(--muted)}
+.res .tags span.c{background:var(--accent-soft);color:var(--accent)}
+.ph-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;border-top:1px solid var(--line);padding-top:8px;font-size:.7rem;text-align:center;color:var(--muted)}
+.ph-nav b{color:var(--enamel)}
+
+/* Этапы */
+.phase{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.phase:last-child{border-bottom:0}
+.phase .when{font-family:var(--f-display);font-size:.95rem;font-weight:500;color:var(--enamel)}
+.phase .when small{display:block;font-family:var(--f-body);font-size:.78rem;color:var(--muted);font-weight:400}
+.phase .body{display:grid;gap:6px}
+.phase .done{font-size:.86rem;color:var(--ok)}
+@media (max-width:560px){.phase{grid-template-columns:1fr;gap:4px}}
+
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:10px}
+.note{border-left:3px solid var(--enamel);padding:6px 0 6px 12px;color:var(--ink);font-size:.95rem}
+.note.warn{border-left-color:var(--warn)}
+footer{padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;display:grid;gap:6px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <div class="plate" aria-label="Название проекта">
+    <span class="ka">ქუჩები</span>
+    <span class="lat">Quchebi · поиск улиц Тбилиси</span>
+  </div>
+  <div class="col" style="display:grid;gap:12px">
+    <p class="eyebrow">План проекта · помощник игры «Бегущий город» в Тбилиси</p>
+    <h1>Офлайн-поисковик улиц и топонимов Тбилиси для телефона</h1>
+    <p class="lead">Мобильная веб-страница, которая за секунды находит улицу, переулок, тупик, площадь, мост, реку, район или станцию метро по куску названия на грузинском, русском или латинице, по типу, району, номеру дома, пересечениям и по тому, в честь кого названа улица. Зона соревнований рисуется пальцем один раз и ограничивает все поиски, пока её не перенастроят.</p>
+  </div>
+  <div class="meta">
+    <span>Дата: <b>23/10/2026</b></span>
+    <span>Статус: <b>план на согласование</b></span>
+    <span>Снимок OSM для оценок: <b>23/10/2026 19:42 UTC</b></span>
+  </div>
+  <nav class="toc" aria-label="Разделы">
+    <a href="#summary">Коротко</a><a href="#numbers">Данные в цифрах</a><a href="#scenarios">Сценарии</a>
+    <a href="#sources">Источники</a><a href="#import">Импорт</a><a href="#model">Модель данных</a>
+    <a href="#eponyms">Эпонимы и субагенты</a><a href="#dsl">Язык запросов</a><a href="#zone">Зона</a>
+    <a href="#app">Приложение</a><a href="#ui">Интерфейс</a><a href="#structure">Структура</a>
+    <a href="#phases">Этапы</a><a href="#quality">Тесты и логи</a><a href="#risks">Риски</a><a href="#questions">Вопросы</a>
+  </nav>
+</header>
+
+<section id="summary">
+  <div class="col">
+    <p class="eyebrow">Коротко</p>
+    <h2>Что строим и ключевые решения</h2>
+    <p>Проект состоит из двух частей. На компьютере Python-конвейер заранее собирает данные: OpenStreetMap, Wikidata и классифицирующие субагенты Claude. Результат — компактный пакет данных. В телефоне статическое PWA хранит этот пакет, карту и зону у себя и работает без сети.</p>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>Данные</h3>
+      <ul class="tight">
+        <li><b>Основа — OpenStreetMap.</b> Русский вариант есть у 97% названий, к улицам привязываются 97,6% адресов, пересечений 8 700.</li>
+        <li><b>Этимология и история</b> — из энциклопедии «Тбилиси. Улицы, проспекты, площади» (2008), ka- и ru-Википедии и Wikidata.</li>
+        <li><b>Остаток классифицируют субагенты Claude Opus 5.5.</b> Каждый факт хранит источник и уверенность, а в интерфейсе видно, где факт, а где оценка ИИ.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Приложение</h3>
+      <ul class="tight">
+        <li><b>Всё в телефоне.</b> Данные весят ~0,5 MB gzip, подложка карты — 20 MB. PWA ставится на экран «Домой».</li>
+        <li><b>Свой поисковый движок</b> на битовых множествах: запрос считается за миллисекунды без сервера.</li>
+        <li><b>Строка DSL — источник истины.</b> Чипы дописывают в неё фильтры, а сам запрос можно переслать текстом.</li>
+        <li><b>Зона</b> рисуется пальцем один раз, хранится на устройстве и передаётся команде кодом.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note"><b>Приёмка — на реальных заданиях.</b> На runcity.org опубликованы разборы прошлых игр в Тбилиси с адресами КП и отгадками. Это готовый тест: приложение считается готовым, когда находит правильную улицу для ≥ 90% таких загадок.</div>
+</section>
+
+<section id="numbers">
+  <div class="col">
+    <p class="eyebrow">Данные в цифрах</p>
+    <h2>Что уже есть в открытых данных</h2>
+    <p>Цифры получены пробными запросами к Overpass API и Wikidata SPARQL 23/10/2026 по административной границе Тбилиси. Это не оценки: так выглядят данные сегодня.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="v">5 178</span><span class="k">улиц после склейки 13 233 отрезков OSM</span></div>
+    <div class="stat"><span class="v">4 586</span><span class="k">уникальных названий → 2 278 семейств «улица + её переулки»</span></div>
+    <div class="stat"><span class="v">97%</span><span class="k">отрезков с русским названием <code>name:ru</code></span></div>
+    <div class="stat"><span class="v">40 576</span><span class="k">адресов привязано к улицам — 97,6% от адресов с улицей</span></div>
+    <div class="stat"><span class="v">8 700</span><span class="k">пар пересекающихся улиц</span></div>
+    <div class="stat"><span class="v">1 126</span><span class="k">улиц, где есть именно дом «3»; с 3ა, 3/1 и корпусами — 1 200</span></div>
+    <div class="stat"><span class="v">2 681</span><span class="k">улица без единого номера дома в OSM</span></div>
+    <div class="stat"><span class="v">5,2% → 17,4%</span><span class="k">названий с известным эпонимом: только тег OSM → с наследованием и Wikidata</span></div>
+    <div class="stat"><span class="v">10 + 149</span><span class="k">районов и микрорайонов с полигонами или точками</span></div>
+    <div class="stat"><span class="v">23 · 286</span><span class="k">станции метро · именованных отрезков рек и ручьёв</span></div>
+    <div class="stat"><span class="v">814</span><span class="k">статей ka-Википедии об улицах Тбилиси, у 520 есть прежние названия</span></div>
+    <div class="stat"><span class="v">702</span><span class="k">отрезка с <code>old_name</code> в OSM</span></div>
+  </div>
+  <details>
+    <summary>Типы объектов по последнему слову грузинского названия</summary>
+    <div class="tbl"><table>
+      <thead><tr><th>ka</th><th>ru</th><th>Код DSL</th><th class="num">Названий</th></tr></thead>
+      <tbody>
+        <tr><td class="ka">ქუჩა</td><td>улица</td><td><code>улица</code></td><td class="num">2 196</td></tr>
+        <tr><td class="ka">ჩიხი</td><td>тупик</td><td><code>тупик</code></td><td class="num">1 052</td></tr>
+        <tr><td class="ka">შესახვევი</td><td>переулок</td><td><code>переулок</code></td><td class="num">962</td></tr>
+        <tr><td class="ka">გასასვლელი</td><td>проезд (в OSM «съезд»)</td><td><code>проезд</code></td><td class="num">207</td></tr>
+        <tr><td class="ka">მოედანი</td><td>площадь</td><td><code>площадь</code></td><td class="num">33</td></tr>
+        <tr><td class="ka">გამზირი</td><td>проспект</td><td><code>проспект</code></td><td class="num">23</td></tr>
+        <tr><td class="ka">ხიდი</td><td>мост</td><td><code>мост</code></td><td class="num">22</td></tr>
+        <tr><td class="ka">აღმართი</td><td>подъём</td><td><code>подъём</code></td><td class="num">14</td></tr>
+        <tr><td class="ka">გზატკეცილი</td><td>шоссе</td><td><code>шоссе</code></td><td class="num">10</td></tr>
+        <tr><td class="ka">ხევი</td><td>балка, овраг</td><td><code>балка</code></td><td class="num">10</td></tr>
+        <tr><td class="ka">სანაპირო</td><td>набережная</td><td><code>набережная</code></td><td class="num">9</td></tr>
+        <tr><td class="ka">ხეივანი</td><td>аллея</td><td><code>аллея</code></td><td class="num">6</td></tr>
+        <tr><td class="ka">დაღმართი</td><td>спуск</td><td><code>спуск</code></td><td class="num">5</td></tr>
+      </tbody>
+    </table></div>
+  </details>
+</section>
+
+<section id="scenarios">
+  <div class="col">
+    <p class="eyebrow">Сценарии</p>
+    <h2>Игровые вопросы, под которые оптимизируем поиск</h2>
+    <p>Каждый сценарий — одна строка запроса или пара тапов по чипам. Зона подставляется автоматически. Задания ниже пересказаны по опубликованным разборам прошлых игр на runcity.org (Тбилиси 2023–2025). Так выглядят реальные вопросы, а не придуманные.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Задание</th><th>Запрос</th><th>Что для этого нужно</th></tr></thead>
+    <tbody>
+      <tr><td>Все улицы, где есть дом 3 <span class="pill no">из задачи</span></td><td><code>тип:улица* дом:3</code></td><td>Номера с литерами и дробями. Учитываются только адреса внутри зоны</td></tr>
+      <tr><td>Переулки, пересекающие улицы поэтов <span class="pill no">из задачи</span></td><td><code>тип:переулок x:(тип:улица* кто:поэт)</code></td><td>Граф пересечений и категории эпонимов. Перекрёсток должен быть в зоне</td></tr>
+      <tr><td>Дом 24 на улице, названной в честь хормейстера <span class="pill main">2025</span></td><td><code>кто:хормейстер дом:24</code></td><td>Узкие профессии, а не только «музыкант»</td></tr>
+      <tr><td>Дом 2 на улице учёного <span class="pill main">2025</span></td><td><code>кто:наука дом:2</code></td><td>Родительская категория включает всех учёных</td></tr>
+      <tr><td>Улица имени дирижёра, раньше носившая имя Крылова <span class="pill main">2023</span></td><td><code>кто:дирижёр было:крылов</code></td><td>Старые названия всех эпох</td></tr>
+      <tr><td>Улица, раньше названная в честь строителя Рионской ГЭС <span class="pill main">2025</span></td><td><code>было:(био:гэс)</code></td><td>Эпонимы у старых названий и поиск по биографии</td></tr>
+      <tr><td>Улица с пятью согласными подряд <span class="pill main">2024</span></td><td><code>имя:/\С{5}/</code></td><td>Шаблоны букв: <code>\С</code> — согласная, <code>\Г</code> — гласная, для ru и ka</td></tr>
+      <tr><td>Улица, отходящая от сквера на восток, дом 16 <span class="pill main">2025</span></td><td><code>x:(тип:сквер рижск)~в дом:16</code></td><td>Направление ухода улицы от перекрёстка</td></tr>
+      <tr><td>Дом на углу с улицей Чаргали <span class="pill main">2024</span></td><td><code>x:(чаргали)</code></td><td>В карточке — дома у каждого перекрёстка</td></tr>
+      <tr><td>Какое название площадь носила дольше всего <span class="pill main">2025</span></td><td><code>в:абанотубани тип:площадь</code></td><td>В карточке — история названий с годами</td></tr>
+      <tr><td>Латиница с таблички или из адреса КП: «Leselidze St»</td><td><code>leselidze</code></td><td>Поиск по en и старым латинским написаниям</td></tr>
+      <tr><td>Услышали на слух «Чавчавадзе»</td><td><code>чавчавадзе</code></td><td>ka, ru, en, старые названия и транслит одновременно</td></tr>
+      <tr><td>Тупик без номеров домов в Сололаки</td><td><code>тип:тупик дом:нет в:сололаки</code></td><td>Микрорайоны важнее официальных районов</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">Из разборов видно, на чём строятся загадки: биография тёзки (хормейстер, учёный, изобретатель, строитель ГЭС), переименования и цепочки названий, номера домов с литерами (101а, 20/22), углы и направления, латиница из адресов КП, шаблоны букв и числа в названиях. В категории «Сфинкс» загадки есть на всех КП, во «Льве» — на части, в «Грифоне» их нет.</div>
+</section>
+
+<section id="sources">
+  <div class="col">
+    <p class="eyebrow">Источники данных</p>
+    <h2>Откуда берём данные и как их используем</h2>
+  </div>
+  <div class="col"><p>Каждый источник ниже открыт и проверен реальным запросом 23/10/2026. Метка показывает роль источника в проекте.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Источник</th><th>Что даёт</th><th>Доступ, лицензия</th><th>Роль</th></tr></thead>
+    <tbody>
+      <tr><td><b>OpenStreetMap</b><br><span class="small muted">Geofabrik <code>georgia-latest.osm.pbf</code>, 97 MB, обновляется ежедневно; Overpass API</span></td><td>Геометрия, названия ka/ru/en, типы, адреса, районы, метро, реки, <code>old_name</code>, часть <code>name:etymology:wikidata</code>. Годовые архивы с 2015 года показывают переименования</td><td>ODbL, нужна атрибуция</td><td><span class="pill main">основа</span></td></tr>
+      <tr><td><b>Энциклопедия «<span class="ka">თბილისი. ქუჩები, გამზირები, მოედნები</span>»</b> (2008)<br><span class="small muted">georgianencyclopedia.ge, PDF 60,7 MB</span></td><td>Статья на каждую улицу: район, «от … до …», год присвоения имени, прежние названия с годами (списки 1903 и 1955 годов, план 1934 года), отдельные статьи о тех, в честь кого названо</td><td>© НАН Грузии. Текстовый слой в кодировке AcadNusx, переводится в Unicode таблицей из 33 букв. Берём только факты, текст не перепечатываем</td><td><span class="pill enrich">этимология и история</span></td></tr>
+      <tr><td><b>ka.wikipedia</b>, категория «<span class="ka">თბილისის ქუჩები</span>»</td><td>814 статей, 813 с QID. Прежние названия есть в 520 статьях, фраза «назван в честь» — в 414. 758 статей ссылаются на энциклопедию 2008 года</td><td>API, CC BY-SA</td><td><span class="pill enrich">обогащение</span></td></tr>
+      <tr><td><b>ru.wikipedia</b>, «Улицы Тбилиси»</td><td>111 статей, прежние названия у 86 — русские формы старых названий</td><td>API, CC BY-SA</td><td><span class="pill enrich">обогащение</span></td></tr>
+      <tr><td><b>Wikidata</b></td><td>854 элемента-улицы и площади Тбилиси, P138 «назван в честь» у 239. У тёзок — профессии, должности, даты жизни, пол</td><td>CC0. SPARQL сейчас ограничен 1 запросом в минуту, массово берём через <code>wbgetentities</code></td><td><span class="pill enrich">факты об эпонимах</span></td></tr>
+      <tr><td><b>NAPR</b>, список уникальных адресных имён</td><td>9 769 официальных имён по всей Грузии, только ka. Подходит для проверки написания и типа объекта</td><td>Открытый JSON на maps.gov.ge</td><td><span class="pill check">сверка</span></td></tr>
+      <tr><td><b>NAPR</b>: WMS-слой улиц, топокарта 1:10 000 (1952–2007), кадастр по точке</td><td>Растровая сверка осей и подписей; советская карта с русскими названиями; номер дома у точки</td><td>WFS закрыт (403). Только ручные запросы, массовый обход не делаем</td><td><span class="pill check">ручная сверка</span></td></tr>
+      <tr><td><b>matsne.gov.ge</b>, решения Сакребуло</td><td>Присвоения и переименования после 2008 года</td><td>Официальные акты, HTML</td><td><span class="pill check">точечно</span></td></tr>
+      <tr><td><b>Разборы игр на runcity.org</b></td><td>Адреса КП, загадки и отгадки прошлых игр в Тбилиси: в 2024 году 30 загадок, в 2025-м около 73 КП со справкой</td><td>Публичные страницы</td><td><span class="pill check">тест-набор заданий</span></td></tr>
+      <tr><td>Яндекс Карты</td><td>Улицы и номера домов, есть ошибки в подписях</td><td>Условия: только личное некоммерческое использование, копирование запрещено</td><td><span class="pill check">только глазами</span></td></tr>
+      <tr><td>Мэрия Тбилиси, 2GIS, Overture, GeoNames, BBBike, сайты старых карт</td><td>ГИС мэрии закрыта входом; 2GIS не покрывает Тбилиси; в Overture addresses нет Грузии; в GeoNames 4 улицы; etomesto и oldmapsonline недоступны</td><td>—</td><td><span class="pill no">не используем</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">Энциклопедия 2008 года и ka.wikipedia закрывают главную дыру OSM: в OSM этимология есть только у ~5% названий, а старых названий мало. Разбор PDF добавлен в конвейер отдельной стадией.</div>
+</section>
+
+<section id="import">
+  <div class="col">
+    <p class="eyebrow">Импорт</p>
+    <h2>Конвейер подготовки данных</h2>
+    <p>Конвейер — Python-пакет под uv, каждый шаг запускается отдельно и пишет в общую базу SQLite <code>data/runcity.sqlite</code>. Каждый факт хранит источник: OSM-тег, Wikidata, вывод субагента или ручная правка. Так видно, откуда взялось «поэт» у конкретной улицы.</p>
+  </div>
+  <ol class="flow">
+    <li><b>Загрузка</b><span>Geofabrik <code>georgia-latest.osm.pbf</code> для воспроизводимой сборки, Overpass для быстрых проб. Всё в <code>data/raw/</code> с датой снимка.</span></li>
+    <li><b>Объекты</b><span>Склейка отрезков в улицы, разбор названия: тип, порядковый номер, эпоним, родительская улица. Одноимённые улицы в разных концах города разделяются.</span></li>
+    <li><b>Пространство</b><span>Районы и микрорайоны, пересечения по общим узлам и геометрии, привязка адресов к улицам, нормализация номеров домов.</span></li>
+    <li><b>История</b><span>Энциклопедия 2008 года (AcadNusx → Unicode), карточки ka- и ru-Википедии, <code>old_name</code>, старые имена из адресов: прежние названия с годами.</span></li>
+    <li><b>Эпонимы</b><span>Wikidata по тегу этимологии и поиском, затем субагенты-классификаторы, затем проверка спорных случаев.</span></li>
+    <li><b>Проверка</b><span>Инварианты, отчёт покрытия в HTML, сравнение с прошлым снимком: что пропало, что появилось.</span></li>
+    <li><b>Экспорт</b><span>Пакет для телефона и <code>manifest.json</code> с версией, датой снимка OSM и sha256.</span></li>
+  </ol>
+  <div class="two">
+    <div class="card">
+      <h3>Улицы, омонимы, переулки</h3>
+      <ul class="tight">
+        <li>Отрезки склеиваются по общему узлу, затем группы с разрывом до 300 м объединяются. Из 13 233 отрезков получается <b>5 178 улиц</b>.</li>
+        <li>338 названий встречаются в разных частях города: всего 592 дополнительных улицы. У «<span class="ka">ვაჟა-ფშაველას ქუჩა</span>» таких улиц 10. 16 случаев с разрывом 300–1000 м уходят на ручную проверку.</li>
+        <li>Переулков, тупиков и проездов 2 415. Родитель по основе имени найден у 2 362, и 90% из них имеют общий узел с родителем. 52 переулка без родительской улицы в OSM.</li>
+        <li>Римские номера царей не путаются с номерами переулков: «<span class="ka">ერეკლე II შესახვევი</span>» — это переулок Ираклия II, а не второй переулок Ираклия.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Пересечения</h3>
+      <ul class="tight">
+        <li>Основной критерий — общий узел OSM: <b>8 511 пар</b>.</li>
+        <li>Запасной геометрический критерий добавляет 189 пар: касание концом до 8 м, для мостов и тоннелей до 2 м с учётом <code>layer</code>. Итого <b>8 700</b>.</li>
+        <li>32 разноуровневых пересечения не засчитываются. 1 165 «почти касаний» на 8–25 м попадают в отношение «рядом», но не в <code>x:</code>.</li>
+        <li>Больше всего пересечений, 47, у проспекта Руставели и Коджорского шоссе. У 45 улиц пересечений нет.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Адреса и номера домов</h3>
+      <ul class="tight">
+        <li>Сопоставление идёт каскадом из шести шагов: точное → варианты ru/en/old → нормализация → без типа → нечёткое ≥0,8 в пределах 500 м → замена дальнего омонима на похожую улицу рядом. Так к улицам привязано <b>40 576 из 41 558 адресов (97,6%)</b>.</li>
+        <li>Номер раскладывается на части <code>{n, lit, frac, to, corp, kind, raw}</code>, литеры приводятся к грузинским: 3а и 3a → 3ა. Целых номеров 35 898, с литерой 6 584, дробей 788, корпусов 335, диапазонов 285.</li>
+        <li>«Вероятно есть»: на стороне с нечётными номерами есть 1 и 5, а 3 нет. Точка дома интерполируется между соседями.</li>
+        <li>1 613 адресов привязаны только к микрорайону (<code>addr:place</code>). Они ищутся через <code>в:</code>.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Районы и микрорайоны</h3>
+      <ul class="tight">
+        <li>Точки вдоль улицы через каждые ≤50 м проверяются на попадание в 10 районов. 5 089 улиц лежат в одном районе, 84 — в двух и более.</li>
+        <li>Для микрорайона берётся самый маленький из 119 полигонов, который содержит точку; ещё 30 микрорайонов есть только точками. Полигоны покрывают 98,8% длины улиц.</li>
+        <li>Иерархия сохраняется: Сололаки (0,49 км²) лежит внутри квартала «Мтацминда, Сололаки» (7,2 км²).</li>
+      </ul>
+    </div>
+  </div>
+  <details>
+    <summary>Ошибки в данных, которые конвейер исправляет или выносит в отчёт</summary>
+    <ul class="tight">
+      <li>Разные формы родительного падежа: <span class="ka">ლებანიძეს / ლებანიძის</span>, <span class="ka">გორგასალის / გორგასლის</span>.</li>
+      <li>В <code>addr:street</code> встречаются латиница (572 адреса, «Nikoloz Landia st»), кириллица (18), опечатки и заглавные мтаврули (<span class="ka">Მეფე Მირიანის ქუჯა</span>).</li>
+      <li>Адреса со старыми названиями, которых нет в <code>old_name</code>: <span class="ka">გრიბოედოვის ქუჩა</span>. Это ещё и источник для поиска <code>было:</code>.</li>
+      <li>Микрорайон записан прямо в <code>addr:street</code>: <span class="ka">ზღვის უბანი 4 მრ/4კვ.</span></li>
+      <li>Порядковые в русских названиях записаны по-разному: «1-й», «1-ый», «2-ой».</li>
+      <li>13 пересечений на одном уровне без общего узла. Это ошибки разметки, их можно исправить в самом OSM.</li>
+    </ul>
+  </details>
+</section>
+
+<section id="model">
+  <div class="col">
+    <p class="eyebrow">Модель данных</p>
+    <h2>Сущности базы и пакета</h2>
+  </div>
+  <div class="col"><p>В SQLite хранится полная модель с источниками каждого факта. В телефон уходит урезанная проекция: только поля, которые нужны поиску и карте, с короткими кодами вместо строк.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Сущность</th><th>Ключевые поля</th><th class="num">Объём</th><th>Источник</th></tr></thead>
+    <tbody>
+      <tr><td><b>feature</b> — улица или топоним</td><td>id, kind, ka, ru, en, old[], alt[], ord (порядковый), family_id, parent_id, len_m, districts[], places[], geom (encoded polyline, упрощение 3 м), osm_ids[]</td><td class="num">5 178 улиц + ~440 прочих</td><td>OSM</td></tr>
+      <tr><td><b>family</b> — семья названий</td><td>id, base_ka, base_ru, eponym_id; улица и её именные переулки и тупики</td><td class="num">≈ число эпонимов</td><td>разбор названий</td></tr>
+      <tr><td><b>eponym</b> — в честь кого или чего</td><td>id, qid, ka, ru, en, kind (персона, топоним, событие, понятие, природа), categories[], gender, born, died, centuries[], georgian, desc_ru, confidence, source</td><td class="num">см. «Эпонимы»</td><td>OSM-тег, Wikidata, субагенты</td></tr>
+      <tr><td><b>name_history</b> — прежние названия</td><td>feature_id, name_ka, name_ru, name_lat, from_year, to_year, eponym_id, source</td><td class="num">тысячи (оценка)</td><td>энциклопедия 2008, Википедии, OSM, адреса</td></tr>
+      <tr><td><b>crossing</b> — пересечение</td><td>a, b, lat, lon, kind (узел или геометрия), азимуты ухода обеих улиц от точки</td><td class="num">8 700</td><td>расчёт</td></tr>
+      <tr><td><b>house</b> — адрес</td><td>feature_id, raw, n, lit, frac, to, corp, lat, lon, flags (интерполирован, далеко)</td><td class="num">40 576</td><td>OSM + сопоставление</td></tr>
+      <tr><td><b>area</b> — район или микрорайон</td><td>id, kind, ka, ru, polygon, parent_id</td><td class="num">10 + 149</td><td>OSM</td></tr>
+      <tr><td><b>provenance</b> — источник факта</td><td>entity, field, value, source, ref, confidence, reviewed_at. Только в SQLite</td><td class="num">—</td><td>все шаги</td></tr>
+    </tbody>
+  </table></div>
+  <div class="two">
+    <div class="card">
+      <h3>Пакет для телефона — замер на прототипе</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Часть</th><th class="num">raw</th><th class="num">gzip</th></tr></thead>
+        <tbody>
+          <tr><td>core: имена, коды, районы, родители, пересечения</td><td class="num">967 KB</td><td class="num">172 KB</td></tr>
+          <tr><td>geom: геометрия улиц</td><td class="num">175 KB</td><td class="num">111 KB</td></tr>
+          <tr><td>houses: номера и координаты</td><td class="num">306 KB</td><td class="num">142 KB</td></tr>
+          <tr><td>areas: районы, микрорайоны, реки</td><td class="num">87 KB</td><td class="num">40 KB</td></tr>
+          <tr><td>junctions: точки пересечений</td><td class="num">36 KB</td><td class="num">26 KB</td></tr>
+          <tr><td><b>Всего данных</b></td><td class="num"><b>1,57 MB</b></td><td class="num"><b>493 KB</b></td></tr>
+          <tr><td>Подложка карты Тбилиси, z0–15</td><td class="num">—</td><td class="num">20,3 MB</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h3>Формат</h3>
+      <ul class="tight">
+        <li>Несколько JSON-файлов. Сначала грузится core: после него поиск уже работает. Геометрия, дома и районы подтягиваются следом.</li>
+        <li>В Node весь пакет разбирается за 8 мс, граф пересечений строится за 7 мс, геометрия декодируется за 5 мс.</li>
+        <li>SQLite в браузере не нужен: файл с индексами весит 1,7 MB gzip, это в 3,5 раза больше JSON, и ещё ~1 MB занимает wasm.</li>
+        <li>Эпонимы добавят примерно 50–100 KB gzip (оценка).</li>
+        <li>У пакета есть <code>manifest.json</code>: версия, дата снимка OSM, sha256 каждой части.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="eponyms">
+  <div class="col">
+    <p class="eyebrow">Эпонимы</p>
+    <h2>«В честь кого»: таксономия и классифицирующие субагенты</h2>
+  </div>
+  <div class="col">
+    <p>Название разбирается на эпоним и тип. Переулки, тупики и проезды наследуют эпоним родительской улицы. Так 4 586 названий сводятся к <b>2 278 семействам</b>: классифицировать нужно семейства, а не названия, и 47% названий получают эпоним бесплатно. Цифры ниже получены прототипом на реальных данных, без LLM.</p>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>Воронка покрытия</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Шаг</th><th class="num">Результат</th></tr></thead>
+        <tbody>
+          <tr><td>Тег <code>name:etymology:wikidata</code> в OSM</td><td class="num">5,2% названий</td></tr>
+          <tr><td>+ наследование от родительской улицы</td><td class="num">11,1%</td></tr>
+          <tr><td>+ P138 у объектов-улиц в Wikidata</td><td class="num">17,4% · 331 семейство</td></tr>
+          <tr><td>+ сопоставление персон по меткам Wikidata (прогноз)</td><td class="num">+691 семейство</td></tr>
+          <tr><td>+ энциклопедия 2008 и Википедии: «назван в честь»</td><td class="num">414 статей ka-wiki</td></tr>
+          <tr><td>Очередь для классифицирующих субагентов</td><td class="num">≈ 835 семейств</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h3>Что показал прототип</h3>
+      <ul class="tight">
+        <li>Правила без LLM разделили семейства так: персона 62% (1 413), топоним 19% (437), неясное имя собственное 15% (349), понятие или природа 2%, группы людей 1%, даты — 3 семейства.</li>
+        <li>Проверка на 192 семействах с этимологией в OSM: персоны распознаны с полнотой 96,7% и точностью 100%.</li>
+        <li>150 случайных персон без QID: 64% однозначно нашлись в Wikidata, 10% неоднозначны, 26% не найдены. Контроль на 33 известных — все 33 верны.</li>
+        <li>Женщин среди эпонимов 8%. Грузин 75%, иностранцев 13%, неизвестно 13%.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>Таксономия для <code>кто:</code></h3>
+      <ul class="tight small">
+        <li><b>Литература</b> — поэт, писатель, драматург, переводчик, критик, публицист, литературный персонаж</li>
+        <li><b>Власть</b> — царь, царевич, князь, государственный деятель, глава государства, революционер, дипломат, общественный деятель</li>
+        <li><b>Военные</b> — полководец, герой войны, военный</li>
+        <li><b>Религия</b> — святой, католикос и епископ, клирик, праздник</li>
+        <li><b>Наука</b> — гуманитарий, естественник, врач, инженер, педагог, путешественник</li>
+        <li><b>Искусство</b> — художник, архитектор, композитор, музыкант, актёр, режиссёр, танец</li>
+        <li><b>Спорт</b> — футбол, борьба, шахматы, другое</li>
+        <li><b>Меценаты</b> — меценат, предприниматель</li>
+        <li><b>Группы</b> — герои, братья и семьи, профессии, этносы</li>
+        <li><b>Топонимы</b> — город Грузии, регион, место в Тбилиси, река или озеро, гора, зарубежный город, страна, трасса</li>
+        <li><b>События</b> — дата, битва, история</li>
+        <li><b>Природа</b> и <b>Понятия</b> — растения, животные, ландшафт, материалы, абстрактное, ремесло</li>
+      </ul>
+      <p class="small muted">Третий уровень — исходные профессии из Wikidata: хормейстер, дирижёр, гидроинженер. <code>кто:</code> ищет и по ним, поэтому <code>кто:хормейстер</code> работает, хотя в дереве такой категории нет. У одного человека может быть несколько категорий: Илья Чавчавадзе получает 7, Вахтанг Горгасали — царь, святой и погибший в бою.</p>
+    </div>
+    <div class="card">
+      <h3>Маппинг Wikidata → категории</h3>
+      <ul class="tight small">
+        <li><b>P106</b> род занятий — около 65 корневых классов с подклассами (P279*): поэт Q49757, писатель Q36180, политик Q82955, военачальник Q1402561…</li>
+        <li><b>P39</b> должность: монарх, глава государства, глава правительства, депутат, посол, епископ, Католикос-Патриарх.</li>
+        <li><b>P410</b> звание генерала или адмирала → полководец. <b>P411</b> святость → святой. <b>P97</b> титул → монарх или князь.</li>
+        <li><b>P166</b> Герой Советского Союза и <b>P1196</b> «погиб в бою» → герой войны.</li>
+        <li><b>P21</b> пол; <b>P569/P570</b> годы → век. «Грузин»: <b>P27</b>, <b>P19</b>, <b>P172</b> или <b>P103/P1412</b>.</li>
+        <li>Без дублей: «писатель» не ставится рядом с «поэтом», «музыкант» — рядом с «композитором».</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Классифицирующие субагенты</h3>
+  <div class="col"><p>Субагенты Claude Code описываются в <code>.claude/agents/*.md</code> и работают на Opus 5.5. Конвейер на Python раскладывает очередь в файлы <code>data/enrich/batches/*.jsonl</code>. Workflow запускает до 8 субагентов параллельно, каждый пишет результат в <code>data/enrich/results/</code>. Затем <code>pipeline/enrich/merge.py</code> проверяет ответ по JSON Schema и порогам и записывает в SQLite с источником. Те же промпты и схема работают через Message Batches API — для автоматических обновлений, если вы заведёте ключ в <code>.env</code>.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Роль</th><th>Модель · effort</th><th>Вход</th><th>Выход и когда работает</th></tr></thead>
+    <tbody>
+      <tr><td><b>retriever</b><br><span class="small muted">Python, не LLM</span></td><td>—</td><td>Семейство: ka/ru/en, прежние названия, члены, подсказки правил</td><td>Досье: до 5 кандидатов Wikidata (описание, годы, P106, P27, P19), начало статей ka/ru-Википедии до 600 символов, выдержка из энциклопедии</td></tr>
+      <tr><td><b>eponym-classifier</b></td><td>Opus 5.5 · low<br><span class="small muted">пачки по 20</span></td><td>Досье</td><td>Тип эпонима, 1–4 категории, выбор QID только из кандидатов, пол, годы, происхождение, одна строка описания по-русски. Работает на всей очереди</td></tr>
+      <tr><td><b>eponym-disambiguator</b></td><td>Opus 5.5 · high<br><span class="small muted">по одному</span></td><td>Досье + ответ классификатора</td><td>Решение по тёзкам и «только фамилии», конфликт источников, уверенность 0,6–0,85. Около 210 семейств</td></tr>
+      <tr><td><b>history-extractor</b></td><td>Opus 5.5 · medium</td><td>Статья энциклопедии (после AcadNusx → Unicode) и карточка Википедии</td><td>Прежние названия с годами и эпонимы старых названий. Работает на статьях, которые не разобрал парсер</td></tr>
+      <tr><td><b>verifier</b></td><td>Opus 5.5 · medium</td><td>Досье без ответа классификатора</td><td>Слепая независимая проверка 10% случайных семейств и всех конфликтов LLM с правилами</td></tr>
+      <tr><td><b>name-qa</b></td><td>Opus 5.5 · low</td><td>Рассогласования ka/ru/en (65 шт.), опечатки в <code>addr:street</code></td><td>Предложения исправлений и список правок для OSM. Ничего не применяет само</td></tr>
+      <tr><td><b>Ручная очередь</b></td><td>человек</td><td>Всё ниже порогов</td><td>HTML-страница проверки: принять, исправить, отклонить. Решения сохраняются в JSON и при пересборке не теряются</td></tr>
+    </tbody>
+  </table></div>
+  <div class="two">
+    <div class="card">
+      <h3>Формат ответа (strict JSON Schema, сокращённо)</h3>
+<pre><code>{ "results": [ {
+  "family_id": "F0412",
+  "eponym_kind": "person | persons_multi | group | fictional_character
+                | toponym | event_date | nature | concept | object
+                | no_eponym | unknown",
+  "eponyms": [ { "name_ka": "…", "name_ru": "…",
+     "wikidata_qid": "Q… | null", "gender": "m|f|?",
+     "birth_year": 1887, "death_year": 1937,
+     "origin": "georgian|foreign|unknown",
+     "short_ru": "грузинский поэт-символист" } ],
+  "categories": ["lit.poet", "lit.translator"],
+  "confidence": 0.93, "qid_confidence": 0.9,
+  "evidence": [ { "source": "kawiki", "quote": "…" } ],
+  "needs_review": false, "review_reason": null
+} ] }</code></pre>
+    </div>
+    <div class="card">
+      <h3>Правила уверенности</h3>
+      <ul class="tight">
+        <li>QID — только из переданных кандидатов, категории — только из таксономии, без источника ничего не выдумывается.</li>
+        <li>Автоприём: confidence ≥ 0,85, qid_confidence ≥ 0,8, нет конфликта с правилами.</li>
+        <li>0,6–0,85 — второе мнение disambiguator.</li>
+        <li>В ручную очередь: &lt; 0,6; только фамилия; два и более грузинских кандидата; ответ «из знаний модели» без QID; рассогласование ka/ru/en в OSM.</li>
+        <li>Пороги калибруются на эталоне из 331 семейства с известным QID, цель — точность ≥ 97%.</li>
+        <li>Кэш по ключу sha1(версия промпта, модель, досье): при пересборке пересчитываются только изменённые семейства.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Объём и стоимость (оценка)</h3>
+    <p class="small">Допущения: ~1 200 входных и ~500 выходных токенов на семейство с учётом рассуждений. Цены за 1 млн токенов на 06/10/2026: Opus 5.5 — $4 / $20, Sonnet 5.5 — $2 / $10, Haiku 5.5 — $0,10 / $0,50. Batch API даёт скидку 50%.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Вариант</th><th class="num">Стандартно</th><th class="num">Batch API</th></tr></thead>
+      <tbody>
+        <tr><td>Всё на Opus 5.5: классификатор, дизамбигуатор, извлечение истории, проверка 10%</td><td class="num">≈ $33</td><td class="num">≈ $17</td></tr>
+        <tr><td>Экономный: Sonnet 5.5 классифицирует, Opus 5.5 разбирает тёзок, Haiku 5.5 проверяет</td><td class="num">≈ $15</td><td class="num">≈ $8</td></tr>
+        <tr><td>Субагенты Claude Code</td><td class="num" colspan="2">в рамках лимитов подписки, без API-ключа</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Модель по умолчанию — Opus 5.5 для всех ролей. Экономный вариант — ваше решение, разница около $10–18 за полный прогон.</p>
+  </div>
+  <details>
+    <summary>Типовые ошибки, на которые настроены правила и субагенты</summary>
+    <ul class="tight">
+      <li>Тёзки: «<span class="ka">ლევან ასათიანი</span>» — 4 человека с одинаковой грузинской меткой; Григол Абашидзе — два поэта, 1866 и 1914 годов рождения.</li>
+      <li>Только фамилия: «Чавчавадзе» — Илья, Александр, Екатерина, Нико. «Маршал Геловани» по метке совпал с поэтом Мирзой Геловани; это поймала защита «одно слово — без автоматического решения».</li>
+      <li>Титул или номер: «<span class="ka">ერეკლე II შესახვევი</span>» — переулок Ираклия II или второй переулок улицы Эрекле.</li>
+      <li>Литературные персонажи (Тариэл, Нестан-Дареджан) правила принимают за людей.</li>
+      <li>Нарицательное или село: «<span class="ka">ტბა</span>» — «озеро», «<span class="ka">თავისუფლება</span>» — «свобода»; оба есть и как названия сёл.</li>
+      <li>Место или событие: Дидгори, Крцаниси.</li>
+      <li>Wikidata неполна: у Руставели только «поэт», у 4% персон нет P106.</li>
+      <li>Ошибки OSM: «<span class="ka">თამარ ჭავჭავაძის ქუჩა</span>» с <code>name:ru</code> «улица Николы Теслы».</li>
+    </ul>
+  </details>
+</section>
+
+<section id="dsl">
+  <div class="col">
+    <p class="eyebrow">Язык запросов</p>
+    <h2>DSL: короткие фильтры, которые удобно набирать на телефоне</h2>
+    <p>Строка запроса — источник истины. Чипы и конструктор в интерфейсе просто дописывают в неё фильтры, поэтому любой запрос можно сохранить, отправить напарнику текстом и повторить. Ключи есть на русском и латинице, двоеточие можно заменить на <code>=</code>.</p>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>Логика</h3>
+      <ul class="tight">
+        <li>пробел — <b>И</b>: <code>тип:улица кто:поэт</code></li>
+        <li><code>|</code> или <code>или</code> — <b>ИЛИ</b>: <code>кто:царь | кто:полководец</code></li>
+        <li>запятая внутри значения — ИЛИ по значениям: <code>тип:переулок,тупик</code></li>
+        <li><code>-</code> или <code>не</code> — <b>НЕ</b>: <code>-кто:персона</code></li>
+        <li>скобки — группировка и подзапросы: <code>x:( … )</code></li>
+        <li>слово без ключа — подстрока в любом названии</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Два эталонных запроса из задачи</h3>
+      <pre><code>дом:3
+тип:улица* дом:3
+тип:переулок x:(тип:улица* кто:поэт)</code></pre>
+      <p class="small">На прототипе: дом 3 есть на 798 улицах и проспектах города, из них 72 — в пробной зоне. Переулков, пересекающих улицы поэтов, 38 по городу и 3 в зоне.</p>
+      <p class="small muted">Звёздочка у типа берёт родственные типы: <code>улица*</code> — улица, проспект, шоссе, набережная, подъём, спуск, аллея; <code>переулок*</code> — переулок, тупик, проезд. Проспект Важа-Пшавела в OSM — <span class="ka">გამზირი</span>, а не <span class="ka">ქუჩა</span>, поэтому без звёздочки его легко потерять.</p>
+    </div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Ключ</th><th>Синонимы</th><th>Что делает</th><th>Примеры</th></tr></thead>
+    <tbody>
+      <tr><td><i>без ключа</i></td><td>—</td><td>Подстрока в любом названии: ka, ru, en, старые, транслит ka→lat и ka→ru. Регистр, ё/е, дефисы и пробелы не важны</td><td><code>чавчав</code> <code>ჭავჭ</code> <code>chavch</code></td></tr>
+      <tr><td><code>имя:</code></td><td><code>n:</code></td><td>Точнее: <code>^</code> начало, <code>$</code> конец, <code>"…"</code> фраза, <code>/…/</code> регулярное выражение с классами <code>\С</code> (согласная) и <code>\Г</code> (гласная) для ru и ka</td><td><code>имя:^ვაჟა</code> <code>имя:"26 мая"</code> <code>имя:/\С{5}/</code> <code>имя:/\d+/</code></td></tr>
+      <tr><td><code>тип:</code></td><td><code>t:</code></td><td>Тип объекта; <code>*</code> — с родственными типами</td><td><code>тип:тупик</code> <code>тип:улица*</code> <code>тип:река,ручей</code></td></tr>
+      <tr><td><code>район:</code></td><td><code>р:</code> <code>d:</code></td><td>Один из 10 официальных районов</td><td><code>район:мтацминда</code></td></tr>
+      <tr><td><code>в:</code></td><td><code>in:</code></td><td>Микрорайон или квартал по полигону или окрестности точки</td><td><code>в:сололаки</code> <code>в:авлабари</code></td></tr>
+      <tr><td><code>кто:</code></td><td><code>e:</code></td><td>Категория эпонима. Родитель включает детей: <code>кто:литература</code> — поэты, писатели, драматурги</td><td><code>кто:поэт</code> <code>кто:царь,полководец</code></td></tr>
+      <tr><td><code>био:</code></td><td><code>bio:</code></td><td>Подстрока в биографии эпонима: профессии, должности, краткое описание, известные дела</td><td><code>био:гэс</code> <code>био:"тбилисской консерватории"</code></td></tr>
+      <tr><td><code>век:</code> <code>пол:</code> <code>свой:</code></td><td><code>c:</code> <code>g:</code></td><td>Атрибуты эпонима: век жизни, пол, грузин или иностранец</td><td><code>век:19</code> <code>век:11-12</code> <code>пол:ж</code> <code>свой:нет</code></td></tr>
+      <tr><td><code>дом:</code></td><td><code>h:</code></td><td><code>3</code> — 3, 3а, 3/1, 3 корп. 2; <code>=3</code> — строго 3; <code>1-9</code> — диапазон; <code>3?</code> — плюс «вероятно есть»; <code>есть</code>, <code>нет</code></td><td><code>дом:3</code> <code>дом:=3</code> <code>дом:нет</code></td></tr>
+      <tr><td><code>домов</code></td><td>—</td><td>Сколько номеров известно на улице</td><td><code>домов&gt;30</code> <code>домов=0</code></td></tr>
+      <tr><td><code>x:</code></td><td><code>пересекает:</code></td><td>Пересекает хотя бы один объект подзапроса. <code>~в</code> — уходит от перекрёстка на восток (<code>с св в юв ю юз з сз</code>)</td><td><code>x:(кто:поэт)</code> <code>x:(тип:река)</code> <code>x:(тип:сквер)~в</code></td></tr>
+      <tr><td><code>рядом:</code></td><td><code>near:</code></td><td>В радиусе от объектов подзапроса или от меня; <code>~метры</code>, по умолчанию 200 м</td><td><code>рядом:(тип:метро)~300</code> <code>рядом:я~500</code></td></tr>
+      <tr><td><code>семья:</code></td><td><code>f:</code></td><td>Улица и все её именные переулки, тупики, проезды</td><td><code>семья:важа-пшавела</code></td></tr>
+      <tr><td><code>№:</code></td><td><code>ord:</code></td><td>Порядковый номер переулка (I, II, 1-й, 2-й…)</td><td><code>тип:переулок №:2</code></td></tr>
+      <tr><td><code>было:</code></td><td><code>old:</code></td><td>Прежние названия: подстрока или подзапрос по эпониму старого названия</td><td><code>было:ленин</code> <code>было:(кто:инженер)</code></td></tr>
+      <tr><td><code>длина</code></td><td><code>len</code></td><td>Длина улицы в метрах (в зоне — длина внутри зоны)</td><td><code>длина&gt;1000</code></td></tr>
+      <tr><td><code>зона:</code></td><td>—</td><td>По умолчанию объект в зоне, если внутри ≥30 м или ≥50% длины. <code>задевает</code> — любая часть внутри; <code>целиком</code> — только целиком внутри; <code>выкл</code> — весь город</td><td><code>зона:задевает</code> <code>зона:выкл</code></td></tr>
+      <tr><td><code>сорт:</code></td><td><code>sort:</code></td><td>Порядок выдачи: имя, длина, домов, расстояние</td><td><code>сорт:расстояние</code></td></tr>
+    </tbody>
+  </table></div>
+  <div class="two">
+    <div class="card">
+      <h3>Грамматика (EBNF)</h3>
+<pre><code>query   = or_expr [ sort ] ;
+or_expr = and_expr { ("|" | "или") and_expr } ;
+and_expr= unary { unary } ;
+unary   = ("-" | "не" | "!") unary | atom ;
+atom    = "(" or_expr ")" | filter | text ;
+filter  = key (":" | "=") value
+        | key cmp number ;          (* домов&gt;30 *)
+value   = list | range | "(" or_expr ")" [ "~" ( number | compass ) ] ;
+compass = "с" | "св" | "в" | "юв" | "ю" | "юз" | "з" | "сз" ;
+list    = word { "," word } ;
+range   = number "-" number ;
+cmp     = "&gt;" | "&lt;" | "&gt;=" | "&lt;=" | "=" ;
+text    = word | '"' chars '"' | "/" regex "/" ;</code></pre>
+      <p class="small muted">Парсер — ручной рекурсивный спуск на ~300 строк без зависимостей. Ошибки показываются с позицией и подсказкой: «неизвестный ключ <code>рйон</code> — может быть, <code>район</code>?».</p>
+    </div>
+    <div class="card">
+      <h3>Как вычисляется</h3>
+      <ul class="tight">
+        <li>Каждый объект получает номер; каждый фильтр возвращает битовое множество (около 5 тыс. бит, 160 машинных слов). И, ИЛИ, НЕ — пословные операции, это микросекунды.</li>
+        <li>Индексы готовятся при сборке пакета: тип, район, категория с предками, век, номер дома → множество улиц.</li>
+        <li><code>x:</code> — граф пересечений в виде списков смежности; у каждого ребра есть точка пересечения.</li>
+        <li><code>рядом:</code> — сетка 100×100 м по Тбилиси.</li>
+        <li>Текст — линейный проход по заранее нормализованным строкам: на 5 тыс. объектов это быстрее любого индекса.</li>
+        <li>Под строкой — пояснение по-русски и число найденных: «Переулки, пересекающие улицы с эпонимом-поэтом, в зоне — 37».</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note"><b>Зона внутри запроса.</b> Итог фильтруется правилом «≥30 м или ≥50% длины внутри», а внутри отношений действует по смыслу игры: <code>дом:3</code> учитывает только адреса внутри зоны; <code>x:</code> — только пересечения, точка которых в зоне (улица поэта может уходить за границу, перекрёсток — нет); <code>рядом:</code> — расстояние от частей объекта внутри зоны.</div>
+</section>
+
+<section id="zone">
+  <div class="col">
+    <p class="eyebrow">Зона соревнований</p>
+    <h2>Нарисовать один раз, применять ко всем поискам</h2>
+    <p>При первом запуске приложение открывает карту Тбилиси и просит задать зону. Зона хранится на устройстве, пока её не перенастроят, и всегда видна в шапке: «Зона · 3,1 км² · 412 объектов». Тап по ней — редактировать, временно выключить или поделиться.</p>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>Способы задать зону</h3>
+      <ul class="tight">
+        <li><b>Пальцем.</b> Кнопка «Рисовать» блокирует панорамирование, контур ведётся одним движением, после отпускания сглаживается и упрощается до 20–60 вершин.</li>
+        <li><b>По точкам.</b> Тап по углам зоны; надёжнее на маленьком экране.</li>
+        <li><b>Из районов.</b> Тап по районам и микрорайонам на карте, они объединяются.</li>
+        <li><b>Кодом от напарника.</b> Зона кодируется в короткую строку, её можно переслать в мессенджер и вставить.</li>
+        <li><b>Весь город.</b> Пропустить шаг и задать зону позже.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>После рисования</h3>
+      <ul class="tight">
+        <li>Вершины можно двигать; есть «Отменить» и «Перерисовать».</li>
+        <li>Кнопка «+50 м запаса»: границы на легенде Runcity приблизительны, улица у самой кромки не должна потеряться.</li>
+        <li>Проверка: самопересечения исправляются автоматически, слишком маленькая зона вызывает предупреждение.</li>
+        <li>При сохранении сразу считаются маски «объект в зоне», «адрес в зоне», «пересечение в зоне». Дальше запросы их только читают.</li>
+        <li>Хранение: IndexedDB плюс копия в localStorage. В шапке видна дата, когда зона задана.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Что значит «улица в зоне» — проверено на данных</h3>
+    <p class="small">Пробная зона «Старый город + Сололаки + Мтацминда», 2,56 км², 12 вершин:</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Правило</th><th class="num">Улиц в зоне</th></tr></thead>
+      <tbody>
+        <tr><td>Любая часть внутри (<code>зона:задевает</code>)</td><td class="num">253</td></tr>
+        <tr><td><b>≥30 м или ≥50% длины внутри (по умолчанию)</b></td><td class="num"><b>245</b></td></tr>
+        <tr><td>Доля длины ≥25%</td><td class="num">239</td></tr>
+        <tr><td>Центроид внутри</td><td class="num">230</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Правило по умолчанию отсекает улицы, которые только касаются границы: проспект Горгасали заходит в эту зону на 6% длины. Расчёт: отбор по bbox, резка отрезков рёбрами полигона, проверка середин кусков. На десктопе 1–8 мс для зоны из 12–120 вершин. Худший случай — весь город — 15–28 мс, на телефоне ожидаем до 40 мс. Считается один раз при сохранении зоны.</p>
+  </div>
+</section>
+
+<section id="app">
+  <div class="col">
+    <p class="eyebrow">Приложение</p>
+    <h2>Архитектура клиента, стек и офлайн</h2>
+  </div>
+  <div class="col">
+    <p>Клиент — статическое PWA без фреймворка, собирается Vite и публикуется на GitHub Pages. После первой загрузки всё нужное лежит в телефоне: оболочка, пакет данных, подложка карты и зона. Сеть во время игры не нужна. Версии библиотек ниже проверены по npm 23/10/2026, вес — min+gzip.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Компонент</th><th>Выбор</th><th class="num">Вес</th><th>Почему так</th></tr></thead>
+    <tbody>
+      <tr><td>Карта</td><td>maplibre-gl 5.24.0</td><td class="num">270 KB</td><td>Векторная карта на GPU, плавный pinch-zoom, работает с PMTiles. Ветка 6.x требует WebGL2 и только ESM, на старых iPhone рискованно</td></tr>
+      <tr><td>Подложка</td><td>pmtiles 4.5.0 + @protomaps/basemaps 5.7.2</td><td class="num">15 KB</td><td>Один файл карты Тбилиси, читается из кэша без сети. Подписи на русском есть, по умолчанию грузинские</td></tr>
+      <tr><td>Рисование пальцем</td><td>своё: Pointer Events + canvas + simplify-js 1.2.4</td><td class="num">~1 KB</td><td>В Terra Draw режим свободной руки на touch официально не поддерживается</td></tr>
+      <tr><td>Рисование по точкам и правка</td><td>terra-draw 1.36.0 + адаптер MapLibre 1.4.1</td><td class="num">48 KB</td><td>Режимы Polygon и Select полностью поддерживают touch, MIT, без зависимостей</td></tr>
+      <tr><td>Геометрия зоны</td><td>@turf/kinks, unkink-polygon, boolean-point-in-polygon 7.4.0</td><td class="num">6 KB</td><td>Проверка самопересечений и точка в полигоне</td></tr>
+      <tr><td>Нечёткий поиск</td><td>minisearch 7.2.0</td><td class="num">6 KB</td><td>Префиксы, опечатки, подсказки. Подстроки и фильтры DSL — свои битовые индексы</td></tr>
+      <tr><td>Парсер DSL</td><td>свой рекурсивный спуск</td><td class="num">2–5 KB</td><td>Точные сообщения об ошибках и автодополнение «что ожидается под курсором»</td></tr>
+      <tr><td>Хранилище</td><td>idb-keyval 6.3.0</td><td class="num">1,5 KB</td><td>Зона, настройки, история, журнал</td></tr>
+      <tr><td>Сборка и офлайн</td><td>vite 8.3.2 + vite-plugin-pwa 1.3.0 (Workbox 7.4.1)</td><td class="num">—</td><td>Хэши в именах файлов, предзагрузка оболочки, все библиотеки лежат локально</td></tr>
+      <tr><td>Шрифт</td><td>системный + @fontsource/noto-sans-georgian 5.3.0</td><td class="num">16 KB</td><td>Одинаковый грузинский на iOS и Android</td></tr>
+      <tr><td>SQL в браузере</td><td>не нужен</td><td class="num">—</td><td>sql.js весит 331 KB; для ~50 тыс. записей проще держать индексы в памяти</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">Весь JS — около 400 KB gzip. Подложка Тбилиси до 15-го зума — 20,3 MB, только центр — 13,3 MB; шрифты карты ~1,7 MB. Размеры измерены по заголовкам билда Protomaps от 23/10/2026.</p>
+  <div class="two">
+    <div class="card">
+      <h3>Модули клиента</h3>
+      <ul class="tight">
+        <li><code>store/</code> — загрузка пакета, проверка sha256, атомарное переключение версий, IndexedDB.</li>
+        <li><code>search/</code> — нормализация, латинский «скелет» для ka, ru и lat, битовые индексы, MiniSearch.</li>
+        <li><code>dsl/</code> — токенизатор, парсер, вычислитель, пояснение, автодополнение.</li>
+        <li><code>zone/</code> — рисование, правка, маски «в зоне», код зоны для обмена.</li>
+        <li><code>map/</code> — MapLibre, PMTiles, слои результатов и домов.</li>
+        <li><code>ui/</code> — экраны «Поиск», «Карта», «Зона», «Готовность».</li>
+        <li><code>log/</code> — журнал событий и ошибок в IndexedDB, копирование для отладки.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Где что хранится</h3>
+      <ul class="tight">
+        <li><b>Оболочка</b> — Cache Storage, обновляется только с подтверждения и не посреди игры.</li>
+        <li><b>Пакет данных и подложка</b> — Cache Storage <code>pack-vN</code>. Скачиваются кнопкой с прогрессом, каждый файл сверяется по sha256 из манифеста.</li>
+        <li><b>Зона</b> — IndexedDB, копия в localStorage, плюс код для обмена.</li>
+        <li><b>Индексы</b> — строятся в памяти при запуске за доли секунды.</li>
+        <li><b>При старте</b> — <code>navigator.storage.persist()</code>, чтобы браузер не вытеснил данные.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note warn"><b>iOS требует установки на экран «Домой».</b> Safari удаляет данные сайта после 7 дней использования браузера без визита на сайт. У приложения на экране «Домой» свой счётчик, и persist для него одобряется. Поэтому пакет скачивается и зона рисуется уже из иконки. Экран «Готовность» проверяет оболочку, пакет, подложку, зону и persist, а перед игрой предлагает тест в авиарежиме. Однофайловый HTML не подходит как основной вариант: на iOS он открывается в Quick Look, а там JavaScript не выполняется.</div>
+</section>
+
+<section id="ui">
+  <div class="col">
+    <p class="eyebrow">Интерфейс</p>
+    <h2>Экран поиска на телефоне</h2>
+  </div>
+  <div class="mock">
+    <div class="phone" role="img" aria-label="Макет экрана поиска">
+      <div class="ph-bar"><span class="ph-zone">Зона · 2,6 км² · 245</span><span class="ph-off">офлайн · пакет 23/10</span></div>
+      <p class="ph-explain">Переулки, пересекающие улицы и проспекты, названные в честь поэтов · в зоне — <b>3</b></p>
+      <div class="res">
+        <span class="ka">ლადო ასათიანის II შესახვევი</span>
+        <span class="ru">2-й переулок Ладо Асатиани</span>
+        <div class="tags"><span>переулок</span><span>Сололаки</span><span>71 м</span><span class="c">× ул. Ладо Асатиани · поэт</span><span class="c">× ул. Гизо Нишнианидзе · поэт</span><span>домов нет</span></div>
+      </div>
+      <div class="res">
+        <span class="ka">ლადო გუდიაშვილის შესახვევი</span>
+        <span class="ru">переулок Ладо Гудиашвили</span>
+        <div class="tags"><span>переулок</span><span>Сололаки</span><span>97 м</span><span class="c">× пр. Шота Руставели · поэт</span><span>домов нет</span></div>
+      </div>
+      <div class="res">
+        <span class="ka">ლადო ასათიანის I შესახვევი</span>
+        <span class="ru">1-й переулок Ладо Асатиани</span>
+        <div class="tags"><span>переулок</span><span>Бетлеми</span><span>64 м</span><span class="c">× ул. Ладо Асатиани · поэт</span><span>дома 6, 8, 10</span></div>
+      </div>
+      <div class="ph-chips"><span>Улица*</span><span class="on">Переулок</span><span>Тупик</span><span class="on">× поэт</span><span>Дом №</span><span>Район</span></div>
+      <div class="ph-q"><span class="k">тип:</span>переулок <span class="k">x:</span>(<span class="k">тип:</span>улица* <span class="k">кто:</span>поэт)</div>
+      <div class="ph-nav"><b>Поиск</b><span>Карта</span><span>Зона</span><span>Готовность</span></div>
+    </div>
+    <div style="display:grid;gap:14px;min-width:0">
+      <div class="note">Результаты в макете настоящие. Это эталонный запрос, посчитанный прототипом на данных OSM от 23/10/2026 в пробной зоне «Старый город + Сололаки + Мтацминда». Пока QID известен только у 17% семейств, поэтому это нижняя граница. Улица Галактиона Табидзе в зоне есть и отмечена как поэт, но в Сололаки её пересекают только улицы — Асатиани, Леонидзе, Лермонтова; её переулки находятся в Лило. По всему городу запрос сейчас даёт 38 переулков, а с тупиками и проездами — 103.</div>
+      <div class="card">
+        <h3>Принципы экрана</h3>
+        <ul class="tight">
+          <li>Поле запроса и чипы внизу, под большим пальцем. Шрифт поля 16 px, иначе iOS увеличивает страницу при фокусе. Автокоррекция и автозаглавные выключены.</li>
+          <li>Чипы дописывают токены в строку DSL, а строка подсвечивает их обратно. Конструктор «пересекает…» открывает вложенный подзапрос.</li>
+          <li>Автодополнение после ключа показывает значения с числом объектов в зоне: «кто: поэт 41 · писатель 63 · царь 9».</li>
+          <li>Результаты сгруппированы по семьям: улица, под ней её переулки и тупики.</li>
+          <li>Тап-зоны от 44 pt. Светлая контрастная тема для солнца и тёмная для вечера.</li>
+          <li>Грузинский текст не переводится в верхний регистр: мхедрули при этом превращается в мтаврули.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Карточка объекта</h3>
+        <ul class="tight">
+          <li>Названия на ka, ru, en и прежние — каждое копируется одним тапом.</li>
+          <li>Мини-карта с подсветкой улицы и зоны. Номера домов сеткой, искомый номер выделен, «вероятные» — серым.</li>
+          <li>Список пересечений: тап переходит к пересекающей улице.</li>
+          <li>Эпоним: имя, годы жизни, одна строка описания и метка источника — <span class="pill main">OSM</span> <span class="pill enrich">Wikidata</span> <span class="pill ai">оценка ИИ</span>.</li>
+          <li>«Сообщить об ошибке» — локальная заметка, её можно выгрузить и потом исправить в данных.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="structure">
+  <div class="col">
+    <p class="eyebrow">Структура</p>
+    <h2>Структура репозитория</h2>
+    <p>Структура следует вашим правилам: uv и <code>pyproject.toml</code> в корне, venv в корне, логи в <code>./logs</code>, тесты в <code>./tests</code>, базы в <code>./data</code>, миграции в <code>./migrations</code>, планы в <code>./docs/plans</code>.</p>
+  </div>
+<pre><code>D:\Jupyter\Runcity\
+├─ pyproject.toml            uv; [tool.uv] exclude-newer = "2026-05-01T00:00:00Z"
+├─ CLAUDE.md                 команды, архитектура, правила данных
+├─ pipeline/                 Python-пакет конвейера
+│  ├─ log.py                 logging → logs/pipeline.log (ротация)
+│  ├─ osm/                   fetch, features, addresses, graph, areas
+│  ├─ names/                 parse_ka, translit (ka→lat, ka→ru), normalize, house_numbers
+│  ├─ wikidata/              fetch по QID, поиск кандидатов, маппинг свойств
+│  ├─ enrich/                подготовка батчей, схема JSON, слияние, очередь проверки
+│  ├─ export/                пакет для телефона, manifest
+│  └─ validate/              инварианты, HTML-отчёт покрытия, diff снимков
+├─ migrations/               001_init.sql, …
+├─ data/                     raw/ · runcity.sqlite · enrich/ · build/
+├─ app/                      статическое PWA
+│  ├─ index.html · manifest.webmanifest · sw.js
+│  ├─ src/                   store/ search/ dsl/ map/ zone/ ui/ log/
+│  ├─ vendor/                локальные копии библиотек (никаких CDN в игре)
+│  └─ data/                  пакет данных и подложка .pmtiles
+├─ tests/                    pytest (конвейер) + node:test (DSL, поиск, зона)
+├─ .claude/agents/           классифицирующие субагенты (см. раздел «Эпонимы»)
+├─ analysis/                 ноутбуки покрытия и качества
+├─ temp_scripts/  logs/  screenshots/
+└─ docs/plans/               этот план</code></pre>
+</section>
+
+<section id="phases">
+  <div class="col">
+    <p class="eyebrow">Этапы</p>
+    <h2>План работ и критерии готовности</h2>
+    <p>Сроки — рабочие дни при разработке с Claude Code. Если игра скоро, есть короткий путь: этапы 0–3 без LLM-классификации, только этимология из OSM и Wikidata. Это 3–4 дня.</p>
+  </div>
+  <div>
+    <div class="phase"><div class="when">Этап 0<small>0,5 дня</small></div><div class="body">
+      <h3>Каркас</h3>
+      <p>git, проект uv с <code>pyproject.toml</code> и <code>exclude-newer</code>, venv в корне, logging в <code>logs/</code>, заготовки pytest и node:test, <code>CLAUDE.md</code>, описания субагентов в <code>.claude/agents/</code>. Репозиторий на GitHub — после вашего подтверждения.</p>
+      <p class="done">Готово, когда <code>uv run pytest</code> проходит и конвейер пишет журнал.</p>
+    </div></div>
+    <div class="phase"><div class="when">Этап 1<small>2 дня</small></div><div class="body">
+      <h3>Импорт OSM → SQLite → пакет</h3>
+      <p>Переносим прототипы субагентов в <code>pipeline/</code>: миграции, разбор названий, склейка, пересечения, адреса, районы, экспорт, HTML-отчёт покрытия. Сборка — из Geofabrik PBF.</p>
+      <p class="done">Готово, когда улиц 5 178 ± 1%, адресов привязано ≥ 97%, пересечений 8 700 ± 1%, пакет ≤ 600 KB gzip и сборка с нуля повторяется.</p>
+    </div></div>
+    <div class="phase"><div class="when">Этап 2<small>2 дня</small></div><div class="body">
+      <h3>Клиент MVP</h3>
+      <p>Vite-проект, загрузка и проверка пакета, поиск по подстроке на ka, ru и латинице, чипы типа и района, список и карточка, зона тремя способами, хранение, офлайн-режим PWA.</p>
+      <p class="done">Готово, когда на iPhone и Android в авиарежиме поиск отвечает быстрее 50 мс, а зона переживает перезапуск телефона.</p>
+    </div></div>
+    <div class="phase"><div class="when">Этап 3<small>1,5 дня</small></div><div class="body">
+      <h3>DSL</h3>
+      <p>Парсер, вычисления на битовых множествах, пояснение по-русски, ошибки с подсказкой, автодополнение, сохранённые запросы и история.</p>
+      <p class="done">Готово, когда проходят 80+ эталонных запросов, включая два из задачи, и счётчики совпадают с независимым расчётом SQL по SQLite.</p>
+    </div></div>
+    <div class="phase"><div class="when">Этап 4<small>3 дня</small></div><div class="body">
+      <h3>Эпонимы и история названий</h3>
+      <p>Разбор энциклопедии 2008 года и карточек Википедии, Wikidata, классифицирующие субагенты, золотой набор, проверка спорных случаев, атрибуты (век, пол, грузин или иностранец), эпонимы старых названий.</p>
+      <p class="done">Готово, когда категория есть у ≥ 90% персональных семей, на золотом наборе точность ≥ 95% для «поэт», «писатель», «царь», «полководец», и у каждой категории указан источник.</p>
+    </div></div>
+    <div class="phase"><div class="when">Этап 5<small>1,5 дня</small></div><div class="body">
+      <h3>Карта и полевые функции</h3>
+      <p>Подложка PMTiles, слои результатов и домов, «рядом со мной», экран «Готовность», обмен кодом зоны.</p>
+      <p class="done">Готово, когда карта работает без сети, весь пакет лежит в Cache Storage, а <code>persist()</code> подтверждён.</p>
+    </div></div>
+    <div class="phase"><div class="when">Этап 6<small>1 день</small></div><div class="body">
+      <h3>Полевой тест и доводка</h3>
+      <p>Прогулка по зоне прошлой игры с реальными формулировками заданий. Проверяем батарею, читаемость на солнце, скорость ответа одной рукой.</p>
+      <p class="done">Готово, когда решаются ≥ 90% заданий из разборов Runcity 2023–2025 (около 130 загадок и справок к КП), а найденные ошибки данных исправлены или описаны.</p>
+    </div></div>
+  </div>
+  <div class="note">Всего около 11–12 рабочих дней. Разборы прошлых игр — готовый приёмочный тест: для каждой загадки с известной отгадкой проверяем, что запрос находит правильную улицу. <b>Короткий путь</b> (3–4 дня): этапы 0–3, подложка только центра (13 MB) или без неё, эпонимы только из OSM-тега и прямого совпадения с Wikidata, без субагентов.</div>
+</section>
+
+<section id="quality">
+  <div class="col">
+    <p class="eyebrow">Тесты и логи</p>
+    <h2>Как проверяем, что всё работает</h2>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>Конвейер: pytest в <code>tests/</code></h3>
+      <ul class="tight">
+        <li>Разбор названий: тип, порядковый номер, родительный падеж, «<span class="ka">ერეკლე II</span>» против «II <span class="ka">შესახვევი</span>».</li>
+        <li>Номера домов: 3, 3ა, 3/16, «16 <span class="ka">კორპ.</span> 3», 3-5, 27;29, мусор.</li>
+        <li>Транслитерация ka→lat и ka→ru, нормализация ru.</li>
+        <li>Склейка и омонимы, пересечения с мостами и <code>layer</code> — на синтетических фикстурах.</li>
+        <li>Слияние ответов субагентов: проверка по JSON Schema, отказ на невалидном ответе.</li>
+        <li>Инварианты пакета: ссылки целы, у каждого адреса есть улица, sha256 совпадает.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Клиент: node:test и Playwright</h3>
+      <ul class="tight">
+        <li>Общие тест-векторы в <code>tests/vectors/*.json</code>. Транслит, номера домов и зона проверяются одними и теми же данными и в Python, и в JS.</li>
+        <li>DSL: 100+ строк на разбор, включая ошибочные, и вычисление на мини-пакете.</li>
+        <li>Перекрёстная проверка: число результатов эталонных запросов в JS совпадает с SQL-запросами к SQLite.</li>
+        <li>Playwright с эмуляцией iPhone и Pixel: загрузка, офлайн, рисование зоны синтетическими касаниями, запрос, перезапуск.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Логирование</h3>
+      <ul class="tight">
+        <li>Конвейер: <code>logging</code> с ротацией в <code>logs/pipeline.log</code>. У каждой стадии run_id, время, счётчики на входе и выходе, предупреждения об аномалиях.</li>
+        <li>Субагенты: каждый батч пишет вход, выход, уверенность и стоимость в <code>logs/enrich.log</code>.</li>
+        <li>Клиент: кольцевой журнал на 2 000 записей в IndexedDB — ошибки, время запросов, загрузка пакета, события зоны. Экран «Журнал» копирует его одним тапом.</li>
+        <li>Отчёт покрытия после каждой сборки: <code>data/build/report.html</code> с разницей против прошлого снимка.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="risks">
+  <div class="col">
+    <p class="eyebrow">Риски</p>
+    <h2>Что может пойти не так</h2>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Риск</th><th>Как снимаем</th></tr></thead>
+    <tbody>
+      <tr><td>У 2 681 из 5 178 улиц в OSM нет ни одного номера дома</td><td>Метка «вероятно есть» по чётности сторон. Отчёт покрытия по зоне до игры. При желании — дозаполнить номера в OSM по зоне прошлой игры</td></tr>
+      <tr><td>Неверный эпоним у тёзок: какой из Чавчавадзе, какой из Церетели</td><td>Сначала Wikidata, контекст Тбилиси и родительской улицы, уверенность и метка «оценка ИИ». Топ-200 семей проверяются вручную</td></tr>
+      <tr><td>iOS удаляет данные сайта</td><td>Установка на экран «Домой», <code>persist()</code>, экран «Готовность», проверка в авиарежиме перед стартом</td></tr>
+      <tr><td>20 MB подложки на плохой сети</td><td>Скачивать заранее по Wi-Fi. Вариант «только центр» на 13 MB. Без подложки работают поиск и векторные улицы</td></tr>
+      <tr><td>Переименования улиц после снимка</td><td>Дата снимка видна в шапке. Конвейер пересобирает данные за минуты, пересборка — за 1–2 дня до игры</td></tr>
+      <tr><td>Overpass перегружен: во время проб отвечал 504</td><td>Основная сборка — из Geofabrik PBF, Overpass только для проб</td></tr>
+      <tr><td>Задания со старыми или народными названиями</td><td>Энциклопедия 2008 года, Википедии, <code>old_name</code>, <code>alt_name</code>, старые названия из адресов</td></tr>
+      <tr><td>Права на тексты энциклопедии и Википедии</td><td>Из энциклопедии берём только факты: годы, прежние названия, связь с эпонимом. Описания в приложении пишем своими словами. Атрибуция CC BY-SA и ODbL — на экране «О приложении»</td></tr>
+      <tr><td>Неудобный PDF энциклопедии: старая кодировка, переносы, разрывы слов</td><td>Отдельный парсер с тестами на 30 размеченных статьях; спорные статьи досматривает субагент сверки</td></tr>
+      <tr><td>Батарея и перегрев за несколько часов</td><td>GPS только по кнопке, карта не рисуется в фоне, тёмная тема вечером</td></tr>
+      <tr><td>Правила категории ограничивают гаджеты</td><td>Уточнить правила вашей категории до разработки полевых функций</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="questions">
+  <div class="col">
+    <p class="eyebrow">Вопросы</p>
+    <h2>Что нужно решить вам</h2>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Вопрос</th><th>Почему важно</th><th>Что предлагаю по умолчанию</th></tr></thead>
+    <tbody>
+      <tr><td>Когда ближайшая игра в Тбилиси (tbilisi2026 пока только в анонсе на runcity.org) и в какой категории вы играете: «Сфинкс», «Лев» или «Грифон»?</td><td>Определяет, успеваем ли полный план или идём коротким путём</td><td>Если до игры меньше недели — этапы 0–3 и только этимология из OSM и Wikidata</td></tr>
+      <tr><td>Встречаются ли в заданиях советские и старые названия?</td><td>От этого зависит, вкладываться ли в исторические справочники</td><td>Брать только <code>old_name</code> из OSM, справочники — позже</td></tr>
+      <tr><td>Где хостить: публичный GitHub Pages под lbiryukov или приватно?</td><td>HTTPS нужен для офлайн-режима; данные OSM требуют указания авторства</td><td>Публичный репозиторий, страница Pages, авторство OSM в «О приложении»</td></tr>
+      <tr><td>Пользуетесь вы один или вся команда?</td><td>Обмен зоной и сохранёнными запросами между телефонами</td><td>Обмен кодом зоны через мессенджер, без сервера</td></tr>
+      <tr><td>Как запускать классификацию: субагенты Claude Code или Batch API?</td><td>Для API нужен ключ в <code>.env</code>, который заводите вы сами</td><td>Субагенты Claude Code для первого импорта, Batch API — для автоматических обновлений</td></tr>
+      <tr><td>Нужен ли интерфейс на грузинском или английском?</td><td>Объём текстов интерфейса</td><td>Интерфейс на русском, данные на трёх языках</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <p>Данные OpenStreetMap © участники OpenStreetMap, лицензия ODbL. Данные Wikidata — CC0.</p>
+  <p>План подготовлен 23/10/2026. Файл: <code>docs/plans/quchebi-plan.html</code>.</p>
+</footer>
+</div>

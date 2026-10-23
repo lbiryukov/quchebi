@@ -1,0 +1,23 @@
+{
+ "notes": "parse_house(raw) -> list of parts. Each part: {n, lit, sub, n_to, corp, kind}. Single letters normalized to Georgian by sound (Latin and Cyrillic): a/а->ა, b/б->ბ, g/г->გ, d/д->დ, e/е->ე, v/в->ვ, z/з->ზ, i/и->ი, k/к->კ, l/л->ლ, m/м->მ, n/н->ნ, o/о->ო, p/п->პ, r/р->რ, s/с->ს, t/т->ტ, u/у->უ; Georgian letters kept. 'A-B' with B>A is a range, with B<=A it is a sub-number (sub). ';' or ',' separates a list (one part per number). Unparseable -> [] (kind junk is logged, not returned).",
+ "cases": [
+  {"raw": "3", "parts": [{"n": 3, "lit": "", "sub": "", "n_to": null, "corp": "", "kind": "int"}]},
+  {"raw": "3ა", "parts": [{"n": 3, "lit": "ა", "sub": "", "n_to": null, "corp": "", "kind": "letter"}]},
+  {"raw": "3a", "parts": [{"n": 3, "lit": "ა", "sub": "", "n_to": null, "corp": "", "kind": "letter"}]},
+  {"raw": "3а", "parts": [{"n": 3, "lit": "ა", "sub": "", "n_to": null, "corp": "", "kind": "letter"}]},
+  {"raw": "32 ბ", "parts": [{"n": 32, "lit": "ბ", "sub": "", "n_to": null, "corp": "", "kind": "letter"}]},
+  {"raw": "101а", "parts": [{"n": 101, "lit": "ა", "sub": "", "n_to": null, "corp": "", "kind": "letter"}]},
+  {"raw": "3/16", "parts": [{"n": 3, "lit": "", "sub": "16", "n_to": null, "corp": "", "kind": "fraction"}]},
+  {"raw": "20/22", "parts": [{"n": 20, "lit": "", "sub": "22", "n_to": null, "corp": "", "kind": "fraction"}]},
+  {"raw": "3ა/1", "parts": [{"n": 3, "lit": "ა", "sub": "1", "n_to": null, "corp": "", "kind": "fraction"}]},
+  {"raw": "16 კორპ. 3", "parts": [{"n": 16, "lit": "", "sub": "", "n_to": null, "corp": "3", "kind": "corp"}]},
+  {"raw": "8 ბლოკი 1", "parts": [{"n": 8, "lit": "", "sub": "", "n_to": null, "corp": "1", "kind": "corp"}]},
+  {"raw": "3-5", "parts": [{"n": 3, "lit": "", "sub": "", "n_to": 5, "corp": "", "kind": "range"}]},
+  {"raw": "221-4", "parts": [{"n": 221, "lit": "", "sub": "4", "n_to": null, "corp": "", "kind": "fraction"}]},
+  {"raw": "27;29", "parts": [{"n": 27, "lit": "", "sub": "", "n_to": null, "corp": "", "kind": "list"}, {"n": 29, "lit": "", "sub": "", "n_to": null, "corp": "", "kind": "list"}]},
+  {"raw": " 77м ", "parts": [{"n": 77, "lit": "მ", "sub": "", "n_to": null, "corp": "", "kind": "letter"}]},
+  {"raw": "office 208", "parts": []},
+  {"raw": "15ბროწეულის ქუჩა", "parts": []},
+  {"raw": "", "parts": []}
+ ]
+}

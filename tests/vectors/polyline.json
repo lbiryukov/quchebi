@@ -1,0 +1,73 @@
+{
+ "precision": 5,
+ "cases": [
+  {
+   "name": "google_reference",
+   "points": [
+    [
+     38.5,
+     -120.2
+    ],
+    [
+     40.7,
+     -120.95
+    ],
+    [
+     43.252,
+     -126.453
+    ]
+   ],
+   "encoded": "_p~iF~ps|U_ulLnnqC_mqNvxq`@"
+  },
+  {
+   "name": "rustaveli_segment",
+   "points": [
+    [
+     41.70095,
+     44.79381
+    ],
+    [
+     41.69947,
+     44.79689
+    ],
+    [
+     41.69788,
+     44.79912
+    ]
+   ],
+   "encoded": "}uo}FixkpGfHgR|H}L"
+  },
+  {
+   "name": "single_point_metro",
+   "points": [
+    [
+     41.6942,
+     44.8015
+    ]
+   ],
+   "encoded": "wkn}FkhmpG"
+  },
+  {
+   "name": "closed_ring",
+   "points": [
+    [
+     41.695,
+     44.8
+    ],
+    [
+     41.696,
+     44.801
+    ],
+    [
+     41.695,
+     44.802
+    ],
+    [
+     41.695,
+     44.8
+    ]
+   ],
+   "encoded": "wpn}F__mpGgEgEfEgE?nK"
+  }
+ ]
+}

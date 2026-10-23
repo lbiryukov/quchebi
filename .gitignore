@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets (never commit)
+.env
+.env.*
+
+# Local data, logs, scratch
+data/
+logs/
+temp_scripts/
+screenshots/
+analysis/.ipynb_checkpoints/
+
+# Node / build
+app/node_modules/
+app/dist/
+app/test-results/
+app/playwright-report/

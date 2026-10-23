@@ -1,0 +1,143 @@
+{
+ "skeleton": [
+  {
+   "in": "ლადო ასათიანის II შესახვევი",
+   "out": "ladoasatianisiishesakhvevi"
+  },
+  {
+   "in": "2-й переулок Ладо Асатиани",
+   "out": "2ipereulokladoasatiani"
+  },
+  {
+   "in": "Lado Asatiani 2nd Lane",
+   "out": "ladoasatiani2ndlane"
+  },
+  {
+   "in": "ვაჟა-ფშაველას გამზირი",
+   "out": "vazhapshavelasgamziri"
+  },
+  {
+   "in": "проспект Важа-Пшавела",
+   "out": "prospektvazhapshavela"
+  },
+  {
+   "in": "ჭავჭავაძე",
+   "out": "chavchavadze"
+  },
+  {
+   "in": "Чавчавадзе",
+   "out": "chavchavadze"
+  },
+  {
+   "in": "chavchavadze",
+   "out": "chavchavadze"
+  },
+  {
+   "in": "დავით აღმაშენებლის გამზირი",
+   "out": "davitagmasheneblisgamziri"
+  },
+  {
+   "in": "проспект Давида Агмашенебели",
+   "out": "prospektdavidaagmashenebeli"
+  },
+  {
+   "in": "Aghmashenebeli",
+   "out": "agmashenebeli"
+  },
+  {
+   "in": "ცინამძღვრიშვილის ქუჩა",
+   "out": "tsinamdzgvrishviliskucha"
+  },
+  {
+   "in": "улица Цинамдзгвришвили",
+   "out": "ulitsatsinamdzgvrishvili"
+  },
+  {
+   "in": "ყაზბეგის",
+   "out": "kazbegis"
+  },
+  {
+   "in": "Казбеги",
+   "out": "kazbegi"
+  },
+  {
+   "in": "ჯანსუღ კახიძე",
+   "out": "jansugkakhidze"
+  },
+  {
+   "in": "Джансуг Кахидзе",
+   "out": "jansugkakhidze"
+  },
+  {
+   "in": "ქეთევან დედოფლის გამზირი",
+   "out": "ketevandedoplisgamziri"
+  },
+  {
+   "in": "Кетеван Дедопали",
+   "out": "ketevandedopali"
+  },
+  {
+   "in": "Leselidze St",
+   "out": "leselidzest"
+  },
+  {
+   "in": "ხერხეულიძე",
+   "out": "kherkheulidze"
+  },
+  {
+   "in": "Херхეулидзе",
+   "out": "kherkheulidze"
+  },
+  {
+   "in": "Ёлка",
+   "out": "elka"
+  },
+  {
+   "in": "26 მაისის მოედანი",
+   "out": "26maisismoedani"
+  },
+  {
+   "in": "площадь 26 Мая",
+   "out": "ploshchad26maia"
+  },
+  {
+   "in": "ᲛᲔᲤᲔ ᲛᲘᲠᲘᲐᲜᲘᲡ ქუჩა",
+   "out": "mepemirianiskucha"
+  },
+  {
+   "in": "Шота Руставели",
+   "out": "shotarustaveli"
+  },
+  {
+   "in": "შოთა რუსთაველის",
+   "out": "shotarustavelis"
+  }
+ ],
+ "ka_to_ru": [
+  {
+   "in": "ლადო ასათიანის",
+   "out": "ладо асатианис"
+  },
+  {
+   "in": "ერეკლე მეორის ქუჩა",
+   "out": "эрекле меорис куча"
+  },
+  {
+   "in": "ცინამძღვრიშვილი",
+   "out": "цинамдзгвришвили"
+  },
+  {
+   "in": "ჯანსუღ კახიძე",
+   "out": "джансуг кахидзе"
+  },
+  {
+   "in": "ვაჟა-ფშაველა",
+   "out": "важа-пшавела"
+  },
+  {
+   "in": "26 მაისის",
+   "out": "26 маисис"
+  }
+ ],
+ "notes": "skeleton: lowercase (Mtavruli->Mkhedruli), ё->е, дж->j, per-char ka/ru->lat, keep [a-z0-9], then gh->g q->k w->v y->i. ka_to_ru: per-char, word-initial ე -> э."
+}
