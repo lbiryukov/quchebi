@@ -108,6 +108,9 @@ encodeZone(polygon) -> string ; decodeZone(string) -> polygon
 - Service worker routing (as built): `data/*` and `tiles/*` → `caches.match` over all caches,
   network fallback; `.pmtiles` Range → 206 from the cached file; requests with `no-store`/`reload`
   go network-first; glyphs/sprites not in the pack go to runtime cache `basemap-assets-v1`.
+- Places (`place*` kinds): a street card lists places at its houses ("д. 10 — Музей …", tap →
+  place card) using the 9th element of house rows; a place card shows its address (tap → street)
+  and no house grid or crossings; result rows of places show kind and "street, house".
 - Lazy chunks: MapLibre + PMTiles + Protomaps style (~300 KB gzip) and Terra Draw (~35 KB gzip)
   load when the map or zone editing opens; the start bundle is ~100 KB gzip.
 

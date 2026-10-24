@@ -728,7 +728,9 @@
    "answer": {
     "street_ru": "ЖК Greenhill",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "გრინჰილ რეზიდენსი"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -738,10 +740,26 @@
     "ши и хоббиты живут в холмах",
     "ЖК Greenhill"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (жилой комплекс)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:жк гринхил",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "greenhill",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
   },
   {
    "id": "plans2025tbilisi-61",
@@ -856,7 +874,9 @@
    "answer": {
     "street_ru": "Университетская улица",
     "street_ka": "უნივერსიტეტის ქუჩა",
-    "alt_ka": [],
+    "alt_ka": [
+     "თბილისის ივანე ჯავახიშვილის სახელობის სახელმწიფო უნივერსიტეტის ბიბლიოთეკა"
+    ],
     "kind": "street",
     "house": "11",
     "corner_with": null,
@@ -865,10 +885,20 @@
    "facts": [
     "библиотека Тбилисского университета"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (библиотека)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:библиотека университет",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "plans2025tbilisi-64",
@@ -892,7 +922,9 @@
    "answer": {
     "street_ru": "улица Шалвы Нуцубидзе",
     "street_ka": "შალვა ნუცუბიძის ქუჩა",
-    "alt_ka": [],
+    "alt_ka": [
+     "დედამიწის შემსწავლელ მეცნიერებათა ინსტიტუტისა და სეისმური მონიტორინგის ეროვნული ცენტრი"
+    ],
     "kind": "street",
     "house": "77м",
     "corner_with": null,
@@ -901,10 +933,20 @@
    "facts": [
     "Национальный центр сейсмического мониторинга"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (научный центр)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:институт сейсм",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "plans2025tbilisi-65",
@@ -1153,7 +1195,9 @@
    "answer": {
     "street_ru": "пантеон Ходживанк",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "სომეხ მწერალთა და საზოგადო მოღვაწეთა პანთეონი"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -1162,10 +1206,26 @@
    "facts": [
     "пантеон Ходживанк на краю парка"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (пантеон)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:пантеон ходживанк",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    },
+    {
+     "q": "ходживанк",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
   },
   {
    "id": "tbilisi2022-111",
@@ -1398,7 +1458,10 @@
    "answer": {
     "street_ru": "Левая набережная",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ნოე ჟორდანიას სანაპირო",
+     "ლევილის სანაპირო"
+    ],
     "kind": "embankment",
     "house": null,
     "corner_with": null,
@@ -1408,10 +1471,21 @@
     "Дворец торжественных ритуалов",
     "Левая набережная"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "нужно знать здание (POI), набережная в загадке не названа",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "рядом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:набережная рядом:(тип:дворец торжествен)~300",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2022-122",
@@ -1436,7 +1510,9 @@
    "answer": {
     "street_ru": "набережная Вахтанга Горгасали",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "300 არაგველის მემორიალი"
+    ],
     "kind": "embankment",
     "house": null,
     "corner_with": null,
@@ -1445,10 +1521,27 @@
    "facts": [
     "битва при Крцаниси, 300 арагвинцев"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "памятник (POI) по картинке",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "рядом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:памятник арагв",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:набережная рядом:(тип:памятник арагв)~200",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2022-125",
@@ -1565,7 +1658,9 @@
    "answer": {
     "street_ru": "памятник Багратиону",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "პეტრე ბაგრატიონი"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -1574,10 +1669,20 @@
    "facts": [
     "памятник генералу Багратиону"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (памятник)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:памятник багратион",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2022-142",
@@ -1716,7 +1821,9 @@
    "answer": {
     "street_ru": "улица Сиони",
     "street_ka": "სიონის ქუჩა",
-    "alt_ka": [],
+    "alt_ka": [
+     "თბილისის ისტორიულ-ეთნოგრაფიული მუზეუმი"
+    ],
     "kind": "street",
     "house": "8",
     "corner_with": null,
@@ -1725,10 +1832,20 @@
    "facts": [
     "Музей истории Тбилиси в караван-сарае Арцруни"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (музей)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:музей истори тбилис",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2022-145",
@@ -1982,7 +2099,9 @@
    "answer": {
     "street_ru": "школа № 90",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "№90 საჯარო სკოლა"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -1992,10 +2111,20 @@
     "«червь» в кириллице — 90",
     "школа № 90"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (школа, церковь)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:школа 90",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2022-183",
@@ -2230,7 +2359,9 @@
    "answer": {
     "street_ru": "проспект Шота Руставели",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ზურაბ წერეთლის თანამედროვე ხელოვნების მუზეუმი"
+    ],
     "kind": "avenue",
     "house": "27",
     "corner_with": null,
@@ -2239,10 +2370,20 @@
    "facts": [
     "скульптура «Яблоко любви» Зураба Церетели"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (скульптура во дворе)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:музей церетели",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2022-194",
@@ -2327,7 +2468,9 @@
    "answer": {
     "street_ru": "автовокзал Ортачала",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "თბილისის ცენტრალური ავტოსადგური"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -2337,10 +2480,26 @@
     "слияние двух проток Куры",
     "автовокзал Ортачала"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (автовокзал)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "в"
+   ],
+   "queries": [
+    {
+     "q": "тип:автовокзал в:ортачала",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:автовокзал",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2023-24",
@@ -2704,7 +2863,9 @@
    "answer": {
     "street_ru": "«Sky bridge»",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "საცხოვრებელი კომპლექსი \"შატილი\""
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -2713,10 +2874,19 @@
    "facts": [
     "советские корпуса «Sky bridge»"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (жилой комплекс)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "sky bridge",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
   },
   {
    "id": "tbilisi2023-72",
@@ -2740,7 +2910,9 @@
    "answer": {
     "street_ru": "стадион «Маракана»",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "სტადიონი მარაკანა"
+    ],
     "kind": "other",
     "house": "15",
     "corner_with": null,
@@ -2750,10 +2922,20 @@
     "стадион Маракана",
     "тёзка района Диди Дигоми — футболист Диди"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (стадион)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:стадион маракан",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2023-73",
@@ -3127,7 +3309,9 @@
    "answer": {
     "street_ru": "памятник Маяковскому",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ვლადიმერ მაიაკოვსკი"
+    ],
     "kind": "other",
     "house": "1",
     "corner_with": null,
@@ -3136,10 +3320,20 @@
    "facts": [
     "Владимир Маяковский"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (памятник)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:памятник маяковск",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2023-81",
@@ -3218,7 +3412,9 @@
    "answer": {
     "street_ru": "памятник святой Нино",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "წმინდა ნინო"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -3228,10 +3424,20 @@
     "Нижний Новгород → НиНо",
     "памятник святой Нино работы Церетели"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (памятник, музей)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:памятник нино",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2023-83",
@@ -3318,7 +3524,9 @@
    "answer": {
     "street_ru": "Винзавод № 1",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ღვინის ქარხანა #1"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -3328,10 +3536,19 @@
     "WINE — Wine Is Not an Emulator",
     "Винзавод"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (арт-центр)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "wine factory",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
   },
   {
    "id": "tbilisi2023-85",
@@ -3744,7 +3961,9 @@
    "answer": {
     "street_ru": "театр Грибоедова",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ა. ს. გრიბოედოევის სახელობის თბილისის რუსული დრამატული თეატრი"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -3754,10 +3973,20 @@
     "ТЦ «Галерея» у площади Свободы",
     "театр Грибоедова"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (театр в торговом центре)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:театр грибоедов",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2024-11",
@@ -3781,7 +4010,9 @@
    "answer": {
     "street_ru": "площадь Марджанишвили",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "წმინდა პეტრესა და პავლეს ლუთერანული ეკლესია"
+    ],
     "kind": "square",
     "house": null,
     "corner_with": null,
@@ -3790,10 +4021,20 @@
    "facts": [
     "лютеранская кирха у нынешнего метро «Марджанишвили»"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "место по старой карте (POI)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:доска лютеран",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2024-61",
@@ -3878,7 +4119,9 @@
    "answer": {
     "street_ru": "монумент «Хроники Грузии»",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "საქართველოს მატიანე"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -3888,10 +4131,26 @@
     "«Хроники Нарнии»",
     "монумент «Хроники Грузии»"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (монумент)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:монумент грузии",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "chronicle",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
   },
   {
    "id": "tbilisi2024-63",
@@ -3915,7 +4174,9 @@
    "answer": {
     "street_ru": "Глдани-молл",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "გლდანი მოლ"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -3925,10 +4186,20 @@
     "Большое озеро — Глдани",
     "мол / молл"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (торговый центр)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:молл глдани",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2024-64",
@@ -4015,7 +4286,9 @@
    "answer": {
     "street_ru": "стадион «Динамо»",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ბორის პაიჭაძის სახელობის დინამო არენა"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -4025,10 +4298,20 @@
     "«привяжи к ноге динаму»",
     "стадион «Динамо»"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (стадион)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:стадион динамо",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2024-71",
@@ -4356,7 +4639,9 @@
    "answer": {
     "street_ru": "улица Цотне Дадиани",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ქარვასლა"
+    ],
     "kind": "street",
     "house": "7",
     "corner_with": null,
@@ -4366,10 +4651,20 @@
     "Тофсла и Вифсла",
     "ТЦ «Карвасла»"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (торговый центр)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:тц карвасла",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2024-79",
@@ -4540,7 +4835,9 @@
    "answer": {
     "street_ru": "улица Михаила Цинамдзгвришвили",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ლაღიძის წყლები"
+    ],
     "kind": "street",
     "house": "150",
     "corner_with": null,
@@ -4549,10 +4846,20 @@
    "facts": [
     "воды Лагидзе"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (завод)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:завод лагидзе",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2024-83",
@@ -4577,7 +4884,9 @@
    "answer": {
     "street_ru": "кинотеатр «Аполло»",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "კინოთეატრი აპოლო"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -4586,10 +4895,26 @@
    "facts": [
     "Дельфийский оракул — Аполлон"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (кинотеатр)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:кинотеатр аполлон",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:кинотеатр аполло",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
   },
   {
    "id": "tbilisi2024-84",
@@ -4613,7 +4938,9 @@
    "answer": {
     "street_ru": "улица Нико Пиросмани",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ნიკო ფიროსმანაშვილის სახელმწიფო მუზეუმი"
+    ],
     "kind": "street",
     "house": null,
     "corner_with": null,
@@ -4622,10 +4949,20 @@
    "facts": [
     "портрет Пиросмани работы Пикассо"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (музей-квартира)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:музей пиросман",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2024-88",
@@ -4915,7 +5252,9 @@
    "answer": {
     "street_ru": "театр Марджанишвили",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "მარჯანიშვილის თეატრი"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -4925,10 +5264,20 @@
     "три звонка — театр",
     "Константин Марджанишвили, «Свободный театр»"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (театр)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:театр марджанишвили",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2024-94",
@@ -5069,7 +5418,9 @@
    "answer": {
     "street_ru": "улица Дмитрия Узнадзе",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ალექსანდრე გრიბოედოვი"
+    ],
     "kind": "street",
     "house": null,
     "corner_with": null,
@@ -5078,10 +5429,20 @@
    "facts": [
     "памятник Грибоедову (стоя)"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (памятник)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:памятник грибоедов",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2025-90",
@@ -5603,7 +5964,9 @@
    "answer": {
     "street_ru": "Ботаническая улица",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ჯუმა მეჩეთი"
+    ],
     "kind": "street",
     "house": null,
     "corner_with": null,
@@ -5612,10 +5975,26 @@
    "facts": [
     "Джума-мечеть"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (мечеть)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:мечеть",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:мечеть джума",
+     "mode": "name",
+     "expects": "answer street in results",
+     "max_results_ok": 10
+    }
+   ]
   },
   {
    "id": "tbilisi2025-302",
@@ -5810,7 +6189,9 @@
    "answer": {
     "street_ru": "проспект Шота Руставели",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ზურაბ წერეთლის თანამედროვე ხელოვნების მუზეუმი"
+    ],
     "kind": "avenue",
     "house": "27",
     "corner_with": null,
@@ -5820,10 +6201,20 @@
     "Тамара Церетели",
     "музей Зураба Церетели"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (музей)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:музей церетели",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2025-306",
@@ -5999,7 +6390,9 @@
    "answer": {
     "street_ru": "улица Коте Абхази",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "დიდი სინაგოგა"
+    ],
     "kind": "street",
     "house": "45",
     "corner_with": null,
@@ -6008,10 +6401,19 @@
    "facts": [
     "Большая синагога"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (синагога)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип"
+   ],
+   "queries": [
+    {
+     "q": "тип:синагога",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2025-311",
@@ -6211,7 +6613,9 @@
    "answer": {
     "street_ru": "Ботанический сад",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ლეღვთახევი"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -6221,10 +6625,27 @@
     "речка Цавкисисцкали (Легвтахеви)",
     "Бамбуковая и Кипарисовая аллеи"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "мост внутри ботанического сада",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "рядом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:ручей легвтахеви",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "рядом:(тип:место кипарис)~500 тип:ручей",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2025-315",
@@ -6304,7 +6725,9 @@
    "answer": {
     "street_ru": "площадь Европы",
     "street_ka": "ევროპის მოედანი",
-    "alt_ka": [],
+    "alt_ka": [
+     "ბერლინის კედლის ფრაგმენტი"
+    ],
     "kind": "square",
     "house": null,
     "corner_with": null,
@@ -6313,10 +6736,27 @@
    "facts": [
     "Берлинская стена"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "нужно знать, где стоит фрагмент стены (POI)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "рядом",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:площадь рядом:(тип:памятник берлин)~200",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:памятник берлин",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   },
   {
    "id": "tbilisi2025-317",
@@ -6878,7 +7318,9 @@
    "answer": {
     "street_ru": "Музей иллюзий",
     "street_ka": null,
-    "alt_ka": [],
+    "alt_ka": [
+     "ილუზიების მუზეუმი"
+    ],
     "kind": "other",
     "house": null,
     "corner_with": null,
@@ -6887,10 +7329,26 @@
    "facts": [
     "«Лорел или Янни», цвет платья — иллюзии"
    ],
-   "solvable_by_search": false,
-   "unsolvable_reason": "ответ — заведение или сооружение (POI), которых нет в пакете; поиск улиц не помогает (музей)",
-   "dsl_keys": [],
-   "queries": []
+   "solvable_by_search": true,
+   "unsolvable_reason": null,
+   "dsl_keys": [
+    "тип",
+    "текст"
+   ],
+   "queries": [
+    {
+     "q": "тип:музей иллюзий",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    },
+    {
+     "q": "тип:музей illusion",
+     "mode": "facts",
+     "expects": "answer street in results",
+     "max_results_ok": 30
+    }
+   ]
   }
  ]
 }

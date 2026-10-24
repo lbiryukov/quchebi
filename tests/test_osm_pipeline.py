@@ -26,8 +26,10 @@ def _dump(con):
 
 
 def test_parse_stages():
-    assert parse_stages("all") == ["areas", "features", "feature_area", "crossings", "houses"]
+    assert parse_stages("all") == ["areas", "features", "landmarks", "feature_area", "crossings", "houses"]
     assert parse_stages("houses,areas") == ["areas", "houses"]
+    assert parse_stages("features") == ["features", "landmarks"]  # features removes the landmarks
+    assert parse_stages("landmarks,houses") == ["landmarks", "houses"]
     with pytest.raises(SystemExit):
         parse_stages("bogus")
 

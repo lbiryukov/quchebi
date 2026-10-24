@@ -6,7 +6,7 @@ import { state, emit, zoneActive } from './state.js';
 import { houseQuery } from './dsledit.js';
 import {
   feat, kindRu, mainName, shortName, districtLabels, placeLabels, familyOf, eponymOf, eponymByIndex,
-  eponymSource, crossingsOf, houseRows, geometryOf, featureKey, taxLabel,
+  eponymSource, crossingsOf, houseRows, geometryOf, featureKey, taxLabel, isPlace, placeAddress, streetPlaces,
 } from './feature.js';
 import { fmtLen, fmtYears, fmtDirMask, count } from './format.js';
 
@@ -54,14 +54,20 @@ function render(i) {
     body.append(h('div.btn-row', back));
   }
 
+  const place = isPlace(i);
   body.append(namesBlock(i, f));
-  body.append(factsBlock(i, f));
-  body.append(actionsBlock(i, f));
+  body.append(factsBlock(i, f, place));
+  if (place) body.append(addressBlock(i));
+  body.append(actionsBlock(i, f, place));
   body.append(miniMap(i));
   const ep = eponymBlock(i, f);
   if (ep) body.append(ep);
-  body.append(housesBlock(i, f));
-  body.append(crossingsBlock(i));
+  if (!place) {
+    body.append(housesBlock(i, f));
+    const pl = placesBlock(i);
+    if (pl) body.append(pl);
+    body.append(crossingsBlock(i));
+  }
   body.append(noteBlock(i));
 }
 
@@ -88,7 +94,7 @@ function namesBlock(i, f) {
   return box;
 }
 
-function factsBlock(i, f) {
+function factsBlock(i, f, place) {
   const kv = h('div.kv');
   const add = (k, v) => { if (v) kv.append(h('span', `${k}: `, h('b', v))); };
   add('тип', kindRu(i));
@@ -99,7 +105,7 @@ function factsBlock(i, f) {
     if (zoneActive() && state.masks.lenInside) len += ` (в зоне ${fmtLen(state.masks.lenInside[i]) || '0 м'})`;
     add('длина', len);
   }
-  add('домов', f.hn ? String(f.hn) : 'нет');
+  if (!place) add('домов', f.hn ? String(f.hn) : 'нет');
   if (f.o) add('№', String(f.o));
   const fam = familyOf(i);
   if (fam) add('семья', fam.ru || fam.ka);
@@ -111,7 +117,7 @@ function factsBlock(i, f) {
   return kv;
 }
 
-function actionsBlock(i, f) {
+function actionsBlock(i, f, place) {
   const row = h('div.btn-row');
   const toMap = h('button.btn.primary', { type: 'button' }, icon('map'), 'На карте');
   toMap.addEventListener('click', () => {
@@ -130,6 +136,7 @@ function actionsBlock(i, f) {
     });
     row.append(famBtn);
   }
+  if (place) return row; // a point: no crossings
   const crossBtn = h('button.btn', { type: 'button' }, 'Кто её пересекает');
   crossBtn.addEventListener('click', () => {
     sheet?.close();
@@ -139,6 +146,41 @@ function actionsBlock(i, f) {
   });
   row.append(crossBtn);
   return row;
+}
+
+/* ---------- address of a place, places of a street ---------- */
+
+function addressBlock(i) {
+  const box = h('div');
+  const a = placeAddress(i);
+  box.append(h('div.section-title', 'Адрес'));
+  if (!a) {
+    box.append(h('p.muted.small', 'Адреса нет в данных.'));
+    return box;
+  }
+  const houses = a.houses.length ? `д. ${a.houses.join(', ')}` : 'номер дома неизвестен';
+  const b = h('button.list-btn', { type: 'button', 'data-testid': 'place-address' },
+    h('span', h('span', shortName(a.street)), h('div.small.muted', [kindRu(a.street), houses].filter(Boolean).join(' · '))));
+  b.addEventListener('click', () => openCard(a.street));
+  box.append(h('div.cross-list', b));
+  return box;
+}
+
+function placesBlock(i) {
+  const items = streetPlaces(i);
+  if (!items.length) return null;
+  const box = h('div');
+  box.append(h('div.section-title', `Места · ${items.length}`));
+  const list = h('div.cross-list', { 'data-testid': 'street-places' });
+  for (const { p, house } of items) {
+    const b = h('button.list-btn', { type: 'button' },
+      h('span', h('span', house ? `д. ${house} — ${shortName(p)}` : shortName(p)),
+        h('div.small.muted', [kindRu(p), house ? '' : 'без номера дома'].filter(Boolean).join(' · '))));
+    b.addEventListener('click', () => openCard(p));
+    list.append(b);
+  }
+  box.append(list);
+  return box;
 }
 
 /* ---------- mini-map (SVG, no WebGL) ---------- */
@@ -284,12 +326,19 @@ function housesBlock(i, f) {
     try {
       if (masks?.houseIn) inZone = masks.houseIn(i, k);
     } catch { /* masks not ready */ }
-    const cell = h(`div.hn${cls}${inZone ? '' : '.out'}`, { title: inZone ? r[0] : `${r[0]} — вне зоны` }, r[0]);
+    const lm = r.length > 8 && feat(r[8]) ? r[8] : -1;
+    const title = (lm >= 0 ? `${r[0]} — ${shortName(lm)}` : r[0]) + (inZone ? '' : ' — вне зоны');
+    let cell;
+    if (lm >= 0) {
+      cell = h(`button.hn.lm${cls}${inZone ? '' : '.out'}`, { type: 'button', title }, r[0]);
+      cell.addEventListener('click', () => openCard(lm));
+    } else cell = h(`div.hn${cls}${inZone ? '' : '.out'}`, { title }, r[0]);
     grid.append(cell);
   }
   if (probable && !probableInserted) grid.append(h('div.hn.prob', { title: 'вероятно есть' }, `${n}?`));
   box.append(h('div.section-title', `Дома · ${count(rowsRaw.length, ['номер', 'номера', 'номеров'])}${hits ? ` · найдено ${hits}` : ''}`), grid);
   if (masks) box.append(h('p.small.muted', 'Бледные номера — вне зоны.'));
+  if (rowsRaw.some((r) => r.length > 8 && feat(r[8]))) box.append(h('p.small.muted', 'Номера в рамке — места (музей, памятник, ...): нажмите, чтобы открыть.'));
   if (probable) box.append(h('p.small.muted', `Номера ${n} нет в данных, но соседние номера той же стороны есть — вероятно, дом существует.`));
   return box;
 }

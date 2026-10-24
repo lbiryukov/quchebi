@@ -193,6 +193,22 @@
     "addr:housenumber": "2",
     "addr:street": "ლადო ასათიანის II შესახვევი"
    }
+  },
+  {
+   "type": "way",
+   "id": 602,
+   "center": {
+    "lat": 41.72038,
+    "lon": 44.7938272
+   },
+   "tags": {
+    "building": "yes",
+    "tourism": "museum",
+    "name": "ხელოვნების მუზეუმი",
+    "name:en": "Art Museum",
+    "addr:street": "კოსტავას ქუჩა",
+    "addr:housenumber": "10"
+   }
   }
  ]
 }

@@ -9,7 +9,7 @@ import { createQueryInput } from './query-input.js';
 import { createChips } from './chips.js';
 import { crossSubqueries, houseQuery } from './dsledit.js';
 import {
-  feat, kindRu, mainName, ruName, shortName, placeLabel, eponymTag, crossingsOf, houseRows,
+  feat, kindRu, mainName, ruName, shortName, placeLabel, eponymTag, crossingsOf, houseRows, isPlace, placeAddressText,
 } from './feature.js';
 import { fmtLen, count } from './format.js';
 import { openCard } from './card.js';
@@ -277,7 +277,11 @@ function resultRow(i, child, hq) {
     }
     if (shown > 2) tags.append(h('span.c', `+${shown - 2}`));
   }
-  tags.append(houseTag(i, f, hq));
+  if (isPlace(i)) {
+    // a place has no houses of its own: its kind (above) and its address instead of "домов нет"
+    const adr = placeAddressText(i);
+    if (adr) tags.append(h('span', adr));
+  } else tags.append(houseTag(i, f, hq));
   const btn = h(`button.res${child ? '.child' : ''}`, { type: 'button', dataset: { i: String(i) } },
     h('span.ka', mainName(i)),
     ruName(i) && ruName(i) !== mainName(i) ? h('span.ru', ruName(i)) : null,

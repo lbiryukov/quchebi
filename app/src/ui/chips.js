@@ -2,7 +2,7 @@
 // DSL string (the string is the source of truth). Pickers open bottom sheets.
 import { log } from '../log/log.js';
 import { h, openSheet, clear } from './dom.js';
-import { state } from './state.js';
+import { state, on } from './state.js';
 import {
   findAtom, listValues, toggleListValue, setAtom, appendAtom, quoteValue, crossSubqueries,
 } from './dsledit.js';
@@ -20,7 +20,12 @@ const TYPE_CHIPS = [
   { label: 'Тупик', value: 'тупик' },
   { label: 'Переулок*', value: 'переулок*' },
   { label: 'Площадь', value: 'площадь' },
+  // the whole landmark group (museums, churches, monuments ...): kinds of group place*, see docs/pack-format.md;
+  // shown only when the loaded pack has that group (older packs have no landmarks)
+  { label: 'Места*', value: 'место*', group: 'place*' },
 ];
+
+const packHasGroup = (group) => (state.pack?.core?.kinds || []).some((k) => k.group === group);
 
 /**
  * createChips({getQuery, setQuery}) -> {el, update(text)}
@@ -44,9 +49,11 @@ export function createChips({ getQuery, setQuery }) {
     return b;
   }
 
+  const groupChips = [];
   for (const t of TYPE_CHIPS) {
-    chip(t.label, () => setQuery(toggleListValue(getQuery(), TYPE_KEYS, 'тип', t.value)),
+    const b = chip(t.label, () => setQuery(toggleListValue(getQuery(), TYPE_KEYS, 'тип', t.value)),
       (q) => listValues(q, TYPE_KEYS).includes(t.value));
+    if (t.group) groupChips.push({ b, group: t.group });
   }
 
   const crossChip = chip('× пересекает…', () => openCrossBuilder(getQuery, setQuery),
@@ -72,9 +79,14 @@ export function createChips({ getQuery, setQuery }) {
     const subs = crossSubqueries(q);
     crossChip.textContent = subs.length ? `× ${subs[0].length > 18 ? subs[0].slice(0, 18) + '…' : subs[0]}` : '× пересекает…';
     zoneChip.hidden = !state.zone;
+    for (const { b, group } of groupChips) b.hidden = !packHasGroup(group);
   }
 
   update(getQuery());
+  // the pack (and its kinds) may arrive after the chips are built
+  const refreshGroups = () => { for (const { b, group } of groupChips) b.hidden = !packHasGroup(group); };
+  on('index', refreshGroups);
+  on('packReady', refreshGroups);
   return { el, update };
 }
 

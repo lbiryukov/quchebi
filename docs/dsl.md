@@ -86,6 +86,13 @@ points: inside; polygons: intersects). Inside relations the zone acts as describ
 `тип:переулок,тупик` = OR. `тип:улица*` = the whole group of `улица` (street*). Synonyms from
 `core.kinds[].syn` are accepted.
 
+Landmarks (group `place*`, docs/pack-format.md): `тип:музей`, `тип:храм` (= церковь, собор,
+монастырь), `тип:памятник` (= статуя, бюст, мемориал), `тип:доска` (memorial plaques), `тип:тц`,
+`тип:вокзал` (= автовокзал), `тип:институт` ... `тип:место*` (= `тип:места*`, `тип:place*`) is the
+whole group; `тип:место` alone is the generic kind (attractions, viewpoints, artworks, historic
+buildings). Landmarks have no family and no house numbers of their own: the address is a house row
+of the parent street, so `дом:8 рядом:(тип:музей истори)~50` finds the street of the museum.
+
 ### Eponyms (`кто`, `био`, `век`, `пол`, `свой`)
 A feature's eponym is `eponyms.e[core.fam[f.fam].e]`. `кто:` value resolution order: taxonomy id
 (`lit.poet`), taxonomy alias (`поэт`, group alias `литература` = all children), kind alias
@@ -170,6 +177,19 @@ None of these change the meaning of queries written to the spec above.
 - API additions: `evaluate()` may return `error` (unknown enumerated value) with `count = 0`;
   `run(text, index, ctx)` parses and evaluates; `prepare(index, {all})` warms caches;
   `complete()` items carry `from`/`to` (range to replace).
+
+### Ranking and places (added with the landmarks layer)
+
+- Text relevance: whole-phrase match first (100 × 0–3), then per word: 4 whole name, 3 name word,
+  2 prefix, 1 substring, 0 old name only; Georgian genitive `-s/-is` and final `-i` are tolerated;
+  base names of both the family and the feature count.
+- Ties: streets, lanes and squares → other features → numbered/derived lanes → main places
+  (museum, theatre, church, monument…) → plaques, schools, universities, housing, factories.
+  Without text and without `сорт:`, places come after everything else.
+- Fuzzy streets: if a 6+ letter word matches only non-street features exactly, fuzzy street
+  matches are added (warning "нечёткое совпадение среди улиц: …" when they reach the result).
+- Places without a Russian name but with an English one are also indexed as "<ru kind> <en name>"
+  (`тип:музей иллюзий` finds "Museum of Illusions").
 
 ## Golden examples (must hold on the real pack; counts are checked against SQL in tests)
 

@@ -19,7 +19,7 @@
      "ka": {"type": "string"},
      "ru": {"type": "string", "minLength": 1},
      "syn": {"type": "array", "items": {"type": "string", "minLength": 1}},
-     "group": {"enum": ["", "street*", "lane*", "water*", "area*"]}
+     "group": {"enum": ["", "street*", "lane*", "water*", "area*", "place*"]}
     }
    }
   },

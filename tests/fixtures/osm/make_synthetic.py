@@ -151,7 +151,30 @@ def build() -> dict[str, list[dict]]:
         node(515, 0, -1900, {"addr:housenumber": "1"}),
         center("relation", 516, 120, 150, {"addr:housenumber": "2", "addr:street": "ლადო ასათიანის II შესახვევი"}),
     ]
-    return {"highways": hw, "misc": misc, "place_polygons": polys, "addresses": addr}
+    # landmarks (pipeline/osm/landmarks.py); built last so that the node ids above do not move
+    museum_bld = {"building": "yes", "tourism": "museum", "name": "ხელოვნების მუზეუმი", "name:en": "Art Museum",
+                  "addr:street": "კოსტავას ქუჩა", "addr:housenumber": "10"}
+    landmarks = [
+        node(601, 318, 42, {"tourism": "museum", "name": "ხელოვნების მუზეუმი", "name:ru": "Музей искусств"}),
+        way(602, rect(305, 30, 330, 55), museum_bld),                       # same museum as a building
+        node(603, -300, 200, {"amenity": "place_of_worship", "religion": "christian", "name": "სიონის ტაძარი",
+                              "name:ru": "Сионский собор", "alt_name": "სიონი"}),
+        node(604, -350, 250, {"amenity": "place_of_worship", "religion": "muslim", "name": "ჯუმა მეჩეთი",
+                              "name:ru": "Джума-мечеть"}),
+        node(605, -400, 300, {"amenity": "place_of_worship", "religion": "jewish", "name": "დიდი სინაგოგა"}),
+        node(606, 50, 30, {"tourism": "artwork", "artwork_type": "sculpture", "name": "ლადო ასათიანი",
+                           "name:ru": "Ладо Асатиани"}),                     # 30 m from Asatiani street
+        node(607, 60, -25, {"historic": "memorial", "memorial": "plaque", "name": "ილია ჭავჭავაძე"}),
+        way(608, rect(800, 200, 900, 300), {"shop": "mall", "name": "გალერია", "name:en": "Galleria"}),
+        node(609, 200, 100, {"amenity": "place_of_worship", "name": "ეკლესია"}),   # a type word, not a name
+        node(610, -600, -100, {"tourism": "attraction", "name": "ორბელიანების სასახლე"}),  # -> palace
+        way(611, rect(520, 520, 680, 680), {"tourism": "attraction", "name": "ვაკის პარკი"}),  # duplicate of the park
+        node(612, 700, -700, {"leisure": "sports_centre", "name": "ფიტნესი"}),      # small sports centre: skipped
+        node(613, 720, -720, {"leisure": "sports_centre", "name": "თბილისი არენა"}),  # stadium by its name
+        way(614, rect(-1500, 1000, -1480, 1020), {"building": "apartments", "name": "A ბლოკი"}),  # part label
+    ]
+    addr.append(center("way", 602, 318, 42, museum_bld))
+    return {"highways": hw, "misc": misc + landmarks, "place_polygons": polys, "addresses": addr}
 
 
 def main() -> None:

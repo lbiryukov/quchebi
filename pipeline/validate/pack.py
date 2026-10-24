@@ -324,8 +324,22 @@ def _invariants(res: PackCheck) -> None:
     if hn_bad:
         res.err(f"core.f[].hn differs from houses.h row count for {len(hn_bad)} features (e.g. {hn_bad[:5]})")
     range_bad = out_box = 0
+    lm_bad: list[str] = []
+    n_lm = 0
+    place_kinds = {i for i, k in enumerate(kinds) if k.get("group") == "place*"}
     house_far: list[tuple[float, str, str]] = []
     pts_idx, pts = [], []
+    for k, rows in list(h.items()) + list(hp.items()):
+        for r in rows:
+            if len(r) > 8:
+                n_lm += 1
+                lm = r[8]
+                if not (_idx_ok(lm, n) and F[lm].get("k") in place_kinds):
+                    lm_bad.append(f"{k}:{r[0]}->{lm}")
+    if lm_bad:
+        res.err(f"houses: {len(lm_bad)} rows whose 9th element is not a landmark (place*) feature "
+                f"(e.g. {lm_bad[:5]})")
+    res.stats["houses_landmark"] = n_lm
     for k, rows in h.items():
         nh += len(rows)
         for r in rows:

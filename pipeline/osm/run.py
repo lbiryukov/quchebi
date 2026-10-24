@@ -1,5 +1,8 @@
-"""Run the OSM import stages in order: fetch -> extract -> areas -> features -> feature_area ->
-crossings -> houses. ``main(argv)`` is used by ``pipeline.cli osm``."""
+"""Run the OSM import stages in order: fetch -> extract -> areas -> features -> landmarks ->
+feature_area -> crossings -> houses. ``main(argv)`` is used by ``pipeline.cli osm``.
+
+``features`` deletes every non-area feature (landmarks included), so asking for ``features`` always
+runs ``landmarks`` too."""
 from __future__ import annotations
 
 import argparse
@@ -11,13 +14,13 @@ from pathlib import Path
 from pipeline.config import DB_PATH, ensure_dirs
 from pipeline.db import open_db, set_meta, tx
 from pipeline.log import RUN_ID, get_logger, stage
-from pipeline.osm import areas, crossings, feature_area, features, houses
+from pipeline.osm import areas, crossings, feature_area, features, houses, landmarks
 from pipeline.osm.extract import EXTRACT_CACHE, load_extract
 from pipeline.osm.fetch import DEFAULT_MAX_AGE_DAYS, OVERPASS_CACHE, fetch
 
 log = get_logger(__name__)
 
-STAGES = ("areas", "features", "feature_area", "crossings", "houses")
+STAGES = ("areas", "features", "landmarks", "feature_area", "crossings", "houses")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -42,6 +45,9 @@ def parse_stages(spec: str) -> list[str]:
     bad = [s for s in out if s not in STAGES]
     if bad:
         raise SystemExit(f"unknown stage(s): {bad}; known: {list(STAGES)}")
+    if "features" in out and "landmarks" not in out:
+        log.info("stage 'features' removes landmarks: adding stage 'landmarks'")
+        out.append("landmarks")
     return [s for s in STAGES if s in out]
 
 
@@ -66,6 +72,9 @@ def table_counts(con) -> dict[str, int]:
         out[t] = con.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
     # "streets" = features built from named highway ways (any kind: street, lane, square, bridge ...)
     out["streets"] = con.execute("SELECT COUNT(*) FROM feature WHERE highway IS NOT NULL").fetchone()[0]
+    ph = ",".join("?" * len(landmarks.LANDMARK_KINDS))
+    out["landmarks"] = con.execute(f"SELECT COUNT(*) FROM feature WHERE kind IN ({ph})",
+                                   sorted(landmarks.LANDMARK_KINDS)).fetchone()[0]
     out["crossing_pairs"] = con.execute("SELECT COUNT(*) FROM (SELECT DISTINCT a, b FROM crossing)").fetchone()[0]
     out["houses_matched_objects"] = con.execute(
         "SELECT COUNT(DISTINCT osm_type || osm_id) FROM house WHERE feature_id IS NOT NULL").fetchone()[0]
@@ -101,6 +110,8 @@ def run(args: argparse.Namespace) -> dict:
                 summary["areas"] = areas.run(con, ex)
             if "features" in stages:
                 summary["features"] = features.run(con, ex)
+            if "landmarks" in stages:
+                summary["landmarks"] = landmarks.run(con, ex)
             if "feature_area" in stages:
                 summary["feature_area"] = feature_area.run(con)
             if "crossings" in stages:

@@ -18,6 +18,9 @@ Street matching cascade for ``addr:street`` (then ``addr:street:ka|en|ru``), ``h
 7. ``place``        -- no street (or an unmatched street that is really a neighbourhood name): the
    ``addr:place`` / ``addr:street`` value matched to an area (``house.area_id``).
 
+Landmark features (group ``place*``) are never street candidates; a row whose OSM object is (part
+of) a landmark gets the flag ``landmark:<kind>`` (the landmark's ``parent_id`` is that street).
+
 Matches farther than :data:`FAR_REJECT_M` are dropped (flag ``far_rejected:<m>``); matches farther
 than :data:`FAR_FLAG_M` keep the flag ``far:<m>``. Unmatched rows have ``match = 'none'``. Non-exact street spellings that matched are added to
 ``feature_name`` as ``kind = 'addr_variant'``, ``source = 'addr'``.
@@ -25,6 +28,7 @@ than :data:`FAR_FLAG_M` keep the flag ``far:<m>``. Unmatched rows have ``match =
 from __future__ import annotations
 
 import difflib
+import json
 import re
 import sqlite3
 from collections import Counter, defaultdict
@@ -38,6 +42,7 @@ from shapely.geometry import Point
 from pipeline.db import tx
 from pipeline.log import get_logger, stage
 from pipeline.names import KIND_GROUP, normalize_ka, parse_house, parse_name, skeleton, strip_type
+from pipeline.names.parse import LANDMARK_KINDS
 from pipeline.osm.features import script_lang
 from pipeline.osm.geo import proj, to_xy
 from pipeline.osm.model import Extract
@@ -54,7 +59,7 @@ FAR_FLAG_M = 300.0
 FAR_REJECT_M = 1500.0     # a street match farther than this is dropped (match 'none', flag far_rejected)
 ALT_STREET_TAGS = ("addr:street:ka", "addr:street:en", "addr:street:ru")
 PLACE_FUZZY_M = 3000.0
-NO_ADDR_KINDS = ("district", "neighbourhood", "metro", "river", "stream", "canal", "lake")
+NO_ADDR_KINDS = ("district", "neighbourhood", "metro", "river", "stream", "canal", "lake") + tuple(sorted(LANDMARK_KINDS))
 
 _ROMAN = r"(?=[IVX])(?:X{0,3})(?:IX|IV|V?I{0,3})"
 _ORD_RES = [
@@ -369,9 +374,21 @@ def _looks_like_place(s: str) -> bool:
     return bool(_PLACE_WORDS.search(s))
 
 
+def landmark_objects(con: sqlite3.Connection) -> dict[tuple[str, int], str]:
+    """(osm type, osm id) -> landmark kind, for every OSM object merged into a landmark feature."""
+    ph = ",".join("?" * len(LANDMARK_KINDS))
+    out: dict[tuple[str, int], str] = {}
+    for r in con.execute(f"SELECT kind, osm_ids FROM feature WHERE kind IN ({ph})", sorted(LANDMARK_KINDS)):
+        for ref in json.loads(r["osm_ids"] or "[]"):
+            if len(ref) > 1 and ref[0] in "nwr" and ref[1:].isdigit():
+                out[(ref[0], int(ref[1:]))] = r["kind"]
+    return out
+
+
 def build_houses(con: sqlite3.Connection, ex: Extract) -> tuple[list[tuple], list[tuple], dict]:
     idx = StreetIndex(con)
     areas = AreaMatcher(con)
+    lm_objs = landmark_objects(con)
     st = Counter()
     rows: list[tuple] = []
     variants: Counter = Counter()
@@ -451,6 +468,10 @@ def build_houses(con: sqlite3.Connection, ex: Extract) -> tuple[list[tuple], lis
             st["street_m_" + ("matched" if fid else "unmatched")] += 1
         if d is not None and d > FAR_FLAG_M:
             flags.append(f"far:{int(round(d))}")
+        lm_kind = lm_objs.get((o.type, o.id))
+        if lm_kind:
+            flags.append(f"landmark:{lm_kind}")
+            st["landmark_rows"] += 1
         if fid and how not in ("exact", "variant") and used not in idx.names[fid]:
             sk = skeleton(normalize_ka(used))
             if sk and sk not in idx.skeletons(fid):

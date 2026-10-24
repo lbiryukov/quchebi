@@ -43,8 +43,40 @@ is shipped in `core.kinds`, so the client never hardcodes indices).
 | district | რაიონი | район | area* |
 | neighbourhood | (place=suburb/neighbourhood/quarter) | микрорайон (синонимы: квартал, местность) | area* |
 | other | | прочее | |
+| landmark | (tourism=attraction/viewpoint/zoo, historic=*, artwork, tower) | место (синонимы: места, достопримечательность) | place* |
+| museum | მუზეუმი | музей (синоним: галерея) | place* |
+| theatre | თეატრი | театр (синонимы: опера, филармония, цирк, концертзал) | place* |
+| cinema | კინოთეატრი | кинотеатр (синоним: кино) | place* |
+| monument | ძეგლი, მემორიალი, ბიუსტი | памятник (синонимы: монумент, мемориал, статуя, скульптура, бюст) | place* |
+| plaque | დაფა | доска (синонимы: мемдоска, табличка, звезда) | place* |
+| church | ეკლესია, ტაძარი, მონასტერი | храм (синонимы: церковь, собор, монастырь, базилика, часовня) | place* |
+| mosque | მეჩეთი | мечеть | place* |
+| synagogue | სინაგოგა | синагога | place* |
+| fortress | ციხე, ციხესიმაგრე | крепость (синонимы: замок, цитадель) | place* |
+| palace | სასახლე | дворец (синоним: усадьба) | place* |
+| bath | აბანო | баня (синоним: бани) | place* |
+| stadium | სტადიონი, არენა | стадион (синонимы: арена, спорткомплекс) | place* |
+| mall | მოლი | торгцентр (синонимы: тц, молл, универмаг) | place* |
+| market | ბაზარი, ბაზრობა | рынок (синоним: базар) | place* |
+| station | სადგური, ავტოსადგური | вокзал (синонимы: автовокзал, жд) | place* |
+| university | უნივერსიტეტი, აკადემია, ინსტიტუტი | университет (синонимы: вуз, академия, институт, консерватория, колледж) | place* |
+| school | სკოლა | школа (синонимы: лицей, гимназия) | place* |
+| library | ბიბლიოთეკა | библиотека | place* |
+| cemetery | სასაფლაო, პანთეონი | кладбище (синоним: пантеон) | place* |
+| factory | ქარხანა, ფაბრიკა | завод (синонимы: фабрика, комбинат) | place* |
+| residential | (landuse=residential, building=apartments) | жилкомплекс (синоним: жк) | place* |
 
 `core.kinds[i] = {"code": "street", "ka": "ქუჩა", "ru": "улица", "syn": [], "group": "street*"}`.
+
+Landmark kinds (group `place*`, after `other` so that older indices do not move) are set from OSM
+tags by `pipeline/osm/landmarks.py`, never from a street name: their Georgian words are shipped for
+the client (search, `тип:`), but `parse_name` does not use them. `тип:место*` (or `тип:place*`)
+is the whole group. A landmark is one feature per object (node, building and multipolygon of the
+same name within 100 m are merged); small buildings are shipped as points, large areas
+(stadiums, cemeteries, markets, ...) as their outline. `par` of a landmark is its street: the street
+of `addr:street` (+ `addr:housenumber`), else the nearest street within 50 m. The house row of
+that address stays under the street in `houses.json` (the DB flags it `landmark:<kind>`) and carries
+the landmark's feature index as its 9th element (see houses.json).
 
 ## manifest.json
 
@@ -129,8 +161,15 @@ polylines. Polygons (parks, squares mapped as areas) are their outer ring, close
  "place": {"17": [["12", 12, "", "", 4169000, 4479000]]}}
 ```
 Row: `[raw, n, lit, sub, lat_e5, lon_e5]` (+ optional 7th element `n_to` for ranges "3-5",
-and `corp` as 8th). Keys of `h` are feature indices as strings; keys of `place` are place
+`corp` as 8th and `lm` as 9th). Keys of `h` are feature indices as strings; keys of `place` are place
 indices (addresses that only have `addr:place`). Letters are normalized to Georgian (ა ბ გ დ ე ვ ...).
+
+`lm` (9th element) is the index into `core.f` of the landmark (kind group `place*`) whose OSM object
+carries this address (the DB house flag `landmark:<kind>`): `["8", 8, "", "", 4169123, 4479456, null,
+null, 6012]` is "д. 8 — Музей истории Тбилиси". Missing `n_to` / `corp` before it are `null`. The
+landmark's `par` is usually the feature under whose key the row lies, but not always (its `par` may
+come from another address of the same object). The client shows such rows in the street card
+(«д. 8 — <place>», tap opens the place) and the address in the place card.
 
 ## areas.json
 
@@ -164,12 +203,14 @@ Optional fields omitted when unknown.
 - `core.f[]` always has `ka`, `k`, `len`, `c`, `hn`; `len = 0` for points and polygons.
 - `core.places[].parent` is an index into `core.districts`.
 - `eponyms.e[].o` is `"ge"` or `"fo"` (omitted when unknown).
-- House row with a building/korpus but no range: `[raw, n, lit, sub, lat, lon, null, corp]`.
+- House row with a building/korpus but no range: `[raw, n, lit, sub, lat, lon, null, corp]`;
+  a landmark row without range and korpus: `[raw, n, lit, sub, lat, lon, null, null, lm]`.
 - The same pair of streets may appear several times in `x` with different crossing points.
 - `name_history` rows without `feature_id` or with confidence < 0.5 are not exported.
 - `ai = 1` when the eponym or any of its categories comes from an LLM.
 - Unreferenced eponyms and families are dropped; indices are re-assigned.
-- Size budget: ≤ 1.2 MB gzip for all data files (measured ≈ 1.0 MB on real data).
+- Size budget: ≤ 1.6 MB gzip for all data files (≈ 1.1 MB streets only; the landmarks layer
+  adds ≈ 0.15 MB and eponyms ≈ 0.1 MB).
 - `manifest.tiles` = `{basemap, glyphs, sprites, minzoom, maxzoom, bbox, center, bytes,
   files: {"tiles/<path>": {bytes, sha256}}}`, built from `app/public/tiles/tiles-manifest.json`.
 

@@ -13,6 +13,8 @@ geometries are validated, broken rings are dropped and counted.
 from __future__ import annotations
 
 import json
+import math
+import re
 import time
 from collections import Counter
 from pathlib import Path
@@ -56,6 +58,109 @@ def poi_kind(t: dict[str, str]) -> str | None:
     if t.get("man_made") == "bridge":
         return "bridge"
     return None
+
+
+#: Keys that make a named object a landmark candidate (see :func:`landmark_kind`).
+LANDMARK_KEYS = ("tourism", "amenity", "historic", "leisure", "shop", "railway", "building", "aerialway",
+                 "landuse", "memorial", "man_made", "public_transport")
+PLAQUE_MEMORIALS = {"plaque", "blue_plaque", "stolperstein"}
+MONUMENT_ARTWORK = {"statue", "sculpture", "bust", "monument", "stone", "obelisk"}
+WORSHIP_BUILDINGS = {"church": "church", "cathedral": "church", "chapel": "church", "monastery": "church",
+                     "temple": "church", "basilica": "church", "mosque": "mosque", "synagogue": "synagogue"}
+WORSHIP_HISTORIC = {"church": "church", "monastery": "church", "chapel": "church", "cathedral": "church",
+                    "temple": "church", "mosque": "mosque", "synagogue": "synagogue"}
+GENERIC_TOURISM = {"attraction", "viewpoint", "zoo", "theme_park", "aquarium"}
+GENERIC_HISTORIC = {"building", "house", "ruins", "archaeological_site", "yes", "city_gate", "tomb", "manor",
+                    "caravanserai", "tower", "gate", "aqueduct", "heritage", "monument_ensemble", "fountain",
+                    "bridge", "palace"}
+GENERIC_AMENITY = {"arts_centre", "exhibition_centre", "planetarium", "fountain", "townhall"}
+NON_STOP_RAILWAY = {"station", "halt"}
+#: A sports centre or pitch is a "stadium" when its name says so (or it is a large area).
+_STADIUM_NAME = re.compile(r"სტადიონ|არენა|სასახლე|სპორტული კომპლექს|stadium|arena|palace|sports complex|"
+                           r"стадион|арена|дворец|спорткомплекс", re.IGNORECASE)
+STADIUM_MIN_M2 = 5000.0
+
+
+def landmark_kind(t: dict[str, str], area_m2: float = 0.0) -> str | None:
+    """Tag-based landmark kind (group ``place*`` of KIND_TABLE) of a named object, None if not one.
+
+    ``area_m2`` is the polygon area (0 for points and lines; ``math.inf`` = "any size", used by the
+    extractor to keep candidates whose kind depends on the size). Streets, water and the POIs of
+    :func:`poi_kind` (metro, squares, parks, lakes, bridges) are never landmarks. The first rule that
+    matches wins; :func:`pipeline.osm.landmarks.refine_kind` may refine a generic kind by the name.
+    """
+    name = (t.get("name") or "").strip()
+    if not name:
+        return None
+    if "highway" in t or "waterway" in t or "boundary" in t or "place" in t or poi_kind(t):
+        return None
+    if t.get("public_transport") in ("platform", "stop_position", "stop_area") or \
+            t.get("railway") in ("platform", "stop", "subway_entrance", "tram_stop"):
+        return None
+    am, bl, hi, tu = t.get("amenity"), t.get("building"), t.get("historic"), t.get("tourism")
+    le, sh, lu, mem, art = t.get("leisure"), t.get("shop"), t.get("landuse"), t.get("memorial"), t.get("artwork_type")
+    if mem in PLAQUE_MEMORIALS or (tu == "artwork" and art == "star"):
+        return "plaque"
+    if am in ("place_of_worship", "monastery") or bl in WORSHIP_BUILDINGS or hi in WORSHIP_HISTORIC \
+            or lu == "religious":
+        rel = t.get("religion")
+        if rel == "muslim" or bl == "mosque" or hi == "mosque":
+            return "mosque"
+        if rel == "jewish" or bl == "synagogue" or hi == "synagogue":
+            return "synagogue"
+        return "church"
+    if tu in ("museum", "gallery") or am == "museum" or bl == "museum":
+        return "museum"
+    if am == "cinema" or bl == "cinema":
+        return "cinema"
+    if am in ("theatre", "concert_hall", "circus") or bl == "theatre":
+        return "theatre"
+    if am == "public_bath":
+        return "bath"
+    if hi in ("monument", "memorial") or (tu == "artwork" and art in MONUMENT_ARTWORK):
+        return "monument"
+    if hi in ("castle", "fort", "citywalls", "fortress") or bl in ("castle", "fortress"):
+        return "fortress"
+    if bl == "palace":
+        return "palace"
+    if le == "stadium" or bl == "stadium":
+        return "stadium"
+    if le in ("sports_centre", "sports_hall") or bl in ("sports_centre", "sports_hall"):
+        return "stadium" if (_STADIUM_NAME.search(name) or area_m2 >= STADIUM_MIN_M2) else None
+    if le == "pitch":
+        return "stadium" if _STADIUM_NAME.search(name) else None
+    if sh in ("mall", "department_store"):
+        return "mall"
+    if am == "marketplace":
+        return "market"
+    if lu == "retail" and not am and not sh:
+        return "mall"
+    if (t.get("railway") in NON_STOP_RAILWAY and t.get("station") not in ("subway", "light_rail")
+            and t.get("subway") != "yes") or am == "bus_station" or t.get("aerialway") == "station" \
+            or bl == "train_station":
+        return "station"
+    if am in ("university", "college", "research_institute") or bl in ("university", "college"):
+        return "university"
+    if am == "school" or bl == "school":
+        return "school"
+    if am == "library":
+        return "library"
+    if lu == "cemetery" or am == "grave_yard":
+        return "cemetery"
+    if lu == "industrial" or t.get("man_made") == "works":
+        return "factory"
+    if lu == "residential" or bl in ("apartments", "residential"):
+        return "residential" if area_m2 > 0 else None
+    if tu in GENERIC_TOURISM or hi in GENERIC_HISTORIC or am in GENERIC_AMENITY \
+            or (tu == "artwork" and art not in ("graffiti",)) \
+            or t.get("man_made") in ("tower", "communications_tower", "obelisk"):
+        return "landmark"
+    return None
+
+
+def is_landmark_candidate(t: dict[str, str]) -> bool:
+    """Named object that may be a landmark (its kind may still depend on the polygon area)."""
+    return landmark_kind(t, math.inf) is not None
 
 
 def is_place(t: dict[str, str]) -> bool:
@@ -132,6 +237,7 @@ def clip_to_boundary(ex: Extract) -> Extract:
     ex.places = keep_objs(ex.places, "point")
     ex.pois = keep_objs(ex.pois, "intersects")
     ex.addresses = keep_objs(ex.addresses, "point")
+    ex.landmarks = keep_objs(ex.landmarks, "point")
     log.info("clip to Tbilisi: before %s after %s", before, ex.counts())
     return ex
 
@@ -163,6 +269,8 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
                 role_kind = "place"
             elif poi_kind(tags) and tags.get("type") in ("multipolygon", "boundary", None):
                 role_kind = "poi"
+            elif is_landmark_candidate(tags) and tags.get("type") in ("multipolygon", None):
+                role_kind = "landmark"  # also an address below when it has addr:housenumber
             elif "addr:housenumber" in tags and tags.get("type") in ("multipolygon", "building", None):
                 role_kind = "address"
             if role_kind is None:
@@ -196,9 +304,10 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
     # Python loop to named / addressed objects
     with stage(log, "osm.extract.nodes_ways", file=path.name) as out:
         cnt = Counter()
-        node_keys = ("addr:housenumber", "place", "station", "railway", "leisure", "natural", "man_made", "landuse")
-        way_keys = ("highway", "waterway", "addr:housenumber", "place", "leisure", "natural", "man_made",
-                    "station", "railway", "landuse")
+        node_keys = tuple(dict.fromkeys(("addr:housenumber", "place", "station", "railway", "leisure", "natural",
+                                         "man_made", "landuse") + LANDMARK_KEYS))
+        way_keys = tuple(dict.fromkeys(("highway", "waterway", "addr:housenumber", "place", "leisure", "natural",
+                                        "man_made", "station", "railway", "landuse") + LANDMARK_KEYS))
         fp = (osmium.FileProcessor(str(path), osmium.osm.NODE | osmium.osm.WAY)
               .with_locations()
               .with_filter(osmium.filter.KeyFilter(*node_keys).enable_for(osmium.osm.NODE))
@@ -220,6 +329,9 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
                 k = poi_kind(tags)
                 if k:
                     ex.pois.append(OsmObj("n", o.id, tags, g))
+                elif "name" in tags and is_landmark_candidate(tags):
+                    ex.landmarks.append(OsmObj("n", o.id, tags, g))
+                    cnt["landmark_nodes"] += 1
                 continue
             cnt["ways"] += 1
             t = o.tags
@@ -230,7 +342,8 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
             has_addr = "addr:housenumber" in t
             maybe_area = named and ("place" in t or "leisure" in t or "natural" in t or "man_made" in t
                                     or "station" in t or "railway" in t or "landuse" in t)
-            if not (is_hw or is_ww or has_addr or maybe_area):
+            maybe_lm = named and not is_hw and not is_ww and any(k in t for k in LANDMARK_KEYS)
+            if not (is_hw or is_ww or has_addr or maybe_area or maybe_lm):
                 continue
             nodes, coords = [], []
             for n in o.nodes:
@@ -249,10 +362,13 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
                 ex.highways.append(OsmWay(wid, tags, nodes, coords))
             if is_ww:
                 ex.waterways.append(OsmWay(wid, tags, nodes, coords))
-            if has_addr or maybe_area:
+            if has_addr or maybe_area or maybe_lm:
                 g = _closed_way_geom(coords, nodes)
                 if g is None:
                     continue
+                if maybe_lm and not poi_kind(tags) and is_landmark_candidate(tags):
+                    ex.landmarks.append(OsmObj("w", wid, tags, g))
+                    cnt["landmark_ways"] += 1
                 if has_addr:
                     c = _centroid(g)
                     if c is not None:
@@ -312,6 +428,12 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
                 ex.places.append(OsmObj("r", rid, v["tags"], g))
             elif v["kind"] == "poi":
                 ex.pois.append(OsmObj("r", rid, v["tags"], g))
+            elif v["kind"] == "landmark":
+                ex.landmarks.append(OsmObj("r", rid, v["tags"], g))
+                if "addr:housenumber" in v["tags"]:
+                    c = _centroid(g)
+                    if c is not None:
+                        ex.addresses.append(OsmObj("r", rid, v["tags"], c))
             elif v["kind"] == "address":
                 c = _centroid(g)
                 if c is not None:
@@ -437,6 +559,9 @@ def read_overpass(folder: Path) -> Extract:
             if poi_kind(t) and ("poi",) + key not in seen:
                 seen.add(("poi",) + key)
                 ex.pois.append(OsmObj(typ, key[1], dict(t), geom))
+            elif is_landmark_candidate(t) and ("lm",) + key not in seen:
+                seen.add(("lm",) + key)
+                ex.landmarks.append(OsmObj(typ, key[1], dict(t), geom))
         if not ex.districts:
             raise RuntimeError(f"no district polygons in Overpass cache {folder}")
         ex.boundary = as_multipolygon(shapely.union_all([d.geom for d in ex.districts]).buffer(0))

@@ -17,7 +17,7 @@ from pipeline.log import get_logger
 
 log = get_logger(__name__)
 
-EXTRACT_VERSION = 3
+EXTRACT_VERSION = 4  # 4: landmarks
 
 
 @dataclass
@@ -59,13 +59,14 @@ class Extract:
     places: list[OsmObj] = field(default_factory=list)      # place=suburb|neighbourhood|quarter
     pois: list[OsmObj] = field(default_factory=list)        # metro, squares, parks, lakes, bridges
     addresses: list[OsmObj] = field(default_factory=list)   # addr:housenumber objects (Point = centroid)
+    landmarks: list[OsmObj] = field(default_factory=list)   # named museums, churches, monuments ... (any geometry)
     info: dict = field(default_factory=dict)                # provenance (file, counts)
 
     def counts(self) -> dict[str, int]:
         return {
             "highways": len(self.highways), "waterways": len(self.waterways),
             "districts": len(self.districts), "places": len(self.places),
-            "pois": len(self.pois), "addresses": len(self.addresses),
+            "pois": len(self.pois), "addresses": len(self.addresses), "landmarks": len(self.landmarks),
         }
 
     # ------------------------------------------------------------------ JSON cache
@@ -81,7 +82,7 @@ class Extract:
             "boundary": shapely.to_wkt(self.boundary, rounding_precision=7) if self.boundary is not None else None,
             "highways": ways(self.highways), "waterways": ways(self.waterways),
             "districts": objs(self.districts), "places": objs(self.places), "pois": objs(self.pois),
-            "addresses": objs(self.addresses), "info": self.info,
+            "addresses": objs(self.addresses), "landmarks": objs(self.landmarks), "info": self.info,
         }
 
     @classmethod
@@ -101,7 +102,7 @@ class Extract:
             boundary=shapely.from_wkt(d["boundary"]) if d.get("boundary") else None,
             highways=ways(d["highways"]), waterways=ways(d["waterways"]),
             districts=objs(d["districts"]), places=objs(d["places"]), pois=objs(d["pois"]),
-            addresses=objs(d["addresses"]), info=d.get("info", {}),
+            addresses=objs(d["addresses"]), landmarks=objs(d.get("landmarks", [])), info=d.get("info", {}),
         )
 
     def save(self, path: Path) -> None:

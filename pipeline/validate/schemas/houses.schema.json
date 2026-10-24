@@ -1,7 +1,7 @@
 {
  "$schema": "https://json-schema.org/draft/2020-12/schema",
  "$id": "https://quchebi.local/schemas/houses.schema.json",
- "title": "Quchebi pack houses.json: rows [raw, n, lit, sub, lat_e5, lon_e5, n_to|null, corp]",
+ "title": "Quchebi pack houses.json: rows [raw, n, lit, sub, lat_e5, lon_e5, n_to|null, corp|null, lm]",
  "type": "object",
  "required": ["v", "h", "place"],
  "additionalProperties": false,
@@ -19,7 +19,7 @@
   "row": {
    "type": "array",
    "minItems": 6,
-   "maxItems": 8,
+   "maxItems": 9,
    "prefixItems": [
     {"type": "string", "minLength": 1},
     {"type": "integer", "minimum": 0},
@@ -28,7 +28,8 @@
     {"type": "integer"},
     {"type": "integer"},
     {"type": ["integer", "null"]},
-    {"type": "string", "minLength": 1}
+    {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+    {"type": "integer", "minimum": 0}
    ],
    "items": false
   }

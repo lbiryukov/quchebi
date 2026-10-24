@@ -19,7 +19,7 @@ from typing import Any
 from pipeline.config import APP_DATA, APP_TILES, BUILD, PACK_FORMAT_VERSION
 from pipeline.db import get_meta
 from pipeline.export import geom as G
-from pipeline.export.kinds import load_kinds
+from pipeline.export.kinds import group_codes, load_kinds
 from pipeline.export.polyline import e5
 from pipeline.export.taxonomy import load_taxonomy, taxonomy_ids
 from pipeline.log import get_logger, stage
@@ -37,6 +37,9 @@ OLD_NAME_MIN_CONF = 0.5
 ALT_KIND_ORDER = {"official": 0, "alt": 1, "addr_variant": 2}
 ORIGIN_CODES = {"georgian": "ge", "foreign": "fo"}
 GENDER_CODES = {"m": "m", "f": "f", "м": "m", "ж": "f", "male": "m", "female": "f"}
+# Kind group of landmarks (places); their house rows carry the place index as the 9th element.
+PLACE_GROUP = "place*"
+_OSM_REF = re.compile(r"^([nwr])(\d+)$")
 
 
 def dumps(obj: Any) -> bytes:
@@ -237,9 +240,10 @@ def export_pack(
                 prob.add("feature_area_missing", str(aid))
 
         # ---------------------------------------------------------- houses
+        lm_of_osm = _landmark_osm_index(frows, set(group_codes(kinds, PLACE_GROUP)), f_idx)
         h_by_f: dict[int, list] = defaultdict(list)
         h_by_p: dict[int, list] = defaultdict(list)
-        n_house_total = n_house_skipped = 0
+        n_house_total = n_house_skipped = n_house_landmark = 0
         for r in _rows(con, "SELECT * FROM house h ORDER BY id"):
             n_house_total += 1
             if r["n"] is None or r["lat"] is None or r["lon"] is None:
@@ -247,10 +251,14 @@ def export_pack(
                 prob.add("house_not_exportable", r["raw"])
                 continue
             row: list[Any] = [r["raw"], int(r["n"]), r["lit"] or "", r["sub"] or "", e5(r["lat"]), e5(r["lon"])]
-            if r["n_to"] is not None or r["corp"]:
+            lm = _house_landmark(r, lm_of_osm, prob)
+            if r["n_to"] is not None or r["corp"] or lm is not None:
                 row.append(int(r["n_to"]) if r["n_to"] is not None else None)
-            if r["corp"]:
-                row.append(str(r["corp"]))
+            if r["corp"] or lm is not None:
+                row.append(str(r["corp"]) if r["corp"] else None)
+            if lm is not None:
+                row.append(lm)                  # 9th element: index of the place at this address
+                n_house_landmark += 1
             if r["feature_id"] is not None and r["feature_id"] in f_idx:
                 h_by_f[f_idx[r["feature_id"]]].append(row)
             elif r["feature_id"] is None and r["area_id"] in p_idx and (r["match"] in (None, "place")):
@@ -261,7 +269,8 @@ def export_pack(
         def hsort(rows: list) -> list:
             uniq = {json.dumps(x, ensure_ascii=False): x for x in rows}
             return sorted(uniq.values(), key=lambda x: (x[1], x[2], x[3], x[6] if len(x) > 6 and x[6] is not None else -1,
-                                                        x[7] if len(x) > 7 else "", x[0], x[4], x[5]))
+                                                        x[7] if len(x) > 7 and x[7] is not None else "", x[0], x[4], x[5],
+                                                        x[8] if len(x) > 8 else -1))
 
         houses_h = {str(i): hsort(v) for i, v in sorted(h_by_f.items())}
         houses_p = {str(i): hsort(v) for i, v in sorted(h_by_p.items())}
@@ -481,6 +490,7 @@ def export_pack(
 
         stats = {"version": manifest["version"], "built": manifest["built"], "taxonomy_source": tax_src,
                  "houses_db_total": n_house_total, "houses_skipped": n_house_skipped,
+                 "houses_landmark": n_house_landmark,
                  "sizes": {k: {"raw": len(v), "gzip": len(gzip.compress(v, 9))} for k, v in payloads.items()},
                  "problems": dict(prob.c), "problem_samples": dict(prob.samples)}
         for k, v in sorted(prob.c.items()):
@@ -491,6 +501,34 @@ def export_pack(
         st.update(counts)
         st["gzip_kb"] = round(total_gz / 1024, 1)
     return {"manifest": manifest, "stats": stats}
+
+
+def _landmark_osm_index(frows: list, place_codes: set[str], f_idx: dict[int, int]) -> dict[tuple[str, int], int]:
+    """(osm type, osm id) -> pack index of the landmark feature (kind group ``place*``) made of it."""
+    out: dict[tuple[str, int], int] = {}
+    for r in frows:
+        if r["kind"] not in place_codes or not r["osm_ids"]:
+            continue
+        try:
+            refs = json.loads(r["osm_ids"])
+        except (TypeError, ValueError):
+            continue
+        for ref in refs if isinstance(refs, list) else []:
+            m = _OSM_REF.match(str(ref))
+            if m:
+                out.setdefault((m.group(1), int(m.group(2))), f_idx[r["id"]])
+    return out
+
+
+def _house_landmark(r: sqlite3.Row, lm_of_osm: dict[tuple[str, int], int], prob: _Problems) -> int | None:
+    """Pack index of the place whose OSM object carries this address (house flag ``landmark:<kind>``)."""
+    if "landmark:" not in (r["flags"] or ""):
+        return None
+    t, oid = r["osm_type"], r["osm_id"]
+    lm = lm_of_osm.get((str(t)[:1], int(oid))) if t and oid is not None else None
+    if lm is None:
+        prob.add("house_landmark_unresolved", f"{r['addr_street'] or ''} {r['raw']}".strip())
+    return lm
 
 
 def _old_names(hrows: list, fn_rows: list, ep_idx: dict[int, int]) -> list[dict[str, Any]]:

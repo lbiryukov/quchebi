@@ -23,6 +23,81 @@ export function isLineKind(i) {
   return g === 'street*' || g === 'lane*';
 }
 
+/** Landmark (kind group place*): museum, theatre, monument, plaque, ... */
+export function isPlace(i) {
+  return kindOf(i)?.group === 'place*';
+}
+
+/** Street of a place (core.f[].par), or -1. */
+export function placeStreet(i) {
+  const p = feat(i)?.par;
+  return p !== undefined && p !== null && feat(p) ? p : -1;
+}
+
+// place index -> [{f, raw}] (house rows whose 9th element is the place), rebuilt per houses.json
+let lmRows = null;
+let lmRowsSrc = null;
+
+function landmarkRows() {
+  const data = state.index?.housesData || state.pack?.houses || null;
+  if (lmRows && lmRowsSrc === data) return lmRows;
+  lmRows = new Map();
+  lmRowsSrc = data;
+  for (const [key, rows] of Object.entries(data?.h || {})) {
+    for (const r of rows) {
+      const p = r.length > 8 ? r[8] : null;
+      if (p === null || p === undefined) continue;
+      if (!lmRows.has(p)) lmRows.set(p, []);
+      lmRows.get(p).push({ f: Number(key), raw: r[0] });
+    }
+  }
+  return lmRows;
+}
+
+/**
+ * Address of a place: {street, houses: ["8", ...]} — the street (where its house rows are, else
+ * its par) and the house numbers of its OSM objects; null when neither is known.
+ */
+export function placeAddress(i) {
+  const rows = landmarkRows().get(i) || [];
+  const par = placeStreet(i);
+  const street = rows.length ? (rows.find((x) => x.f === par) || rows[0]).f : par;
+  if (street < 0) return null;
+  const houses = [...new Set(rows.filter((x) => x.f === street).map((x) => x.raw))];
+  return { street, houses };
+}
+
+/** "улица Абано, 2" — street and house numbers of a place ('' when unknown). */
+export function placeAddressText(i) {
+  const a = placeAddress(i);
+  if (!a) return '';
+  return `${shortName(a.street)}${a.houses.length ? ', ' + a.houses.join(', ') : ''}`;
+}
+
+/**
+ * Places of street i: [{p, house}] — those at its house numbers (house = raw number) first, then
+ * places whose street it is without a house number (house = '').
+ */
+export function streetPlaces(i) {
+  const out = [];
+  const seen = new Set();
+  for (const r of houseRows(i)) {
+    const p = r.length > 8 ? r[8] : null;
+    if (p === null || p === undefined || !feat(p) || seen.has(p)) continue;
+    seen.add(p);
+    out.push({ p, house: r[0] });
+  }
+  const par = state.index?.par;
+  const n = core()?.f?.length || 0;
+  for (let j = 0; j < n; j++) {
+    const pj = par ? par[j] : feat(j)?.par;
+    if (pj !== i || seen.has(j) || !isPlace(j)) continue;
+    seen.add(j);
+    out.push({ p: j, house: '' });
+  }
+  return out;
+}
+
 export function mainName(i) {
   const f = feat(i);
   if (!f) return '';
@@ -105,6 +180,8 @@ export function taxLabel(id) {
 
 export function resetCaches() {
   taxMap = null;
+  lmRows = null;
+  lmRowsSrc = null;
 }
 
 /** Crossings of feature i: [{j, t, lat, lon, mask}] using the CSR adjacency of the index. */

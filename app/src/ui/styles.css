@@ -530,6 +530,8 @@ textarea.field { resize: vertical; min-height: 96px; }
 .hn.hit { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
 .hn.prob { background: var(--soft); color: var(--muted); border-style: dashed; }
 .hn.out { opacity: 0.45; }
+.hn.lm { border: 2px solid var(--enamel); font-weight: 700; color: var(--ink); min-height: var(--tap); }
+.hn.lm.hit { color: var(--accent-ink); }
 .cross-list { display: grid; gap: 6px; }
 .cross-list .list-btn .dir { font-family: var(--f-mono); color: var(--muted); font-size: 0.8rem; }
 .eponym { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 10px 12px; display: grid; gap: 4px; }

@@ -18,7 +18,10 @@ import { closest, plural, damerau } from './keys.js';
 import { fold } from './lexer.js';
 import { matchHouses } from '../search/houses.js';
 import { log } from '../log/log.js';
-import { dslData, houseRows, housesLoaded, geometry, geometryLoaded, nowMs, bioData, baseData, regexData, tokenData, fuzzyForm, letterMask } from './data.js';
+import {
+  dslData, houseRows, housesLoaded, geometry, geometryLoaded, nowMs, bioData, baseData, regexData, tokenData, fuzzyForm,
+  letterMask, nameTokens, loanForm, loanData, relBase,
+} from './data.js';
 
 class EvalError extends Error {
   constructor(pos, len, message, suggestions = []) {
@@ -30,6 +33,7 @@ class EvalError extends Error {
 }
 
 const DEFAULT_NEAR_M = 200;
+const FUZZY_STREET_MIN = 6; // skeleton length from which exact non-street hits also try fuzzy streets
 const SLOW_MS = 50;
 const CURRENT_YEAR = new Date().getFullYear();
 const EPONYM_SPAN = 70; // assumed lifetime when only one of birth/death is known
@@ -89,8 +93,10 @@ function rowsFor(E, f) {
  * outside the zone). The relation itself then applies the zone (crossing point, geometry).
  */
 function withoutZone(E) {
-  if (!E.zs.on) return E;
-  if (!E.noZone) E.noZone = { ...E, zs: { z: E.zs.z, on: false, mode: 'off' }, noZone: null };
+  if (!E.noZone) {
+    E.noZone = E.sub && !E.zs.on ? E
+      : { ...E, zs: E.zs.on ? { z: E.zs.z, on: false, mode: 'off' } : E.zs, noZone: null, sub: true, neg: 0 };
+  }
   return E.noZone;
 }
 
@@ -135,8 +141,14 @@ function evalNode(E, node, cand = null) {
       for (const it of node.items) acc.ior(evalNode(E, it, cand));
       return acc;
     }
-    case 'not':
-      return evalNode(E, node.item, cand).not();
+    case 'not': {
+      E.neg++;
+      try {
+        return evalNode(E, node.item, cand).not();
+      } finally {
+        E.neg--;
+      }
+    }
     case 'text':
       return evalText(E, node, cand);
     case 'filter':
@@ -173,17 +185,31 @@ function evalText(E, node, cand) {
   if (!entry) {
     let b = exactText(d, sk);
     let warn = null;
+    let extra = null;
+    const words = node.mode === 'quoted' ? String(node.value).split(/\s+/).filter(Boolean) : [node.value];
     if (b.isEmpty()) {
       // no exact hit: typo-tolerant match on name word tokens (Latin spellings from addresses)
-      const words = node.mode === 'quoted' ? String(node.value).split(/\s+/).filter(Boolean) : [node.value];
       const fz = fuzzyWords(d, words);
       if (fz) { b = fz.bits; warn = `нечёткое совпадение: «${node.value}» ≈ ${fz.shown}`; }
+    } else if (sk.length >= FUZZY_STREET_MIN && !b.intersects(d.streetish)) {
+      // exact hits are only places, bridges, parks...: a misspelt street name must not be lost
+      // behind a plaque or a university of the same person ("apollon" vs აპოლონ); short words
+      // ("рике") would only bring noise
+      const fz = fuzzyWords(d, words, d.streetish);
+      if (fz) {
+        extra = fz.bits.andNot(b);
+        if (extra.isEmpty()) extra = null;
+        else { b = b.or(extra); warn = `нечёткое совпадение среди улиц: «${node.value}» ≈ ${fz.shown}`; }
+      }
     }
-    entry = { bits: b, warn };
+    entry = { bits: b, warn, extra };
     if (d.textCache.size > 300) d.textCache.clear();
     d.textCache.set(key, entry);
   }
-  if (entry.warn) E.warn(entry.warn);
+  if (entry.extra) {
+    // shown only when the fuzzy streets reach the result (or may matter: subquery, negation)
+    E.fuzzyNotes.push({ bits: entry.extra, warn: entry.warn, always: !!E.sub || E.neg > 0 });
+  } else if (entry.warn) E.warn(entry.warn);
   return entry.bits.clone();
 }
 
@@ -201,44 +227,80 @@ function fuzzyBudget(len) {
 
 /**
  * Fuzzy match of words (AND over words): each word matches name tokens within the edit budget
- * (words with exact hits keep them). Returns {bits, shown} or null when some word has no match.
+ * (words with exact hits keep them). With `restrict` (a Bitset) only those features count, for
+ * exact and fuzzy hits alike. Returns {bits, shown} or null when some word has no match.
  */
-function fuzzyWords(d, words) {
+function fuzzyWords(d, words, restrict = null) {
   let acc = null;
   const shown = [];
   for (const w of words) {
     const sk = skeleton(w);
     if (!sk) continue;
-    let b = words.length === 1 ? null : exactText(d, sk); // a single word is known to have no exact hit
+    // a single word is known to have no exact hit (in `restrict`)
+    let b = words.length === 1 ? null : exactText(d, sk);
+    if (b && restrict) b.iand(restrict);
     if (!b || b.isEmpty()) {
-      const q = fuzzyForm(sk);
-      const max = fuzzyBudget(q.length);
-      if (!max) return null;
-      const tk = tokenData(d);
-      const hits = [];
-      const qm = letterMask(q);
-      for (let L = q.length - max; L <= q.length + max; L++) {
-        const g = tk.byLen.get(L);
-        if (!g) continue;
-        for (let k = 0; k < g.toks.length; k++) {
-          // each edit changes the presence of at most two letters
-          if (popcount32(qm ^ g.masks[k]) > 2 * max) continue;
-          const t = g.toks[k];
-          const dist = damerau(q, t, max);
-          if (dist <= max) hits.push({ t, dist });
-        }
-      }
-      if (!hits.length) return null;
-      hits.sort((a, c) => a.dist - c.dist || tk.feats.get(c.t).length - tk.feats.get(a.t).length);
-      b = new Bitset(d.n);
-      for (const h of hits) for (const i of tk.feats.get(h.t)) b.set(i);
-      shown.push(...hits.slice(0, 3).map((h) => tk.sample.get(h.t)));
+      const hit = fuzzyToken(d, sk, restrict) || (!restrict && /[а-яё]/i.test(w) ? loanToken(d, sk) : null);
+      if (!hit) return null;
+      b = hit.bits;
+      shown.push(...hit.shown);
     }
     acc = acc ? acc.iand(b) : b;
     if (acc.isEmpty()) return null;
   }
   if (!acc || !shown.length) return null;
   return { bits: acc, shown: shown.map((s) => `«${s}»`).join(', ') };
+}
+
+/** Name tokens within the edit budget of skeleton sk: {bits, shown: raw words} or null. */
+function fuzzyToken(d, sk, restrict) {
+  const q = fuzzyForm(sk);
+  const max = fuzzyBudget(q.length);
+  if (!max) return null;
+  const tk = tokenData(d);
+  const hits = [];
+  const qm = letterMask(q);
+  for (let L = q.length - max; L <= q.length + max; L++) {
+    const g = tk.byLen.get(L);
+    if (!g) continue;
+    for (let k = 0; k < g.toks.length; k++) {
+      // each edit changes the presence of at most two letters
+      if (popcount32(qm ^ g.masks[k]) > 2 * max) continue;
+      const t = g.toks[k];
+      const dist = damerau(q, t, max);
+      if (dist > max) continue;
+      const feats = tk.feats.get(t);
+      let nf = feats.length;
+      if (restrict) {
+        nf = 0;
+        for (const i of feats) if (restrict.has(i)) nf++;
+        if (!nf) continue;
+      }
+      hits.push({ t, dist, nf });
+    }
+  }
+  if (!hits.length) return null;
+  hits.sort((a, c) => a.dist - c.dist || c.nf - a.nf);
+  const b = new Bitset(d.n);
+  for (const h of hits) for (const i of tk.feats.get(h.t)) if (!restrict || restrict.has(i)) b.set(i);
+  return { bits: b, shown: hits.slice(0, 3).map((h) => tk.sample.get(h.t)) };
+}
+
+/**
+ * A Russian word as the rendering of an English word of a place name ("иллюзий" ~ "Illusions"):
+ * its loanword stem (inflection vowels dropped, at least 4 letters) starts a Latin word of an
+ * English or alternative place name. {bits, shown} or null.
+ */
+function loanToken(d, sk) {
+  const q = loanForm(sk).replace(/[aeiou]+$/, '');
+  if (q.length < 4) return null;
+  const lt = loanData(d);
+  const hits = lt.toks.filter((t) => t.startsWith(q) && t.length - q.length <= 6);
+  if (!hits.length) return null;
+  const b = new Bitset(d.n);
+  for (const t of hits) for (const i of lt.feats.get(t)) b.set(i);
+  hits.sort((a, c) => a.length - c.length);
+  return { bits: b, shown: hits.slice(0, 3).map((t) => lt.sample.get(t)) };
 }
 
 function evalFilter(E, f, cand) {
@@ -821,27 +883,63 @@ function evalOldNode(E, node) {
 
 // ------------------------------------------------------------------------------ ordering
 
-/** Text terms that drive relevance: positive bare words / имя: values outside subqueries. */
-function relevanceTerms(node, out = []) {
+/**
+ * Text terms that drive relevance: positive bare words / имя: values outside subqueries.
+ * `words` collects the bare words in query order (their concatenation is the phrase).
+ */
+function relevanceTerms(node, out = [], words = null) {
   if (!node) return out;
-  if (node.type === 'and' || node.type === 'or') for (const it of node.items) relevanceTerms(it, out);
-  else if (node.type === 'text' && node.mode !== 'regex') { const s = skeleton(node.value); if (s) out.push(s); }
-  else if (node.type === 'filter' && node.key === 'name') {
+  if (node.type === 'and' || node.type === 'or') for (const it of node.items) relevanceTerms(it, out, words);
+  else if (node.type === 'text' && node.mode !== 'regex') {
+    const s = skeleton(node.value);
+    if (s) { out.push(s); if (words) words.push(s); }
+  } else if (node.type === 'filter' && node.key === 'name') {
     for (const it of node.items) if (it.mode !== 'regex') { const s = skeleton(it.value); if (s) out.push(s); }
   }
   return out;
 }
 
-function relevance(d, i, terms) {
-  let best = 0;
-  const baseSk = baseData(d);
-  for (const t of terms) {
-    let s = 1;
-    for (const b of baseSk[i]) { if (b === t) { s = 3; break; } if (b.startsWith(t)) s = Math.max(s, 2); }
-    if (s < 3) for (const c of d.curSk[i]) { if (c === t) { s = 3; break; } if (c.startsWith(t)) s = Math.max(s, 2); }
-    if (s > best) best = s;
-  }
-  return best;
+/**
+ * Name skeleton s equals query skeleton t, also in the Georgian genitive of a name
+ * (ბარათაშვილის = baratashvili + s, პუშკინის = pushkin + is, ტაბიძის = tabidze -> tabidzis) and
+ * with the nominative -i of a stem typed without it (вазисубан = vazisubani).
+ */
+function nameEq(s, t) {
+  if (s === t) return true;
+  const dl = s.length - t.length;
+  if (dl === 1) return s.startsWith(t) ? s.endsWith('s') || s.endsWith('i') : (/[aeou]$/.test(t) && s === t.slice(0, -1) + 'is');
+  if (dl === 2) return s === t + 'is';
+  return false;
+}
+
+/**
+ * Score of one term for feature i: 4 a whole (base) name, 3 a word of a name, 2 the start of a
+ * name or of a word, 1 inside a current name, 0 only in old names.
+ */
+function termScore(d, base, i, t) {
+  let s = 0;
+  for (const b of base) { if (nameEq(b, t)) return 4; if (b.startsWith(t)) s = 2; }
+  for (const c of d.curSk[i]) { if (nameEq(c, t)) return 4; if (c.startsWith(t)) s = 2; }
+  for (const w of nameTokens(d, i)) { if (nameEq(w, t)) return 3; if (!s && w.startsWith(t)) s = 2; }
+  if (s) return s;
+  return d.curJoined[i].includes(t) ? 1 : 0;
+}
+
+/** Score of the phrase (bare words joined): 3 a whole (base) name, 2 its start, 1 inside, 0 none. */
+function phraseScore(d, base, i, p) {
+  let s = 0;
+  for (const b of base) { if (nameEq(b, p)) return 3; if (b.startsWith(p)) s = 2; }
+  for (const c of d.curSk[i]) { if (nameEq(c, p)) return 3; if (c.startsWith(p)) s = 2; }
+  if (s) return s;
+  return d.curJoined[i].includes(p) ? 1 : 0;
+}
+
+/** Relevance of feature i: the phrase match dominates, then the sum of the term scores. */
+function relevance(d, i, terms, phrase) {
+  const base = relBase(d, i);
+  let r = phrase ? 100 * phraseScore(d, base, i, phrase) : 0;
+  for (const t of terms) r += termScore(d, base, i, t);
+  return r;
 }
 
 function distanceTo(d, i, p, proj) {
@@ -861,13 +959,22 @@ function orderResults(E, ast, bits) {
   const idx = bits.toArray();
   const rank = d.nameRank;
   let mode = ast.sort;
-  const terms = relevanceTerms(ast.expr);
+  const words = [];
+  const terms = relevanceTerms(ast.expr, [], words);
+  const implicit = !mode;
   if (!mode || mode === 'rel') mode = terms.length ? 'rel' : 'name';
   const byName = (a, b) => rank[a] - rank[b];
-  if (mode === 'name') { idx.sort(byName); return idx; }
+  if (mode === 'name') {
+    // without сорт:имя places go after streets and other objects (then by name)
+    if (implicit) { const pl = d.isPlace; idx.sort((a, b) => pl[a] - pl[b] || rank[a] - rank[b]); } else idx.sort(byName);
+    return idx;
+  }
   const key = new Float64Array(d.n);
   if (mode === 'rel') {
-    for (const i of idx) key[i] = -relevance(d, i, terms);
+    // equal relevance: streets, lanes, squares; other objects; numbered lanes; places; minor places
+    const phrase = words.length > 1 ? words.join('') : null;
+    const tier = d.tier;
+    for (const i of idx) key[i] = -relevance(d, i, terms, phrase) * 8 + tier[i];
   } else if (mode === 'len') {
     for (const i of idx) key[i] = -featLen(E, i);
   } else if (mode === 'houses') {
@@ -906,7 +1013,7 @@ export function evaluate(ast, index, ctx = {}) {
   const labels = new Map();
   const zs = zoneState(root, ctx || {});
   const E = {
-    d, ctx: ctx || {}, zs, epCache: new Map(), zonePoly: undefined,
+    d, ctx: ctx || {}, zs, epCache: new Map(), zonePoly: undefined, sub: false, neg: 0, fuzzyNotes: [],
     warn(msg) { if (!warnings.includes(msg)) warnings.push(msg); },
     label(item, area) { if (area) labels.set(item, area.ru || area.en || area.ka); },
   };
@@ -932,6 +1039,7 @@ export function evaluate(ast, index, ctx = {}) {
   }
   const zm = zoneMask(zs);
   if (zm) bits = bits.iand(zm);
+  for (const note of E.fuzzyNotes) if (note.always || bits.intersects(note.bits)) E.warn(note.warn);
   const order = orderResults(E, root, bits);
   const timeMs = nowMs() - t0;
   if (timeMs > SLOW_MS) log.warn('dsl', `slow query ${timeMs.toFixed(1)} ms`, { query: root.text, count: order.length });
@@ -948,12 +1056,17 @@ export function evaluate(ast, index, ctx = {}) {
 /**
  * Build the DSL caches for an index ahead of the first query (e.g. on idle after loading).
  * With {all: true} also the lazy parts: base names (relevance, имя:^…), folded names (regexes),
- * biographies (био:) and the fuzzy token index. Returns the time spent, ms.
+ * biographies (био:), the fuzzy token index and the per-feature relevance names (own base
+ * names, name words). Returns the time spent, ms.
  */
 export function prepare(index, { all = false } = {}) {
   const t0 = nowMs();
   const d = dslData(index);
-  if (all) { baseData(d); regexData(d); bioData(d); tokenData(d); }
+  if (all) {
+    baseData(d); regexData(d); bioData(d); tokenData(d);
+    // relevance caches: own base names and name words of every feature
+    for (let i = 0; i < d.n; i++) { relBase(d, i); nameTokens(d, i); }
+  }
   return nowMs() - t0;
 }
 

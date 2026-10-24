@@ -372,6 +372,269 @@
     "place": "suburb",
     "name": "ვაკის რაიონი"
    }
+  },
+  {
+   "type": "node",
+   "id": 601,
+   "lat": 41.72038,
+   "lon": 44.7938272,
+   "tags": {
+    "tourism": "museum",
+    "name": "ხელოვნების მუზეუმი",
+    "name:ru": "Музей искусств"
+   }
+  },
+  {
+   "type": "way",
+   "id": 602,
+   "nodes": [
+    1090,
+    1091,
+    1092,
+    1093,
+    1090
+   ],
+   "geometry": [
+    {
+     "lat": 41.7202714,
+     "lon": 44.7936707
+    },
+    {
+     "lat": 41.7202714,
+     "lon": 44.7939716
+    },
+    {
+     "lat": 41.7204976,
+     "lon": 44.7939716
+    },
+    {
+     "lat": 41.7204976,
+     "lon": 44.7936707
+    },
+    {
+     "lat": 41.7202714,
+     "lon": 44.7936707
+    }
+   ],
+   "tags": {
+    "building": "yes",
+    "tourism": "museum",
+    "name": "ხელოვნების მუზეუმი",
+    "name:en": "Art Museum",
+    "addr:street": "კოსტავას ქუჩა",
+    "addr:housenumber": "10"
+   }
+  },
+  {
+   "type": "node",
+   "id": 603,
+   "lat": 41.7218093,
+   "lon": 44.7863895,
+   "tags": {
+    "amenity": "place_of_worship",
+    "religion": "christian",
+    "name": "სიონის ტაძარი",
+    "name:ru": "Сионский собор",
+    "alt_name": "სიონი"
+   }
+  },
+  {
+   "type": "node",
+   "id": 604,
+   "lat": 41.7222616,
+   "lon": 44.7857877,
+   "tags": {
+    "amenity": "place_of_worship",
+    "religion": "muslim",
+    "name": "ჯუმა მეჩეთი",
+    "name:ru": "Джума-мечеть"
+   }
+  },
+  {
+   "type": "node",
+   "id": 605,
+   "lat": 41.7227139,
+   "lon": 44.7851859,
+   "tags": {
+    "amenity": "place_of_worship",
+    "religion": "jewish",
+    "name": "დიდი სინაგოგა"
+   }
+  },
+  {
+   "type": "node",
+   "id": 606,
+   "lat": 41.7202714,
+   "lon": 44.7906018,
+   "tags": {
+    "tourism": "artwork",
+    "artwork_type": "sculpture",
+    "name": "ლადო ასათიანი",
+    "name:ru": "Ладо Асатиани"
+   }
+  },
+  {
+   "type": "node",
+   "id": 607,
+   "lat": 41.7197738,
+   "lon": 44.7907221,
+   "tags": {
+    "historic": "memorial",
+    "memorial": "plaque",
+    "name": "ილია ჭავჭავაძე"
+   }
+  },
+  {
+   "type": "way",
+   "id": 608,
+   "nodes": [
+    1094,
+    1095,
+    1096,
+    1097,
+    1094
+   ],
+   "geometry": [
+    {
+     "lat": 41.7218093,
+     "lon": 44.7996281
+    },
+    {
+     "lat": 41.7218093,
+     "lon": 44.8008316
+    },
+    {
+     "lat": 41.7227139,
+     "lon": 44.8008316
+    },
+    {
+     "lat": 41.7227139,
+     "lon": 44.7996281
+    },
+    {
+     "lat": 41.7218093,
+     "lon": 44.7996281
+    }
+   ],
+   "tags": {
+    "shop": "mall",
+    "name": "გალერია",
+    "name:en": "Galleria"
+   }
+  },
+  {
+   "type": "node",
+   "id": 609,
+   "lat": 41.7209046,
+   "lon": 44.792407,
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "ეკლესია"
+   }
+  },
+  {
+   "type": "node",
+   "id": 610,
+   "lat": 41.7190954,
+   "lon": 44.7827789,
+   "tags": {
+    "tourism": "attraction",
+    "name": "ორბელიანების სასახლე"
+   }
+  },
+  {
+   "type": "way",
+   "id": 611,
+   "nodes": [
+    1098,
+    1099,
+    1100,
+    1101,
+    1098
+   ],
+   "geometry": [
+    {
+     "lat": 41.7247042,
+     "lon": 44.7962583
+    },
+    {
+     "lat": 41.7247042,
+     "lon": 44.7981839
+    },
+    {
+     "lat": 41.7261516,
+     "lon": 44.7981839
+    },
+    {
+     "lat": 41.7261516,
+     "lon": 44.7962583
+    },
+    {
+     "lat": 41.7247042,
+     "lon": 44.7962583
+    }
+   ],
+   "tags": {
+    "tourism": "attraction",
+    "name": "ვაკის პარკი"
+   }
+  },
+  {
+   "type": "node",
+   "id": 612,
+   "lat": 41.7136675,
+   "lon": 44.7984246,
+   "tags": {
+    "leisure": "sports_centre",
+    "name": "ფიტნესი"
+   }
+  },
+  {
+   "type": "node",
+   "id": 613,
+   "lat": 41.7134865,
+   "lon": 44.7986653,
+   "tags": {
+    "leisure": "sports_centre",
+    "name": "თბილისი არენა"
+   }
+  },
+  {
+   "type": "way",
+   "id": 614,
+   "nodes": [
+    1102,
+    1103,
+    1104,
+    1105,
+    1102
+   ],
+   "geometry": [
+    {
+     "lat": 41.7290465,
+     "lon": 44.7719473
+    },
+    {
+     "lat": 41.7290465,
+     "lon": 44.772188
+    },
+    {
+     "lat": 41.7292274,
+     "lon": 44.772188
+    },
+    {
+     "lat": 41.7292274,
+     "lon": 44.7719473
+    },
+    {
+     "lat": 41.7290465,
+     "lon": 44.7719473
+    }
+   ],
+   "tags": {
+    "building": "apartments",
+    "name": "A ბლოკი"
+   }
   }
  ]
 }

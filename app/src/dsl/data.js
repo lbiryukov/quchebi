@@ -34,13 +34,40 @@ function buildData(index) {
   const ep = pack.eponyms || { e: [], taxonomy: [], kinds: {} };
   const E = ep.e || [];
 
+  // core.kinds[].ka may list several words ("ეკლესია, ტაძარი, მონასტერი")
   const kindTypeWords = [];
-  for (const k of kinds) { if (k.ka) kindTypeWords.push(k.ka); if (k.ru) kindTypeWords.push(k.ru); for (const s of k.syn || []) kindTypeWords.push(s); }
+  for (const k of kinds) {
+    if (k.ka) kindTypeWords.push(...String(k.ka).split(/[,\s]+/).filter(Boolean));
+    if (k.ru) kindTypeWords.push(k.ru);
+    for (const s of k.syn || []) kindTypeWords.push(s);
+  }
+
+  // ---- kinds: ranking tiers (see TIER) and the street-like set of the fuzzy street fallback
+  const kindOf = new Int16Array(n);
+  for (let i = 0; i < n; i++) kindOf[i] = F[i] && F[i].k != null ? F[i].k : -1;
+  const isPlace = new Uint8Array(n);
+  const tier = new Int8Array(n);
+  const streetish = new Bitset(n);
+  for (let i = 0; i < n; i++) {
+    const k = kinds[kindOf[i]];
+    const g = k ? k.group : null;
+    if (g === PLACE_GROUP) {
+      isPlace[i] = 1;
+      tier[i] = MINOR_PLACE_KINDS.has(k.code) ? TIER.minorPlace : TIER.place;
+      continue;
+    }
+    const street = g === 'street*' || g === 'lane*' || (k && k.code === 'square');
+    if (street) streetish.set(i);
+    // numbered lanes and the lanes / dead ends of a street (par) come after the main objects
+    tier[i] = F[i] && (F[i].o || F[i].par != null) ? TIER.ordinal : street ? TIER.street : TIER.other;
+  }
 
   // ---- names (base names and folded raw names are built lazily: baseData(), regexData())
-  const curSk = new Array(n); // skeletons of current names (ka, ru, en, alt)
+  const curSk = new Array(n); // skeletons of current names (ka, ru, en, alt, Russian kind name of a place)
   const allSk = new Array(n); // joined '|' of current + old (bare-word text search)
   const curJoined = new Array(n);
+  const ruKindName = new Array(n); // places without a real Russian name: "музей Museum of Illusions"
+  let nRuKind = 0;
   const oldF = [];
   const oldE = [];
   const oldSk = [];
@@ -52,6 +79,17 @@ function buildData(index) {
     let cs;
     if (ixName) cs = ixName[i].filter(Boolean);
     else cs = uniq([f.ka, f.ru, f.en, ...asArray(f.alt)].filter(Boolean).map(skeleton).filter(Boolean));
+    let extraSk = '';
+    if (isPlace[i]) {
+      const rk = placeRuKindName(f, kinds[kindOf[i]]);
+      if (rk) {
+        ruKindName[i] = rk;
+        nRuKind++;
+        extraSk = skeleton(rk);
+        if (extraSk && !cs.includes(extraSk)) cs = [...cs, extraSk];
+        else extraSk = '';
+      }
+    }
     curSk[i] = cs;
     curJoined[i] = cs.join('|');
     const olds = [];
@@ -63,13 +101,11 @@ function buildData(index) {
       oldRaw.push([o.ka, o.ru].filter(Boolean).map(fold));
       olds.push(...sks);
     }
-    if (ixSkel) allSk[i] = ixSkel[i];
+    if (ixSkel) allSk[i] = extraSk ? ixSkel[i] + '|' + extraSk : ixSkel[i];
     else allSk[i] = olds.length ? curJoined[i] + '|' + olds.join('|') : curJoined[i];
   }
 
   // ---- kinds, districts, places
-  const kindOf = new Int16Array(n);
-  for (let i = 0; i < n; i++) kindOf[i] = F[i] && F[i].k != null ? F[i].k : -1;
   const kindBits = kinds.map((k, ki) => {
     const fromIndex = index.kindBits && index.kindBits.get ? index.kindBits.get(k.code) : null;
     if (fromIndex instanceof Bitset) return fromIndex;
@@ -178,9 +214,9 @@ function buildData(index) {
 
   const d = {
     index, pack, core, F, n, kinds, fam, E, nE, districts, places,
-    curSk, curJoined, allSk, baseSk: null, rawFold: null, kindTypeWords,
+    curSk, curJoined, allSk, baseSk: null, rawFold: null, kindTypeWords, ruKindName, nameTok: null, loanTok: null,
     old: { f: Int32Array.from(oldF), e: Int32Array.from(oldE), sk: oldSk, raw: oldRaw, m: oldF.length },
-    kindOf, kindBits, districtBits, placeBits,
+    kindOf, kindBits, districtBits, placeBits, isPlace, tier, streetish,
     familyOf, members, eponymOf,
     taxIds, parentOf, childrenOf, aliasToIds, taxLabels, eCats, eOcc, eBio: null, eBioRaw: null, kindAlias, occWords,
     adj, X, xd, nameRank,
@@ -189,8 +225,138 @@ function buildData(index) {
     buildMs: 0,
   };
   d.buildMs = nowMs() - t0;
-  log.info('dsl', `caches built: ${n} features, ${nE} eponyms, ${oldF.length} old names in ${d.buildMs.toFixed(1)} ms`);
+  log.info('dsl', `caches built: ${n} features, ${nE} eponyms, ${oldF.length} old names, ` +
+    `${nRuKind} Russian kind names of places in ${d.buildMs.toFixed(1)} ms`);
   return d;
+}
+
+// ------------------------------------------------------------------------------ places
+
+const PLACE_GROUP = 'place*';
+
+/**
+ * Ranking tiers at equal text relevance (eval.js orderResults): streets, lanes and squares first,
+ * then other non-place objects (bridges, parks, rivers, areas), then the lanes and dead ends of a
+ * street (numbered or with par), then the main places (museums, theatres, churches, monuments,
+ * ...), last the minor ones.
+ */
+export const TIER = Object.freeze({ street: 0, other: 1, ordinal: 2, place: 3, minorPlace: 4 });
+
+/** Place kinds ranked below the main places: memorial plaques, schools, university buildings, housing. */
+export const MINOR_PLACE_KINDS = new Set(['plaque', 'school', 'university', 'residential', 'factory']);
+
+/**
+ * Russian words for the kind keywords of English place names. A place without a real Russian
+ * name (no name:ru, or the pack's ru is only a transliteration of ka) gets a search-only name
+ * "<Russian kind words> <en>", so "музей" finds "Museum of Illusions".
+ */
+const EN_KIND_RU = {
+  museum: 'музей', gallery: 'галерея', theatre: 'театр', theater: 'театр', opera: 'опера', philharmonic: 'филармония',
+  circus: 'цирк', cinema: 'кинотеатр', monument: 'памятник', memorial: 'мемориал', statue: 'статуя',
+  sculpture: 'скульптура', bust: 'бюст', plaque: 'доска', church: 'церковь', cathedral: 'собор', temple: 'храм',
+  monastery: 'монастырь', convent: 'монастырь', basilica: 'базилика', chapel: 'часовня', mosque: 'мечеть',
+  synagogue: 'синагога', fortress: 'крепость', castle: 'замок', citadel: 'цитадель', palace: 'дворец',
+  bath: 'баня', baths: 'бани', stadium: 'стадион', arena: 'арена', mall: 'торгцентр', market: 'рынок',
+  bazaar: 'базар', station: 'вокзал', university: 'университет', academy: 'академия', institute: 'институт',
+  conservatory: 'консерватория', conservatoire: 'консерватория', college: 'колледж', school: 'школа',
+  lyceum: 'лицей', gymnasium: 'гимназия', library: 'библиотека', cemetery: 'кладбище', pantheon: 'пантеон',
+  factory: 'завод', plant: 'завод', tower: 'башня',
+};
+
+/** Search-only Russian name of a place without a real Russian name, or null. */
+export function placeRuKindName(f, kind) {
+  if (!kind || kind.group !== PLACE_GROUP || !f || !f.en) return null;
+  if (f.ru && skeleton(f.ru) !== skeleton(f.ka)) return null; // a real Russian name
+  const words = [];
+  for (const w of String(f.en).toLowerCase().split(/[^a-z]+/)) {
+    const ru = EN_KIND_RU[w];
+    if (ru && !words.includes(ru)) words.push(ru);
+  }
+  if (!words.length && kind.ru && kind.code !== 'landmark') words.push(kind.ru);
+  return words.length ? `${words.join(' ')} ${f.en}` : null;
+}
+
+const TOKEN_SPLIT = /[\s\-–—,.«»"“”„()/№#'’]+/;
+
+/**
+ * Base-name skeletons of feature i for relevance: the family base (baseData) plus the feature's
+ * own names without kind word and ordinal (a family base can come from another member, e.g. the
+ * "... მარცხენა" embankment of the Baratashvili family). Built per feature on first use.
+ */
+export function relBase(d, i) {
+  if (!d.relBaseSk) d.relBaseSk = new Array(d.n);
+  let r = d.relBaseSk[i];
+  if (!r) {
+    const base = baseData(d)[i];
+    const f = d.F[i] || {};
+    const set = new Set(base);
+    for (const nm of [f.ka, f.ru, f.en, ...asArray(f.alt)]) {
+      if (!nm) continue;
+      const s = skeleton(stripType(nm, d.kindTypeWords));
+      if (s) set.add(s);
+    }
+    r = set.size === base.length ? base : [...set];
+    d.relBaseSk[i] = r;
+  }
+  return r;
+}
+
+/** Skeletons of the words of all current names of feature i (relevance: a word equals a name word). */
+export function nameTokens(d, i) {
+  if (!d.nameTok) d.nameTok = new Array(d.n);
+  let t = d.nameTok[i];
+  if (!t) {
+    const f = d.F[i] || {};
+    const set = new Set();
+    for (const nm of [f.ka, f.ru, f.en, ...asArray(f.alt), d.ruKindName[i]]) {
+      if (!nm) continue;
+      for (const w of String(nm).split(TOKEN_SPLIT)) {
+        const s = skeleton(w);
+        if (s.length >= 2) set.add(s);
+      }
+    }
+    t = [...set];
+    d.nameTok[i] = t;
+  }
+  return t;
+}
+
+/**
+ * "Loanword" normal form of a skeleton, for Russian renderings of English words in place names:
+ * x = ks, ю (iu) = u, з (z) = s, doubled letters collapsed ("иллюзий" ~ "Illusions").
+ */
+export function loanForm(sk) {
+  return fuzzyForm(sk).replace(/iu/g, 'u').replace(/z/g, 's').replace(/(.)\1+/g, '$1');
+}
+
+/**
+ * Latin words of the English / alternative names of places in loanword form:
+ * {toks: string[], feats: Map<token, Int32Array>, sample: Map<token, raw word>}, built on first use.
+ */
+export function loanData(d) {
+  if (!d.loanTok) {
+    const t0 = nowMs();
+    const feats = new Map();
+    const sample = new Map();
+    for (let i = 0; i < d.n; i++) {
+      if (!d.isPlace[i]) continue;
+      const f = d.F[i] || {};
+      for (const nm of [f.en, ...asArray(f.alt)]) {
+        if (!nm || /[Ѐ-ӿႠ-ჿᲐ-Ჿ]/.test(nm)) continue; // Latin-script names only
+        for (const w of String(nm).split(TOKEN_SPLIT)) {
+          const s = loanForm(skeleton(w));
+          if (s.length < 4) continue;
+          let list = feats.get(s);
+          if (!list) { list = []; feats.set(s, list); sample.set(s, w); }
+          if (list[list.length - 1] !== i) list.push(i);
+        }
+      }
+    }
+    for (const [s, list] of feats) feats.set(s, Int32Array.from(list));
+    d.loanTok = { toks: [...feats.keys()], feats, sample };
+    log.info('dsl', `loanword index: ${feats.size} tokens in ${(nowMs() - t0).toFixed(1)} ms`);
+  }
+  return d.loanTok;
 }
 
 function areaBits(fromIndex, count, n, F, field) {

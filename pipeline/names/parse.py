@@ -69,11 +69,43 @@ KIND_TABLE: list[Kind] = [
     Kind("district", ("რაიონი",), "район", (), "area*"),
     Kind("neighbourhood", (), "микрорайон", ("квартал", "местность"), "area*"),
     Kind("other", (), "прочее", (), ""),
+    # --- landmarks (pipeline/osm/landmarks.py): kind comes from OSM tags, never from the name of a
+    # street; appended after "other" so that the indices of the kinds above stay unchanged.
+    # "landmark" goes first: the group is offered in autocomplete as "место*".
+    Kind("landmark", (), "место", ("места", "достопримечательность"), "place*"),
+    Kind("museum", ("მუზეუმი",), "музей", ("галерея",), "place*"),
+    Kind("theatre", ("თეატრი",), "театр", ("опера", "филармония", "цирк", "концертзал"), "place*"),
+    Kind("cinema", ("კინოთეატრი",), "кинотеатр", ("кино",), "place*"),
+    Kind("monument", ("ძეგლი", "მემორიალი", "ბიუსტი"), "памятник",
+         ("монумент", "мемориал", "статуя", "скульптура", "бюст"), "place*"),
+    Kind("plaque", ("დაფა",), "доска", ("мемдоска", "табличка", "звезда"), "place*"),
+    Kind("church", ("ეკლესია", "ტაძარი", "მონასტერი"), "храм",
+         ("церковь", "собор", "монастырь", "базилика", "часовня"), "place*"),
+    Kind("mosque", ("მეჩეთი",), "мечеть", (), "place*"),
+    Kind("synagogue", ("სინაგოგა",), "синагога", (), "place*"),
+    Kind("fortress", ("ციხე", "ციხესიმაგრე"), "крепость", ("замок", "цитадель"), "place*"),
+    Kind("palace", ("სასახლე",), "дворец", ("усадьба",), "place*"),
+    Kind("bath", ("აბანო",), "баня", ("бани",), "place*"),
+    Kind("stadium", ("სტადიონი", "არენა"), "стадион", ("арена", "спорткомплекс"), "place*"),
+    Kind("mall", ("მოლი",), "торгцентр", ("тц", "молл", "универмаг"), "place*"),
+    Kind("market", ("ბაზარი", "ბაზრობა"), "рынок", ("базар",), "place*"),
+    Kind("station", ("სადგური", "ავტოსადგური"), "вокзал", ("автовокзал", "жд"), "place*"),
+    Kind("university", ("უნივერსიტეტი", "აკადემია", "ინსტიტუტი"), "университет",
+         ("вуз", "академия", "институт", "консерватория", "колледж"), "place*"),
+    Kind("school", ("სკოლა",), "школа", ("лицей", "гимназия"), "place*"),
+    Kind("library", ("ბიბლიოთეკა",), "библиотека", (), "place*"),
+    Kind("cemetery", ("სასაფლაო", "პანთეონი"), "кладбище", ("пантеон",), "place*"),
+    Kind("factory", ("ქარხანა", "ფაბრიკა"), "завод", ("фабрика", "комбинат"), "place*"),
+    Kind("residential", (), "жилкомплекс", ("жк",), "place*"),
 ]
 KIND_CODES: list[str] = [k.code for k in KIND_TABLE]
 KIND_INDEX: dict[str, int] = {k.code: i for i, k in enumerate(KIND_TABLE)}
 KIND_GROUP: dict[str, str] = {k.code: k.group for k in KIND_TABLE}
 LANE_KINDS = frozenset(k.code for k in KIND_TABLE if k.group == "lane*")
+#: Landmark kinds (group "place*"): set from OSM tags by the landmarks stage. Their Georgian words
+#: are shipped in ``core.kinds`` (search and DSL), but never turn a street name into a landmark.
+PLACE_GROUP = "place*"
+LANDMARK_KINDS = frozenset(k.code for k in KIND_TABLE if k.group == PLACE_GROUP)
 
 
 def kinds_for_pack() -> list[dict]:
@@ -86,7 +118,7 @@ def kinds_for_pack() -> list[dict]:
 
 # ------------------------------------------------------------------------- type-word tables
 #: Georgian type word (nominative, last word of the name) -> kind code.
-KA_TYPE_WORDS: dict[str, str] = {w: k.code for k in KIND_TABLE for w in k.ka}
+KA_TYPE_WORDS: dict[str, str] = {w: k.code for k in KIND_TABLE for w in k.ka if k.group != PLACE_GROUP}
 KA_TYPE_WORDS.update({
     "ბულვარი": "alley",
     "შესასვლელი": "passage",      # entrance
@@ -861,7 +893,7 @@ def make_en_name(p: ParsedName) -> str | None:
 
 
 __all__ = [
-    "Kind", "KIND_TABLE", "KIND_CODES", "KIND_INDEX", "KIND_GROUP", "LANE_KINDS", "kinds_for_pack",
-    "ParsedName", "parse_name", "normalize_ka", "normalize_ru_name", "strip_type", "key_tok",
+    "Kind", "KIND_TABLE", "KIND_CODES", "KIND_INDEX", "KIND_GROUP", "LANE_KINDS", "LANDMARK_KINDS", "PLACE_GROUP",
+    "kinds_for_pack", "ParsedName", "parse_name", "normalize_ka", "normalize_ru_name", "strip_type", "key_tok",
     "nominative_tok", "make_ru_name", "make_en_name", "KA_TYPE_WORDS", "RU_TYPE_WORDS", "EN_TYPE_WORDS",
 ]
