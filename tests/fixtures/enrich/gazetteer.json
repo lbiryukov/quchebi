@@ -1,0 +1,754 @@
+{
+"geo_georgia": [
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12871329"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ჭრებალო"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q486972"
+}
+},
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12863495"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "გუმათი"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q486972"
+}
+},
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12866297"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ლიბანი (ბორჯომის მუნიციპალიტეტი)"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q486972"
+}
+},
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12862028"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ატოცი"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q486972"
+}
+}
+],
+"geo_neighbours_kawiki": [
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q1190806"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "უნივერსიტეტი"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q261068"
+}
+},
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q1190806"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "უნივერსიტეტი"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q928830"
+}
+},
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q1190806"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "უნივერსიტეტი"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q2319498"
+}
+},
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q1190806"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "უნივერსიტეტი"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q22808403"
+}
+}
+],
+"geo_world_kawiki": [
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q822"
+},
+"pop": {
+"datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+"type": "literal",
+"value": "6100075"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ლიბანი"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q6256"
+}
+},
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q822"
+},
+"pop": {
+"datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+"type": "literal",
+"value": "6100075"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ლიბანი"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q3624078"
+}
+},
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q822"
+},
+"pop": {
+"datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+"type": "literal",
+"value": "6100075"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ლიბანი"
+},
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q51576574"
+}
+}
+],
+"countries": [
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q822"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ლიბანი"
+}
+},
+{
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q822"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ლიბანი"
+}
+}
+],
+"given_names": [
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q202444"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q87912734"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "გივი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q202444"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q90955701"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "კახა"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q202444"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q132406759"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "გაიოზ"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q11879590"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q1938195"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "მარიამი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q11879590"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q5259481"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "მარიამი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q11879590"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12364182"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ელენე"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q11879590"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q18082274"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "მარიამ"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q11879590"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q124832112"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ელენე"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q923"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ალექსანდრე"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q606764"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ლეო"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q4927814"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ზაქარია"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q5401576"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ანტონ"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q17480899"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ანტონი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q17501806"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ალექსანდრე"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q16430022"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ვიქტორი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q17534804"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "გიორგი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q18057751"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "დავითი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q19819759"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "მარშალი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q18105736"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ბობ"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q20001043"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ზაქარია"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q21104340"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ივანე"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q29516593"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ვახტანგი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q35663473"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ანტონ"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q40436405"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ივანე"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q42751349"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ანდრია"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q56465959"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ელიზბარ"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q80573509"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "კოტე"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q80698315"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "გივი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q80700193"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ალექსანდრე"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q90080547"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "რევაზ"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q90955701"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "კახა"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q83143826"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "დავით"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q94581575"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "სოსო"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q129565024"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ბესარიონ"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q138574816"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "ვახუშტი"
+}
+},
+{
+"cls": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q12308941"
+},
+"item": {
+"type": "uri",
+"value": "http://www.wikidata.org/entity/Q135295391"
+},
+"ka": {
+"xml:lang": "ka",
+"type": "literal",
+"value": "უშანგი"
+}
+}
+]
+}

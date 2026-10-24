@@ -139,7 +139,7 @@ def test_batches_written_and_cached_skipped(env):
     con.commit()
     man2 = B.run(con, env["dossiers"], env["client"], roles=("classifier",))
     assert "c001" not in man2["classifier"]["batches"]
-    assert list((paths.batches / "classifier" / "archive").iterdir())   # old batch archived, not deleted
+    assert not (paths.batches / "classifier" / "c001.jsonl").exists()  # unanswered old batch replaced
 
 
 def test_small_batch_size(tmp_path):

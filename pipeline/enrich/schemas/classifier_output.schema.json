@@ -1,0 +1,349 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "quchebi/eponym-classification/v2",
+ "title": "EponymClassification",
+ "description": "Answer of eponym-classifier / eponym-disambiguator / eponym-verifier for one batch file.",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "results"
+ ],
+ "properties": {
+  "batch": {
+   "type": "string",
+   "maxLength": 40
+  },
+  "role": {
+   "type": "string",
+   "enum": [
+    "classifier",
+    "disambiguator",
+    "verifier"
+   ]
+  },
+  "results": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/item"
+   }
+  }
+ },
+ "$defs": {
+  "item": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "family_id",
+    "eponym_kind",
+    "eponyms",
+    "categories",
+    "confidence",
+    "qid_confidence",
+    "evidence",
+    "needs_review",
+    "review_reason"
+   ],
+   "properties": {
+    "family_id": {
+     "type": "string",
+     "pattern": "^F[0-9a-f]{8}$",
+     "description": "echo of the dossier id"
+    },
+    "eponym_kind": {
+     "type": "string",
+     "enum": [
+      "person",
+      "persons_multi",
+      "group",
+      "fictional_character",
+      "toponym",
+      "event_date",
+      "nature",
+      "concept",
+      "object",
+      "no_eponym",
+      "unknown"
+     ]
+    },
+    "eponyms": {
+     "type": "array",
+     "maxItems": 6,
+     "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "name_ka",
+       "name_ru",
+       "wikidata_qid",
+       "qid_choice",
+       "gender",
+       "birth_year",
+       "death_year",
+       "origin",
+       "short_ru"
+      ],
+      "properties": {
+       "name_ka": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "nominative, e.g. 'ლევან ასათიანი'; empty string if unknown"
+       },
+       "name_ru": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "nominative, e.g. 'Леван Асатиани'"
+       },
+       "wikidata_qid": {
+        "type": [
+         "string",
+         "null"
+        ],
+        "pattern": "^Q[1-9][0-9]*$",
+        "description": "ONLY a qid listed in the dossier candidates, else null"
+       },
+       "qid_choice": {
+        "type": "string",
+        "enum": [
+         "only_candidate",
+         "picked_among_candidates",
+         "none_fit",
+         "no_candidates"
+        ]
+       },
+       "gender": {
+        "type": [
+         "string",
+         "null"
+        ],
+        "enum": [
+         "m",
+         "f",
+         null
+        ]
+       },
+       "birth_year": {
+        "type": [
+         "integer",
+         "null"
+        ],
+        "minimum": -3000,
+        "maximum": 2030
+       },
+       "death_year": {
+        "type": [
+         "integer",
+         "null"
+        ],
+        "minimum": -3000,
+        "maximum": 2030
+       },
+       "origin": {
+        "type": "string",
+        "enum": [
+         "georgian",
+         "foreign",
+         "unknown"
+        ]
+       },
+       "short_ru": {
+        "type": "string",
+        "maxLength": 160,
+        "description": "one line for the card, own words, with notable works when known: 'грузинский педагог, автор букваря «Деда эна»'"
+       }
+      }
+     },
+     "description": "0..N eponyms; two for 'ლეო და ნოდარ გაბუნიების ქუჩა'"
+    },
+    "categories": {
+     "type": "array",
+     "minItems": 1,
+     "maxItems": 4,
+     "uniqueItems": true,
+     "items": {
+      "type": "string",
+      "enum": [
+       "art.actor",
+       "art.architect",
+       "art.composer",
+       "art.dance",
+       "art.director",
+       "art.musician",
+       "art.other",
+       "art.painter",
+       "biz.entrepreneur",
+       "biz.patron",
+       "concept.abstract",
+       "concept.craft",
+       "concept.object",
+       "event.battle",
+       "event.date",
+       "event.history",
+       "group.ethnos",
+       "group.family",
+       "group.heroes",
+       "group.profession",
+       "lit.character",
+       "lit.critic",
+       "lit.journalist",
+       "lit.playwright",
+       "lit.poet",
+       "lit.translator",
+       "lit.writer",
+       "mil.commander",
+       "mil.hero",
+       "mil.soldier",
+       "nature.animal",
+       "nature.landscape",
+       "nature.material",
+       "nature.plant",
+       "none.numbered",
+       "none.unknown",
+       "place.abroad_city",
+       "place.country",
+       "place.ge_city",
+       "place.ge_region",
+       "place.mountain",
+       "place.route",
+       "place.tbilisi",
+       "place.water",
+       "power.diplomat",
+       "power.head",
+       "power.monarch",
+       "power.noble",
+       "power.public",
+       "power.revolutionary",
+       "power.royal",
+       "power.statesman",
+       "rel.clergy",
+       "rel.feast",
+       "rel.patriarch",
+       "rel.saint",
+       "sci.education",
+       "sci.engineering",
+       "sci.explorer",
+       "sci.humanities",
+       "sci.medicine",
+       "sci.natural",
+       "sport.chess",
+       "sport.football",
+       "sport.other",
+       "sport.wrestling"
+      ]
+     },
+     "description": "second-level taxonomy ids, main first"
+    },
+    "toponym": {
+     "type": [
+      "object",
+      "null"
+     ],
+     "additionalProperties": false,
+     "required": [
+      "name_ru",
+      "scope",
+      "wikidata_qid"
+     ],
+     "properties": {
+      "name_ru": {
+       "type": "string",
+       "maxLength": 120
+      },
+      "scope": {
+       "type": "string",
+       "enum": [
+        "tbilisi",
+        "georgia",
+        "historical_georgia",
+        "abroad"
+       ]
+      },
+      "wikidata_qid": {
+       "type": [
+        "string",
+        "null"
+       ],
+       "pattern": "^Q[1-9][0-9]*$"
+      }
+     }
+    },
+    "translation_ru": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "maxLength": 120,
+     "description": "for common-word eponyms (concept, nature, object, toponym that is a common word): literal Russian translation of the name, e.g. ვერცხლის -> 'Серебряная', რკინის რიგი -> 'Железный ряд'"
+    },
+    "confidence": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1,
+     "description": "probability that eponym_kind + categories are right"
+    },
+    "qid_confidence": {
+     "type": [
+      "number",
+      "null"
+     ],
+     "minimum": 0,
+     "maximum": 1,
+     "description": "probability that the chosen QID is right; null without a QID"
+    },
+    "evidence": {
+     "type": "array",
+     "maxItems": 4,
+     "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "source",
+       "quote"
+      ],
+      "properties": {
+       "source": {
+        "type": "string",
+        "enum": [
+         "name",
+         "name_ru",
+         "name_en",
+         "old_name",
+         "family",
+         "rules",
+         "wikidata",
+         "kawiki",
+         "ruwiki",
+         "encyclopedia",
+         "knowledge"
+        ]
+       },
+       "quote": {
+        "type": "string",
+        "maxLength": 200
+       }
+      }
+     }
+    },
+    "needs_review": {
+     "type": "boolean"
+    },
+    "review_reason": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "enum": [
+      "namesake_ambiguity",
+      "surname_only",
+      "no_source",
+      "conflicting_sources",
+      "low_confidence",
+      "multi_eponym",
+      "osm_tag_error",
+      "not_a_name",
+      null
+     ]
+    }
+   }
+  }
+ }
+}

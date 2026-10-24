@@ -33,7 +33,12 @@ The dossiers of this role have no `queue_reasons` and no `found_by` on candidate
   (eponym part in the Georgian **genitive** as written), `eponym_ka_nominative_guess`,
   `eponym_ru`, `eponym_en` (eponym parts of the Russian/English names; Russian is usually in the
   genitive: "Александра Пушкина").
-- `old_names` (former names with years), `encyclopedia` (facts from the 2008 Tbilisi encyclopedia).
+- `old_names` (former names with years), `encyclopedia` (facts from articles about the street:
+  Tbilisi encyclopedia 2008 `enc2008`, ka/ru Wikipedia: `named_after` with name, years and
+  occupation, former names with their eponyms, year of naming), `encyclopedia_bio` (biographies
+  from the 2008 encyclopedia whose surname and given name fit the eponym: years, occupation in
+  Georgian). An explicit `named_after` that matches the eponym is strong evidence (source
+  `encyclopedia`); a `named_after` naming somebody else may describe a former name.
 - `rules`: hints of a rule-based classifier (`kind`, `sub`, `evidence`, `titles`, `flags`).
   They are usually right about the *kind*, but they are only hints.
 - `queue_reasons`: why the family needs you (e.g. `person_ambiguous`, `person_not_found`,

@@ -1,0 +1,1898 @@
+[
+ {
+  "key": "#21-ე ქუჩა",
+  "base_ka": "",
+  "base_ru": "",
+  "base_en": "",
+  "nom_ka": null,
+  "members": [
+   {
+    "ka": "21-ე ქუჩა",
+    "ru": "21-я улица",
+    "en": "21st Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w9130857"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1774"
+ },
+ {
+  "key": "#Tsitsamuri — Avchala",
+  "base_ka": "Tsitsamuri — Avchala",
+  "base_ru": null,
+  "base_en": null,
+  "nom_ka": null,
+  "members": [
+   {
+    "ka": "Tsitsamuri - Avchala",
+    "ru": "",
+    "en": "",
+    "kind": "road",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w8880992"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F2273"
+ },
+ {
+  "key": "#მე-20 ქუჩა",
+  "base_ka": "",
+  "base_ru": "",
+  "base_en": "",
+  "nom_ka": null,
+  "members": [
+   {
+    "ka": "მე-20 ქუჩა",
+    "ru": "20-я улица",
+    "en": "20th Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w7810085"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1619"
+ },
+ {
+  "key": "17 გმირ შინდისლ",
+  "base_ka": "17 შინდისელი გმირის",
+  "base_ru": "17 Шиндисели Гмири",
+  "base_en": "17 Shindiseli Gmiri",
+  "nom_ka": "17 შინდისელი გმირი",
+  "members": [
+   {
+    "ka": "17 შინდისელი გმირის ქუჩა",
+    "ru": "улица 17 Шиндисели Гмири",
+    "en": "17 Shindiseli Gmiri Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w7460212"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "17 შინდისელი გმირის ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w827215"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0856"
+ },
+ {
+  "key": "26 მაის",
+  "base_ka": "26 მაისის",
+  "base_ru": "26 Мая",
+  "base_en": "May",
+  "nom_ka": "26 მაისი",
+  "members": [
+   {
+    "ka": "26 მაისის ქუჩა",
+    "ru": "улица 26 Мая",
+    "en": "26th May Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w5519508"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "26 მაისის მოედანი",
+    "ru": null,
+    "en": null,
+    "kind": "square",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w7309629"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w8618710"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის III ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w5021925"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w1880007"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის V ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w846811"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის IV ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w7253090"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის IX ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w3659684"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის VIII ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w5382424"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის VI ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w2741891"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის II ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w5306318"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "26 მაისის VII ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w6575557"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0019"
+ },
+ {
+  "key": "9 აპრილ",
+  "base_ka": "9 აპრილის",
+  "base_ru": "9 Апреля",
+  "base_en": "April",
+  "nom_ka": "9 აპრილი",
+  "members": [
+   {
+    "ka": "9 აპრილის ქუჩა",
+    "ru": "улица 9 Апреля",
+    "en": "9th April Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q1194400",
+    "osm_ids": [
+     "w3440589"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "9 აპრილის I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": "Q1194400",
+    "osm_ids": [
+     "w8098418"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0591"
+ },
+ {
+  "key": "ალექსანდრ პუშკინ",
+  "base_ka": "ალექსანდრე პუშკინის",
+  "base_ru": "Александра Пушкина",
+  "base_en": "Alexander Pushkin",
+  "nom_ka": "ალექსანდრე პუშკინი",
+  "members": [
+   {
+    "ka": "ალექსანდრე პუშკინის ქუჩა",
+    "ru": "улица Александра Пушкина",
+    "en": "Alexander Pushkin Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q7200",
+    "osm_ids": [
+     "w5061050"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1178"
+ },
+ {
+  "key": "ანდრ აფაქიძ",
+  "base_ka": "ანდრია აფაქიძის",
+  "base_ru": "Андрия Апакидзе",
+  "base_en": "Andria Apakidze",
+  "nom_ka": "ანდრია აფაქიძე",
+  "members": [
+   {
+    "ka": "ანდრია აფაქიძის ქუჩა",
+    "ru": "улица Андрия Апакидзе",
+    "en": "Andria Apakidze Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q2846854",
+    "osm_ids": [
+     "w2558473"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1813"
+ },
+ {
+  "key": "ანდრ გუგუშვილ",
+  "base_ka": "ანდრია გუგუშვილის",
+  "base_ru": "Андрия Гугушвили",
+  "base_en": "Andria Gugushvili",
+  "nom_ka": "ანდრია გუგუშვილი",
+  "members": [
+   {
+    "ka": "ანდრია გუგუშვილის ქუჩა",
+    "ru": "улица Андрия Гугушвили",
+    "en": "Andria Gugushvili Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w7895547"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ანდრია გუგუშვილის I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w2684362"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ანდრია გუგუშვილის I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w270977"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0434"
+ },
+ {
+  "key": "ანტნ კათალიკოს",
+  "base_ka": "ანტონ კათალიკოსის",
+  "base_ru": "Антона Католикоса",
+  "base_en": "Anton Katalikos",
+  "nom_ka": "ანტონ კათალიკოსი",
+  "members": [
+   {
+    "ka": "ანტონ კათალიკოსის ქუჩა",
+    "ru": "улица Антона Католикоса",
+    "en": "Anton Katalikos Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q590458",
+    "osm_ids": [
+     "w1558601"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ანტონ კათალიკოსის ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": "Q590458",
+    "osm_ids": [
+     "w4171380"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0638"
+ },
+ {
+  "key": "ატოც",
+  "base_ka": "ატოცის",
+  "base_ru": "Атоци",
+  "base_en": "Atotsi",
+  "nom_ka": "ატოცი",
+  "members": [
+   {
+    "ka": "ატოცის ქუჩა",
+    "ru": "улица Атоци",
+    "en": "Atotsi Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w5073291"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1391"
+ },
+ {
+  "key": "აშოტ კურაპალატ",
+  "base_ka": "აშოტ კურაპალატის",
+  "base_ru": "Ашота Курапалати",
+  "base_en": "Ashot Kurapalati",
+  "nom_ka": "აშოტ კურაპალატი",
+  "members": [
+   {
+    "ka": "აშოტ კურაპალატის ქუჩა",
+    "ru": "улица Ашота Курапалати",
+    "en": "Ashot Kurapalati Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w4865897"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F0987"
+ },
+ {
+  "key": "ახალმოწამეთ",
+  "base_ka": "ახალმოწამეთას",
+  "base_ru": "Ахалмоцамета",
+  "base_en": "Akhalmotsameta",
+  "nom_ka": "ახალმოწამეთა",
+  "members": [
+   {
+    "ka": "ახალმოწამეთას ქუჩა",
+    "ru": "улица Ахалмоцамета",
+    "en": "Akhalmotsameta Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w3728024"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ახალმოწამეთას შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w6108167"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0831"
+ },
+ {
+  "key": "ახვლედინ ელნ",
+  "base_ka": "ელენე ახვლედიანის",
+  "base_ru": "Елены Ахвледиани",
+  "base_en": "Elene Achvlediani",
+  "nom_ka": "ელენე ახვლედიანი",
+  "members": [
+   {
+    "ka": "ელენე ახვლედიანის აღმართი",
+    "ru": "подъём Елены Ахвледиани",
+    "en": "Elene Achvlediani Rise",
+    "kind": "ascent",
+    "derived": false,
+    "wikidata": "Q3651265",
+    "osm_ids": [
+     "w8806787"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ელენე ახვლედიანის ქუჩა",
+    "ru": null,
+    "en": null,
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q3651265",
+    "osm_ids": [
+     "w6400972"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ელენე ახვლედიანის შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": "Q3651265",
+    "osm_ids": [
+     "w7358612"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0350"
+ },
+ {
+  "key": "ბათლომ ხუციშვილ",
+  "base_ka": "ბათლომე ხუციშვილის",
+  "base_ru": "Батломе Хуцишвили",
+  "base_en": "Batlome Khutsishvili",
+  "nom_ka": "ბათლომე ხუციშვილი",
+  "members": [
+   {
+    "ka": "ბათლომე ხუციშვილის ქუჩა",
+    "ru": "улица Батломе Хуцишвили",
+    "en": "Batlome Khutsishvili Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w3930352"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ბათლომე ხუციშვილის I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w9886641"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0577"
+ },
+ {
+  "key": "ბატონიშვილ ვახუშტ",
+  "base_ka": "ვახუშტი ბატონიშვილის",
+  "base_ru": "Вахушти Батонишвили",
+  "base_en": "Vakhushti Batonishvili",
+  "nom_ka": "ვახუშტი ბატონიშვილი",
+  "members": [
+   {
+    "ka": "ვახუშტი ბატონიშვილის ქუჩა",
+    "ru": "улица Вахушти Батонишвили",
+    "en": "Vakhushti Batonishvili Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w1060251"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ვახუშტი ბატონიშვილის II ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w7691112"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ვახუშტი ბატონიშვილის I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w8655192"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0494"
+ },
+ {
+  "key": "ბაქრაძ ზაქრ",
+  "base_ka": "ზაქარია ბაქრაძის",
+  "base_ru": "Закария Бакрадзе",
+  "base_en": "Zakaria Bakradze",
+  "nom_ka": "ზაქარია ბაქრაძე",
+  "members": [
+   {
+    "ka": "ზაქარია ბაქრაძის ქუჩა",
+    "ru": "улица Закария Бакрадзе",
+    "en": "Zakaria Bakradze Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q8065016",
+    "osm_ids": [
+     "w9271573"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ზაქარია ბაქრაძის II შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": "Q8065016",
+    "osm_ids": [
+     "w8451551"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ზაქარია ბაქრაძის I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": "Q8065016",
+    "osm_ids": [
+     "w4407984"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ზაქარია ბაქრაძის I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": "Q8065016",
+    "osm_ids": [
+     "w5185770"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ზაქარია ბაქრაძის III შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": "Q8065016",
+    "osm_ids": [
+     "w2696586"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0140"
+ },
+ {
+  "key": "ბერიაშვილ დავით",
+  "base_ka": "დავით ბერიაშვილის",
+  "base_ru": "Давида Бериашвили",
+  "base_en": "David Beriashvili",
+  "nom_ka": "დავით ბერიაშვილი",
+  "members": [
+   {
+    "ka": "დავით ბერიაშვილის ქუჩა",
+    "ru": "улица Давида Бериашвили",
+    "en": "David Beriashvili Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w2612371"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "დავით ბერიაშვილის I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w5593175"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "დავით ბერიაშვილის II ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w2658971"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0378"
+ },
+ {
+  "key": "ბესარინ ჟღენტ",
+  "base_ka": "ბესარიონ ჟღენტის",
+  "base_ru": "Бесариона Жгенти",
+  "base_en": "Besarion Zhghenti",
+  "nom_ka": "ბესარიონ ჟღენტი",
+  "members": [
+   {
+    "ka": "ბესარიონ ჟღენტის ქუჩა",
+    "ru": "улица Бесариона Жгенти",
+    "en": "Besarion Zhghenti Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q18164321",
+    "osm_ids": [
+     "w9967578"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1131"
+ },
+ {
+  "key": "ბობ უოლშ",
+  "base_ka": "ბობ უოლშის",
+  "base_ru": "Боба Уолша",
+  "base_en": "Bob Walsh",
+  "nom_ka": "ბობ უოლში",
+  "members": [
+   {
+    "ka": "ბობ უოლშის ქუჩა",
+    "ru": "улица Боба Уолша",
+    "en": "Bob Walsh Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w8204262"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ბობ უოლშის II შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w5366918"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ბობ უოლშის I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w9552294"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0462"
+ },
+ {
+  "key": "ბრილებ",
+  "base_ka": "ბრილების",
+  "base_ru": "Брилеби",
+  "base_en": "Brilebi",
+  "nom_ka": "ბრილები",
+  "members": [
+   {
+    "ka": "ბრილების ქუჩა",
+    "ru": "улица Брилеби",
+    "en": "Brilebi Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w5175862"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1041"
+ },
+ {
+  "key": "გაბუნიებ ლეო ნოდრ",
+  "base_ka": "ლეო და ნოდარ გაბუნიების",
+  "base_ru": "Леонида и Нодара Габуния",
+  "base_en": "Leo and Nodar Gabunia",
+  "nom_ka": "ლეო და ნოდარ გაბუნიები",
+  "members": [
+   {
+    "ka": "ლეო და ნოდარ გაბუნიების ქუჩა",
+    "ru": "улица Леонида и Нодара Габуния",
+    "en": "Leo and Nodar Gabunia Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q12866286;Q338218",
+    "osm_ids": [
+     "w5292922"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ლეო და ნოდარ გაბუნიების II შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": "Q12866286;Q338218",
+    "osm_ids": [
+     "w7895036"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ლეო და ნოდარ გაბუნიების I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": "Q12866286;Q338218",
+    "osm_ids": [
+     "w5382175"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0335"
+ },
+ {
+  "key": "გაიოზ რექტრ",
+  "base_ka": "გაიოზ რექტორის",
+  "base_ru": "Гаиоз Ректори",
+  "base_en": "Gaioz Rektori",
+  "nom_ka": "გაიოზ რექტორი",
+  "members": [
+   {
+    "ka": "გაიოზ რექტორის ქუჩა",
+    "ru": "улица Гаиоз Ректори",
+    "en": "Gaioz Rektori Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w1370002"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F2113"
+ },
+ {
+  "key": "გამრეკლ დავით",
+  "base_ka": "დავით გამრეკელის",
+  "base_ru": "Давида Гамрекели",
+  "base_en": "David Gamrekeli",
+  "nom_ka": "დავით გამრეკელი",
+  "members": [
+   {
+    "ka": "დავით გამრეკელის ქუჩა",
+    "ru": "улица Давида Гамрекели",
+    "en": "David Gamrekeli Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q4133133",
+    "osm_ids": [
+     "w4325118"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1092"
+ },
+ {
+  "key": "გელოვნ მარშლ",
+  "base_ka": "მარშალ გელოვანის",
+  "base_ru": "Маршала Геловани",
+  "base_en": "Marshal Gelovani",
+  "nom_ka": "მარშალ გელოვანი",
+  "members": [
+   {
+    "ka": "მარშალ გელოვანის გამზირი",
+    "ru": "проспект Маршала Геловани",
+    "en": "Marshal Gelovani Avenue",
+    "kind": "avenue",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w6545626"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F0936"
+ },
+ {
+  "key": "გივ კარტოზ",
+  "base_ka": "გივი კარტოზიას",
+  "base_ru": "Гиви Картозии",
+  "base_en": "Givi Kartozia",
+  "nom_ka": "გივი კარტოზია",
+  "members": [
+   {
+    "ka": "გივი კარტოზიას ქუჩა",
+    "ru": "улица Гиви Картозии",
+    "en": "Givi Kartozia Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w6107897"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1090"
+ },
+ {
+  "key": "გიორგ მელიქიშვილ",
+  "base_ka": "გიორგი მელიქიშვილის",
+  "base_ru": "Георгия Меликишвили",
+  "base_en": "Giorgi Melikishvili",
+  "nom_ka": "გიორგი მელიქიშვილი",
+  "members": [
+   {
+    "ka": "გიორგი მელიქიშვილის ქუჩა",
+    "ru": "улица Георгия Меликишвили",
+    "en": "Giorgi Melikishvili Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w9408124"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1056"
+ },
+ {
+  "key": "გიორგ შარვაშიძ",
+  "base_ka": "გიორგი შარვაშიძის",
+  "base_ru": "Гиорги Шарвашидзе",
+  "base_en": "Giorgi Sharvashidze",
+  "nom_ka": "გიორგი შარვაშიძე",
+  "members": [
+   {
+    "ka": "გიორგი შარვაშიძის ქუჩა",
+    "ru": "улица Гиорги Шарвашидзе",
+    "en": "Giorgi Sharvashidze Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w9319135"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "გიორგი შარვაშიძის ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w301660"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "გიორგი შარვაშიძის შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w910573"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0398"
+ },
+ {
+  "key": "გუმათ",
+  "base_ka": "გუმათის",
+  "base_ru": "Гумати",
+  "base_en": "Gumati",
+  "nom_ka": "გუმათი",
+  "members": [
+   {
+    "ka": "გუმათის ქუჩა",
+    "ru": "улица Гумати",
+    "en": "Gumati Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w2503688"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "გუმათის შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w578632"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0874"
+ },
+ {
+  "key": "დემეტრ თავდადებულ",
+  "base_ka": "დემეტრე თავდადებულის",
+  "base_ru": "Деметре Тавдадебули",
+  "base_en": "Demetre Tavdadebuli",
+  "nom_ka": "დემეტრე თავდადებული",
+  "members": [
+   {
+    "ka": "დემეტრე თავდადებულის ქუჩა",
+    "ru": "улица Деметре Тавдадебули",
+    "en": "Demetre Tavdadebuli Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w3277675"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "დემეტრე თავდადებულის I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w2349204"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "დემეტრე თავდადებულის II შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w3156296"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "დემეტრე თავდადებულის I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w569653"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "დემეტრე თავდადებულის II ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w6040222"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0132"
+ },
+ {
+  "key": "დოლიძ ვიქტრ",
+  "base_ka": "ვიქტორ დოლიძის",
+  "base_ru": "Виктора Долидзе",
+  "base_en": "Viktor Dolidze",
+  "nom_ka": "ვიქტორ დოლიძე",
+  "members": [
+   {
+    "ka": "ვიქტორ დოლიძის ქუჩა",
+    "ru": "улица Виктора Долидзе",
+    "en": "Viktor Dolidze Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q2663412",
+    "osm_ids": [
+     "w6292314"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1148"
+ },
+ {
+  "key": "ელიზბრ მინდლ",
+  "base_ka": "ელიზბარ მინდელის",
+  "base_ru": "Элизбара Миндели",
+  "base_en": "Elizbar Mindeli",
+  "nom_ka": "ელიზბარ მინდელი",
+  "members": [
+   {
+    "ka": "ელიზბარ მინდელის ქუჩა",
+    "ru": "улица Элизбара Миндели",
+    "en": "Elizbar Mindeli Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q134269694",
+    "osm_ids": [
+     "w7696195"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1082"
+ },
+ {
+  "key": "ვახტანგ ნინ",
+  "base_ka": "ვახტანგ ნინუას",
+  "base_ru": "Вахтанга Нинуа",
+  "base_en": "Vakhtang Ninua",
+  "nom_ka": "ვახტანგ ნინუა",
+  "members": [
+   {
+    "ka": "ვახტანგ ნინუას ქუჩა",
+    "ru": "улица Вахтанга Нинуа",
+    "en": "Vakhtang Ninua Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w5267606"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1063"
+ },
+ {
+  "key": "ვიქტრ ნინიძ",
+  "base_ka": "ვიქტორ ნინიძის",
+  "base_ru": "Виктора Нинидзе",
+  "base_en": "Viktor Ninidze",
+  "nom_ka": "ვიქტორ ნინიძე",
+  "members": [
+   {
+    "ka": "ვიქტორ ნინიძის ქუჩა",
+    "ru": "улица Виктора Нинидзе",
+    "en": "Viktor Ninidze Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w4413955"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F2175"
+ },
+ {
+  "key": "თაბუკაშვილ რევაზ",
+  "base_ka": "რევაზ თაბუკაშვილის",
+  "base_ru": "Реваза Табукашвили",
+  "base_en": "Revaz Tabukashvili",
+  "nom_ka": "რევაზ თაბუკაშვილი",
+  "members": [
+   {
+    "ka": "რევაზ თაბუკაშვილის ქუჩა",
+    "ru": "улица Реваза Табукашвили",
+    "en": "Revaz Tabukashvili Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q16374428",
+    "osm_ids": [
+     "w8571385"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "რევაზ თაბუკაშვილის შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": "Q16374428",
+    "osm_ids": [
+     "w5684919"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "რევაზ თაბუკაშვილის ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": "Q16374428",
+    "osm_ids": [
+     "w3467193"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0345"
+ },
+ {
+  "key": "ივნ სიხარულიძ",
+  "base_ka": "ივანე სიხარულიძის",
+  "base_ru": "Иване Сихарулидзе",
+  "base_en": "Ivane Sikharulidze",
+  "nom_ka": "ივანე სიხარულიძე",
+  "members": [
+   {
+    "ka": "ივანე სიხარულიძის ქუჩა",
+    "ru": "улица Иване Сихарулидзе",
+    "en": "Ivane Sikharulidze Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w5315408"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1245"
+ },
+ {
+  "key": "იუნკერთ",
+  "base_ka": "იუნკერთა",
+  "base_ru": "Иункерта",
+  "base_en": "Iunkerta",
+  "nom_ka": "იუნკერთა",
+  "members": [
+   {
+    "ka": "იუნკერთა ქუჩა",
+    "ru": "улица Иункерта",
+    "en": "Iunkerta Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w713877"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "იუნკერთას ქუჩა",
+    "ru": null,
+    "en": null,
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w4806534"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "იუნკერთა I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w4187392"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "იუნკერთა III ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w2912529"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "იუნკერთა II შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w4782091"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0143"
+ },
+ {
+  "key": "კახ შევარდენიძ",
+  "base_ka": "კახა შევარდენიძის",
+  "base_ru": "Кахи Шеварденидзе",
+  "base_en": "Kakha Shevardenidze",
+  "nom_ka": "კახა შევარდენიძე",
+  "members": [
+   {
+    "ka": "კახა შევარდენიძის ქუჩა",
+    "ru": "улица Кахи Шеварденидзе",
+    "en": "Kakha Shevardenidze Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w8671804"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1097"
+ },
+ {
+  "key": "კოტ სოს წერეთლებ",
+  "base_ka": "კოტე და სოსო წერეთლების",
+  "base_ru": "Котэ и Сосо Церетели",
+  "base_en": "Kote and Soso Tsereteli",
+  "nom_ka": "კოტე და სოსო წერეთლები",
+  "members": [
+   {
+    "ka": "კოტე და სოსო წერეთლების ქუჩა",
+    "ru": "улица Котэ и Сосо Церетели",
+    "en": "Kote and Soso Tsereteli Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q130308328;Q1782815",
+    "osm_ids": [
+     "w3063390"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1213"
+ },
+ {
+  "key": "ლეს უკრაინკ",
+  "base_ka": "ლესია უკრაინკას",
+  "base_ru": "Леси Украинки",
+  "base_en": "Lesia Ukrainka",
+  "nom_ka": "ლესია უკრაინკა",
+  "members": [
+   {
+    "ka": "ლესია უკრაინკას ქუჩა",
+    "ru": "улица Леси Украинки",
+    "en": "Lesia Ukrainka Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q298033",
+    "osm_ids": [
+     "w430639"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1355"
+ },
+ {
+  "key": "ლიბნ",
+  "base_ka": "ლიბანის",
+  "base_ru": "Либани",
+  "base_en": "Libani",
+  "nom_ka": "ლიბანი",
+  "members": [
+   {
+    "ka": "ლიბანის ქუჩა",
+    "ru": "улица Либани",
+    "en": "Libani Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w2353625"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ლიბანის შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w922039"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ლიბანის I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w5886773"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0451"
+ },
+ {
+  "key": "ლიპტოვ",
+  "base_ka": "ლიპტოვის",
+  "base_ru": "Липтова",
+  "base_en": "Liptov",
+  "nom_ka": "ლიპტოვი",
+  "members": [
+   {
+    "ka": "ლიპტოვის ქუჩა",
+    "ru": "улица Липтова",
+    "en": "Liptov Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q1521564",
+    "osm_ids": [
+     "w4874095"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1551"
+ },
+ {
+  "key": "მარიამ ნან",
+  "base_ka": "მარიამ მეფის და ნანა დედოფლის",
+  "base_ru": "Мариам Мепе Да Нана Дедопли",
+  "base_en": "Mariam Mepe Da Nana Dedopli",
+  "nom_ka": "მარიამ მეფის და ნანა დედოფალი",
+  "members": [
+   {
+    "ka": "მარიამ მეფის და ნანა დედოფლის ქუჩა",
+    "ru": "улица Мариам Мепе Да Нана Дедопли",
+    "en": "Mariam Mepe Da Nana Dedopli Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w5904049"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "მარიამ მეფის და ნანა დედოფლის I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w1702427"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "მარიამ მეფის და ნანა დედოფლის I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w157609"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0369"
+ },
+ {
+  "key": "მიწისქვეშ",
+  "base_ka": "მიწისქვეშა",
+  "base_ru": null,
+  "base_en": null,
+  "nom_ka": "მიწისქვეშა",
+  "members": [
+   {
+    "ka": "მიწისქვეშა გად.",
+    "ru": "",
+    "en": "",
+    "kind": "passage",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w7336521"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F2160"
+ },
+ {
+  "key": "მოციქულთ ნინ სწრ",
+  "base_ka": "მოციქულთა სწორი ნინოს",
+  "base_ru": "Моцикулта Сцори Нино",
+  "base_en": "Motsikulta Stsori Nino",
+  "nom_ka": "მოციქულთა სწორი ნინო",
+  "members": [
+   {
+    "ka": "მოციქულთა სწორი ნინოს ქუჩა",
+    "ru": "улица Моцикулта Сцори Нино",
+    "en": "Motsikulta Stsori Nino Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w133763"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "მოციქულთა სწორი ნინოს I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w8463258"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0670"
+ },
+ {
+  "key": "მოჭიქულ",
+  "base_ka": "მოჭიქული",
+  "base_ru": "Глазурованная",
+  "base_en": "Glazed",
+  "nom_ka": "მოჭიქული",
+  "members": [
+   {
+    "ka": "მოჭიქული კიბეები",
+    "ru": "Глазурованная лестница",
+    "en": "Glazed staircase",
+    "kind": "other",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w9679584"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1990"
+ },
+ {
+  "key": "რიჩარდ ჰოლბრუკ",
+  "base_ka": "რიჩარდ ჰოლბრუკის",
+  "base_ru": "Ричарда Холбрука",
+  "base_en": "Richard Holbrooke",
+  "nom_ka": "რიჩარდ ჰოლბრუკი",
+  "members": [
+   {
+    "ka": "რიჩარდ ჰოლბრუკის ქუჩა",
+    "ru": "улица Ричарда Холбрука",
+    "en": "Richard Holbrooke Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q155649",
+    "osm_ids": [
+     "w5455962"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1179"
+ },
+ {
+  "key": "სოს ღვინიაშვილ",
+  "base_ka": "სოსო ღვინიაშვილის",
+  "base_ru": "Сосо Гвинияшвили",
+  "base_en": "Soso Ghviniashvili",
+  "nom_ka": "სოსო ღვინიაშვილი",
+  "members": [
+   {
+    "ka": "სოსო ღვინიაშვილის ქუჩა",
+    "ru": "улица Сосо Гвинияшвили",
+    "en": "Soso Ghviniashvili Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": "Q141104922",
+    "osm_ids": [
+     "w9515568"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1831"
+ },
+ {
+  "key": "სოფრომაძ უშანგ",
+  "base_ka": "უშანგი სოფრომაძის",
+  "base_ru": "Ушанги Сопромадзе",
+  "base_en": "Ushangi Sopromadze",
+  "nom_ka": "უშანგი სოფრომაძე",
+  "members": [
+   {
+    "ka": "უშანგი სოფრომაძის I შესახვევი",
+    "ru": "1-й переулок Ушанги Сопромадзе",
+    "en": "Ushangi Sopromadze 1st Lane",
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w8172311"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "უშანგი სოფრომაძის II შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w9813217"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0893"
+ },
+ {
+  "key": "ტირიფებ",
+  "base_ka": "ტირიფების",
+  "base_ru": "Тирипеби",
+  "base_en": "Tiripebi",
+  "nom_ka": "ტირიფები",
+  "members": [
+   {
+    "ka": "ტირიფების ქუჩა",
+    "ru": "улица Тирипеби",
+    "en": "Tiripebi Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w655946"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F2043"
+ },
+ {
+  "key": "უნივერსიტეტ",
+  "base_ka": "უნივერსიტეტის",
+  "base_ru": "Университетская",
+  "base_en": "Universiteti",
+  "nom_ka": "უნივერსიტეტი",
+  "members": [
+   {
+    "ka": "უნივერსიტეტის ქუჩა",
+    "ru": "Университетская улица",
+    "en": "Universiteti Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w3718921"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F1125"
+ },
+ {
+  "key": "ყადირ შერვაშიძ",
+  "base_ka": "ყადირ შერვაშიძის",
+  "base_ru": "Кадира Шервашидзе",
+  "base_en": "Qadir Shervashidze",
+  "nom_ka": "ყადირ შერვაშიძე",
+  "members": [
+   {
+    "ka": "ყადირ შერვაშიძის ქუჩა",
+    "ru": "улица Кадира Шервашидзе",
+    "en": "Qadir Shervashidze Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w3254894"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ყადირ შერვაშიძის I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w9949906"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ყადირ შერვაშიძის I გასასვლელი",
+    "ru": null,
+    "en": null,
+    "kind": "passage",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w3326801"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ყადირ შერვაშიძის III გასასვლელი",
+    "ru": null,
+    "en": null,
+    "kind": "passage",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w2911562"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ყადირ შერვაშიძის II გასასვლელი",
+    "ru": null,
+    "en": null,
+    "kind": "passage",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w919775"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ყადირ შერვაშიძის IV გასასვლელი",
+    "ru": null,
+    "en": null,
+    "kind": "passage",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w3626512"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0115"
+ },
+ {
+  "key": "ჩალინ",
+  "base_ka": "ჩალიანის",
+  "base_ru": null,
+  "base_en": null,
+  "nom_ka": "ჩალიანი",
+  "members": [
+   {
+    "ka": "ჩალიანის ქუჩა",
+    "ru": "",
+    "en": "",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w6236777"
+    ],
+    "len_m": 500.0
+   }
+  ],
+  "proto_id": "F2163"
+ },
+ {
+  "key": "ჭრებლ",
+  "base_ka": "ჭრებალოს",
+  "base_ru": "Чребало",
+  "base_en": "Chrebalo",
+  "nom_ka": "ჭრებალო",
+  "members": [
+   {
+    "ka": "ჭრებალოს ქუჩა",
+    "ru": "улица Чребало",
+    "en": "Chrebalo Street",
+    "kind": "street",
+    "derived": false,
+    "wikidata": null,
+    "osm_ids": [
+     "w3032178"
+    ],
+    "len_m": 500.0
+   },
+   {
+    "ka": "ჭრებალოს I ჩიხი",
+    "ru": null,
+    "en": null,
+    "kind": "dead_end",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w6689018"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ჭრებალოს I შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w5160511"
+    ],
+    "len_m": 80.0
+   },
+   {
+    "ka": "ჭრებალოს II შესახვევი",
+    "ru": null,
+    "en": null,
+    "kind": "lane",
+    "derived": true,
+    "wikidata": null,
+    "osm_ids": [
+     "w6621153"
+    ],
+    "len_m": 80.0
+   }
+  ],
+  "proto_id": "F0268"
+ }
+]

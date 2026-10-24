@@ -1,0 +1,93 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "quchebi/name-qa/v1",
+ "title": "NameQA",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "results"
+ ],
+ "properties": {
+  "batch": {
+   "type": "string",
+   "maxLength": 40
+  },
+  "role": {
+   "type": "string",
+   "enum": [
+    "name_qa"
+   ]
+  },
+  "results": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "item_id",
+     "issue",
+     "field",
+     "current",
+     "suggested",
+     "confidence",
+     "evidence",
+     "osm_fix"
+    ],
+    "properties": {
+     "item_id": {
+      "type": "string",
+      "pattern": "^N[0-9a-f]{8}$"
+     },
+     "issue": {
+      "type": "string",
+      "enum": [
+       "ka_ru_mismatch",
+       "ka_en_mismatch",
+       "typo_ka",
+       "typo_ru",
+       "typo_en",
+       "addr_typo",
+       "wrong_type",
+       "ordinal_mismatch",
+       "ok"
+      ]
+     },
+     "field": {
+      "type": "string",
+      "enum": [
+       "ka",
+       "ru",
+       "en",
+       "addr_street",
+       "none"
+      ]
+     },
+     "current": {
+      "type": "string",
+      "maxLength": 200
+     },
+     "suggested": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "maxLength": 200
+     },
+     "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+     },
+     "evidence": {
+      "type": "string",
+      "maxLength": 200
+     },
+     "osm_fix": {
+      "type": "boolean",
+      "description": "true if the fix belongs in OpenStreetMap"
+     }
+    }
+   }
+  }
+ }
+}
