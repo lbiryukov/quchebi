@@ -1,0 +1,231 @@
+{
+ "v": 1,
+ "version": "20261024-1",
+ "built": "24/10/2026",
+ "osm": "2026-10-22T20:21:33Z",
+ "files": {
+  "core.json": {
+   "bytes": 2387817,
+   "sha256": "adc796f5083a1e0fa32e6417ce4e51cc19e9302185b157cf6670af596918021d"
+  },
+  "geom.json": {
+   "bytes": 294935,
+   "sha256": "f9fc489ab25adac20d885a5c9a5cc865aec13d346e2b8bdbd606c981af3f7e3e"
+  },
+  "houses.json": {
+   "bytes": 1421342,
+   "sha256": "da35787c97fa506db75770527fc0306cb8791f803b14d62fa82adc76f751669b"
+  },
+  "areas.json": {
+   "bytes": 65386,
+   "sha256": "444e8e2e78b5309e7b998a335432fc08ba1a83a8688a3284fcaff0d963580f6b"
+  },
+  "eponyms.json": {
+   "bytes": 14597,
+   "sha256": "a7e895edeff4e47878cbd39c3c616d60eda22841c632a4709af35a42d8fad1f3"
+  }
+ },
+ "tiles": {
+  "basemap": "tiles/tbilisi.pmtiles",
+  "glyphs": "tiles/fonts/{fontstack}/{range}.pbf",
+  "sprites": {
+   "light": "tiles/sprites/light",
+   "dark": "tiles/sprites/dark"
+  },
+  "minzoom": 0,
+  "maxzoom": 15,
+  "bbox": [
+   44.6,
+   41.6,
+   45.1,
+   41.87
+  ],
+  "center": [
+   44.85,
+   41.735,
+   12
+  ],
+  "tileset_version": "4.15.2",
+  "source_build": "20261023",
+  "built": "24/10/2026",
+  "bytes": 24254413,
+  "files": {
+   "tiles/fonts/Noto Sans Italic/0-255.pbf": {
+    "bytes": 79372,
+    "sha256": "afcefc212051046bb855bd56ebaf916d7961062431bfb3b75bac9a03dd14eaf8"
+   },
+   "tiles/fonts/Noto Sans Italic/1024-1279.pbf": {
+    "bytes": 128015,
+    "sha256": "9c3f67dce1f538ee635405a5562c364c95ba4db06a6b312a45c84ad6edf4c28a"
+   },
+   "tiles/fonts/Noto Sans Italic/1280-1535.pbf": {
+    "bytes": 84041,
+    "sha256": "c632ee165015027ada84f09ceb763948d5786a61bddc510249133640e2206b1c"
+   },
+   "tiles/fonts/Noto Sans Italic/256-511.pbf": {
+    "bytes": 132976,
+    "sha256": "a6f9f6574c86a4a28aba630ca1017857ceadd2370ed32a1293c35f819ab9bd60"
+   },
+   "tiles/fonts/Noto Sans Italic/4096-4351.pbf": {
+    "bytes": 121595,
+    "sha256": "4af38660345cd701414c53adb3e416f52e0a619ad4429a114b90cdb0ddb8269f"
+   },
+   "tiles/fonts/Noto Sans Italic/512-767.pbf": {
+    "bytes": 96460,
+    "sha256": "5849298255f12639422a8b8ef32927b1ac49d59f725afaa6cbaf51550a5752fe"
+   },
+   "tiles/fonts/Noto Sans Italic/7168-7423.pbf": {
+    "bytes": 87971,
+    "sha256": "9bbbf2fa1d57cf8259d42dae1a787dd0134215d5e125a63ff68c150be9ce8804"
+   },
+   "tiles/fonts/Noto Sans Italic/768-1023.pbf": {
+    "bytes": 78540,
+    "sha256": "5c3d63736e4cd89d8de4b4bb863c63443276d4504bb2720bcf1ea412da8ab972"
+   },
+   "tiles/fonts/Noto Sans Italic/8192-8447.pbf": {
+    "bytes": 65510,
+    "sha256": "b47260cd437e32a87c3e1e66f71a917f67dbdfb7f9539cf5e78c9141d4d34aff"
+   },
+   "tiles/fonts/Noto Sans Italic/8448-8703.pbf": {
+    "bytes": 82205,
+    "sha256": "433508bc10226f890847625e5151b2861c8e395be7411540ede58c0757d21dfe"
+   },
+   "tiles/fonts/Noto Sans Medium/0-255.pbf": {
+    "bytes": 77656,
+    "sha256": "832001390bd5773c8465a3fb10b873867d1dcd70b62ff557d498a030686bf30e"
+   },
+   "tiles/fonts/Noto Sans Medium/1024-1279.pbf": {
+    "bytes": 128608,
+    "sha256": "1fd3385560bae824ee48de8c920412ca3a75cabe5ada5ea67d8d188787018319"
+   },
+   "tiles/fonts/Noto Sans Medium/1280-1535.pbf": {
+    "bytes": 86131,
+    "sha256": "655ca6c720bba0bbfc5c6e916eac896a38f6c92346cead859dcbbc7a6ee7544e"
+   },
+   "tiles/fonts/Noto Sans Medium/256-511.pbf": {
+    "bytes": 129635,
+    "sha256": "d5e801a1a5b1d409d3298c3a1e1ca76328e2314a751078833a618620e8e66e4d"
+   },
+   "tiles/fonts/Noto Sans Medium/4096-4351.pbf": {
+    "bytes": 122876,
+    "sha256": "08b5ec865c28a4b151f5b7bd6c7bd83e6a015ef992257620f69a7f576f256f44"
+   },
+   "tiles/fonts/Noto Sans Medium/512-767.pbf": {
+    "bytes": 96169,
+    "sha256": "985e56060887a8e774fdf62ec4619f26bd44d264fcb837d315023f87d768f8e2"
+   },
+   "tiles/fonts/Noto Sans Medium/7168-7423.pbf": {
+    "bytes": 88587,
+    "sha256": "5204abef8a348445bf78611cf377ee4728e3eaf2860a59e131df16d6ed4a6127"
+   },
+   "tiles/fonts/Noto Sans Medium/768-1023.pbf": {
+    "bytes": 78392,
+    "sha256": "ece6d833ac31363cab72336e74205fc3ab693817f7b1619d46b213591956184f"
+   },
+   "tiles/fonts/Noto Sans Medium/8192-8447.pbf": {
+    "bytes": 65101,
+    "sha256": "cc38e4956207f0edba1aaf749b61e8f6f1678ef1ad443d32ee285b21d0eb67aa"
+   },
+   "tiles/fonts/Noto Sans Medium/8448-8703.pbf": {
+    "bytes": 83514,
+    "sha256": "d1e361678a0e40a181d5a287f2619b518fd1ab10b53be0c938020c400bc6995c"
+   },
+   "tiles/fonts/Noto Sans Regular/0-255.pbf": {
+    "bytes": 76044,
+    "sha256": "62c6d49b15fa836eb6aa45e259c7ca6762f44b011b09e47776efbe4a6db1b397"
+   },
+   "tiles/fonts/Noto Sans Regular/1024-1279.pbf": {
+    "bytes": 125320,
+    "sha256": "302231023f7048d9694a7b3f3b737c8bc378f5af0175aed5bb4f2f3b6188919a"
+   },
+   "tiles/fonts/Noto Sans Regular/1280-1535.pbf": {
+    "bytes": 84434,
+    "sha256": "34345ffc1a3c6748147e079a7971a4ef10561f721fdf76a4a91491280ab8bccb"
+   },
+   "tiles/fonts/Noto Sans Regular/256-511.pbf": {
+    "bytes": 127726,
+    "sha256": "2eca7561f9f566bcacfda5dd04fb5880baec1328ec0f5484678289a13994de8a"
+   },
+   "tiles/fonts/Noto Sans Regular/4096-4351.pbf": {
+    "bytes": 121596,
+    "sha256": "f08764a2e60f5d2e5b1d072668aee1be18a04fe542af38dcee419f529c13433c"
+   },
+   "tiles/fonts/Noto Sans Regular/512-767.pbf": {
+    "bytes": 94728,
+    "sha256": "6abc80badad0e823e228ab739515be257c8b33bc68bb077dd873030e9b2d143a"
+   },
+   "tiles/fonts/Noto Sans Regular/7168-7423.pbf": {
+    "bytes": 87875,
+    "sha256": "7a4fe1fcea5fbbdbb5c6c4cefa0333c4dfdf4d335152c3a1b60a7238247b4ca1"
+   },
+   "tiles/fonts/Noto Sans Regular/768-1023.pbf": {
+    "bytes": 77034,
+    "sha256": "537ccbee79180f4f8b3f6d2bdd27df979260ce1a0358c40d7aa7db505d9b03aa"
+   },
+   "tiles/fonts/Noto Sans Regular/8192-8447.pbf": {
+    "bytes": 64220,
+    "sha256": "8ea977a587352fe31b4159ffdbc9a40be79056f2472017c742ea1e4a931864b9"
+   },
+   "tiles/fonts/Noto Sans Regular/8448-8703.pbf": {
+    "bytes": 82014,
+    "sha256": "125b49cccfe95ac2f64b6bc2661871fba0081ff1b24f34c20bd29260b9351b57"
+   },
+   "tiles/sprites/dark.json": {
+    "bytes": 3549,
+    "sha256": "bfac76cf7ed5c2aa2992695904056a1c6b07785b7fd20e6c640cb44fd6244a2e"
+   },
+   "tiles/sprites/dark.png": {
+    "bytes": 16054,
+    "sha256": "8920f68e8f9f7a4188da43e62a81bbc426532579fff7b5f27aad09e130f4246e"
+   },
+   "tiles/sprites/dark@2x.json": {
+    "bytes": 3579,
+    "sha256": "1fb5b123fbe35d2e1f6ac171513ce01df89e671273a417ee89c44886a4c132f0"
+   },
+   "tiles/sprites/dark@2x.png": {
+    "bytes": 28407,
+    "sha256": "6e01b4e366d304f27bbd55390511a3d4e39aa1d03eb3e82f873f7ea32e74cbe4"
+   },
+   "tiles/sprites/light.json": {
+    "bytes": 3549,
+    "sha256": "bfac76cf7ed5c2aa2992695904056a1c6b07785b7fd20e6c640cb44fd6244a2e"
+   },
+   "tiles/sprites/light.png": {
+    "bytes": 16174,
+    "sha256": "b6a34640917bdc57d0bd080836db33376371a3312ebe7b849045268015de3481"
+   },
+   "tiles/sprites/light@2x.json": {
+    "bytes": 3579,
+    "sha256": "1fb5b123fbe35d2e1f6ac171513ce01df89e671273a417ee89c44886a4c132f0"
+   },
+   "tiles/sprites/light@2x.png": {
+    "bytes": 28852,
+    "sha256": "23f6e9df27c2e9a14385763980a24e3608966bfc8192a106058bc2ca959ab563"
+   },
+   "tiles/tbilisi.pmtiles": {
+    "bytes": 21296325,
+    "sha256": "243d0aafb5bc92748ad170811dfa0e6e6565551851f700ea1ffa6e136d61a5b5"
+   }
+  }
+ },
+ "counts": {
+  "features": 5504,
+  "streets": 5093,
+  "houses": 42783,
+  "crossings": 8955,
+  "eponyms": 0,
+  "families": 2385,
+  "districts": 10,
+  "places": 142,
+  "near": 1154,
+  "old_names": 2605,
+  "alt_names": 1127,
+  "eponyms_ai": 0
+ },
+ "attribution": [
+  "© OpenStreetMap contributors, ODbL",
+  "Википедия (факты: годы и прежние названия), CC BY-SA",
+  "Энциклопедия «Тбилиси», 2008 (факты: годы и прежние названия)",
+  "Подложка: Protomaps © OpenStreetMap contributors, ODbL"
+ ]
+}

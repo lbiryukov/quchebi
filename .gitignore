@@ -9,10 +9,10 @@ __pycache__/
 .env.*
 
 # Local data, logs, scratch
-data/
-logs/
-temp_scripts/
-screenshots/
+/data/
+/logs/
+/temp_scripts/
+/screenshots/
 analysis/.ipynb_checkpoints/
 
 # Node / build
