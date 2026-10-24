@@ -483,12 +483,23 @@ def merge_rows(rows: list[dict]) -> list[dict]:
         g["confidence"] = max(g["confidence"], r["confidence"])
     for g in groups:
         if g.get("name_ka") and not g.get("name_lat"):
-            g["name_lat"] = ka_to_lat(g["name_ka"])
+            g["name_lat"] = _display_name(g["name_ka"], "en") or ka_to_lat(g["name_ka"])
         if g.get("name_ka") and not g.get("name_ru"):
-            g["name_ru"] = ka_to_ru(g["name_ka"])     # fallback Cyrillic form (riddles are in Russian)
+            # Readable Russian form ("переулок Плеханови"), not a letter-by-letter "плехановис шесахвеви".
+            g["name_ru"] = _display_name(g["name_ka"], "ru") or ka_to_ru(g["name_ka"])
         if g.get("from_year") and g.get("to_year") and g["to_year"] < g["from_year"]:
             g["to_year"] = None
     return groups
+
+
+def _display_name(name_ka: str, lang: str) -> str | None:
+    """Russian/English display form of a Georgian street name via pipeline.names (None if unavailable)."""
+    try:
+        from pipeline.names.parse import make_en_name, make_ru_name, parse_name as _parse
+        p = _parse(name_ka)
+        return (make_ru_name(p) if lang == "ru" else make_en_name(p)) or None
+    except Exception:  # noqa: BLE001 - display nicety only, fall back to transliteration
+        return None
 
 
 def osm_old_rows(index: FeatureIndex, fid: int) -> list[dict]:

@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "quchebi-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "preview", "--port", "4180", "--strictPort"],
+      "cwd": "app",
+      "port": 4180
+    }
+  ]
+}
