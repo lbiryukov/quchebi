@@ -1,28 +1,28 @@
 {
  "v": 1,
- "version": "20261024-1",
+ "version": "20261024-3",
  "built": "24/10/2026",
  "osm": "2026-10-22T20:21:33Z",
  "files": {
   "core.json": {
-   "bytes": 2387817,
-   "sha256": "adc796f5083a1e0fa32e6417ce4e51cc19e9302185b157cf6670af596918021d"
+   "bytes": 2938837,
+   "sha256": "09d2c32482b2a877e90bf18dc947b46890a6630ee768af2de225269b29f9410f"
   },
   "geom.json": {
-   "bytes": 294935,
-   "sha256": "f9fc489ab25adac20d885a5c9a5cc865aec13d346e2b8bdbd606c981af3f7e3e"
+   "bytes": 344390,
+   "sha256": "5db71f556b159effe4b5266e520b03cce835757cddb2ee8ee86e7eab04a724f7"
   },
   "houses.json": {
-   "bytes": 1421342,
-   "sha256": "da35787c97fa506db75770527fc0306cb8791f803b14d62fa82adc76f751669b"
+   "bytes": 1427982,
+   "sha256": "2ae43f83ceff134e2d044d56707135d61fdced22ff61b5efd97feccd7e7212dc"
   },
   "areas.json": {
    "bytes": 65386,
    "sha256": "444e8e2e78b5309e7b998a335432fc08ba1a83a8688a3284fcaff0d963580f6b"
   },
   "eponyms.json": {
-   "bytes": 14597,
-   "sha256": "a7e895edeff4e47878cbd39c3c616d60eda22841c632a4709af35a42d8fad1f3"
+   "bytes": 1066582,
+   "sha256": "cb50460000c32534b673c9e5481c84f5c64c917c4bb2551152101a6b64204f5f"
   }
  },
  "tiles": {
@@ -209,21 +209,22 @@
   }
  },
  "counts": {
-  "features": 5504,
+  "features": 7614,
   "streets": 5093,
-  "houses": 42783,
+  "houses": 42827,
   "crossings": 8955,
-  "eponyms": 0,
+  "eponyms": 3669,
   "families": 2385,
   "districts": 10,
   "places": 142,
   "near": 1154,
-  "old_names": 2605,
-  "alt_names": 1127,
-  "eponyms_ai": 0
+  "old_names": 2641,
+  "alt_names": 1737,
+  "eponyms_ai": 1946
  },
  "attribution": [
   "© OpenStreetMap contributors, ODbL",
+  "Wikidata, CC0",
   "Википедия (факты: годы и прежние названия), CC BY-SA",
   "Энциклопедия «Тбилиси», 2008 (факты: годы и прежние названия)",
   "Подложка: Protomaps © OpenStreetMap contributors, ODbL"
