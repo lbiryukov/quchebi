@@ -160,7 +160,9 @@ footer{padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font
   </div>
   <div class="meta">
     <span>Дата: <b>23/10/2026</b></span>
-    <span>Статус: <b>план на согласование</b></span>
+    <span>Статус: <b>реализовано 24/10/2026</b></span>
+    <span>Приложение: <a href="https://lbiryukov.github.io/quchebi/">lbiryukov.github.io/quchebi</a></span>
+    <span>Код: <a href="https://github.com/lbiryukov/quchebi">github.com/lbiryukov/quchebi</a></span>
     <span>Снимок OSM для оценок: <b>23/10/2026 19:42 UTC</b></span>
   </div>
   <nav class="toc" aria-label="Разделы">
@@ -171,6 +173,23 @@ footer{padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font
     <a href="#phases">Этапы</a><a href="#quality">Тесты и логи</a><a href="#risks">Риски</a><a href="#questions">Вопросы</a>
   </nav>
 </header>
+
+<section id="result">
+  <div class="col">
+    <p class="eyebrow">Итог реализации · 24/10/2026</p>
+    <h2>Что получилось</h2>
+    <p>План выполнен, кроме полевого теста на улицах Тбилиси: его можно сделать только на месте. Приложение опубликовано на GitHub Pages и работает офлайн после первого открытия.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="v">7 614</span><span class="k">объектов: 5 168 улиц, 2 110 достопримечательностей в 22 видах, реки, метро, районы</span></div>
+    <div class="stat"><span class="v">100%</span><span class="k">семейств названий с эпонимом; точность классификации Haiku на эталоне — 99,3%</span></div>
+    <div class="stat"><span class="v">2 890</span><span class="k">прежних названий из энциклопедии 2008, Википедий и OSM, 99% с эпонимом</span></div>
+    <div class="stat"><span class="v">114 / 120</span><span class="k">реальных загадок Runcity 2022–2026 решаются поиском (95%)</span></div>
+    <div class="stat"><span class="v">1,4 MB</span><span class="k">пакет данных gzip плюс 20 MB офлайн-карта Тбилиси</span></div>
+    <div class="stat"><span class="v">1–13 мс</span><span class="k">время типичного запроса в браузере на ноутбуке; на телефоне ожидаем в 3–5 раз дольше</span></div>
+  </div>
+  <div class="note">Что осталось: 1 461 спорная запись об эпонимах ждёт ручного ревью (в приложении они помечены «оценка ИИ»); офлайн-тест в WebKit и проверка на настоящем iPhone; полевой тест в зоне игры.</div>
+</section>
 
 <section id="summary">
   <div class="col">
