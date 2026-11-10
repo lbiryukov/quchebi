@@ -1,3 +1,3 @@
 # Quchebi
 
-Offline search of Tbilisi streets and toponyms for the Runcity game.
+Offline search of streets, toponyms and landmarks for the Runcity game: Tbilisi and Moscow (Khamovniki district).

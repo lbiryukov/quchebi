@@ -74,7 +74,8 @@ Plan: `docs/plans/quchebi-plan.html`. Contracts: `docs/pack-format.md`, `docs/ds
    subagents on `data/khamovniki/enrich/batches/researcher/r*.md` (results → `.../results/researcher/`)
 5. `uv run python -m pipeline.ru batches --role classifier`, run the Haiku `ru-eponym-classifier`
    subagents on `.../batches/classifier/c*.json`
-6. `uv run python -m pipeline.ru merge`, then `uv run python -m pipeline.export`
+6. `uv run python -m pipeline.ru merge` (matches full-name eponyms to Wikidata by exact label: needs
+   the network once, then cached), then `uv run python -m pipeline.export` and `pipeline.validate`
 A full OSM rebuild deletes the features created by step 6: always run `ru merge` after it.
 
 ## Commands (verified)

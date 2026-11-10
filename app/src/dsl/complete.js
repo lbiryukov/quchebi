@@ -6,6 +6,7 @@
 // Context is found from the tokens before the cursor, so unfinished input (open parentheses,
 // open quotes) works; inside x:( … ), рядом:( … ), семья:( … ) the same rules apply recursively,
 // inside было:( … ) only eponym keys are offered.
+import { wholeLabel } from '../store/cities.js';
 import { tokenize, TOKEN as T, fold } from './lexer.js';
 import { KEYS, findKey, EPONYM_KEYS, FIXED, COMPASS_SHOW, COMPASS_RU, isLocalOrigin, ownWords } from './keys.js';
 import { areaRu, ruLabel } from '../search/names.js';
@@ -288,7 +289,7 @@ function valueSuggestions(c, index, ctx) {
       const z = ctx && ctx.zone;
       const cnt = (b) => (b ? b.count() : null);
       const items = [
-        { value: 'выкл', count: d.n, label: 'выкл — весь город' },
+        { value: 'выкл', count: d.n, label: `выкл — ${wholeLabel().toLowerCase()}` },
         { value: 'задевает', count: z ? cnt(z.featTouch) : null, label: 'задевает — любая часть внутри' },
         { value: 'целиком', count: z ? cnt(z.featWhole) : null, label: 'целиком — только целиком внутри' },
         { value: 'вкл', count: z ? cnt(z.featDefault) : null, label: 'вкл — обычное правило' },

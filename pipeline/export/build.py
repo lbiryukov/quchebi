@@ -729,6 +729,14 @@ def _attribution(con: sqlite3.Connection, tiles_attr: str | None) -> list[str]:
     srcs = {r[0] for r in con.execute("SELECT DISTINCT source FROM name_history")}
     if srcs & {"kawiki", "ruwiki"}:
         out.append("Википедия (факты: годы и прежние названия), CC BY-SA")
+    if con.execute("SELECT 1 FROM sqlite_master WHERE name = 'feature_ref'").fetchone():
+        refs = {r[0] for r in con.execute("SELECT DISTINCT source FROM feature_ref")}
+        if "ruwiki" in refs and not srcs & {"kawiki", "ruwiki"}:
+            out.append("Википедия (факты: годы и прежние названия), CC BY-SA")
+        if "ruwiki" in refs:
+            out.append("Википедия (факты о зданиях и улицах в пересказе), CC BY-SA")
+        if "wikivoyage" in refs:
+            out.append("Викигид: списки объектов культурного наследия (факты), CC BY-SA")
     if any(s.startswith("enc2008") for s in srcs):
         out.append("Энциклопедия «Тбилиси», 2008 (факты: годы и прежние названия)")
     if tiles_attr is not None:

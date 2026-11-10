@@ -159,6 +159,19 @@ WHERE {{ VALUES ?item {{ {vals} }}
     return out
 
 
+def humans_by_label(names: list[str], offline: bool = False) -> dict[str, list[str]]:
+    """Full Russian name -> QIDs of the humans whose Russian label is exactly that name."""
+    out: dict[str, list[str]] = {}
+    names = sorted({n for n in names if n and '"' not in n and "\\" not in n})
+    for i in range(0, len(names), 60):
+        vals = " ".join(f'"{n}"@ru' for n in names[i:i + 60])
+        rows = S.sparql(f"SELECT ?item ?name WHERE {{ VALUES ?name {{ {vals} }} ?item rdfs:label ?name ; wdt:P31 wd:Q5 }}",
+                        offline=offline)
+        for r in rows:
+            out.setdefault(r.get("name", ""), []).append(S.qid_of(r.get("item", "")))
+    return out
+
+
 # ---------------------------------------------------------------------------- streets
 def osm_wiki_tags() -> dict[str, dict[str, str]]:
     """OSM object ref (``w123``) -> its own wikidata / wikipedia tags."""

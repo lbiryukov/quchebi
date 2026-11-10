@@ -1,5 +1,6 @@
 // Russian explanation of a parsed query, e.g.
 // "Переулки, пересекающие улицы, проспекты и т.п. (кто: поэт) — в зоне".
+import { wholeLabel } from '../store/cities.js';
 import { fold } from './lexer.js';
 import { COMPASS_RU, ownWords } from './keys.js';
 import { describeHouse } from './housequery.js';
@@ -259,8 +260,8 @@ export function explain(ast, opts = {}) {
     if (z === 'default') s += ' — в зоне';
     else if (z === 'touch') s += ' — задевают зону';
     else if (z === 'whole') s += ' — целиком в зоне';
-    else if (z === 'off') s += ' — весь город (зона выключена)';
-    else s += ' — весь город';
+    else if (z === 'off') s += ` — ${wholeLabel().toLowerCase()} (зона выключена)`;
+    else s += ` — ${wholeLabel().toLowerCase()}`;
   }
   if (root.sort) s += `; сортировка ${SORT_RU[root.sort] || ''}`.trimEnd();
   return s;

@@ -114,6 +114,10 @@ def merge_eponyms(con: sqlite3.Connection, ref: dict) -> dict:
     fams = con.execute(
         "SELECT fam.id, fam.key, GROUP_CONCAT(f.wikidata, ';') AS wd FROM family fam "
         "JOIN feature f ON f.family_id = fam.id GROUP BY fam.id ORDER BY fam.key").fetchall()
+    matched = match_people(ref, [((results.get(f["key"]) or {}).get("name_ru") or (origins.get(f["key"]) or {}).get("label_ru"),
+                                  (results.get(f["key"]) or {}).get("kind") or (origins.get(f["key"]) or {}).get("kind"))
+                                 for f in fams])
+    st["people_matched_by_name"] = len(matched)
     with tx(con):
         con.execute("UPDATE family SET eponym_id = NULL")
         con.execute("UPDATE name_history SET eponym_id = NULL")
@@ -138,8 +142,12 @@ def merge_eponyms(con: sqlite3.Connection, ref: dict) -> dict:
                 qid = None
             if qid is None and len(set(osm_q)) == 1 and kind in PERSON_KINDS:
                 qid = osm_q[0]  # the OSM etymology tag names the entity
+            label = (res or {}).get("name_ru") or (org or {}).get("label_ru")
+            by_name = False
+            if qid is None and kind == "person" and label in matched:
+                qid, by_name = matched[label], True   # the only human in Wikidata with this full name
             p = ref["people"].get(qid or "", {})
-            label = (res or {}).get("name_ru") or (org or {}).get("label_ru") or p.get("ru")
+            label = label or p.get("ru")
             if not label:
                 st["skip_no_label"] += 1
                 continue
@@ -147,12 +155,12 @@ def merge_eponyms(con: sqlite3.Connection, ref: dict) -> dict:
             origin = None
             if is_person and p.get("citizen"):
                 origin = "local" if set(p["citizen"]) & set(CITY.local_countries) else "foreign"
-            elif (res or {}).get("origin") in ("local", "foreign"):
+            elif is_person and (res or {}).get("origin") in ("local", "foreign"):
                 origin = res["origin"]
             cats = [c for c in (res or {}).get("categories", []) if c in tax_ids and "." in c][:4]
             st["categories_dropped"] += len((res or {}).get("categories", [])) - len(cats)
             occ = [clip(o, 40) for o in ((res or {}).get("occupations") or p.get("occupations") or []) if o][:6]
-            source = "osm" if qid and qid in osm_q else "wd_p138" if qid else "llm"
+            source = "wd_match" if by_name else "osm" if qid and qid in osm_q else "wd_p138" if qid else "llm"
             conf = min(float((res or {}).get("confidence") or 0.8), float((org or {}).get("confidence") or 1.0))
             short = clip((res or {}).get("short_ru") or (org or {}).get("who_ru") or p.get("desc"), 170)
             if qid and qid in by_qid:
@@ -179,6 +187,54 @@ def merge_eponyms(con: sqlite3.Connection, ref: dict) -> dict:
             con.execute("UPDATE family SET eponym_id = ? WHERE id = ?", (eid, fam["id"]))
             st["families_linked"] += 1
     return dict(st)
+
+
+_FULL_NAME = re.compile(r"^[А-ЯЁ][а-яё]+(?:-[А-ЯЁ][а-яё]+)? [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+(?:-[А-ЯЁ][а-яё]+)?$")
+
+
+def match_people(ref: dict, labels: list[tuple[str | None, str | None]]) -> dict[str, str]:
+    """Full name ("Николай Нилович Бурденко") -> QID when exactly one human in Wikidata has that
+    Russian label. Only three-word names (given name, patronymic, surname) are tried, so that a
+    homeowner known by a surname is never mistaken for a namesake. The facts of the matched
+    people are added to ``ref["people"]``."""
+    from pipeline.ru import sources as S
+    from pipeline.ru.fetch import humans_by_label, wd_people
+
+    names = sorted({lb for lb, kind in labels if lb and kind == "person" and _FULL_NAME.match(lb)})
+    if not names:
+        return {}
+    def inverted(n: str) -> str:   # many Russian labels follow the Wikipedia title: "Сеченов, Иван Михайлович"
+        given, patronymic, surname = n.split(" ")
+        return f"{surname}, {given} {patronymic}"
+
+    try:
+        found = humans_by_label(names + [inverted(n) for n in names])
+    except (S.Offline, RuntimeError) as exc:
+        log.warning("people by name: Wikidata not available (%s); eponyms keep no QID", exc)
+        return {}
+    out = {}
+    for n in names:
+        qs = set(found.get(n, [])) | set(found.get(inverted(n), []))
+        if len(qs) == 1:
+            out[n] = qs.pop()
+    # Wikidata labels often omit the patronymic ("Иван Сеченов"): accept such an item only when its
+    # Russian Wikipedia article is titled "Фамилия, Имя Отчество"
+    short = {n: f"{n.split(' ')[0]} {n.split(' ')[2]}" for n in names if n not in out}
+    cand: dict[str, list[str]] = {}
+    try:
+        cand = humans_by_label(sorted(set(short.values())))
+        missing = sorted(({q for qs in cand.values() for q in qs} | set(out.values())) - set(ref["people"]))
+        if missing:
+            ref["people"].update(wd_people(missing, offline=False))
+    except (S.Offline, RuntimeError) as exc:
+        log.warning("people by name: facts not available (%s)", exc)
+    for n, sh in short.items():
+        given, patronymic, surname = n.split(" ")
+        title = f"{surname}, {given} {patronymic}".replace("ё", "е")
+        hits = [q for q in cand.get(sh, []) if (ref["people"].get(q, {}).get("ruwiki") or "").replace("ё", "е") == title]
+        if len(set(hits)) == 1:
+            out[n] = hits[0]
+    return {n: q for n, q in out.items() if q in ref["people"]}
 
 
 # ---------------------------------------------------------------------------- former names
