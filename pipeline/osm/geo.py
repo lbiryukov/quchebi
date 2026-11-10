@@ -1,7 +1,7 @@
 """Geometry helpers: local metric projection, WKT, bbox, bearings and direction masks.
 
-All metric work happens in a local equirectangular projection centred on Tbilisi
-(error well below 0.5% inside the city), x = east metres, y = north metres. Geometries are
+All metric work happens in a local equirectangular projection centred on the city
+(``pipeline.config.CITY``; error well below 0.5% inside the city), x = east metres, y = north metres. Geometries are
 stored in WGS84 (lon, lat order inside shapely/WKT, as usual).
 """
 from __future__ import annotations
@@ -14,8 +14,15 @@ import shapely
 from shapely.geometry import LineString, MultiLineString, MultiPolygon, Point, Polygon
 from shapely.geometry.base import BaseGeometry
 
-LAT0 = 41.72
-LON0 = 44.79
+from pipeline.config import CITY, IS_DEFAULT_CITY
+
+# Projection origin: Tbilisi keeps its historical origin; other cities use the centre of their bbox.
+if IS_DEFAULT_CITY:
+    LAT0 = 41.72
+    LON0 = 44.79
+else:
+    LAT0 = round((CITY.bbox[1] + CITY.bbox[3]) / 2, 2)
+    LON0 = round((CITY.bbox[0] + CITY.bbox[2]) / 2, 2)
 KX = 111320.0 * math.cos(math.radians(LAT0))  # metres per degree of longitude at LAT0
 KY = 110540.0                                  # metres per degree of latitude
 

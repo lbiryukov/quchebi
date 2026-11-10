@@ -16,18 +16,19 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-from pipeline.config import APP_DATA, APP_TILES, BUILD, PACK_FORMAT_VERSION
+from pipeline.config import APP_DATA, APP_TILES, BUILD, CITY, PACK_FORMAT_VERSION, TILES_MANIFEST_NAME
 from pipeline.db import get_meta
 from pipeline.export import geom as G
 from pipeline.export.kinds import group_codes, load_kinds
 from pipeline.export.polyline import e5
 from pipeline.export.taxonomy import load_taxonomy, taxonomy_ids
 from pipeline.log import get_logger, stage
+from pipeline.names.houses import HousePart, format_house_ru
 
 log = get_logger(__name__)
 
 DATA_FILES = ("core.json", "geom.json", "houses.json", "areas.json", "eponyms.json")
-TILES_MANIFEST = APP_TILES / "tiles-manifest.json"
+TILES_MANIFEST = APP_TILES / TILES_MANIFEST_NAME
 EXPORT_STATS = BUILD / "export_stats.json"
 
 # A house row is exported when it has a leading number and a point. Golden counts reuse this.
@@ -35,7 +36,11 @@ HOUSE_EXPORT_WHERE = "h.n IS NOT NULL AND h.lat IS NOT NULL AND h.lon IS NOT NUL
 # Former names below this confidence are not shipped (history stage recommendation).
 OLD_NAME_MIN_CONF = 0.5
 ALT_KIND_ORDER = {"official": 0, "alt": 1, "addr_variant": 2}
-ORIGIN_CODES = {"georgian": "ge", "foreign": "fo"}
+ORIGIN_CODES = {"georgian": "ge", "foreign": "fo", "local": CITY.local_origin}
+#: Name columns shipped as ka / ru / en. In a Russian-language city ``ka`` already holds the
+#: Russian primary name, so the ``ru`` duplicate is not shipped (docs/pack-format.md "Cities").
+NAME_KEYS = ("ka", "ru", "en") if CITY.lang == "ka" else ("ka", "en")
+SHIP_RU = CITY.lang == "ka"
 GENDER_CODES = {"m": "m", "f": "f", "м": "m", "ж": "f", "male": "m", "female": "f"}
 # Kind group of landmarks (places); their house rows carry the place index as the 9th element.
 PLACE_GROUP = "place*"
@@ -107,7 +112,7 @@ def _areas(con: sqlite3.Connection, prob: _Problems):
 
     core_d, core_p, areas_d, areas_p = [], [], [], []
     for r in districts:
-        e = {k: r[k] for k in ("ka", "ru", "en") if r[k]}
+        e = {k: r[k] for k in NAME_KEYS if r[k]}
         if "ka" not in e:
             prob.add("district_without_ka", str(r["id"]))
         core_d.append(e)
@@ -116,7 +121,7 @@ def _areas(con: sqlite3.Connection, prob: _Problems):
             prob.add("district_without_polygon", r["ka"] or r["ru"] or str(r["id"]))
         areas_d.append({"poly": [G.encode_parts(poly) for poly in G.area_polys(g)]})
     for r in places:
-        e: dict[str, Any] = {k: r[k] for k in ("ka", "ru", "en") if r[k]}
+        e: dict[str, Any] = {k: r[k] for k in NAME_KEYS if r[k]}
         e["kind"] = r["kind"]
         parent = district_of(r["parent_id"])
         if parent is not None:
@@ -250,7 +255,11 @@ def export_pack(
                 n_house_skipped += 1
                 prob.add("house_not_exportable", r["raw"])
                 continue
-            row: list[Any] = [r["raw"], int(r["n"]), r["lit"] or "", r["sub"] or "", e5(r["lat"]), e5(r["lon"])]
+            raw = r["raw"]
+            if CITY.lang == "ru":   # canonical Moscow spelling: "12А к2 с1"
+                raw = format_house_ru(HousePart(int(r["n"]), r["lit"] or "", r["sub"] or "", r["n_to"],
+                                                r["corp"] or ""), raw)
+            row: list[Any] = [raw, int(r["n"]), r["lit"] or "", r["sub"] or "", e5(r["lat"]), e5(r["lon"])]
             lm = _house_landmark(r, lm_of_osm, prob)
             if r["n_to"] is not None or r["corp"] or lm is not None:
                 row.append(int(r["n_to"]) if r["n_to"] is not None else None)
@@ -279,6 +288,12 @@ def export_pack(
         if n_dup:
             prob.c["house_duplicate_rows"] += n_dup
 
+        refs: dict[int, list[str]] = defaultdict(list)
+        if con.execute("SELECT 1 FROM sqlite_master WHERE name = 'feature_ref'").fetchone():
+            for r in _rows(con, "SELECT feature_id, text FROM feature_ref ORDER BY feature_id, "
+                                "CASE source WHEN 'wikivoyage' THEN 0 WHEN 'wikidata' THEN 1 ELSE 2 END, rank"):
+                refs[r["feature_id"]].append(r["text"])
+
         # ---------------------------------------------------------- features -> core.f + geom.g
         core_f: list[dict[str, Any]] = []
         geom_g: list[list[str]] = []
@@ -291,7 +306,7 @@ def export_pack(
             except Exception:
                 prob.add("geometry_invalid_wkt", r["ka"])
             e: dict[str, Any] = {"ka": r["ka"]}
-            if r["ru"]:
+            if r["ru"] and SHIP_RU:
                 e["ru"] = r["ru"]
             if r["en"]:
                 e["en"] = r["en"]
@@ -348,6 +363,9 @@ def export_pack(
                 e["old"] = old
                 n_old += len(old)
             e["hn"] = len(houses_h.get(str(i), []))
+            note = _note(r["note"] if "note" in r.keys() else None, refs.get(fid, []))
+            if note:
+                e["note"] = note
             if r["wikidata"]:
                 qids = [v.strip() for v in str(r["wikidata"]).split(";")]
                 good = [v for v in qids if re.fullmatch(r"Q[0-9]+", v)]
@@ -377,7 +395,7 @@ def export_pack(
             e = {}
             if fr["base_ka"]:
                 e["ka"] = fr["base_ka"]
-            if fr["base_ru"]:
+            if fr["base_ru"] and SHIP_RU:
                 e["ru"] = fr["base_ru"]
             if fr["eponym_id"] in ep_idx:
                 e["e"] = ep_idx[fr["eponym_id"]]
@@ -475,6 +493,8 @@ def export_pack(
 
         manifest: dict[str, Any] = {"v": PACK_FORMAT_VERSION, "version": _next_version(out_dir, now),
                                     "built": now.strftime("%d/%m/%Y")}
+        if CITY.id != "tbilisi":  # the Tbilisi manifest keeps its original shape
+            manifest["city"] = {"id": CITY.id, "title": CITY.title, "lang": CITY.lang}
         osm = get_meta(con, "osm_snapshot")
         if osm:
             manifest["osm"] = osm
@@ -501,6 +521,22 @@ def export_pack(
         st.update(counts)
         st["gzip_kb"] = round(total_gz / 1024, 1)
     return {"manifest": manifest, "stats": stats}
+
+
+NOTE_MAX = 420
+
+
+def _note(base: str | None, extra: list[str]) -> str | None:
+    """``core.f[].note``: the OSM note followed by the reference facts, without repeats."""
+    parts: list[str] = []
+    for t in [base, *extra]:
+        t = (t or "").strip().rstrip(";.").strip()
+        if t and not any(_fold(t) in _fold(p) for p in parts):
+            parts.append(t)
+    note = "; ".join(parts)
+    if len(note) > NOTE_MAX:
+        note = note[: NOTE_MAX - 1].rstrip(" ,;.") + "…"
+    return note or None
 
 
 def _landmark_osm_index(frows: list, place_codes: set[str], f_idx: dict[int, int]) -> dict[tuple[str, int], int]:
@@ -693,6 +729,14 @@ def _attribution(con: sqlite3.Connection, tiles_attr: str | None) -> list[str]:
     srcs = {r[0] for r in con.execute("SELECT DISTINCT source FROM name_history")}
     if srcs & {"kawiki", "ruwiki"}:
         out.append("Википедия (факты: годы и прежние названия), CC BY-SA")
+    if con.execute("SELECT 1 FROM sqlite_master WHERE name = 'feature_ref'").fetchone():
+        refs = {r[0] for r in con.execute("SELECT DISTINCT source FROM feature_ref")}
+        if "ruwiki" in refs and not srcs & {"kawiki", "ruwiki"}:
+            out.append("Википедия (факты: годы и прежние названия), CC BY-SA")
+        if "ruwiki" in refs:
+            out.append("Википедия (факты о зданиях и улицах в пересказе), CC BY-SA")
+        if "wikivoyage" in refs:
+            out.append("Викигид: списки объектов культурного наследия (факты), CC BY-SA")
     if any(s.startswith("enc2008") for s in srcs):
         out.append("Энциклопедия «Тбилиси», 2008 (факты: годы и прежние названия)")
     if tiles_attr is not None:

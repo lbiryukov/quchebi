@@ -26,6 +26,7 @@ from dataclasses import dataclass, field, replace
 from functools import lru_cache
 from typing import NamedTuple
 
+from pipeline.config import CITY
 from pipeline.log import get_logger
 from pipeline.names.translit import ka_to_lat, ka_to_ru, skeleton
 
@@ -98,6 +99,25 @@ KIND_TABLE: list[Kind] = [
     Kind("factory", ("ქარხანა", "ფაბრიკა"), "завод", ("фабрика", "комбинат"), "place*"),
     Kind("residential", (), "жилкомплекс", ("жк",), "place*"),
 ]
+#: Kinds of cities with ``City.extra_kinds`` (Moscow districts): appended after the common table, so
+#: the indices above are the same in every pack. Set from OSM tags (pipeline/osm/extract.py), from
+#: the Russian type word (boulevard) or by the reference stage (house).
+EXTRA_KINDS: list[Kind] = [
+    Kind("boulevard", (), "бульвар", (), "street*"),
+    Kind("stop", (), "остановка", ("остановки", "автобус"), "place*"),
+    Kind("embassy", (), "посольство", ("консульство",), "place*"),
+    Kind("hotel", (), "гостиница", ("отель", "хостел"), "place*"),
+    Kind("hospital", (), "больница", ("клиника", "поликлиника", "госпиталь"), "place*"),
+    Kind("government", (), "учреждение", ("министерство", "ведомство", "суд"), "place*"),
+    Kind("kindergarten", (), "детсад", ("садик",), "place*"),
+    Kind("pier", (), "причал", ("пристань",), "place*"),
+    Kind("house", (), "здание", ("особняк", "наследие", "окн"), "place*"),
+]
+if CITY.extra_kinds:
+    KIND_TABLE = KIND_TABLE + EXTRA_KINDS
+if CITY.lang != "ka":
+    # the Georgian type words are meaningless in a Russian-language pack (core.kinds[].ka = "")
+    KIND_TABLE = [k._replace(ka=()) for k in KIND_TABLE]
 KIND_CODES: list[str] = [k.code for k in KIND_TABLE]
 KIND_INDEX: dict[str, int] = {k.code: i for i, k in enumerate(KIND_TABLE)}
 KIND_GROUP: dict[str, str] = {k.code: k.group for k in KIND_TABLE}
@@ -657,6 +677,10 @@ def parse_name(ka: str, ru: str | None = None, en: str | None = None) -> ParsedN
 
 @lru_cache(maxsize=1 << 16)
 def _parse_cached(ka: str, ru: str | None, en: str | None) -> ParsedName:
+    if CITY.lang == "ru":  # the primary name is Russian: pipeline/names/parse_ru.py
+        from pipeline.names.parse_ru import parse_name_ru
+
+        return parse_name_ru(ka, en)
     raw = ka
     flags: list[str] = []
     if _MTAVRULI.search(raw):

@@ -10,6 +10,45 @@ Coordinates in compact arrays are integers `round(deg * 1e5)` ("e5"). Geometries
 encoded polylines with precision 5 (`pipeline/export/polyline.py` and `app/src/zone/geo.js`
 must agree; shared vectors in `tests/vectors/polyline.json`).
 
+## Cities
+
+One pack per *city* (a city or a city district). The pipeline builds the city selected by
+`QUCHEBI_CITY` (`pipeline/config.py: CITIES`); the client lists the cities in
+`app/src/store/cities.js` and asks for one at entry.
+
+| city id | title | lang | pack directory | basemap |
+|---|---|---|---|---|
+| `tbilisi` (default) | Тбилиси | `ka` | `app/public/data/` | `tiles/tbilisi.pmtiles` (`tiles/tiles-manifest.json`) |
+| `khamovniki` | Москва. Хамовники | `ru` | `app/public/data/khamovniki/` | `tiles/khamovniki.pmtiles` (`tiles/khamovniki.tiles-manifest.json`) |
+
+Fonts and sprites (`tiles/fonts/**`, `tiles/sprites/**`) are shared by all cities and listed with
+the same sha256 in every tile manifest. The files and shapes below are the same for every city;
+the differences of a pack with `lang = "ru"` are:
+
+- `manifest.city = {"id", "title", "lang"}` (absent in the Tbilisi manifest = `tbilisi` / `ka`).
+- `ka` is the **primary name in the language of the city**: Russian in a `ru` pack ("улица Льва
+  Толстого"). `ru` is then omitted everywhere (`core.f`, `core.fam`, `core.districts`,
+  `core.places`); `en` is the OSM English name. `core.kinds[].ka` is `""`. Eponyms have `ru`
+  (and `en` when Wikidata has it) and no `ka`. Former names (`old[]`) have `ru` only.
+- House rows: `raw` is the canonical Moscow spelling ("12А к2 с1", "5/7 с2", "23-25", "вл53");
+  `lit` is a lower-case **Cyrillic** letter; `corp` holds lower-case space-separated building
+  tokens: `к<N>` (корпус), `с<N>` (строение), `вл` (владение), e.g. `"к2 с1"`.
+- `eponyms.e[].o` is `"ru"` (lived in Russia / the USSR) or `"fo"`.
+- The taxonomy has the same ids with city-neutral labels (`place.tbilisi` = "место в Москве",
+  `place.ge_city` = "город или село России") and two more categories: `biz.owner` (домовладелец)
+  and `rel.church` (храм, монастырь) (`pipeline/enrich/taxonomy_ru.json`).
+- Extra kinds (below) and the optional `core.f[].note`.
+
+### `core.f[].note` (optional, any city)
+
+A short Russian text with reference facts, shown in the card and searched by the DSL key `инфо:`:
+routes of a stop ("Автобусы: м3, 15, 255"), year / author / inscription of a monument or a plaque
+(from OSM tags), then facts of the reference stage (`feature_ref`): the heritage register
+("Год: 1817—1822; Автор: А. Г. Григорьев; объект культурного наследия федерального значения"),
+notable buildings and facts from the street's Wikipedia article (extracted by the
+`street-researcher` subagent, own wording), year and architect from Wikidata. At most 420
+characters.
+
 ## Kinds
 
 Canonical kind codes, in this order (the index is what `core.f[].k` stores; the list itself
@@ -77,6 +116,26 @@ same name within 100 m are merged); small buildings are shipped as points, large
 of `addr:street` (+ `addr:housenumber`), else the nearest street within 50 m. The house row of
 that address stays under the street in `houses.json` (the DB flags it `landmark:<kind>`) and carries
 the landmark's feature index as its 9th element (see houses.json).
+
+## Extra kinds (cities with `extra_kinds`)
+
+Cities with `extra_kinds` (Moscow districts) append these kinds after `residential`, so the indices
+above are the same in every pack (the client reads the list from `core.kinds`, never hardcodes it):
+
+| code | ru (DSL value) | group | source |
+|---|---|---|---|
+| boulevard | бульвар | street* | Russian type word of the name |
+| stop | остановка (синонимы: остановки, автобус) | place* | `highway=bus_stop`, tram stops, bus platforms; `note` lists the routes from route relations |
+| embassy | посольство (синоним: консульство) | place* | `office=diplomatic`, `amenity=embassy` |
+| hotel | гостиница (синонимы: отель, хостел) | place* | `tourism=hotel/hostel/guest_house` |
+| hospital | больница (синонимы: клиника, поликлиника, госпиталь) | place* | `amenity=hospital`, public clinics |
+| government | учреждение (синонимы: министерство, ведомство, суд) | place* | `office=government`, courthouses |
+| kindergarten | детсад (синоним: садик) | place* | `amenity=kindergarten` |
+| pier | причал (синоним: пристань) | place* | `amenity=ferry_terminal`, named piers |
+| house | здание (синонимы: особняк, наследие, окн) | place* | heritage register and notable buildings of the reference stage (`pipeline/ru/merge.py`), never from OSM tags |
+
+Stops are never merged with the street they are named after; same-name stop poles within 100 m are
+one feature.
 
 ## manifest.json
 

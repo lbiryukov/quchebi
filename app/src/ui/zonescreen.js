@@ -1,5 +1,6 @@
 // "Зона" screen: draw with a finger, tap corners, edit vertices, union districts, paste a code,
 // "+50 м запаса", preview counts, save; temporary disable and share for the saved zone.
+import { wholeLabel } from '../store/cities.js';
 import { log } from '../log/log.js';
 import { decodePolyline, circlePolygon } from '../zone/geo.js';
 import { startFreehand } from '../zone/draw.js';
@@ -13,6 +14,7 @@ import {
   previewMasks, summarize, saveZone, clearZone, setZoneEnabled, shareZone, zoneCode, decodeCode,
 } from './zonectl.js';
 import { fmtKm2, fmtDate, count } from './format.js';
+import { ruLabel } from '../search/names.js';
 
 const BUFFER_M = 50;
 
@@ -212,8 +214,8 @@ function renderIdle() {
     panel.append(
       h('h3', 'Зона не задана'),
       h('p.small', 'Нарисуйте зону соревнований один раз — она будет применяться ко всем поискам и сохранится на телефоне.'),
-      h('div.btn-row', btn('Весь город (задать позже)', async () => {
-        await db.setSetting('zoneSkipped', true).catch(() => {});
+      h('div.btn-row', btn(`${wholeLabel()} (задать позже)`, async () => {
+        await db.setCitySetting('zoneSkipped', true).catch(() => {});
         navigate('search');
       }, '.small')),
     );
@@ -263,22 +265,34 @@ function renderPoints() {
   );
 }
 
+/** Area kinds worth choosing from: a single district (Moscow: one район) is not a choice. */
+function areaKinds() {
+  const nd = state.pack?.core?.districts?.length || 0;
+  const np = state.pack?.core?.places?.length || 0;
+  const out = [];
+  if (nd > 1 || !np) out.push(['d', 'Районы']);
+  if (np) out.push(['p', 'Микрорайоны']);
+  return out;
+}
+
 function renderAreas() {
-  const seg = h('div.seg', { role: 'group' });
-  for (const [k, label] of [['d', 'Районы'], ['p', 'Микрорайоны']]) {
+  const kinds = areaKinds();
+  if (!kinds.some(([k]) => k === areaKind)) { areaKind = kinds[0][0]; applyMapMode(); }
+  const seg = h('div.seg', { role: 'group', hidden: kinds.length < 2 });
+  for (const [k, label] of kinds) {
     const b = h('button', { type: 'button', 'aria-pressed': String(areaKind === k) }, label);
     b.addEventListener('click', () => { areaKind = k; applyMapMode(); render(); });
     seg.append(b);
   }
   const n = areaSel.d.size + areaSel.p.size;
   const names = [
-    ...[...areaSel.d].map((i) => state.pack?.core?.districts?.[i]?.ru),
-    ...[...areaSel.p].map((i) => state.pack?.core?.places?.[i]?.ru || state.pack?.core?.places?.[i]?.ka),
+    ...[...areaSel.d].map((i) => ruLabel(state.pack?.core?.districts?.[i])),
+    ...[...areaSel.p].map((i) => ruLabel(state.pack?.core?.places?.[i])),
   ].filter(Boolean);
   panel.append(
     h('h3', 'Из районов'),
     seg,
-    h('p.small', n ? `Выбрано: ${names.join(', ')}` : 'Тапните по районам или микрорайонам на карте — они объединятся.'),
+    h('p.small', n ? `Выбрано: ${names.join(', ')}` : `Тапните по ${kinds.length > 1 ? 'районам или микрорайонам' : areaKind === 'p' ? 'микрорайонам и кварталам' : 'районам'} на карте — они объединятся.`),
     h('div.btn-row',
       btn('Готово', finishAreas, '.primary', { disabled: !n }),
       btn('Сбросить', () => { areaSel.d.clear(); areaSel.p.clear(); currentView()?.setDraft(null); applyMapMode(); render(); }, '', { disabled: !n }),

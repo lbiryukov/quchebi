@@ -11,6 +11,7 @@ import { applyTheme } from './theme.js';
 import { assetStatus, prefetchAssets } from './assets.js';
 import { summarize } from './zonectl.js';
 import { fmtDate, fmtBytes, fmtKm2, count } from './format.js';
+import { switchCity } from './picker.js';
 
 let root;
 let installEvent = null;
@@ -45,8 +46,8 @@ function check(st, title, detail, actions) {
     actions && actions.length ? h('div.act', actions) : null);
 }
 
-function abtn(label, fn, cls = '') {
-  const b = h(`button.btn.small${cls}`, { type: 'button' }, label);
+function abtn(label, fn, cls = '', attrs = {}) {
+  const b = h(`button.btn.small${cls}`, { type: 'button', ...attrs }, label);
   b.addEventListener('click', async () => {
     if (busy) return;
     try {
@@ -71,10 +72,16 @@ async function render() {
   const [shell, pack, tiles, storage] = await Promise.all([
     shellCheck(), packCheck(), tilesCheck(), storageCheck(),
   ]);
-  checks.append(shell, pack, tiles, zoneCheck(), storage, installCheck(), await airplaneCheck());
+  checks.append(cityCheck(), shell, pack, tiles, zoneCheck(), storage, installCheck(), await airplaneCheck());
   page.append(settingsBox(), h('div.btn-row',
     h('button.btn', { type: 'button', onclick: () => navigate('log') }, 'Журнал'),
     h('button.btn', { type: 'button', onclick: () => navigate('about') }, 'О приложении')));
+}
+
+function cityCheck() {
+  const title = state.city?.title || '—';
+  return check('ok', 'Район', `${title}. Пакет данных, подложка, зона и история запросов у каждого района свои.`,
+    [abtn('Сменить район', () => switchCity(), '', { 'data-testid': 'ready-city' })]);
 }
 
 async function shellCheck() {
@@ -146,7 +153,7 @@ async function tilesCheck() {
   const parts = [];
   if (viaPack || assets?.pmtiles) {
     const mb = assets?.pmtiles?.bytes ? ` (${fmtBytes(assets.pmtiles.bytes)})` : '';
-    parts.push(tilesCached ? `Подложка Тбилиси сохранена${mb}.` : `Подложка не скачана${mb} — без неё офлайн видны только улицы.`);
+    parts.push(tilesCached ? `Подложка района «${state.city?.title || ''}» сохранена${mb}.` : `Подложка не скачана${mb} — без неё офлайн видны только улицы.`);
   } else {
     parts.push('Подложки нет — карта покажет только наши улицы.');
   }

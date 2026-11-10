@@ -2,11 +2,13 @@
 import * as db from '../store/db.js';
 import { log } from '../log/log.js';
 import { h, clear, openSheet, copyText, toast, icon } from './dom.js';
-import { state, emit, zoneActive } from './state.js';
+import { state, emit, zoneActive, packLanguage } from './state.js';
+import { nameVariants, ruLabel } from '../search/names.js';
+import { houseRowMatches } from '../search/houses.js';
 import { houseQuery } from './dsledit.js';
 import {
   feat, kindRu, mainName, shortName, districtLabels, placeLabels, familyOf, eponymOf, eponymByIndex,
-  eponymSource, crossingsOf, houseRows, geometryOf, featureKey, taxLabel, isPlace, placeAddress, streetPlaces,
+  eponymSource, crossingsOf, houseRows, geometryOf, featureKey, taxLabel, isPlace, placeAddress, streetPlaces, featureNote,
 } from './feature.js';
 import { fmtLen, fmtYears, fmtDirMask, count } from './format.js';
 
@@ -56,6 +58,8 @@ function render(i) {
 
   const place = isPlace(i);
   body.append(namesBlock(i, f));
+  const note = factNoteBlock(i);
+  if (note) body.append(note);
   body.append(factsBlock(i, f, place));
   if (place) body.append(addressBlock(i));
   body.append(actionsBlock(i, f, place));
@@ -80,14 +84,14 @@ function nameBtn(label, value, cls = '') {
 
 function namesBlock(i, f) {
   const box = h('div.card-names');
-  if (f.ka) box.append(nameBtn('ka · нажмите, чтобы скопировать', f.ka, '.main'));
-  if (f.ru) box.append(nameBtn('ru', f.ru));
-  if (f.en) box.append(nameBtn('en', f.en));
+  for (const v of nameVariants(f, packLanguage())) {
+    box.append(nameBtn(v.main ? `${v.label} · нажмите, чтобы скопировать` : v.label, v.value, v.main ? '.main' : ''));
+  }
   for (const a of f.alt || []) box.append(nameBtn('другое написание', a));
   for (const o of f.old || []) {
     const years = o.from || o.to ? ` (${o.from || '?'}–${o.to || '?'})` : '';
     const ep = eponymByIndex(o.e);
-    const label = `прежнее${years}${ep ? ' · в честь: ' + (ep.ru || ep.ka) : ''}`;
+    const label = `прежнее${years}${ep ? ' · в честь: ' + ruLabel(ep) : ''}`;
     const val = [o.ka, o.ru, o.lat].filter(Boolean).join(' / ');
     if (val) box.append(nameBtn(label, val));
   }
@@ -108,7 +112,7 @@ function factsBlock(i, f, place) {
   if (!place) add('домов', f.hn ? String(f.hn) : 'нет');
   if (f.o) add('№', String(f.o));
   const fam = familyOf(i);
-  if (fam) add('семья', fam.ru || fam.ka);
+  if (fam) add('семья', ruLabel(fam));
   if (state.zone && state.masks) {
     const inZ = state.masks.featDefault?.has?.(i);
     const touch = state.masks.featTouch?.has?.(i);
@@ -130,7 +134,7 @@ function actionsBlock(i, f, place) {
     const famBtn = h('button.btn', { type: 'button' }, 'Вся семья');
     famBtn.addEventListener('click', () => {
       sheet?.close();
-      const name = (fam.ru || fam.ka || '').replace(/"/g, '');
+      const name = ruLabel(fam).replace(/"/g, '');
       emit('setQuery', `семья:"${name}"`);
       emit('navigate', 'search');
     });
@@ -140,12 +144,21 @@ function actionsBlock(i, f, place) {
   const crossBtn = h('button.btn', { type: 'button' }, 'Кто её пересекает');
   crossBtn.addEventListener('click', () => {
     sheet?.close();
-    const name = (f.ru || f.ka || '').replace(/"/g, '');
+    const name = ruLabel(f).replace(/"/g, '');
     emit('setQuery', `x:(имя:"${name}")`);
     emit('navigate', 'search');
   });
   row.append(crossBtn);
   return row;
+}
+
+/* ---------- note (core.f[].note): reference facts under the title, plain text ---------- */
+
+function factNoteBlock(i) {
+  const text = featureNote(i);
+  if (!text) return null;
+  // textContent only: the note is data, never markup
+  return h('p.card-note', { 'data-testid': 'feature-note' }, text);
 }
 
 /* ---------- address of a place, places of a street ---------- */
@@ -281,8 +294,8 @@ function eponymBlock(i) {
   const cats = (e.cat || []).map(taxLabel);
   return h('div.eponym',
     h('div.section-title', 'В честь кого'),
-    h('div.nm', e.ru || e.ka || e.en, years ? h('span.muted', ` · ${years}`) : null),
-    e.ka && e.ru ? h('div.ka.small', e.ka) : null,
+    h('div.nm', ruLabel(e), years ? h('span.muted', ` · ${years}`) : null),
+    e.ka && e.ru && e.ka !== e.ru ? h('div.ka.small', e.ka) : null,
     e.desc ? h('div', e.desc) : null,
     e.occ && e.occ.length ? h('div.small.muted', e.occ.join(', ')) : null,
     h('div.src', src ? h(`span.pill${src.cls ? '.' + src.cls : ''}`, src.text) : null,
@@ -304,7 +317,7 @@ function housesBlock(i, f) {
     box.append(h('div.section-title', 'Дома'), h('p.muted.small', f.hn ? 'Номера домов загружаются…' : 'Номеров домов нет в данных.'));
     return box;
   }
-  const hq = houseQuery(state.query || '');
+  const hq = houseQuery(state.query || '', packLanguage());
   const masks = zoneActive() ? state.masks : null;
   const rows = rowsRaw.map((r, k) => ({ r, k })).sort((a, b) => cmpHouse(a.r, b.r));
   const grid = h('div.house-grid', { 'data-testid': 'house-grid' });
@@ -319,8 +332,9 @@ function housesBlock(i, f) {
       probableInserted = true;
     }
     let cls = '';
-    if (n !== null && (r[1] === n || (r[6] && n >= r[1] && n <= r[6]))) {
-      if (!hq.lit || String(r[2]) === normLit(hq.lit)) { cls = '.hit'; hits++; }
+    if (hq?.q ? houseRowMatches(r, hq.q) : n !== null && (r[1] === n || (r[6] && n >= r[1] && n <= r[6])) && (!hq.lit || String(r[2]) === normLit(hq.lit))) {
+      cls = '.hit';
+      hits++;
     }
     let inZone = true;
     try {

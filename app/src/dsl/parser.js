@@ -1,6 +1,7 @@
 // DSL parser: recursive descent over tokens -> AST (docs/dsl.md "Grammar").
 //
-// parse(text, {strict}) -> {ast, warnings} | {error: {pos, len, message, suggestions}}
+// parse(text, {strict, lang}) -> {ast, warnings} | {error: {pos, len, message, suggestions}}
+// `lang` is the pack language ('ka' default, 'ru' for Moscow house numbers with корпус/строение).
 //
 // AST root: {type: 'query', expr: Node|null, zone: null|'off'|'touch'|'whole'|'default',
 //            sort: null|'name'|'len'|'houses'|'dist'|'rel', directives: [...], warnings: [...]}
@@ -14,6 +15,7 @@
 //   name                     items: [{mode: 'sub'|'prefix'|'suffix'|'exact'|'regex', value, raw, pos, len, re?}]
 //   type|district|in|who     items: [{value, raw, pos, len, star?}]
 //   bio                      items: [{mode: 'word'|'quoted'|'regex', value, raw, pos, len, re?}]
+//   info                     items: [{mode: 'word'|'quoted'|'regex'|'has'|'none', value, raw, pos, len, re?}]
 //   century|houses|len|ord   nums:  [{op: '='|'>'|'<'|'>='|'<='|'range', a, b?, raw, pos, len}]
 //   gender|own               items: [{value: canonical, raw, pos, len}]
 //   house                    items: [{q: HouseQuery, raw, pos, len}]
@@ -74,6 +76,7 @@ class Parser {
     this.toks = tokenize(text);
     this.p = 0;
     this.strict = !!opts.strict;
+    this.lang = opts.lang === 'ru' ? 'ru' : 'ka';
     this.warnings = [];
     this.directives = [];
   }
@@ -307,6 +310,7 @@ class Parser {
     const items = this.parseList(key);
     if (key.id === 'name') return { ...base, items: items.map((it) => this.nameItem(it)) };
     if (key.id === 'bio') return { ...base, items: items.map((it) => this.bioItem(it)) };
+    if (key.id === 'info') return { ...base, items: items.map((it) => this.infoItem(it)) };
     if (key.id === 'house') return { ...base, items: items.map((it, i) => this.houseItem(it, i === 0 && exactHouse)) };
     if (key.value === 'fixed') {
       const vals = items.map((it) => this.fixedItem(key, it));
@@ -386,10 +390,20 @@ class Parser {
     return { mode: t.type === T.QUOTED ? 'quoted' : 'word', value: t.value, raw: t.value, pos: t.pos, len: t.len };
   }
 
+  /** инфо: text like a bare word; the words есть / нет mean "has a note" / "has no note". */
+  infoItem(t) {
+    if (t.type === T.WORD) {
+      const v = fold(t.value.trim());
+      if (v === 'есть' || v === 'да' || v === 'yes') return { mode: 'has', value: v, raw: t.value, pos: t.pos, len: t.len };
+      if (v === 'нет' || v === 'no') return { mode: 'none', value: v, raw: t.value, pos: t.pos, len: t.len };
+    }
+    return this.bioItem(t);
+  }
+
   houseItem(t, exact) {
     if (t.type === T.REGEX) throw new ParseError(t.pos, t.len, 'у «дом:» не бывает шаблонов /…/');
     const raw = (exact ? '=' : '') + t.value;
-    const r = parseHouseValue(raw);
+    const r = parseHouseValue(raw, this.lang);
     const pos = exact ? t.pos - 1 : t.pos;
     const len = exact ? t.len + 1 : t.len;
     if (r.error) throw new ParseError(pos, len, r.error, []);

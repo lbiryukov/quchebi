@@ -1,7 +1,7 @@
 // Geometry helpers shared by the index, the zone masks and the DSL evaluator.
 // Coordinates are [lat, lon] in degrees everywhere in the public API.
 // Internally lengths are computed in a local equirectangular projection (metres), which is
-// accurate to <0.1% inside a city the size of Tbilisi.
+// accurate to <0.1% inside a city the size of Tbilisi (the origin is always the data's own area).
 
 export const R_EARTH = 6371008.8; // mean Earth radius, metres
 const DEG = Math.PI / 180;
@@ -582,14 +582,19 @@ export function densify(line, stepM = 25) {
  *        g.forEachWithin(lat, lon, r, (id, distM, k) => {...});
  */
 export class PointGrid {
-  constructor(cellM = 100, lat0 = 41.72, lon0 = 44.79) {
+  /**
+   * lat0/lon0: projection origin (the centre of the data). Without them the first added point
+   * becomes the origin, so the grid is accurate in any city.
+   */
+  constructor(cellM = 100, lat0 = null, lon0 = null) {
     this.cellM = cellM;
-    this.proj = makeProjection(lat0, lon0);
+    this.proj = Number.isFinite(lat0) && Number.isFinite(lon0) ? makeProjection(lat0, lon0) : null;
     this._x = []; this._y = []; this._id = [];
     this.built = false;
   }
 
   add(lat, lon, id) {
+    if (!this.proj) this.proj = makeProjection(lat, lon);
     this._x.push((lon - this.proj.lon0) * this.proj.kx); this._y.push((lat - this.proj.lat0) * this.proj.ky); this._id.push(id);
     this.built = false;
   }
@@ -599,8 +604,9 @@ export class PointGrid {
    * Line: [[lat, lon], ...].
    */
   addLine(line, id, stepM = 25) {
-    const { kx, ky, lat0, lon0 } = this.proj;
     if (!line.length) return;
+    if (!this.proj) this.proj = makeProjection(line[0][0], line[0][1]);
+    const { kx, ky, lat0, lon0 } = this.proj;
     let px = (line[0][1] - lon0) * kx, py = (line[0][0] - lat0) * ky;
     this._x.push(px); this._y.push(py); this._id.push(id);
     for (let i = 1; i < line.length; i++) {
@@ -648,6 +654,7 @@ export class PointGrid {
   /** Calls cb(id, distM, pointIndex) for every point within r metres of (lat, lon). */
   forEachWithin(lat, lon, r, cb) {
     if (!this.built) this.build();
+    if (!this.proj) return; // no points
     const [x, y] = this.proj([lat, lon]);
     this.forEachWithinXY(x, y, r, cb);
   }

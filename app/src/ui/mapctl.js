@@ -6,6 +6,8 @@ import { state, on } from './state.js';
 import { effectiveTheme } from './theme.js';
 import { houseRows } from './feature.js';
 import { houseQuery } from './dsledit.js';
+import { tilesInfo } from '../store/cities.js';
+import { houseRowMatches } from '../search/houses.js';
 
 const container = h('div.map-el', { id: 'map' });
 let viewPromise = null;
@@ -44,6 +46,8 @@ export function getMapView() {
     mod = await import('../map/map.js');
     view = await mod.createMapView(container, {
       theme: effectiveTheme(),
+      tiles: tilesInfo(state.pack?.manifest),
+      extent: dataExtent(),
       onFeatureTap: (i, lngLat) => hooks.onFeatureTap?.(i, lngLat),
       onAreaTap: (kind, idx) => hooks.onAreaTap?.(kind, idx),
       onMoveEnd: (c) => { state.mapCenter = c; },
@@ -76,6 +80,18 @@ export async function mountMap(host) {
   }
 }
 
+/** [minLat, minLon, maxLat, maxLon] of the representative points of the loaded pack, or null. */
+function dataExtent() {
+  const fs = state.pack?.core?.f || [];
+  let a = Infinity, b = Infinity, c = -Infinity, d = -Infinity;
+  for (const f of fs) {
+    if (!f.c) continue;
+    a = Math.min(a, f.c[0] / 1e5); b = Math.min(b, f.c[1] / 1e5);
+    c = Math.max(c, f.c[0] / 1e5); d = Math.max(d, f.c[1] / 1e5);
+  }
+  return Number.isFinite(a) ? [a, b, c, d] : null;
+}
+
 function syncData() {
   if (!view || !state.index) return;
   try {
@@ -101,9 +117,9 @@ function syncSelected() {
     view.setSelected(-1, null);
     return;
   }
-  const hq = houseQuery(state.query || '');
+  const hq = houseQuery(state.query || '', state.pack?.lang);
   const rows = houseRows(i);
-  const hit = hq && Number.isFinite(hq.n) ? (r) => r[1] === hq.n || (r[6] && hq.n >= r[1] && hq.n <= r[6]) : null;
+  const hit = hq && hq.q ? (r) => houseRowMatches(r, hq.q) : hq && Number.isFinite(hq.n) ? (r) => r[1] === hq.n || (r[6] && hq.n >= r[1] && hq.n <= r[6]) : null;
   view.setSelected(i, mod.housesGeoJSON(rows, hit));
 }
 

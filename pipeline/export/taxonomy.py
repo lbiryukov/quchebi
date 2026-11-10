@@ -16,7 +16,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from pipeline.config import ROOT
+from pipeline.config import CITY, ROOT
 from pipeline.log import get_logger
 
 log = get_logger(__name__)
@@ -153,6 +153,23 @@ def eponym_kinds(raw: Any = None) -> dict[str, list[str]]:
     return kinds
 
 
+RU_OVERRIDES = ROOT / "pipeline" / "enrich" / "taxonomy_ru.json"
+
+
+def apply_city_overrides(cats: list[dict[str, Any]], path: Path = RU_OVERRIDES) -> list[dict[str, Any]]:
+    """Categories for a Russian-language city: labels without the Georgian context, extra categories."""
+    if not path.exists():
+        return cats
+    ov = json.loads(path.read_text(encoding="utf-8"))
+    out = json.loads(json.dumps(cats))
+    for g in out:
+        for c in g.get("children", []):
+            if c["id"] in ov.get("overrides", {}):
+                c.update(ov["overrides"][c["id"]])
+        g.setdefault("children", []).extend(ov.get("add", {}).get(g["id"], []))
+    return out
+
+
 def load_taxonomy(paths: tuple[Path, ...] = TAXONOMY_PATHS) -> tuple[list[dict[str, Any]], str, dict[str, list[str]]]:
     """Return ``(taxonomy_for_pack, source_label, eponym_kind_aliases)``."""
     for p in paths:
@@ -160,6 +177,8 @@ def load_taxonomy(paths: tuple[Path, ...] = TAXONOMY_PATHS) -> tuple[list[dict[s
             try:
                 data = json.loads(p.read_text(encoding="utf-8"))
                 cats = data["categories"] if isinstance(data, dict) else data
+                if CITY.lang == "ru" and p == TAXONOMY_PATHS[0]:
+                    cats = apply_city_overrides(cats)
                 tax = build_taxonomy(cats)
                 kinds = eponym_kinds(data.get("kinds") if isinstance(data, dict) else None)
                 log.info("taxonomy: %d groups, %d categories, %d eponym kinds from %s", len(tax),

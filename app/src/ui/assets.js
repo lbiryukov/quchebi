@@ -1,6 +1,10 @@
 // Basemap assets (glyph PBFs and sprites) listed in tiles/tiles-manifest.json: prefetch them into
 // Cache Storage so labels render offline. The PMTiles archive itself is handled by store/pack.js.
+// Fonts and sprites are shared by all cities; the archive is the current city's
+// (manifest.tiles.basemap of the loaded pack), never another city's listed in tiles-manifest.json.
 import { log } from '../log/log.js';
+import { state } from './state.js';
+import { tilesInfo } from '../store/cities.js';
 
 export const ASSET_CACHE = 'basemap-assets-v1';
 
@@ -39,11 +43,15 @@ export async function tilesManifest() {
 }
 
 function assetEntries(man, { withTiles = false } = {}) {
+  const key = basemapKey(man);
   return Object.entries(man?.files || {})
-    .filter(([p]) => p.startsWith('fonts/') || p.startsWith('sprites/') || (withTiles && p.endsWith('.pmtiles')));
+    .filter(([p]) => p.startsWith('fonts/') || p.startsWith('sprites/') || (withTiles && p.endsWith('.pmtiles') && p === key));
 }
 
+/** Archive of the current city, relative to tiles/ ('khamovniki.pmtiles'). */
 function basemapKey(man) {
+  const own = tilesInfo(state.pack?.manifest).path;
+  if (own) return own.replace(/^tiles\//, '');
   return man?.basemap || Object.keys(man?.files || {}).find((p) => p.endsWith('.pmtiles')) || null;
 }
 
@@ -84,7 +92,8 @@ export async function assetStatus() {
   if (key) {
     let hit = false;
     try { hit = Boolean(await caches.match(abs(key))); } catch { /* ignore */ }
-    pmtiles = { key, bytes: man.files[key]?.bytes || 0, cached: hit };
+    const own = state.pack?.manifest?.tiles?.files?.[`tiles/${key}`];
+    pmtiles = { key, bytes: man.files?.[key]?.bytes || own?.bytes || 0, cached: hit };
   }
   return { total: list.length, cached, bytes, cachedBytes, built: man.built, pmtiles };
 }

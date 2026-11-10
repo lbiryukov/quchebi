@@ -17,7 +17,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from pipeline.config import APP_TILES, RAW, ROOT, TBILISI_BBOX
+from pipeline.config import APP_TILES, CITY, CITY_ID, IS_DEFAULT_CITY, RAW, ROOT, TILES_MANIFEST_NAME
 from pipeline.log import get_logger, stage
 from pipeline.tiles import assets, manifest, net, source
 from pipeline.tiles.extract import DEFAULT_MAX_GAP, extract, open_archive
@@ -26,9 +26,13 @@ from pipeline.tiles.geo import BBox, count_by_zoom
 log = get_logger(__name__)
 
 CENTER_BBOX = (44.70, 41.65, 44.92, 41.79)
-DEFAULT_NAME = "tbilisi.pmtiles"
+DEFAULT_NAME = f"{CITY_ID}.pmtiles"
 CENTER_NAME = "tbilisi-center.pmtiles"
-CENTER_ZOOM = 12
+CENTER_ZOOM = 12 if IS_DEFAULT_CITY else 14
+# Basemap bbox: the whole city for Tbilisi; a district gets ~1 km of context around its bbox.
+TILES_MARGIN = (0.0, 0.0) if IS_DEFAULT_CITY else (0.016, 0.009)
+DEFAULT_BBOX = (CITY.bbox[0] - TILES_MARGIN[0], CITY.bbox[1] - TILES_MARGIN[1],
+                CITY.bbox[2] + TILES_MARGIN[0], CITY.bbox[3] + TILES_MARGIN[1])
 CACHE_ROOT = RAW / "protomaps"
 CHECK_JS = Path(__file__).with_name("check_js.mjs")
 BUILD_FALLBACKS = 3  # try this many older builds when the newest one is not reachable
@@ -103,12 +107,14 @@ def _open_source(args: argparse.Namespace) -> tuple[object, str, str]:
     raise RuntimeError(f"no usable Protomaps build among {candidates}") from last_exc
 
 
-def run_js_check(path: Path) -> dict | None:
+def run_js_check(path: Path, at: str | None = None) -> dict | None:
+    """Read the archive with the JS pmtiles library; ``at`` = "lon,lat,zoom" of the tile to decode
+    (default: the script's Tbilisi tile)."""
     node = shutil.which("node")
     if not node:
         log.warning("node not found: JS check skipped")
         return None
-    proc = subprocess.run([node, str(CHECK_JS), str(path)], cwd=ROOT, capture_output=True,
+    proc = subprocess.run([node, str(CHECK_JS), str(path)] + ([at] if at else []), cwd=ROOT, capture_output=True,
                           text=True, encoding="utf-8", timeout=120)
     line = (proc.stdout.strip().splitlines() or [""])[-1]
     try:
@@ -138,7 +144,7 @@ def _run(args: argparse.Namespace) -> int:
     if args.center_only:
         bbox, name = BBox(*CENTER_BBOX), CENTER_NAME
     else:
-        bbox, name = (args.bbox or BBox(*TBILISI_BBOX)), DEFAULT_NAME
+        bbox, name = (args.bbox or BBox(*DEFAULT_BBOX)), DEFAULT_NAME
     tiles_dir: Path = args.tiles_dir
     out: Path = args.out or tiles_dir / name
     log.info("tiles: bbox %s z%d-%d -> %s", bbox.as_list(), args.minzoom, args.maxzoom, out)
@@ -164,6 +170,11 @@ def _run(args: argparse.Namespace) -> int:
                      if res.missing_by_zoom.get(z) else "")
 
     assets_res = None
+    if not IS_DEFAULT_CITY and not args.skip_assets and (tiles_dir / "fonts").is_dir():
+        # fonts and sprites are shared by every city and are listed with their sha256 in the
+        # Tbilisi manifest: never re-download them from a district build
+        log.info("tiles: %s reuses the shared fonts and sprites in %s", CITY_ID, tiles_dir)
+        args.skip_assets = True
     if not args.skip_assets:
         with stage(log, "tiles_assets") as st:
             assets_res = assets.fetch_assets(tiles_dir, args.cache_dir / "basemaps-assets",
@@ -171,7 +182,9 @@ def _run(args: argparse.Namespace) -> int:
             st.update(fonts=sum(len(v) for v in assets_res.fonts.values()),
                       sprites=len(assets_res.sprites), missing=assets_res.missing_fonts)
 
-    js = None if args.no_js_check else run_js_check(out)
+    cx, cy = bbox.center
+    js = None if args.no_js_check else run_js_check(out, None if IS_DEFAULT_CITY and not args.bbox
+                                                    else f"{cx:.5f},{cy:.5f},14")
 
     rc = 0 if (js is None or js.get("ok")) else 1
     if args.no_manifest:
@@ -201,8 +214,8 @@ def _run(args: argparse.Namespace) -> int:
         )
     m = manifest.build_manifest(tiles_dir, basemap=basemap, source_build=build,
                                 bbox=bbox.as_list(), maxzoom=res.maxzoom, extra=extra_m)
-    manifest.write_manifest(tiles_dir, m)
-    problems = manifest.verify_manifest(tiles_dir)
+    manifest.write_manifest(tiles_dir, m, TILES_MANIFEST_NAME)
+    problems = manifest.verify_manifest(tiles_dir, m)
     if problems:
         log.error("manifest problems: %s", problems)
         return 1

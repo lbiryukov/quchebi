@@ -2,7 +2,8 @@
 // the UI keeps the current pack, index, zone and query here.
 
 export const state = {
-  pack: null,          // Pack from store/pack.js
+  city: null,          // city record of this page load (store/cities.js)
+  pack: null,          // Pack from store/pack.js (pack.lang: 'ka' | 'ru')
   index: null,         // Index from search/index.js
   packReady: false,    // geom/houses/areas attached (pack.ready resolved)
   zone: null,          // stored zone record {polygon, createdAt, mode, name, base, buffer}
@@ -48,6 +49,11 @@ export function evalCtx() {
     me: state.me,
     mapCenter: state.mapCenter,
   };
+}
+
+/** Language of the loaded pack: 'ka' (Tbilisi) or 'ru' (Moscow). */
+export function packLanguage() {
+  return state.pack?.lang || state.pack?.manifest?.city?.lang || state.city?.lang || 'ka';
 }
 
 export function zoneActive() {

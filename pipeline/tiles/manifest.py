@@ -67,8 +67,9 @@ def build_manifest(tiles_dir: Path, *, basemap: str, source_build: str, bbox: li
     return manifest
 
 
-def write_manifest(tiles_dir: Path, manifest: dict) -> Path:
-    path = tiles_dir / MANIFEST_NAME
+def write_manifest(tiles_dir: Path, manifest: dict, name: str = MANIFEST_NAME) -> Path:
+    """Write the manifest (``name`` = ``<city>.tiles-manifest.json`` for cities other than Tbilisi)."""
+    path = tiles_dir / name
     tmp = path.with_name(path.name + ".tmp")
     tmp.write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     os.replace(tmp, path)

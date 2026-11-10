@@ -26,6 +26,7 @@ import shapely
 from shapely.geometry import LineString, MultiLineString, MultiPolygon, Point, Polygon
 from shapely.geometry.base import BaseGeometry
 
+from pipeline.config import CITY
 from pipeline.db import tx
 from pipeline.log import get_logger, stage
 from pipeline.names import KIND_GROUP, ParsedName, ka_to_ru, normalize_ka, normalize_ru_name, parse_name
@@ -164,6 +165,8 @@ def name_variants(tags: dict[str, str]) -> list[tuple[str, str, str, str]]:
 
 def generated_ru(ka: str) -> str:
     """Russian name generated from Georgian when OSM has none (``ru_generated = 1``)."""
+    if CITY.lang == "ru":
+        return ka  # the primary name is already Russian
     t = ka_to_ru(normalize_ka(ka))
     t = " ".join(w[:1].upper() + w[1:] if w[:1].isalpha() else w for w in t.split(" "))
     return normalize_ru_name(t)
@@ -234,6 +237,8 @@ def _line_feature(ways: list[OsmWay], kind_fn, source: str) -> Feat:
 
 def _highway_kind(p: ParsedName, _wl) -> str:
     k = p.kind or "other"
+    if k == "other" and CITY.lang == "ru" and "no_type" in p.flags:
+        return "street"  # "Остоженка", "Крымский Вал": a street without a type word
     if k in AREA_KINDS:
         return "other"  # a road named after a settlement is not an area feature
     return k
@@ -409,7 +414,7 @@ def assign_families(feats: list[Feat]) -> dict[str, dict]:
             continue
         uniq.setdefault(f.parsed.raw, f.parsed)
         weights[f.parsed.family_key] += 1
-    canon = group_families(list(uniq.values()), weights=dict(weights)) if uniq else {}
+    canon = group_families(list(uniq.values()), weights=dict(weights)) if uniq and CITY.lang == "ka" else {}
     fams: dict[str, list[Feat]] = defaultdict(list)
     for f in feats:
         if f.kind in AREA_KINDS or not f.parsed.family_key:

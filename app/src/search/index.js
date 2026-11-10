@@ -719,7 +719,10 @@ export class SearchIndex {
   pointGrid(stepM = 25) {
     if (this._grid && this._grid.stepM === stepM && this._grid.withGeom === this.hasGeom) return this._grid.grid;
     const t0 = now();
-    const grid = new PointGrid(100);
+    // projection origin: the centre of the data (any city), not a fixed point
+    let sLat = 0, sLon = 0, nc = 0;
+    for (let i = 0; i < this.n; i++) if (this.cLat[i] || this.cLon[i]) { sLat += this.cLat[i]; sLon += this.cLon[i]; nc++; }
+    const grid = nc ? new PointGrid(100, sLat / nc, sLon / nc) : new PointGrid(100);
     for (let i = 0; i < this.n; i++) {
       const g = this.hasGeom ? this.geometry(i) : [];
       if (g.length) for (const part of g) grid.addLine(part, i, stepM);

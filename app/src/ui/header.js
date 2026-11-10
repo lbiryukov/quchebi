@@ -1,11 +1,18 @@
-// Header: zone plate (area, count, date) and offline/pack status.
+// Header: city chip (current district, tap -> city picker), zone plate (area, count, date) and
+// offline/pack status.
 import { state, on } from './state.js';
 import { navigate } from './router.js';
 import { summarize } from './zonectl.js';
 import { fmtKm2, fmtDate, fmtDateShort } from './format.js';
 import { h } from './dom.js';
+import { switchCity } from './picker.js';
 
 export function initHeader() {
+  const chip = document.getElementById('city-chip');
+  if (chip) {
+    chip.addEventListener('click', () => { switchCity(); });
+    renderCity();
+  }
   const plate = document.getElementById('zone-plate');
   plate.addEventListener('click', () => navigate('zone'));
   const upd = () => renderPlate();
@@ -18,6 +25,15 @@ export function initHeader() {
   on('settings', renderStatus);
   renderPlate();
   renderStatus();
+}
+
+export function renderCity() {
+  const chip = document.getElementById('city-chip');
+  if (!chip) return;
+  const title = state.city?.title || '';
+  chip.textContent = title;
+  chip.setAttribute('aria-label', title ? `Район: ${title}. Сменить район` : 'Выбрать район');
+  chip.title = 'Сменить район';
 }
 
 export function renderPlate() {

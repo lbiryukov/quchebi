@@ -145,12 +145,31 @@ a { color: var(--link); }
   min-height: calc(var(--sat) + 52px);
 }
 
+.city-chip {
+  flex: none;
+  min-height: var(--tap);
+  max-width: 32vw;
+  padding: 3px 10px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--soft);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: left;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+.city-chip:empty { display: none; }
+
 .zone-plate {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   min-height: var(--tap);
-  max-width: 70%;
+  max-width: 52%;
+  min-width: 0;
   padding: 4px 12px;
   border-radius: 10px;
   border: 2px solid var(--enamel);
@@ -290,6 +309,40 @@ textarea.field { resize: vertical; min-height: 96px; }
   background: var(--bg); padding: 24px;
 }
 .boot .plate-big { justify-self: center; }
+.boot-city { font-weight: 700; font-size: 1.05rem; }
+.boot-city:empty { display: none; }
+:root[data-need-city] .boot > :not(.plate-big) { visibility: hidden; }
+
+/* ---------- city picker ---------- */
+
+.picker {
+  position: fixed; inset: 0; z-index: 50;
+  overflow: auto; -webkit-overflow-scrolling: touch;
+  background: var(--bg);
+  padding: calc(var(--sat) + 20px) calc(var(--sar) + 16px) calc(var(--sab) + 24px) calc(var(--sal) + 16px);
+}
+.picker-page { max-width: 520px; margin: 0 auto; display: grid; gap: 14px; }
+.picker-page .plate-big { justify-self: center; }
+.picker-h { font-size: 1.4rem; margin: 6px 0 0; text-align: center; }
+.picker-list { display: grid; gap: 10px; }
+.picker-item {
+  display: grid; gap: 3px;
+  width: 100%; min-height: 64px;
+  padding: 12px 14px;
+  text-align: left;
+  border-radius: var(--radius);
+  border: 2px solid var(--line);
+  background: var(--surface);
+}
+.picker-item[aria-current="true"] { border-color: var(--enamel); }
+.picker-title { font-size: 1.15rem; font-weight: 700; }
+.picker-cur { font-weight: 400; color: var(--muted); font-size: 0.9rem; }
+.picker-sub { font-size: 0.86rem; color: var(--muted); }
+.picker-status { font-size: 0.82rem; color: var(--warn); }
+.picker-status.ok { color: var(--ok); }
+
+/* note of a feature (core.f[].note): reference facts, plain text */
+.card-note { white-space: pre-line; overflow-wrap: anywhere; font-size: 0.92rem; line-height: 1.4; margin: 0; padding: 8px 10px; border-left: 3px solid var(--enamel); background: var(--soft); border-radius: 6px; }
 .progress { width: min(320px, 80vw); height: 8px; border-radius: 4px; background: var(--soft); overflow: hidden; }
 .progress > i { display: block; height: 100%; width: 0; background: var(--enamel); transition: width 0.2s; }
 

@@ -6,8 +6,10 @@
 // Context is found from the tokens before the cursor, so unfinished input (open parentheses,
 // open quotes) works; inside x:( … ), рядом:( … ), семья:( … ) the same rules apply recursively,
 // inside было:( … ) only eponym keys are offered.
+import { wholeLabel } from '../store/cities.js';
 import { tokenize, TOKEN as T, fold } from './lexer.js';
-import { KEYS, findKey, EPONYM_KEYS, FIXED, COMPASS_SHOW, COMPASS_RU } from './keys.js';
+import { KEYS, findKey, EPONYM_KEYS, FIXED, COMPASS_SHOW, COMPASS_RU, isLocalOrigin, ownWords } from './keys.js';
+import { areaRu, ruLabel } from '../search/names.js';
 import { dslData } from './data.js';
 import { resolveWho } from './eval.js';
 import { log } from '../log/log.js';
@@ -152,13 +154,17 @@ function tildeOwner(toks, k) {
 
 // ---------------------------------------------------------------------------------- values
 
-function keySuggestions(c) {
+function keySuggestions(c, index) {
   const p = fold(c.prefix);
   const out = [];
   const seen = new Set();
+  let nNotes = 1;
+  try { nNotes = dslData(index).nNotes; } catch { /* no index yet */ }
   for (const k of KEYS) {
     if (c.inOld && !EPONYM_KEYS.has(k.id)) continue;
     if (c.sub && (k.id === 'zone' || k.id === 'sort')) continue;
+    // инфо: only for packs that have notes (core.f[].note), unless typed explicitly
+    if (k.id === 'info' && !nNotes && p.length < 2) continue;
     const name = k.names.find((nm) => fold(nm).startsWith(p));
     if (name === undefined) continue;
     if (seen.has(k.id)) continue;
@@ -200,6 +206,7 @@ function valueSuggestions(c, index, ctx) {
   switch (key.id) {
     case 'type': {
       const items = [];
+      // kinds of the loaded pack (core.kinds): a Tbilisi pack never offers Moscow-only kinds
       d.kinds.forEach((k, ki) => {
         const cnt = countIn(d.kindBits[ki], zm);
         for (const nm of [k.ru, ...(k.syn || [])]) if (nm) items.push({ value: nm, count: cnt });
@@ -214,10 +221,10 @@ function valueSuggestions(c, index, ctx) {
       return valueList(c, items);
     }
     case 'district':
-      return valueList(c, d.districts.map((a, i) => ({ value: fold(a.ru || a.en || a.ka), label: a.ru || a.ka, count: countIn(d.districtBits[i], zm) })));
+      return valueList(c, d.districts.map((a, i) => ({ value: fold(areaRu(a, d.lang)), label: ruLabel(a), count: countIn(d.districtBits[i], zm) })));
     case 'in': {
-      const items = d.places.map((a, i) => ({ value: fold(a.ru || a.en || a.ka), label: a.ru || a.ka, count: countIn(d.placeBits[i], zm) }));
-      d.districts.forEach((a, i) => items.push({ value: fold(a.ru || a.en || a.ka), label: `${a.ru || a.ka} (район)`, count: countIn(d.districtBits[i], zm) }));
+      const items = d.places.map((a, i) => ({ value: fold(areaRu(a, d.lang)), label: ruLabel(a), count: countIn(d.placeBits[i], zm) }));
+      d.districts.forEach((a, i) => items.push({ value: fold(areaRu(a, d.lang)), label: `${ruLabel(a)} (район)`, count: countIn(d.districtBits[i], zm) }));
       const seen = new Set();
       return valueList(c, items.filter((it) => (seen.has(it.value) ? false : seen.add(it.value))));
     }
@@ -251,6 +258,7 @@ function valueSuggestions(c, index, ctx) {
     case 'gender':
     case 'own': {
       const counter = eponymCountFn(d, zm);
+      const ow = ownWords(d.lang);
       return valueList(c, FIXED[key.id].show.map((v) => {
         const canon = FIXED[key.id].values[v];
         const pred = new Uint8Array(d.nE);
@@ -258,20 +266,30 @@ function valueSuggestions(c, index, ctx) {
           const e = d.E[j];
           if (key.id === 'gender') pred[j] = e.g === canon ? 1 : 0;
           else {
-            const o = e.o;
-            const known = o && o !== 'unknown' && o !== '?';
-            const ge = o === 'ge' || o === 'georgian';
-            pred[j] = known && (canon === 'yes' ? ge : !ge) ? 1 : 0;
+            const local = isLocalOrigin(e.o);
+            pred[j] = local !== null && (canon === 'yes' ? local : !local) ? 1 : 0;
           }
         }
-        return { value: v, count: counter(pred) };
+        const label = key.id === 'own' ? `${v} — ${canon === 'yes' ? ow.yes : ow.no}` : undefined;
+        return { value: v, label, count: counter(pred) };
       }));
+    }
+    case 'info': {
+      const cnt = (want) => {
+        const b = new Bitset(d.n);
+        for (let i = 0; i < d.n; i++) if (Boolean(d.F[i] && d.F[i].note) === want) b.set(i);
+        return countIn(b, zm);
+      };
+      return valueList(c, [
+        { value: 'есть', label: 'есть — с пометкой', count: cnt(true) },
+        { value: 'нет', label: 'нет — без пометки', count: cnt(false) },
+      ]);
     }
     case 'zone': {
       const z = ctx && ctx.zone;
       const cnt = (b) => (b ? b.count() : null);
       const items = [
-        { value: 'выкл', count: d.n, label: 'выкл — весь город' },
+        { value: 'выкл', count: d.n, label: `выкл — ${wholeLabel().toLowerCase()}` },
         { value: 'задевает', count: z ? cnt(z.featTouch) : null, label: 'задевает — любая часть внутри' },
         { value: 'целиком', count: z ? cnt(z.featWhole) : null, label: 'целиком — только целиком внутри' },
         { value: 'вкл', count: z ? cnt(z.featDefault) : null, label: 'вкл — обычное правило' },
@@ -284,7 +302,7 @@ function valueSuggestions(c, index, ctx) {
         { value: 'домов', detail: 'сначала с большим числом домов' }, { value: 'расстояние', detail: 'от меня или центра карты' },
       ]);
     case 'house':
-      return houseForms(c);
+      return houseForms(c, d.lang);
     case 'century': {
       const items = [];
       for (let cent = 1; cent <= 21; cent++) {
@@ -322,10 +340,11 @@ function valueSuggestions(c, index, ctx) {
   }
 }
 
-function houseForms(c) {
+function houseForms(c, lang = 'ka') {
   const p = c.prefix;
   const m = /^=?(\d+)/.exec(p);
   const mk = (value, detail) => ({ label: value, insert: value, detail, from: c.from, to: c.to });
+  if (lang === 'ru') return houseFormsRu(c, p, m, mk);
   if (!m) {
     const out = [
       mk('есть', 'есть номера домов'), mk('нет', 'нет номеров домов'),
@@ -349,6 +368,34 @@ function houseForms(c) {
   ].filter((s) => s.insert.startsWith(p) || p.startsWith('=') === s.insert.startsWith('='));
 }
 
+/** Moscow addresses: корпус (к) and строение (с) instead of Georgian letters. */
+function houseFormsRu(c, p, m, mk) {
+  if (!m) {
+    const out = [
+      mk('есть', 'есть номера домов'), mk('нет', 'нет номеров домов'),
+      mk('12', 'номер: 12, 12а, 12 к2, 12 с1, 12/5'),
+      mk('=12', 'строго 12'),
+      mk('12а', 'с литерой'),
+      mk('12к2', 'корпус 2'),
+      mk('12с1', 'строение 1'),
+      mk('5/7', 'дробь'),
+      mk('1-9', 'диапазон'),
+      mk('12?', 'плюс «вероятно есть»'),
+    ];
+    const pf = fold(p);
+    return out.filter((s) => !pf || fold(s.label).startsWith(pf));
+  }
+  const n = m[1];
+  return [
+    mk(n, `дом ${n}, ${n}а, ${n} к2, ${n} с1`),
+    mk(`=${n}`, `строго ${n}`),
+    mk(`${n}а`, `${n} с литерой а`),
+    mk(`${n}к1`, `${n}, корпус 1`),
+    mk(`${n}с1`, `${n}, строение 1`),
+    mk(`${n}?`, `${n} или где он вероятен`),
+  ].filter((s) => s.insert.startsWith(p) || p.startsWith('=') === s.insert.startsWith('='));
+}
+
 function tildeSuggestions(c) {
   const p = fold(c.prefix);
   if (c.key.id === 'cross') {
@@ -365,7 +412,7 @@ function tildeSuggestions(c) {
 export function complete(text, cursor, index, ctx = {}) {
   try {
     const c = contextAt(text, cursor);
-    if (c.mode === 'key') return keySuggestions(c);
+    if (c.mode === 'key') return keySuggestions(c, index);
     if (c.mode === 'value') {
       if (c.inOld && !EPONYM_KEYS.has(c.key.id)) return [];
       return valueSuggestions(c, index, ctx);

@@ -9,13 +9,15 @@ app/
   index.html               app shell (one page, 4 screens)
   vite.config.js           PWA plugin (injectManifest, registerType 'prompt'), base './'
   src/
-    main.js                boot: logging, storage.persist(), load pack, build index, route screens
+    main.js                boot: city choice (picker), logging, storage.persist(), load pack, build index, route screens
     sw.js                  service worker: precache shell (Workbox), runtime cache for data/tiles
     log/log.js             ring buffer logger (IndexedDB, 2000 entries), console mirror
-    store/db.js            idb-keyval wrappers: zone, settings, history, saved queries, notes
-    store/pack.js          manifest/pack download, sha256 check, atomic switch, offline load
+    store/cities.js        city registry, per-city storage names, chosen city, packLang(), tilesInfo()
+    store/db.js            idb-keyval wrappers: zone, settings, history, saved queries, notes (per city)
+    store/pack.js          manifest/pack download, sha256 check, atomic switch, offline load (per city)
     search/bitset.js       Bitset (Uint32Array): and/or/not/andNot/count/forEach/clone
     search/normalize.js    skeleton(), kaToLat(), kaToRu(), normRu(), stripType()
+    search/names.js        primaryName(), secondaryName(), ruLabel(), nameVariants(), areaRu() for ka/ru packs
     search/index.js        buildIndex(pack) -> Index (see below)
     search/houses.js       parseHouseQuery(), house matching, probable numbers
     dsl/lexer.js           tokenize(text) -> tokens with positions
@@ -31,8 +33,8 @@ app/
     map/map.js             MapLibre + PMTiles basemap (offline), result/house/zone layers
     ui/*.js, ui/styles.css screens: search, map, zone, readiness (+ log, about)
   public/
-    data/                  pack (docs/pack-format.md)
-    tiles/                 tbilisi.pmtiles, fonts/, sprites/
+    data/                  Tbilisi pack (docs/pack-format.md); data/khamovniki/ — Moscow pack
+    tiles/                 tbilisi.pmtiles, khamovniki.pmtiles, fonts/, sprites/ (shared)
     icons/, manifest.webmanifest
 ```
 
@@ -114,15 +116,54 @@ encodeZone(polygon) -> string ; decodeZone(string) -> polygon
 - Lazy chunks: MapLibre + PMTiles + Protomaps style (~300 KB gzip) and Terra Draw (~35 KB gzip)
   load when the map or zone editing opens; the start bundle is ~100 KB gzip.
 
+## Cities (added 10/11/2026)
+
+The app serves several districts ("районы"), each with its own pack. Registry `store/cities.js`:
+
+```js
+CITIES = [
+  { id: 'tbilisi', title: 'Тбилиси', sub: 'Грузия', dataDir: './data/', lang: 'ka' },
+  { id: 'khamovniki', title: 'Москва. Хамовники', sub: 'Россия', dataDir: './data/khamovniki/', lang: 'ru' },
+]
+```
+
+- Choice: `?city=<id>` in the URL (deep links, e2e; remembered, then removed from the address bar),
+  else the localStorage mirror `quchebi.city` (read synchronously before the first paint; the inline
+  script in index.html sets `data-city` / `data-need-city` on `<html>`), else the full-screen picker
+  `ui/picker.js` ("Выберите район": every city with its offline status — installed version and size
+  from the pack pointer, or the size of the network pack when online). The choice is stored in the
+  global IndexedDB setting `city` and the mirror. The first choice boots in place; a later switch
+  (city chip in the top bar, row "Район" on "Готовность", block "Район" on "О приложении") stores the
+  new choice and reloads the page, so every module-level cache belongs to one city.
+- Pack language: `manifest.city.lang`, else the registry `lang` (main.js sets `pack.lang`, `pack.city`);
+  `packLang(pack)` / `state.packLanguage()`. `'ru'` packs keep the primary Russian name in `ka`
+  (no `ru`): names always go through `search/names.js` (no empty or repeated second line; sorting by
+  the Russian name), house numbers are Moscow-style (docs/dsl.md "Houses"), `свой:` reads "местный".
+- Basemap: `tilesInfo(manifest)` -> `{path, file, bbox, center, minzoom, maxzoom}` from the current
+  pack's `manifest.tiles` (`basemap`, `bbox` [w, s, e, n], `center` [lon, lat, zoom]); map.js takes
+  the initial view and pan limits (bbox + 0.15°/0.1°) from it, or from the extent of the data when
+  absent. basemap.js loads `tiles/<city>.pmtiles`; fonts and sprites are shared. Distance grids
+  (`PointGrid`) are centred on the data, never on a fixed city.
+
 ## Storage
 
-| what | where | notes |
-|---|---|---|
-| app shell | Cache Storage (Workbox precache) | update only after user confirms (`registerType: 'prompt'`), never in "game mode" |
-| pack + tiles | Cache Storage `pack-v<version>` | download button with progress, sha256 per file, atomic pointer switch in IndexedDB |
-| zone | IndexedDB (`zone`) + localStorage mirror | `{polygon, createdAt, mode, name}` |
-| settings, history, saved queries, notes | IndexedDB | |
-| logs | IndexedDB ring buffer | screen "Журнал" copies them |
+Tbilisi keeps the storage names of the single-city app (an installed app keeps its pack, tiles and
+zone); every other city uses suffixed names (`store/cities.js`: `pointerKey`, `cachePrefix`,
+`cityKey`, `cityLsKey`).
+
+| what | Tbilisi | other city (`<id>`) | notes |
+|---|---|---|---|
+| app shell | Cache Storage (Workbox precache) | same | update only after user confirms (`registerType: 'prompt'`), never in "game mode" |
+| pack + tiles | Cache Storage `pack-v<version>`, pointer `pack:current` | `pack-<id>-v<version>`, `pack:current:<id>` | sha256 per file, atomic pointer switch; cleanup deletes only caches of the same city (`cacheOwner()`: `pack-<word>-v…` is never Tbilisi's); identical files (shared fonts/sprites, same URL + sha256) are reused from any city's cache |
+| zone | IndexedDB `zone` + localStorage `quchebi.zone` | `zone:<id>` + `quchebi.zone.<id>` | `{polygon, createdAt, mode, name}` |
+| zoneSkipped, zoneEnabled | settings keys `zoneSkipped`, `zoneEnabled` | `zoneSkipped:<id>`, `zoneEnabled:<id>` | `db.getCitySetting()` |
+| history, saved queries, notes | IndexedDB `history`, `saved`, `notes` | `history:<id>`, `saved:<id>`, `notes:<id>` | |
+| chosen city | settings `city` + localStorage `quchebi.city` | (global) | |
+| theme, game mode, airplane test | settings, localStorage `quchebi.theme` | (global) | |
+| logs | IndexedDB ring buffer | (global) | screen "Журнал" copies them |
+
+The service worker answers `data/**` (incl. `data/<id>/*.json`) and `tiles/**` (incl. Range requests for
+`tiles/<id>.pmtiles`) from any cache via `caches.match`; URLs differ per city.
 
 `navigator.storage.persist()` at start; readiness screen shows shell/pack/tiles/zone/persist
 status and suggests an airplane-mode test. iOS: install to Home Screen is required (7-day eviction).
@@ -133,5 +174,13 @@ status and suggests an airplane-mode test. iOS: install to Home Screen is requir
 - Chips append DSL tokens; the DSL string is the source of truth (two-way highlight).
 - Explanation line + count above results; results grouped by family.
 - Tap targets ≥ 44 px; never `text-transform: uppercase` on Georgian text.
+- The current district is always visible (city chip at the left of the top bar, one tap -> picker);
+  the brand plate "ქუჩები / Quchebi" stays the same in every city.
+- Choosers with a single option are hidden (Moscow: one district -> no "Районы" segment on the zone
+  screen, no districts in the "Район" picker); type chips and quick buttons appear only for kinds the
+  loaded pack has objects of.
+- `core.f[].note` is shown as plain text under the names in the object card.
+- Navigation after closing a sheet waits for the sheet's history step (`dom.whenHistorySettled`),
+  otherwise "На карте" in the card was undone by the pending `history.back()`.
 - Light high-contrast theme for sunlight; dark theme follows the system.
 - Map: rotation and pitch disabled; `overscroll-behavior: none` on the drawing overlay.

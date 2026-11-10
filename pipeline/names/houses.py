@@ -22,6 +22,7 @@ from __future__ import annotations
 import re
 from dataclasses import asdict, dataclass
 
+from pipeline.config import CITY
 from pipeline.log import get_logger
 
 log = get_logger(__name__)
@@ -146,10 +147,81 @@ def _parse_one(s: str) -> list[HousePart] | None:
     return None
 
 
+# ------------------------------------------------------------------ Russian (Moscow) addresses
+# "12", "12А", "12 с1", "12 к2 с1", "5/7 с2", "23-25", "вл53", "37-43 кА", "19 с1А", "11 c1" (Latin c)
+_RU_LAT = {"a": "а", "b": "б", "c": "с", "d": "д", "e": "е", "k": "к", "m": "м", "o": "о", "ё": "е"}
+_RU_L = r"[А-Яа-яЁёA-Za-z]"
+_RU_MARK = r"(?:корпус|корп\.?|кор\.?|к\.?|строение|стр\.?|с\.?|c\.?)"
+_RE_RU = re.compile(
+    rf"^(?P<vl>(?:владение|влд\.?|вл\.?) ?)?(?P<n>\d+)"
+    rf"(?P<lit>{_RU_L}(?![А-Яа-яЁёA-Za-z\d]))?"
+    rf"(?P<rng>(?:-\d+{_RU_L}?(?![А-Яа-яЁёA-Za-z\d]))+)?"
+    rf"(?:/(?P<sub>\d+{_RU_L}?(?:/\d+{_RU_L}?)*(?![А-Яа-яЁёA-Za-z\d])))?"
+    rf"(?P<rest>(?: ?{_RU_MARK} ?(?:\d+{_RU_L}?|{_RU_L})(?:[/-](?:\d+{_RU_L}?|{_RU_L}))*(?![А-Яа-яЁёA-Za-z\d]))*)$",
+    re.IGNORECASE,
+)
+_RE_RU_TOKEN = re.compile(rf" ?(?P<m>{_RU_MARK}) ?(?P<v>(?:\d+{_RU_L}?|{_RU_L})(?:[/-](?:\d+{_RU_L}?|{_RU_L}))*)",
+                          re.IGNORECASE)
+
+
+def ru_letter(ch: str) -> str:
+    """House-number letter in lower-case Cyrillic (Latin look-alikes and sound-alikes folded)."""
+    c = (ch or "").strip().lower()
+    return _RU_LAT.get(c, c)
+
+
+def _ru_fold(s: str) -> str:
+    return "".join(ru_letter(c) if c.isalpha() else c for c in s.replace(" ", ""))
+
+
+def parse_house_ru(raw: str) -> list[HousePart]:
+    """Parse a Russian ``addr:housenumber``: ``corp`` holds the lower-case building tokens
+    ``к<N>`` (корпус), ``с<N>`` (строение) and ``вл`` (владение), separated by spaces."""
+    if not raw:
+        return []
+    s = _clean(str(raw))
+    m = _RE_RU.match(s)
+    if not m:
+        log.debug("house number junk: %r", raw)
+        return []
+    n = int(m.group("n"))
+    lit = ru_letter(m.group("lit") or "")
+    sub = _ru_fold(m.group("sub") or "")
+    n_to = None
+    tokens = ["вл"] if m.group("vl") else []
+    for t in _RE_RU_TOKEN.finditer(m.group("rest") or ""):
+        mark = "к" if t.group("m").lower().startswith("к") else "с"
+        tokens.append(mark + _ru_fold(t.group("v")))
+    if m.group("rng"):
+        nums = [int(x) for x in re.findall(r"\d+", m.group("rng"))]
+        if nums[-1] > n:
+            n_to = nums[-1]
+        else:                       # "221-4": a sub-number, as in the Georgian rules
+            sub = "-".join(_ru_fold(x) for x in m.group("rng")[1:].split("-")) + ("/" + sub if sub else "")
+    corp = " ".join(tokens)
+    kind = "range" if n_to is not None else "corp" if corp else "fraction" if sub else "letter" if lit else "int"
+    return [HousePart(n, lit, sub, n_to, corp, kind)]
+
+
+def format_house_ru(p: HousePart, raw: str = "") -> str:
+    """Canonical display string of a Russian house number: ``12А к2 с1``, ``5/7 с2``, ``23-25``."""
+    toks = p.corp.split(" ") if p.corp else []
+    head = ("вл" if "вл" in toks else "") + str(p.n) + p.lit.upper()
+    if p.n_to is not None:
+        m = re.search(r"\d+((?:-\d+)+)", raw.replace(" ", ""))
+        head += m.group(1) if m else f"-{p.n_to}"
+    if p.sub:
+        head += ("" if p.sub[:1] == "-" else "/") + p.sub.upper()
+    tail = [t[0] + t[1:].upper() for t in toks if t != "вл"]
+    return " ".join([head] + tail)
+
+
 def parse_house(raw: str) -> list[HousePart]:
     """Parse an ``addr:housenumber`` value; ``[]`` if it is not a usable house number."""
     if not raw:
         return []
+    if CITY.lang == "ru":
+        return parse_house_ru(raw)
     s = _clean(str(raw))
     if not s:
         return []
@@ -172,4 +244,4 @@ def parse_house(raw: str) -> list[HousePart]:
     return p
 
 
-__all__ = ["HousePart", "parse_house", "normalize_letter"]
+__all__ = ["HousePart", "parse_house", "normalize_letter", "parse_house_ru", "format_house_ru", "ru_letter"]

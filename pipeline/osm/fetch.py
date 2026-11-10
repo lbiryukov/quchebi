@@ -10,16 +10,17 @@ from pathlib import Path
 
 import requests
 
-from pipeline.config import GEOFABRIK_GEORGIA_PBF, RAW, USER_AGENT
+from pipeline.config import CITY, RAW, USER_AGENT
 from pipeline.log import get_logger, stage
 
 log = get_logger(__name__)
 
 OSM_RAW = RAW / "osm"
 OVERPASS_CACHE = RAW / "prototype_cache" / "overpass"
-PBF_PREFIX = "georgia-"
-PBF_RE = re.compile(r"^georgia-(\d{8})\.osm\.pbf$")
-MIN_PBF_BYTES = 10_000_000  # the Georgia extract is ~97 MB; anything far smaller is broken
+GEOFABRIK_GEORGIA_PBF = CITY.pbf_url  # historical name: the PBF URL of the city being built
+PBF_PREFIX = CITY.pbf_prefix + "-"
+PBF_RE = re.compile(r"^" + re.escape(CITY.pbf_prefix) + r"-(\d{8})\.osm\.pbf$")
+MIN_PBF_BYTES = 10_000_000  # the Georgia / Moscow extracts are ~100 MB; anything far smaller is broken
 DEFAULT_MAX_AGE_DAYS = 7.0
 
 

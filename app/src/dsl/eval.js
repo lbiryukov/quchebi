@@ -14,13 +14,14 @@ import { skeleton, normRu } from '../search/normalize.js';
 import { PointGrid, PreparedPolygon, densify, isClosedRing, makeProjection } from '../zone/geo.js';
 import { parse } from './parser.js';
 import { explain as explainAst } from './explain.js';
-import { closest, plural, damerau } from './keys.js';
+import { closest, plural, damerau, isLocalOrigin } from './keys.js';
 import { fold } from './lexer.js';
-import { matchHouses } from '../search/houses.js';
+import { areaRu } from '../search/names.js';
+import { matchHouses, parseHouseQuery } from '../search/houses.js';
 import { log } from '../log/log.js';
 import {
   dslData, houseRows, housesLoaded, geometry, geometryLoaded, nowMs, bioData, baseData, regexData, tokenData, fuzzyForm,
-  letterMask, nameTokens, loanForm, loanData, relBase,
+  letterMask, nameTokens, loanForm, loanData, relBase, noteData,
 } from './data.js';
 
 class EvalError extends Error {
@@ -110,6 +111,7 @@ function cost(node) {
       switch (node.key) {
         case 'near': return 4;
         case 'house': case 'houses': return 2;
+        case 'info': return 1;
         case 'cross': case 'family': case 'old': return 1 + cost(node.sub || { type: 'text' });
         case 'name': return node.items.some((i) => i.mode === 'regex') ? 2 : 1;
         default: return 0;
@@ -312,6 +314,7 @@ function evalFilter(E, f, cand) {
     case 'who': case 'bio': case 'century': case 'gender': case 'own':
       return featuresOfEponyms(E, eponymPred(E, f));
     case 'house': return evalHouse(E, f, cand);
+    case 'info': return evalInfo(E, f, cand);
     case 'houses': return evalNumeric(E, f, (i) => (E.zs.on ? rowsFor(E, i).length : houseCount(E, i)), cand);
     case 'len': return evalNumeric(E, f, (i) => featLen(E, i), null);
     case 'ord': return evalNumeric(E, f, (i) => (E.d.F[i].o == null ? null : E.d.F[i].o), null);
@@ -407,6 +410,9 @@ const KIND_PLURALS = {
   'площади': 'площадь', 'мосты': 'мост', 'тоннели': 'тоннель', 'балки': 'балка', 'скверы': 'сквер', 'сады': 'сад',
   'парки': 'парк', 'реки': 'река', 'ручьи': 'ручей', 'каналы': 'канал', 'озера': 'озеро', 'станции': 'станция',
   'районы': 'район', 'микрорайоны': 'микрорайон', 'кварталы': 'квартал', 'туннель': 'тоннель',
+  // kinds of the Moscow pack
+  'бульвары': 'бульвар', 'посольства': 'посольство', 'гостиницы': 'гостиница', 'больницы': 'больница',
+  'учреждения': 'учреждение', 'детсады': 'детсад', 'причалы': 'причал', 'здания': 'здание',
 };
 
 /** Resolve one тип: value to kind indices (or throw with suggestions). */
@@ -493,7 +499,7 @@ function evalArea(E, f, inArea) {
     }
     if (!used) {
       const list = inArea ? [...d.places, ...d.districts] : d.districts;
-      const cands = list.map((a) => a.ru || a.en || a.ka).filter(Boolean);
+      const cands = list.map((a) => areaRu(a, d.lang)).filter(Boolean);
       const sugg = closest(it.value, cands, { limit: 5 });
       const what = inArea ? 'микрорайон или район' : 'район';
       throw new EvalError(it.pos, it.len, `неизвестный ${what} «${it.raw}»${sugg.length ? ` — может быть: ${sugg.join(', ')}?` : ''}`,
@@ -596,12 +602,12 @@ function eponymPred(E, f) {
       break;
     }
     case 'own': {
+      // local = origin known and not foreign ("ge" in Tbilisi packs, "ru" in Moscow packs)
       const want = new Set(f.items.map((i) => i.value));
       for (let j = 0; j < nE; j++) {
-        const o = d.E[j].o;
-        if (!o || o === 'unknown' || o === '?') continue;
-        const isGe = o === 'ge' || o === 'georgian';
-        if ((isGe && want.has('yes')) || (!isGe && want.has('no'))) pred[j] = 1;
+        const local = isLocalOrigin(d.E[j].o);
+        if (local === null) continue;
+        if ((local && want.has('yes')) || (!local && want.has('no'))) pred[j] = 1;
       }
       break;
     }
@@ -620,7 +626,43 @@ function featuresOfEponyms(E, pred) {
   return b;
 }
 
+// ---- инфо
+
+function evalInfo(E, f, cand) {
+  const d = noteData(E.d);
+  const n = d.n;
+  const out = new Bitset(n);
+  for (const it of f.items) {
+    if (it.mode === 'has' || it.mode === 'none') {
+      const want = it.mode === 'has';
+      for (let i = 0; i < n; i++) if (!(cand && !cand.has(i)) && Boolean(d.noteSk[i] || d.noteRaw[i]) === want) out.set(i);
+      continue;
+    }
+    if (it.mode === 'regex') {
+      for (let i = 0; i < n; i++) if (d.noteRaw[i] && !(cand && !cand.has(i)) && it.re.test(d.noteRaw[i])) out.set(i);
+      continue;
+    }
+    const sk = skeleton(it.value);
+    if (!sk) { E.warn(`пустое значение «${it.raw}» у «инфо:» — пропущено`); continue; }
+    for (let i = 0; i < n; i++) if (d.noteSk[i] && d.noteSk[i].includes(sk)) out.set(i);
+  }
+  return out;
+}
+
 // ---- дом
+
+/** The house query of an item for the pack language (an AST parsed for another language is re-parsed). */
+function houseItemQuery(d, it) {
+  const lang = d.lang === 'ru' ? 'ru' : 'ka';
+  if ((it.q.lang === 'ru' ? 'ru' : 'ka') === lang || it.raw == null) return it.q;
+  if (!it.qByLang) it.qByLang = {};
+  if (!it.qByLang[lang]) {
+    const q = parseHouseQuery(it.raw, { lang });
+    if (q.error) throw new EvalError(it.pos, it.len, q.error);
+    it.qByLang[lang] = q;
+  }
+  return it.qByLang[lang];
+}
 
 function evalHouse(E, f, cand) {
   const d = E.d;
@@ -628,11 +670,11 @@ function evalHouse(E, f, cand) {
   const out = new Bitset(n);
   if (!housesLoaded(d)) E.warn('номера домов ещё загружаются — результат неполный');
   const loaded = housesLoaded(d);
+  const qs = f.items.map((it) => houseItemQuery(d, it));
   for (let i = 0; i < n; i++) {
     if (cand && !cand.has(i)) continue;
     const rows = rowsFor(E, i);
-    for (const it of f.items) {
-      const q = it.q;
+    for (const q of qs) {
       let ok;
       // before houses.json arrives, есть/нет fall back to the per-feature count core.f[].hn
       if (q.kind === 'has') ok = rows.length > 0 || (!loaded && !E.zs.on && (d.F[i].hn || 0) > 0);
@@ -685,7 +727,7 @@ function evalNear(E, f, cand) {
   const n = d.n;
   const r = f.radius ? f.radius.m : DEFAULT_NEAR_M;
   if (!geometryLoaded(d)) E.warn('геометрия ещё загружается — расстояния по центрам объектов');
-  const grid = new PointGrid(Math.max(50, r));
+  const grid = new PointGrid(Math.max(50, r), d.center.lat, d.center.lon);
   let Q = null;
   let qBox = [Infinity, Infinity, -Infinity, -Infinity];
   const addPt = (lat, lon) => {
@@ -1015,7 +1057,7 @@ export function evaluate(ast, index, ctx = {}) {
   const E = {
     d, ctx: ctx || {}, zs, epCache: new Map(), zonePoly: undefined, sub: false, neg: 0, fuzzyNotes: [],
     warn(msg) { if (!warnings.includes(msg)) warnings.push(msg); },
-    label(item, area) { if (area) labels.set(item, area.ru || area.en || area.ka); },
+    label(item, area) { if (area) labels.set(item, areaRu(area, d.lang)); },
   };
   if (root.zone === 'off' && ctx && ctx.zone) E.warn('зона выключена');
   if (root.zone && root.zone !== 'off' && !(ctx && ctx.zone)) E.warn('зона не задана — ищу по всему городу');
@@ -1032,7 +1074,7 @@ export function evaluate(ast, index, ctx = {}) {
     const bitsE = emptyResult(d.n);
     return {
       bits: bitsE, count: 0, order: new Int32Array(0),
-      explain: safeExplain(root, zs, labels), warnings,
+      explain: safeExplain(root, zs, labels, d.lang), warnings,
       timeMs: nowMs() - t0,
       error: { pos: e.pos, len: e.len, message: e.message, suggestions: e.suggestions || [] },
     };
@@ -1047,7 +1089,7 @@ export function evaluate(ast, index, ctx = {}) {
     bits,
     count: order.length,
     order,
-    explain: safeExplain(root, zs, labels),
+    explain: safeExplain(root, zs, labels, d.lang),
     warnings,
     timeMs,
   };
@@ -1070,9 +1112,9 @@ export function prepare(index, { all = false } = {}) {
   return nowMs() - t0;
 }
 
-function safeExplain(root, zs, labels) {
+function safeExplain(root, zs, labels, lang) {
   try {
-    return explainAst(root, { zone: zs.mode, labels });
+    return explainAst(root, { zone: zs.mode, labels, lang });
   } catch {
     return '';
   }
@@ -1081,7 +1123,7 @@ function safeExplain(root, zs, labels) {
 /** Parse and evaluate a query line. Parse errors come back as {error, count: 0, ...}. */
 export function run(text, index, ctx = {}) {
   const t0 = nowMs();
-  const p = parse(text);
+  const p = parse(text, { lang: dslData(index).lang });
   if (p.error) {
     return { bits: new Bitset(index.n ?? dslData(index).n), count: 0, order: new Int32Array(0), explain: '', warnings: [], timeMs: nowMs() - t0, error: p.error };
   }

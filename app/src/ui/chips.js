@@ -1,8 +1,10 @@
 // Chips under the query: they append/toggle DSL tokens; their "on" state is read back from the
 // DSL string (the string is the source of truth). Pickers open bottom sheets.
+import { wholeLabel } from '../store/cities.js';
 import { log } from '../log/log.js';
 import { h, openSheet, clear } from './dom.js';
-import { state, on } from './state.js';
+import { state, on, packLanguage } from './state.js';
+import { ruLabel, areaRu } from '../search/names.js';
 import {
   findAtom, listValues, toggleListValue, setAtom, appendAtom, quoteValue, crossSubqueries,
 } from './dsledit.js';
@@ -26,6 +28,24 @@ const TYPE_CHIPS = [
 ];
 
 const packHasGroup = (group) => (state.pack?.core?.kinds || []).some((k) => k.group === group);
+
+/**
+ * Does the loaded pack have objects of a тип: value ("переулок", "улица*", "сквер")? Chips and
+ * quick buttons for kinds the pack has no objects of are hidden (a Moscow pack without тупики,
+ * a Tbilisi pack without остановки). Unknown while the index is not built: shown.
+ */
+export function packHasKind(value) {
+  const kinds = state.pack?.core?.kinds || [];
+  const fs = state.pack?.core?.f;
+  if (!kinds.length || !fs) return true;
+  const star = value.endsWith('*');
+  const v = value.replace(/\*+$/, '').toLowerCase();
+  const ki = kinds.findIndex((k) => k.ru === v || (k.syn || []).includes(v));
+  if (ki < 0) return false;
+  const group = star ? kinds[ki].group : null;
+  const want = new Set(kinds.map((k, j) => ((group ? k.group === group : j === ki) ? j : -1)).filter((j) => j >= 0));
+  return fs.some((f) => want.has(f.k));
+}
 
 /**
  * createChips({getQuery, setQuery}) -> {el, update(text)}
@@ -53,7 +73,7 @@ export function createChips({ getQuery, setQuery }) {
   for (const t of TYPE_CHIPS) {
     const b = chip(t.label, () => setQuery(toggleListValue(getQuery(), TYPE_KEYS, 'тип', t.value)),
       (q) => listValues(q, TYPE_KEYS).includes(t.value));
-    if (t.group) groupChips.push({ b, group: t.group });
+    groupChips.push({ b, group: t.group || null, value: t.value });
   }
 
   const crossChip = chip('× пересекает…', () => openCrossBuilder(getQuery, setQuery),
@@ -62,7 +82,7 @@ export function createChips({ getQuery, setQuery }) {
   const houseChip = chip('Дом №', () => openHouseKeypad(getQuery, setQuery), (q) => Boolean(findAtom(q, HOUSE_KEYS)));
   const distChip = chip('Район', () => openAreaPicker(getQuery, setQuery),
     (q) => Boolean(findAtom(q, DISTRICT_KEYS) || findAtom(q, IN_KEYS)));
-  const zoneChip = chip('Весь город', () => {
+  const zoneChip = chip(wholeLabel(), () => {
     const q = getQuery();
     if (findAtom(q, ZONE_KEYS)) setQuery(setAtom(q, ZONE_KEYS, ''));
     else setQuery(appendAtom(q, 'зона:выкл'));
@@ -79,12 +99,19 @@ export function createChips({ getQuery, setQuery }) {
     const subs = crossSubqueries(q);
     crossChip.textContent = subs.length ? `× ${subs[0].length > 18 ? subs[0].slice(0, 18) + '…' : subs[0]}` : '× пересекает…';
     zoneChip.hidden = !state.zone;
-    for (const { b, group } of groupChips) b.hidden = !packHasGroup(group);
+    refreshGroups();
+  }
+
+  // kinds of the loaded pack: chips of groups / kinds without objects are hidden
+  function refreshGroups() {
+    for (const { b, group, value } of groupChips) b.hidden = group ? !packHasGroup(group) : !packHasKind(value);
+    // nothing to choose from: one district and no places
+    const c = state.pack?.core;
+    distChip.hidden = Boolean(c && (c.districts || []).length <= 1 && !(c.places || []).length);
   }
 
   update(getQuery());
   // the pack (and its kinds) may arrive after the chips are built
-  const refreshGroups = () => { for (const { b, group } of groupChips) b.hidden = !packHasGroup(group); };
   on('index', refreshGroups);
   on('packReady', refreshGroups);
   return { el, update };
@@ -163,7 +190,11 @@ export function openHouseKeypad(getQuery, setQuery) {
   display.addEventListener('input', () => { value = display.value; });
   const keys = h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' } });
   const add = (k) => { value += k; display.value = value; };
-  for (const k of ['1', '2', '3', 'а', '4', '5', '6', 'б', '7', '8', '9', 'в', '/', '0', '-', '⌫']) {
+  // Moscow addresses also have корпус (к) and строение (с): "12к2", "12с1"
+  const ru = packLanguage() === 'ru';
+  const keyList = ['1', '2', '3', 'а', '4', '5', '6', 'б', '7', '8', '9', 'в', '/', '0', '-', '⌫'];
+  if (ru) keyList.splice(15, 0, 'к', 'с');
+  for (const k of keyList) {
     const b = h('button.btn', { type: 'button', style: { minHeight: '52px', fontSize: '1.2rem' } }, k);
     b.addEventListener('click', () => {
       if (k === '⌫') { value = value.slice(0, -1); display.value = value; } else add(k);
@@ -191,7 +222,8 @@ export function openHouseKeypad(getQuery, setQuery) {
   s.body.append(
     display,
     keys,
-    h('label.switch', exactSw, h('span', 'Строго этот номер (без букв и дробей)')),
+    ru ? h('p.small.muted', 'к — корпус, с — строение: 12к2, 12с1, 12к2с1.') : null,
+    h('label.switch', exactSw, h('span', ru ? 'Строго этот номер (без букв, дробей, корпусов и строений)' : 'Строго этот номер (без букв и дробей)')),
     h('label.switch', probSw, h('span', 'Плюс «вероятно есть» (номер между соседними)')),
     special,
     h('div.btn-row', ok, remove),
@@ -201,8 +233,10 @@ export function openHouseKeypad(getQuery, setQuery) {
 export function openAreaPicker(getQuery, setQuery) {
   const s = openSheet({ title: 'Район или микрорайон', full: true });
   const c = state.pack?.core;
+  const lang = packLanguage();
   const filter = h('input.field', {
-    type: 'search', placeholder: 'Фильтр: сололаки, ვაკე, vake', autocapitalize: 'off', autocorrect: 'off', spellcheck: 'false',
+    type: 'search', placeholder: lang === 'ru' ? 'Фильтр по названию' : 'Фильтр: сололаки, ვაკე, vake',
+    autocapitalize: 'off', autocorrect: 'off', spellcheck: 'false',
   });
   const list = h('div.list-col');
   const pick = (keys, key, name) => {
@@ -219,18 +253,21 @@ export function openAreaPicker(getQuery, setQuery) {
     clear(list);
     const f = filter.value.trim().toLowerCase();
     list.append(h('button.list-btn', { type: 'button', onclick: () => pick(DISTRICT_KEYS, 'район', '') }, h('span', 'Без фильтра по району')));
-    const ds = (c?.districts || []).filter((d) => match(d, f));
+    // a single official district (Moscow pack) is not a choice: only its places are listed
+    const ds = (c?.districts || []).length > 1 ? c.districts.filter((d) => match(d, f)) : [];
+    // the Georgian name under the Russian one (Tbilisi); none when it would repeat the label
+    const second = (x) => (lang !== 'ru' && x.ka && x.ka !== ruLabel(x) ? x.ka : '');
     if (ds.length) list.append(h('div.section-title', 'Официальные районы (район:)'));
     for (const d of ds) {
-      list.append(h('button.list-btn', { type: 'button', onclick: () => pick(DISTRICT_KEYS, 'район', d.ru || d.en || d.ka) },
-        h('span', d.ru || d.ka), h('small.ka', d.ka || '')));
+      list.append(h('button.list-btn', { type: 'button', onclick: () => pick(DISTRICT_KEYS, 'район', areaRu(d, lang)) },
+        h('span', ruLabel(d)), second(d) ? h('small.ka', second(d)) : null));
     }
     const ps = (c?.places || []).map((p, i) => ({ ...p, i })).filter((p) => match(p, f))
-      .sort((a, b) => (a.ru || a.ka || '').localeCompare(b.ru || b.ka || '', 'ru'));
+      .sort((a, b) => ruLabel(a).localeCompare(ruLabel(b), 'ru'));
     if (ps.length) list.append(h('div.section-title', 'Микрорайоны и кварталы (в:)'));
     for (const p of ps.slice(0, 300)) {
-      list.append(h('button.list-btn', { type: 'button', onclick: () => pick(IN_KEYS, 'в', p.ru || p.en || p.ka) },
-        h('span', p.ru || p.ka), h('small.ka', p.ka || '')));
+      list.append(h('button.list-btn', { type: 'button', onclick: () => pick(IN_KEYS, 'в', areaRu(p, lang)) },
+        h('span', ruLabel(p)), second(p) ? h('small.ka', second(p)) : null));
     }
   }
   filter.addEventListener('input', render);
@@ -261,6 +298,7 @@ export function openCrossBuilder(getQuery, setQuery) {
   const quick = h('div.btn-row');
   const addSub = (tok) => { sub.value = sub.value.trim() ? `${sub.value.trim()} ${tok}` : tok; };
   for (const [label, tok] of [['улицы*', 'тип:улица*'], ['переулки*', 'тип:переулок*'], ['сквер', 'тип:сквер'], ['река', 'тип:река'], ['площадь', 'тип:площадь'], ['метро', 'тип:метро']]) {
+    if (!packHasKind(tok.slice(4))) continue;
     quick.append(h('button.btn.small', { type: 'button', onclick: () => addSub(tok) }, label));
   }
   const whoBtn = h('button.btn.small', { type: 'button' }, 'кто…');

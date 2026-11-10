@@ -20,7 +20,8 @@ export const KEYS = [
   { id: 'bio', ru: 'био', names: ['био', 'bio'], value: 'text', desc: 'подстрока в биографии эпонима' },
   { id: 'century', ru: 'век', names: ['век', 'c'], value: 'num', desc: 'век жизни эпонима: 19 или 11-12' },
   { id: 'gender', ru: 'пол', names: ['пол', 'g'], value: 'fixed', desc: 'пол эпонима: м или ж' },
-  { id: 'own', ru: 'свой', names: ['свой', 'ge'], value: 'fixed', desc: 'эпоним грузин: да или нет' },
+  { id: 'own', ru: 'свой', names: ['свой', 'ge'], value: 'fixed', desc: 'эпоним местный (не иностранец): да или нет' },
+  { id: 'info', ru: 'инфо', names: ['инфо', 'info', 'note'], value: 'text', desc: 'пометка объекта: автобусы, архитектор, надпись; есть, нет' },
   { id: 'house', ru: 'дом', names: ['дом', 'h'], value: 'house', desc: 'номер дома: 3, =3, 3а, 3/16, 1-9, 3?, есть, нет' },
   { id: 'houses', ru: 'домов', names: ['домов', 'hn'], value: 'num', desc: 'сколько номеров домов: домов>30' },
   { id: 'cross', ru: 'x', names: ['x', 'х', 'пересекает', 'cross'], value: 'sub', desc: 'пересекает объект подзапроса: x:(…)~в' },
@@ -49,6 +50,22 @@ export function allKeyNames() {
   return out;
 }
 
+/**
+ * Is an eponym "local" (свой:да) for its pack: `o` is known and not foreign. Tbilisi packs use
+ * "ge" | "fo", Moscow packs "ru" | "fo"; true / false / null (unknown).
+ */
+export function isLocalOrigin(o) {
+  if (!o || o === 'unknown' || o === '?') return null;
+  return o !== 'fo' && o !== 'foreign';
+}
+
+/** Words for local / foreign eponyms in explanations and suggestions, by pack language. */
+export function ownWords(lang) {
+  return lang === 'ru'
+    ? { yes: 'местный', no: 'иностранец', notYes: 'не местный', notNo: 'не иностранец' }
+    : { yes: 'грузин', no: 'иностранец', notYes: 'не грузин', notNo: 'не иностранец' };
+}
+
 /** Keys allowed inside было:(…) — eponym filters and text. */
 export const EPONYM_KEYS = new Set(['who', 'bio', 'century', 'gender', 'own', 'name']);
 /** Keys that accept a comparison operator right after the key. */
@@ -66,7 +83,7 @@ export const FIXED = {
     show: ['м', 'ж'],
   },
   own: {
-    values: { 'да': 'yes', 'yes': 'yes', 'y': 'yes', '1': 'yes', '+': 'yes', 'свой': 'yes', 'грузин': 'yes',
+    values: { 'да': 'yes', 'yes': 'yes', 'y': 'yes', '1': 'yes', '+': 'yes', 'свой': 'yes', 'грузин': 'yes', 'местный': 'yes',
       'нет': 'no', 'no': 'no', 'n': 'no', '0': 'no', 'чужой': 'no', 'иностранец': 'no' },
     show: ['да', 'нет'],
   },

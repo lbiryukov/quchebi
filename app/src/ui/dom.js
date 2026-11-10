@@ -157,6 +157,26 @@ export function openSheet({ title, full = false, onClose, className = '' } = {})
 }
 
 let ignorePops = 0;
+let settledQueue = [];
+
+function flushSettled() {
+  const q = settledQueue;
+  settledQueue = [];
+  for (const fn of q) {
+    try { fn(); } catch (err) { log.error('ui', 'deferred navigation failed', { err: String(err) }); }
+  }
+}
+
+/**
+ * Run fn once the history step of a closed sheet (history.back(), asynchronous) has been
+ * processed: a hash navigation made before it would be undone by that step (e.g. "На карте"
+ * in the card closes the sheet and opens the map screen).
+ */
+export function whenHistorySettled(fn) {
+  if (ignorePops <= 0) { fn(); return; }
+  settledQueue.push(fn);
+  setTimeout(() => { if (settledQueue.length) { ignorePops = 0; flushSettled(); } }, 400);
+}
 
 export function closeAllSheets() {
   while (sheetStack.length) sheetStack[sheetStack.length - 1].close(sheetStack.length > 1);
@@ -170,6 +190,7 @@ window.addEventListener('popstate', (e) => {
   if (ignorePops > 0) {
     ignorePops--;
     if (sheetStack.length && !(history.state && history.state.sheet)) history.pushState({ sheet: 1 }, '', location.href);
+    if (ignorePops === 0) flushSettled();
     return;
   }
   const top = sheetStack[sheetStack.length - 1];

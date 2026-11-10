@@ -21,6 +21,7 @@ from shapely.geometry.base import BaseGeometry
 
 from pipeline.db import tx
 from pipeline.log import get_logger, stage
+from pipeline.config import CITY
 from pipeline.names import normalize_ka, normalize_ru_name
 from pipeline.osm.features import generated_ru, name_variants
 from pipeline.osm.geo import bbox_str, to_xy, wkt
@@ -208,6 +209,6 @@ def run(con: sqlite3.Connection, ex: Extract) -> dict:
         areas, st = build_areas(ex)
         out.update(st)
         out.update(write_areas(con, areas))
-        if out.get("districts") != 10:
+        if CITY.id == "tbilisi" and out.get("districts") != 10:
             log.warning("expected 10 districts, got %s", out.get("districts"))
         return out

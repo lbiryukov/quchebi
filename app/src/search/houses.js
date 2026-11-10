@@ -1,6 +1,10 @@
 // House numbers: parsing raw numbers (parity with the pipeline, tests/vectors/house_numbers.json),
 // parsing `дом:` query values and matching them against pack rows
 // [raw, n, lit, sub, lat_e5, lon_e5, n_to?, corp?] (docs/pack-format.md, docs/dsl.md "Houses").
+//
+// Packs of language 'ru' (Moscow) store Moscow-style addresses: lit is a lowercase Cyrillic letter,
+// corp the space-separated building tokens "к2", "с1", "к2 с1" (корпус, строение). Their `дом:`
+// values are parsed by parseHouseQuery(value, {lang: 'ru'}) (vectors: tests/vectors/house_query_ru.json).
 
 // Single letters normalised to Georgian by sound (Latin and Cyrillic).
 const LETTER_TO_KA = {
@@ -17,6 +21,16 @@ export function normLetter(ch) {
   const o = c.codePointAt(0);
   if (o >= 0x1c90 && o <= 0x1cbf) c = String.fromCharCode(o - 0x1c90 + 0x10d0);
   return LETTER_TO_KA[c] || c;
+}
+
+/** Single letters normalised to Cyrillic for 'ru' packs (Latin look-alikes and sound pairs). */
+const LETTER_TO_RU = { a: 'а', b: 'б', v: 'в', g: 'г', d: 'д', e: 'е', 'ё': 'е' };
+
+/** Normalise one house letter of a 'ru' pack to lowercase Cyrillic ("A", "a", "А" -> "а"). */
+export function normLetterRu(ch) {
+  if (!ch) return '';
+  const c = String(ch).toLowerCase();
+  return LETTER_TO_RU[c] || c;
 }
 
 const L = '[\\p{L}]';
@@ -75,7 +89,8 @@ export function parseHouse(raw) {
  *   3 -> any n == 3 (3, 3ა, 3/16, 3 корп. 2, ranges containing 3); =3 -> plain "3" only;
  *   3а/3ა/3a -> lit; 3/16 -> sub; 1-9 -> range of n; 3? -> any + "probably there"; есть / нет.
  */
-export function parseHouseQuery(value) {
+export function parseHouseQuery(value, { lang = 'ka' } = {}) {
+  if (lang === 'ru') return parseHouseQueryRu(value);
   let v = String(value == null ? '' : value).trim().toLowerCase().replace(/ё/g, 'е');
   if (!v) return { error: 'пустой номер дома' };
   if (v === 'есть' || v === 'да' || v === 'yes' || v === 'any') return { kind: 'has', probable: false };
@@ -108,6 +123,94 @@ export function parseHouseQuery(value) {
   }
 }
 
+// ---- 'ru' packs: Moscow addresses "12", "12а", "12 к2", "12 с1", "12 к2 с1", "5/7", "5/7 с2"
+
+/** корпус / строение spellings (folded, without dots) -> token letter. */
+const CORP_WORD = { 'к': 'к', 'k': 'к', 'корп': 'к', 'корпус': 'к', 'с': 'с', 'c': 'с', 's': 'с', 'стр': 'с', 'строение': 'с' };
+const RE_CORP_TOKEN = /([a-zа-я]+)\.?\s*(\d+)/gu;
+
+/**
+ * Building tokens of a Moscow address part: "к2с1" / "корп.2 стр.1" -> ["к2", "с1"];
+ * null when a word is not корпус/строение.
+ */
+export function corpTokens(text) {
+  const out = [];
+  const s = String(text || '').trim();
+  if (!s) return out;
+  let rest = s;
+  for (const m of s.matchAll(RE_CORP_TOKEN)) {
+    const w = CORP_WORD[m[1]];
+    if (!w) return null;
+    out.push(w + String(+m[2]));
+    rest = rest.replace(m[0], '');
+  }
+  return rest.trim() ? null : out;
+}
+
+/**
+ * Tail after a number: building tokens, optionally after one letter ("ак2" = а + к2, "к2" = к2,
+ * "к" = letter к). {letter, tokens} or null.
+ */
+function letterAndTokens(text) {
+  const rest = String(text || '').trim();
+  const t = corpTokens(rest);
+  if (t) return { letter: '', tokens: t };
+  if (/^[a-zа-я]/u.test(rest)) {
+    const t2 = corpTokens(rest.slice(1));
+    if (t2) return { letter: rest[0], tokens: t2 };
+  }
+  return null;
+}
+
+/**
+ * `дом:` value of a 'ru' pack. Same kinds as parseHouseQuery plus building tokens: a letter
+ * right before a digit is корпус/строение ("12к2", "12с1", "12к2с1", also "стр"/"корп"), a
+ * single trailing letter is the литера ("12а", Latin "12a"). Kind 'corp' carries `corp`
+ * ("к2 с1") and `corpTokens` (["к2", "с1"]); rows match when their corp has all the tokens.
+ */
+export function parseHouseQueryRu(value) {
+  let v = String(value == null ? '' : value).trim().toLowerCase().replace(/ё/g, 'е');
+  if (!v) return { error: 'пустой номер дома' };
+  if (v === 'есть' || v === 'да' || v === 'yes' || v === 'any') return { kind: 'has', probable: false, lang: 'ru' };
+  if (v === 'нет' || v === 'no' || v === 'none') return { kind: 'none', probable: false, lang: 'ru' };
+  let probable = false;
+  if (v.endsWith('?')) { probable = true; v = v.slice(0, -1).trim(); }
+  let exact = false;
+  if (v.startsWith('=')) { exact = true; v = v.slice(1).trim(); }
+  const dash = RE_DASH.exec(v);
+  if (dash && +dash[2] > +dash[1]) {
+    if (exact) return { error: '«=» нельзя сочетать с диапазоном' };
+    return { kind: 'range', from: +dash[1], to: +dash[2], probable, lang: 'ru' };
+  }
+  const bad = { error: `не понимаю номер дома «${value}»` };
+  const m = /^(\d+)\s*(.*)$/u.exec(v);
+  if (!m) return bad;
+  let lit = '';
+  let sub = '';
+  let tokens;
+  const slash = m[2].indexOf('/');
+  if (slash >= 0) {
+    const before = m[2].slice(0, slash).trim();
+    if (before && !/^[a-zа-я]$/u.test(before)) return bad;
+    lit = normLetterRu(before);
+    const a = /^\s*(\d+)(.*)$/u.exec(m[2].slice(slash + 1));
+    const r = a && letterAndTokens(a[2]);
+    if (!r) return bad;
+    sub = String(+a[1]) + normLetterRu(r.letter);
+    tokens = r.tokens;
+  } else {
+    const r = letterAndTokens(m[2]);
+    if (!r) return bad;
+    lit = normLetterRu(r.letter);
+    tokens = r.tokens;
+  }
+  const base = { n: +m[1], lit, sub, corp: tokens.join(' '), probable, lang: 'ru' };
+  if (tokens.length) return { ...base, kind: 'corp', corpTokens: tokens, exact };
+  if (sub) return exact ? { ...base, kind: 'sub', exact: true } : { ...base, kind: 'sub' };
+  if (lit) return exact ? { ...base, kind: 'lit', exact: true } : { ...base, kind: 'lit' };
+  return { ...base, kind: exact ? 'exact' : 'any' };
+}
+
 const rowN = (r) => r[1];
 const rowLit = (r) => r[2] || '';
 const rowSub = (r) => r[3] || '';
@@ -134,11 +237,20 @@ export function houseRowMatches(row, q) {
     case 'exact':
       return n === q.n && !rowLit(row) && !rowSub(row) && to === null && !rowCorp(row);
     case 'lit':
-      return n === q.n && rowLit(row) === q.lit && (!q.exact || !rowSub(row));
+      return n === q.n && rowLit(row) === q.lit && (!q.exact || (!rowSub(row) && (q.lang !== 'ru' || !rowCorp(row))));
     case 'sub':
-      return n === q.n && rowSub(row) === q.sub && (!q.lit || rowLit(row) === q.lit);
-    case 'corp':
-      return n === q.n && rowCorp(row) === q.corp;
+      return n === q.n && rowSub(row) === q.sub && (!q.lit || rowLit(row) === q.lit)
+        && (!q.exact || q.lang !== 'ru' || !rowCorp(row));
+    case 'corp': {
+      if (n !== q.n) return false;
+      if (!q.corpTokens) return rowCorp(row) === q.corp;
+      // 'ru': the row has every building token of the query (and the letter / fraction if given)
+      const have = rowCorp(row).toLowerCase().split(/\s+/).filter(Boolean);
+      if (q.exact && (have.length !== q.corpTokens.length || rowLit(row) !== q.lit || rowSub(row) !== q.sub)) return false;
+      if (q.lit && rowLit(row) !== q.lit) return false;
+      if (q.sub && rowSub(row) !== q.sub) return false;
+      return q.corpTokens.every((t) => have.includes(t));
+    }
     case 'range': {
       if (n >= q.from && n <= q.to) return true;
       return to !== null && to >= q.from && n <= q.to; // row range overlaps the query range
