@@ -1,11 +1,13 @@
-// Boot: logging, storage.persist(), settings/theme, zone restore, pack load, index build,
-// screens and router, service worker. Logic lives in search/dsl/zone/store; UI in ui/ and map/.
+// Boot: city choice (picker at the first start), logging, storage.persist(), settings/theme,
+// zone restore, pack load, index build, screens and router, service worker. Logic lives in
+// search/dsl/zone/store; UI in ui/ and map/.
 import '@fontsource/noto-sans-georgian/georgian-400.css';
 import '@fontsource/noto-sans-georgian/georgian-700.css';
 import './ui/styles.css';
 
 import { log } from './log/log.js';
 import { loadPack } from './store/pack.js';
+import { initialCity, setCurrentCity, rememberCity, currentCity, CITY_PARAM } from './store/cities.js';
 import { buildIndex } from './search/index.js';
 import { prepare } from './dsl/eval.js';
 import * as db from './store/db.js';
@@ -25,6 +27,7 @@ import { restoreZone, recomputeMasks, onPackReady } from './ui/zonectl.js';
 import { prefetchAssets } from './ui/assets.js';
 import { resetCaches } from './ui/feature.js';
 import { h } from './ui/dom.js';
+import { pickCity } from './ui/picker.js';
 
 const bootEl = document.getElementById('boot');
 const bootText = document.getElementById('boot-text');
@@ -87,14 +90,53 @@ function showBootError(err) {
   const offline = !navigator.onLine;
   bootEl.replaceChildren(
     h('div.plate-big', h('span.ka', 'ქუჩები'), h('span.lat', 'Quchebi')),
+    h('div.boot-city', currentCity()?.title || ''),
     h('p', h('b', 'Не удалось загрузить данные.')),
     h('p.small', offline
       ? 'Нет сети, а пакет данных ещё не скачан. Подключитесь к интернету для первой загрузки.'
       : String(err?.message || err)),
     h('div.btn-row', { style: { justifyContent: 'center' } },
       h('button.btn.primary', { type: 'button', onclick: () => location.reload() }, 'Повторить'),
+      h('button.btn', {
+        type: 'button',
+        onclick: async () => {
+          const { switchCity } = await import('./ui/picker.js');
+          switchCity();
+        },
+      }, 'Другой район'),
       h('button.btn', { type: 'button', onclick: () => { bootEl.hidden = true; initRouter(); navigate('log'); } }, 'Журнал')),
   );
+}
+
+/**
+ * The city of this page load: ?city=<id> (remembered), the remembered choice, or the picker.
+ * The URL parameter is removed from the address bar after it has been remembered.
+ */
+async function chooseCity() {
+  const init = initialCity();
+  let id = init?.id || null;
+  if (!id) {
+    bootEl.hidden = true;
+    id = await pickCity();
+    bootEl.hidden = false;
+  }
+  setCurrentCity(id);
+  if (!init || init.from === 'url') await rememberCity(id, { db });
+  else db.getSetting('city', null).then((v) => { if (v !== id) db.setSetting('city', id); }).catch(() => {});
+  if (init?.from === 'url') {
+    try {
+      const u = new URL(location.href);
+      u.searchParams.delete(CITY_PARAM);
+      history.replaceState(history.state, '', u.href);
+    } catch { /* ignore */ }
+  }
+  const city = currentCity();
+  document.documentElement.dataset.city = city.id;
+  document.documentElement.removeAttribute('data-need-city');
+  const bc = document.getElementById('boot-city');
+  if (bc) bc.textContent = city.title;
+  log.info('boot', 'city', { id: city.id, from: init?.from || 'picker' });
+  return city;
 }
 
 async function boot() {
@@ -103,6 +145,8 @@ async function boot() {
   initViewport();
   log.info('boot', 'start', { app: __APP_VERSION__, ua: navigator.userAgent, online: navigator.onLine, base: document.baseURI });
 
+  const city = await chooseCity();
+  state.city = city;
   await loadSettings();
   requestPersist();
   initUpdates();
@@ -122,6 +166,7 @@ async function boot() {
   try {
     setBoot('Загрузка данных…', 0.05);
     pack = await loadPack({
+      city: city.id,
       onProgress: (p) => {
         const f = Number.isFinite(p?.fraction) ? p.fraction : 0;
         const what = p?.phase === 'download' ? 'Скачивание' : p?.phase === 'verify' ? 'Проверка' : p?.phase === 'parse' ? 'Разбор' : 'Загрузка';
@@ -133,10 +178,16 @@ async function boot() {
     showBootError(err);
     return;
   }
+  // the language of the pack: manifest.city (Moscow) or the registry ('ka' for the Tbilisi manifest)
+  pack.city = pack.manifest?.city?.id || city.id;
+  pack.lang = pack.manifest?.city?.lang || city.lang;
+  if (pack.manifest?.city?.id && pack.manifest.city.id !== city.id) {
+    log.warn('boot', 'pack city differs from the chosen city', { pack: pack.manifest.city.id, city: city.id });
+  }
   state.pack = pack;
   resetCaches();
   emit('pack', pack);
-  log.info('boot', 'pack loaded', { version: pack.manifest?.version, features: pack.core?.f?.length });
+  log.info('boot', 'pack loaded', { city: city.id, lang: pack.lang, version: pack.manifest?.version, features: pack.core?.f?.length });
 
   try {
     setBoot('Построение индекса…', 0.9);
@@ -183,7 +234,7 @@ async function boot() {
   bootEl.hidden = true;
   let skipped = false;
   try {
-    skipped = Boolean(await db.getSetting('zoneSkipped', false));
+    skipped = Boolean(await db.getCitySetting('zoneSkipped', false));
   } catch { /* ignore */ }
   if (!state.zone && !skipped && !location.hash) location.hash = '#/zone';
   initRouter();

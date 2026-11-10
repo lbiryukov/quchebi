@@ -1,15 +1,37 @@
 // Offline basemap: PMTiles from Cache Storage (caches.match -> blob -> File -> FileSource),
 // network PMTiles as a second choice, and a plain background (our own streets on top) as fallback.
+// The archive is the current city's (manifest.tiles.basemap via configureBasemap(), e.g.
+// 'tiles/tbilisi.pmtiles', 'tiles/khamovniki.pmtiles'); glyphs and sprites under tiles/fonts and
+// tiles/sprites are shared by all cities.
 import maplibregl from 'maplibre-gl';
 import { Protocol, PMTiles, FileSource } from 'pmtiles';
 import { layers, namedFlavor } from '@protomaps/basemaps';
 import { log } from '../log/log.js';
 
-export const TILES_FILE = 'tbilisi.pmtiles';
 const FONT_PROBE = 'Noto Sans Regular';
 
 let protocol = null;
 let cachedResolve = null;
+// app-relative path of the PMTiles archive of the current city (null: no basemap known)
+let tilesPath = null;
+
+/**
+ * Set the basemap archive of the current city: {path: 'tiles/x.pmtiles'} (store/cities.js
+ * tilesInfo(manifest)). A different archive drops the cached resolution.
+ */
+export function configureBasemap(info) {
+  const next = info && info.path ? info.path : null;
+  if (next !== tilesPath) {
+    tilesPath = next;
+    cachedResolve = null;
+    log.info('map', 'basemap archive', { path: tilesPath });
+  }
+}
+
+/** File name of the current archive ('khamovniki.pmtiles'), or null. */
+export function tilesFile() {
+  return tilesPath ? tilesPath.slice(tilesPath.lastIndexOf('/') + 1) : null;
+}
 
 export function ensureProtocol() {
   if (!protocol) {
@@ -25,7 +47,7 @@ export function baseHref() {
 }
 
 export function tilesUrl() {
-  return new URL(`tiles/${TILES_FILE}`, document.baseURI).href;
+  return tilesPath ? new URL(tilesPath, document.baseURI).href : null;
 }
 
 function glyphsTemplate() {
@@ -69,17 +91,18 @@ export async function resolveBasemap({ force = false } = {}) {
   const t0 = performance.now();
   let result = { mode: 'fallback', url: null, header: null, bytes: 0 };
 
+  const url = tilesUrl();
+  const file = tilesFile();
   // 1. Cache Storage (put there by store/pack.js downloadPack()).
   try {
-    if ('caches' in window) {
-      const resp = await caches.match(tilesUrl(), { ignoreSearch: true });
-      if (resp && resp.ok) {
+    if (url && 'caches' in window) {
+      const resp = await caches.match(url, { ignoreSearch: true });
+      if (resp && resp.ok && !(resp.headers.get('content-type') || '').includes('text/html')) {
         const blob = await resp.blob();
-        const file = new File([blob], TILES_FILE);
-        const p = new PMTiles(new FileSource(file));
+        const p = new PMTiles(new FileSource(new File([blob], file)));
         const header = await p.getHeader();
         protocol.add(p);
-        result = { mode: 'pmtiles-cache', url: `pmtiles://${TILES_FILE}`, header, bytes: blob.size };
+        result = { mode: 'pmtiles-cache', url: `pmtiles://${file}`, header, bytes: blob.size };
       }
     }
   } catch (err) {
@@ -87,9 +110,8 @@ export async function resolveBasemap({ force = false } = {}) {
   }
 
   // 2. Network (dev server, or online before the pack was downloaded).
-  if (result.mode === 'fallback') {
+  if (url && result.mode === 'fallback') {
     try {
-      const url = tilesUrl();
       const p = new PMTiles(url);
       const header = await Promise.race([
         p.getHeader(),
@@ -109,7 +131,7 @@ export async function resolveBasemap({ force = false } = {}) {
   result.glyphsOk = glyphsOk;
   result.spriteOk = spriteOk;
   log.info('map', 'basemap resolved', {
-    mode: result.mode, glyphsOk, spriteOk, bytes: result.bytes, ms: Math.round(performance.now() - t0),
+    file, mode: result.mode, glyphsOk, spriteOk, bytes: result.bytes, ms: Math.round(performance.now() - t0),
   });
   cachedResolve = result;
   return result;

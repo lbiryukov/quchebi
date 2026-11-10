@@ -1,28 +1,44 @@
 // Search screen: explanation line + count, errors with tap-to-fix suggestions, results grouped
 // by family; the dock holds autocomplete, chips and the DSL field.
+import { wholeLabel } from '../store/cities.js';
 import { run } from '../dsl/eval.js';
 import * as db from '../store/db.js';
 import { log } from '../log/log.js';
 import { h, clear, openSheet, promptSheet, toast } from './dom.js';
-import { state, emit, on, evalCtx } from './state.js';
+import { state, emit, on, evalCtx, packLanguage } from './state.js';
+import { houseRowMatches } from '../search/houses.js';
 import { createQueryInput } from './query-input.js';
 import { createChips } from './chips.js';
 import { crossSubqueries, houseQuery } from './dsledit.js';
 import {
-  feat, kindRu, mainName, ruName, shortName, placeLabel, eponymTag, crossingsOf, houseRows, isPlace, placeAddressText,
+  feat, kindRu, mainName, secondName, shortName, placeLabel, eponymTag, crossingsOf, houseRows, isPlace, placeAddressText,
 } from './feature.js';
 import { fmtLen, count } from './format.js';
 import { openCard } from './card.js';
 
 const PAGE_GROUPS = 120;
-const EXAMPLES = [
-  'дом:3',
-  'тип:улица* дом:3',
-  'тип:переулок x:(тип:улица* кто:поэт)',
-  'кто:писатель пол:ж',
-  'рядом:(тип:метро)~300 тип:переулок*',
-  'семья:важа-пшавела',
-];
+const EXAMPLES = {
+  ka: [
+    'дом:3',
+    'тип:улица* дом:3',
+    'тип:переулок x:(тип:улица* кто:поэт)',
+    'кто:писатель пол:ж',
+    'рядом:(тип:метро)~300 тип:переулок*',
+    'семья:важа-пшавела',
+  ],
+  ru: [
+    'дом:12к1',
+    'тип:улица* дом:3',
+    'тип:переулок x:(тип:улица* кто:писатель)',
+    'кто:писатель пол:ж',
+    'рядом:(тип:метро)~300 тип:переулок*',
+    'тип:место* инфо:архитектор',
+  ],
+};
+const EMPTY_HINT = {
+  ka: 'Введите название на любом языке (ქუჩა, улица, kucha) или запрос.',
+  ru: 'Введите название (улица, переулок, площадь, место) или запрос.',
+};
 
 let qi = null;
 let chips = null;
@@ -133,9 +149,10 @@ function computeCrossInfo(text) {
 function renderEmpty() {
   if (!out) return;
   clear(out);
+  const lang = packLanguage() === 'ru' ? 'ru' : 'ka';
   const box = h('div.empty-state',
-    h('p', 'Введите название на любом языке (ქუჩა, улица, kucha) или запрос.'),
-    h('div.hint-list', EXAMPLES.map((ex) => h('button.btn.small', { type: 'button', onclick: () => setQuery(ex) }, ex))));
+    h('p', EMPTY_HINT[lang]),
+    h('div.hint-list', EXAMPLES[lang].map((ex) => h('button.btn.small', { type: 'button', onclick: () => setQuery(ex) }, ex))));
   out.append(box);
   db.getHistory().then((hist) => {
     if (!hist || !hist.length || qi.getValue().trim()) return;
@@ -160,7 +177,7 @@ function render(r) {
   for (const w of r.warnings || []) out.append(h('p.warn-line', w));
   if (!n) {
     out.append(h('div.empty-state', h('p', 'Ничего не найдено.'),
-      state.zone && state.zoneEnabled ? h('p.small', 'Учтите: действует зона. Чип «Весь город» ищет без неё.') : null));
+      state.zone && state.zoneEnabled ? h('p.small', `Учтите: действует зона. Чип «${wholeLabel()}» ищет без неё.`) : null));
     return;
   }
   lastGroups = groupByFamily(r.order);
@@ -235,7 +252,7 @@ function rankInFamily(i) {
 }
 
 function renderGroups(list, from, to) {
-  const hq = houseQuery(qi.getValue());
+  const hq = houseQuery(qi.getValue(), packLanguage());
   const frag = document.createDocumentFragment();
   for (let gi = from; gi < to; gi++) {
     const g = lastGroups[gi];
@@ -284,7 +301,7 @@ function resultRow(i, child, hq) {
   } else tags.append(houseTag(i, f, hq));
   const btn = h(`button.res${child ? '.child' : ''}`, { type: 'button', dataset: { i: String(i) } },
     h('span.ka', mainName(i)),
-    ruName(i) && ruName(i) !== mainName(i) ? h('span.ru', ruName(i)) : null,
+    secondName(i) ? h('span.ru', secondName(i)) : null,
     tags);
   btn.addEventListener('click', () => {
     const q = qi.getValue().trim();
@@ -298,7 +315,7 @@ function houseTag(i, f, hq) {
   const hn = f?.hn || 0;
   if (!hn) return h('span', 'домов нет');
   if (hq && hq.n !== null && hq.n !== undefined) {
-    const rows = houseRows(i).filter((r) => r[1] === hq.n || (r[6] && hq.n >= r[1] && hq.n <= r[6]));
+    const rows = houseRows(i).filter((r) => (hq.q ? houseRowMatches(r, hq.q) : r[1] === hq.n || (r[6] && hq.n >= r[1] && hq.n <= r[6])));
     if (rows.length) return h('span.h', `дом ${rows.slice(0, 4).map((r) => r[0]).join(', ')}`);
     if (hq.probable) return h('span', `дом ${hq.n}? вероятно`);
   }

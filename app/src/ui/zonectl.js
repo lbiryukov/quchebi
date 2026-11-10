@@ -3,12 +3,15 @@
 import { computeZoneMasks } from '../zone/masks.js';
 import { encodeZone, tryDecodeZone } from '../zone/code.js';
 import * as db from '../store/db.js';
+import { zoneLsKey } from '../store/db.js';
+import { currentCityId } from '../store/cities.js';
 import { log } from '../log/log.js';
 import { state, emit } from './state.js';
 import { ringAreaKm2 } from '../map/geomutil.js';
 import { copyText, toast } from './dom.js';
 
-const LS_KEY = 'quchebi.zone';
+// localStorage mirror of the zone of the current city ('quchebi.zone' for Tbilisi)
+const lsKey = () => zoneLsKey(currentCityId());
 
 export async function restoreZone() {
   let z = null;
@@ -20,7 +23,7 @@ export async function restoreZone() {
   if (!z) {
     // db.js mirrors to localStorage itself; this is a second safety net.
     try {
-      const raw = localStorage.getItem(LS_KEY);
+      const raw = localStorage.getItem(lsKey());
       if (raw) z = JSON.parse(raw);
     } catch {
       /* ignore */
@@ -33,7 +36,7 @@ export async function restoreZone() {
     state.zone = null;
   }
   try {
-    const en = await db.getSetting('zoneEnabled', true);
+    const en = await db.getCitySetting('zoneEnabled', true);
     state.zoneEnabled = en !== false;
   } catch {
     state.zoneEnabled = true;
@@ -115,13 +118,13 @@ export async function saveZone({ polygon, base, buffer = 0, mode = 'draw', name 
     toast('Не удалось сохранить зону в базе — сохранена только копия');
   }
   try {
-    localStorage.setItem(LS_KEY, JSON.stringify(rec));
+    localStorage.setItem(lsKey(), JSON.stringify(rec));
   } catch {
     /* quota or blocked */
   }
   state.zone = rec;
   state.zoneEnabled = true;
-  db.setSetting('zoneEnabled', true).catch(() => {});
+  db.setCitySetting('zoneEnabled', true).catch(() => {});
   log.info('zone', 'zone saved', { vertices: polygon.length, buffer, mode });
   recomputeMasks();
   return rec;
@@ -134,7 +137,7 @@ export async function clearZone() {
     log.warn('zone', 'db.clearZone failed', { err: String(err) });
   }
   try {
-    localStorage.removeItem(LS_KEY);
+    localStorage.removeItem(lsKey());
   } catch {
     /* ignore */
   }
@@ -147,7 +150,7 @@ export async function clearZone() {
 export async function setZoneEnabled(on) {
   state.zoneEnabled = Boolean(on);
   try {
-    await db.setSetting('zoneEnabled', state.zoneEnabled);
+    await db.setCitySetting('zoneEnabled', state.zoneEnabled);
   } catch {
     /* ignore */
   }

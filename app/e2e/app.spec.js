@@ -2,10 +2,12 @@
 // with synthetic pointer events -> masks -> persistence across reload, offline reload.
 // Data: tests/fixtures/pack_mini (copied to public/data by scripts/dev-fixture.mjs when no real
 // pack is present) or the real pack; the assertions use names present in both.
+// Every test opens Tbilisi directly with ?city=tbilisi (the district picker has its own tests in
+// cities.spec.js).
 import { test, expect } from '@playwright/test';
 
 async function open(page, screen = 'search') {
-  await page.goto(`./#/${screen}`);
+  await page.goto(`./?city=tbilisi#/${screen}`);
   await expect(page.locator('#boot')).toBeHidden({ timeout: 45_000 });
 }
 

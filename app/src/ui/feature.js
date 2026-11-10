@@ -1,5 +1,8 @@
 // Read-only helpers over the pack/index for the UI (names, kinds, places, eponyms, crossings).
-import { state } from './state.js';
+// Names go through search/names.js so that both pack languages work: in Tbilisi `ka` is
+// Georgian and `ru` Russian; in Moscow `ka` is the primary Russian name and `ru` is omitted.
+import { state, packLanguage } from './state.js';
+import { primaryName, secondaryName, ruLabel } from '../search/names.js';
 
 export function core() {
   return state.pack?.core;
@@ -98,12 +101,17 @@ export function streetPlaces(i) {
   return out;
 }
 
+/** Primary (local-language) name: Georgian in Tbilisi, Russian in Moscow. */
 export function mainName(i) {
-  const f = feat(i);
-  if (!f) return '';
-  return f.ka || f.ru || f.en || '';
+  return primaryName(feat(i));
 }
 
+/** Second line under the primary name ('' when missing or the same): ru (Tbilisi) or en (Moscow). */
+export function secondName(i) {
+  return secondaryName(feat(i), packLanguage());
+}
+
+/** Russian or English name ('' if none). */
 export function ruName(i) {
   const f = feat(i);
   return f?.ru || f?.en || '';
@@ -111,17 +119,22 @@ export function ruName(i) {
 
 /** Short label for chips/crossings, Russian first. */
 export function shortName(i) {
-  const f = feat(i);
-  if (!f) return '';
-  return f.ru || f.ka || f.en || '';
+  return ruLabel(feat(i));
+}
+
+/** Reference note of a feature (core.f[].note: buses, architect, inscription), or ''. */
+export function featureNote(i) {
+  const n = feat(i)?.note;
+  return n ? String(n).trim() : '';
 }
 
 export function placeLabel(i) {
   const f = feat(i);
   const c = core();
   if (!f || !c) return '';
-  if (f.p && f.p.length && c.places?.[f.p[0]]) return c.places[f.p[0]].ru || c.places[f.p[0]].ka;
-  if (f.d && f.d.length && c.districts?.[f.d[0]]) return c.districts[f.d[0]].ru || c.districts[f.d[0]].ka;
+  if (f.p && f.p.length && c.places?.[f.p[0]]) return ruLabel(c.places[f.p[0]]);
+  // a single district (Moscow pack) says nothing in a result row
+  if (f.d && f.d.length && c.districts?.[f.d[0]] && (c.districts.length > 1)) return ruLabel(c.districts[f.d[0]]);
   return '';
 }
 
@@ -129,14 +142,14 @@ export function districtLabels(i) {
   const f = feat(i);
   const c = core();
   if (!f || !c) return [];
-  return (f.d || []).map((d) => c.districts?.[d]).filter(Boolean).map((d) => d.ru || d.ka);
+  return (f.d || []).map((d) => c.districts?.[d]).filter(Boolean).map(ruLabel);
 }
 
 export function placeLabels(i) {
   const f = feat(i);
   const c = core();
   if (!f || !c) return [];
-  return (f.p || []).map((p) => c.places?.[p]).filter(Boolean).map((p) => p.ru || p.ka);
+  return (f.p || []).map((p) => c.places?.[p]).filter(Boolean).map(ruLabel);
 }
 
 export function familyOf(i) {

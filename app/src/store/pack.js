@@ -5,6 +5,11 @@
 // * Every downloaded file is checked against manifest sha256 (crypto.subtle) before it is used.
 // * The installed version is a pointer in IndexedDB ('pack:current'); it is switched only after
 //   all required files of the new version are cached and verified, then old pack-v* caches go.
+// * Cities (store/cities.js): every function takes `city` (default: the current city of the
+//   page, else Tbilisi). Tbilisi uses the names above; another city uses the pointer
+//   'pack:current:<id>', caches 'pack-<id>-v<version>' and, without an explicit baseUrl, its
+//   dataDir ('./data/<id>/'). Cleanup only ever deletes caches owned by the same city; identical
+//   files (same URL and sha256, e.g. shared basemap fonts) are reused from any city's cache.
 // * Offline: loadPack() reads the pointed cache without touching the network.
 // * loadPack() resolves after core.json + eponyms.json; pack.ready resolves when geom/houses/areas
 //   are attached to the same object.
@@ -12,7 +17,9 @@
 // Every function takes an optional `env` {fetch, caches, subtle, kv, baseURI} for tests.
 import { kvGet, kvSet } from './db.js';
 import { log } from '../log/log.js';
+import { getCity, currentCityId, pointerKey, cachePrefix, ownsCache, isPackCache, LEGACY_CITY } from './cities.js';
 
+/** Pointer key and cache prefix of Tbilisi (legacy names); other cities: pointerKey(id), cachePrefix(id). */
 export const POINTER_KEY = 'pack:current';
 export const CACHE_PREFIX = 'pack-v';
 export const CORE_FILES = ['core.json', 'eponyms.json'];
@@ -32,15 +39,21 @@ function defaultEnv(env = {}) {
   };
 }
 
-function urls(env, baseUrl, appBaseUrl) {
-  const data = new URL(baseUrl || './data/', env.baseURI);
+/** Storage names of a city: {id, pointer, prefix, dataDir}. */
+export function packScope(city) {
+  const id = getCity(city) ? city : (getCity(currentCityId()) ? currentCityId() : LEGACY_CITY);
+  return { id, pointer: pointerKey(id), prefix: cachePrefix(id), dataDir: getCity(id).dataDir };
+}
+
+function urls(env, baseUrl, appBaseUrl, city) {
+  const data = new URL(baseUrl || packScope(city).dataDir, env.baseURI);
   const app = new URL(appBaseUrl || './', env.baseURI);
   return { data, app, manifest: new URL(MANIFEST, data).href };
 }
 
 /** Tile entries of a manifest: [{key, url, bytes, sha256}]. Supports both manifest.tiles shapes. */
 export function tileEntries(manifest, env, baseUrl, appBaseUrl) {
-  const u = urls(defaultEnv(env), baseUrl, appBaseUrl);
+  const u = urls(defaultEnv(env), baseUrl || './data/', appBaseUrl);
   const t = (manifest && manifest.tiles) || {};
   const out = [];
   if (t.files && typeof t.files === 'object') {
@@ -114,14 +127,14 @@ function parseJson(buf, name) {
   }
 }
 
-async function getPointer(env) {
-  try { return (await env.kv.get(POINTER_KEY)) || null; } catch (e) { log.warn('pack', 'pointer read failed: ' + e.message); return null; }
+async function getPointer(env, sc) {
+  try { return (await env.kv.get(sc.pointer)) || null; } catch (e) { log.warn('pack', 'pointer read failed: ' + e.message); return null; }
 }
 
 /** Fetch the network manifest (cache: 'no-store', timeout). */
-export async function fetchManifest({ baseUrl, env: e } = {}) {
+export async function fetchManifest({ baseUrl, city, env: e } = {}) {
   const env = defaultEnv(e);
-  const u = urls(env, baseUrl);
+  const u = urls(env, baseUrl, undefined, city);
   const resp = await fetchWithTimeout(env, u.manifest, { cache: 'no-store' }, env.timeoutMs);
   if (!resp.ok) throw new Error(`manifest.json: HTTP ${resp.status}`);
   const m = parseJson(await resp.arrayBuffer(), MANIFEST);
@@ -130,12 +143,13 @@ export async function fetchManifest({ baseUrl, env: e } = {}) {
 }
 
 /** {available, version, current, manifest?, error?} — never throws. */
-export async function checkForUpdate({ baseUrl, env: e } = {}) {
+export async function checkForUpdate({ baseUrl, city, env: e } = {}) {
   const env = defaultEnv(e);
-  const ptr = await getPointer(env);
+  const sc = packScope(city);
+  const ptr = await getPointer(env, sc);
   const current = ptr ? ptr.version : null;
   try {
-    const m = await fetchManifest({ baseUrl, env });
+    const m = await fetchManifest({ baseUrl, city: sc.id, env });
     const available = m.version !== current;
     log.info('pack', `update check: network ${m.version}, installed ${current || '-'}`);
     return { available, version: m.version, current, manifest: m };
@@ -146,12 +160,13 @@ export async function checkForUpdate({ baseUrl, env: e } = {}) {
 }
 
 async function findInOtherCaches(env, entry, exceptName) {
-  // reuse an identical file (same sha256) from a previous pack version instead of downloading
+  // reuse an identical file (same URL and sha256) from a previous pack version, or from another
+  // city's pack (shared basemap fonts and sprites), instead of downloading it again
   if (!env.caches) return null;
   try {
     const names = await env.caches.keys();
     for (const name of names) {
-      if (!name.startsWith(CACHE_PREFIX) || name === exceptName) continue;
+      if (!isPackCache(name) || name === exceptName) continue;
       const c = await env.caches.open(name);
       const r = await c.match(entry.url);
       if (r && r.headers && r.headers.get('X-Sha256') === entry.sha256) return r;
@@ -165,17 +180,18 @@ async function findInOtherCaches(env, entry, exceptName) {
  * verify sha256 and switch the pointer. Files already cached and verified are skipped.
  * Returns the manifest.
  */
-export async function downloadPack({ onProgress, baseUrl, appBaseUrl, includeTiles = true, manifest, env: e } = {}) {
+export async function downloadPack({ onProgress, baseUrl, appBaseUrl, includeTiles = true, manifest, city, env: e } = {}) {
   const env = defaultEnv(e);
-  const u = urls(env, baseUrl, appBaseUrl);
+  const sc = packScope(city);
+  const u = urls(env, baseUrl, appBaseUrl, sc.id);
   const report = (p) => { if (onProgress) try { onProgress(p); } catch (err) { log.warn('pack', 'onProgress threw: ' + err.message); } };
   report({ phase: 'manifest', file: MANIFEST, loaded: 0, total: 0, fraction: 0 });
-  const m = manifest || await fetchManifest({ baseUrl, env });
-  const cacheName = CACHE_PREFIX + m.version;
+  const m = manifest || await fetchManifest({ baseUrl, city: sc.id, env });
+  const cacheName = sc.prefix + m.version;
   if (!env.caches) throw new Error('Cache Storage недоступен (нужен HTTPS или localhost)');
   const cache = await env.caches.open(cacheName);
   const entries = dataEntries(m, u);
-  if (includeTiles) entries.push(...tileEntries(m, env, baseUrl, appBaseUrl));
+  if (includeTiles) entries.push(...tileEntries(m, env, u.data.href, appBaseUrl));
   const total = entries.reduce((s, x) => s + (x.bytes || 0), 0);
   let doneBytes = 0;
   const inflight = new Map();
@@ -229,14 +245,14 @@ export async function downloadPack({ onProgress, baseUrl, appBaseUrl, includeTil
   await Promise.all(workers);
   // manifest last: its presence in the cache marks the version complete
   await cache.put(u.manifest, new Response(JSON.stringify(m), { headers: { 'Content-Type': 'application/json' } }));
-  const prev = await getPointer(env);
+  const prev = await getPointer(env, sc);
   const tilesComplete = includeTiles || !!(prev && prev.version === m.version && prev.tiles);
-  await env.kv.set(POINTER_KEY, { version: m.version, manifest: m, installedAt: Date.now(), tiles: tilesComplete });
-  log.info('pack', `installed ${m.version}: ${fetched} downloaded, ${reused} reused, ${skipped} already cached in ${Date.now() - t0} ms`);
-  // drop old versions only after the pointer switched
+  await env.kv.set(sc.pointer, { version: m.version, manifest: m, installedAt: Date.now(), tiles: tilesComplete });
+  log.info('pack', `installed ${sc.id} ${m.version}: ${fetched} downloaded, ${reused} reused, ${skipped} already cached in ${Date.now() - t0} ms`);
+  // drop old versions of this city only after the pointer switched (never another city's caches)
   try {
     for (const name of await env.caches.keys()) {
-      if (name.startsWith(CACHE_PREFIX) && name !== cacheName) { await env.caches.delete(name); log.info('pack', 'deleted old cache ' + name); }
+      if (ownsCache(name, sc.id) && name !== cacheName) { await env.caches.delete(name); log.info('pack', 'deleted old cache ' + name); }
     }
   } catch (err) { log.warn('pack', 'old cache cleanup failed: ' + err.message); }
   report({ phase: 'done', file: null, loaded: total, total, fraction: 1 });
@@ -254,16 +270,17 @@ async function readCached(env, cacheName, url) {
  * Load the installed pack (offline) or install it first (online, data files only).
  * Resolves with {manifest, core, eponyms, geom, houses, areas, ready, version, source}.
  */
-export async function loadPack({ onProgress, baseUrl, appBaseUrl, env: e } = {}) {
+export async function loadPack({ onProgress, baseUrl, appBaseUrl, city, env: e } = {}) {
   const env = defaultEnv(e);
-  const u = urls(env, baseUrl, appBaseUrl);
+  const sc = packScope(city);
+  const u = urls(env, baseUrl, appBaseUrl, sc.id);
   const t0 = Date.now();
   const report = (p) => { if (onProgress) try { onProgress(p); } catch { /* ignore */ } };
-  let ptr = await getPointer(env);
+  let ptr = await getPointer(env, sc);
   let source = 'cache';
   let haveCache = false;
   if (ptr && env.caches) {
-    try { haveCache = await env.caches.has(CACHE_PREFIX + ptr.version); } catch { haveCache = false; }
+    try { haveCache = await env.caches.has(sc.prefix + ptr.version); } catch { haveCache = false; }
   }
   if (!haveCache) {
     if (!env.caches) {
@@ -271,14 +288,14 @@ export async function loadPack({ onProgress, baseUrl, appBaseUrl, env: e } = {})
       log.warn('pack', 'Cache Storage unavailable: loading the pack from network without caching');
       return networkOnlyLoad(env, u, report, t0);
     }
-    log.info('pack', ptr ? `cache for ${ptr.version} missing, reinstalling` : 'no pack installed, downloading');
-    const m = await downloadPack({ onProgress, baseUrl, appBaseUrl, includeTiles: false, env: e });
-    ptr = await getPointer(env);
+    log.info('pack', ptr ? `${sc.id}: cache for ${ptr.version} missing, reinstalling` : `${sc.id}: no pack installed, downloading`);
+    const m = await downloadPack({ onProgress, baseUrl, appBaseUrl, includeTiles: false, city: sc.id, env: e });
+    ptr = await getPointer(env, sc);
     if (!ptr || ptr.version !== m.version) ptr = { version: m.version, manifest: m };
     source = 'network';
   }
-  const manifest = ptr.manifest || parseJson(await readCached(env, CACHE_PREFIX + ptr.version, u.manifest), MANIFEST);
-  const cacheName = CACHE_PREFIX + manifest.version;
+  const manifest = ptr.manifest || parseJson(await readCached(env, sc.prefix + ptr.version, u.manifest), MANIFEST);
+  const cacheName = sc.prefix + manifest.version;
   const pack = { manifest, version: manifest.version, source, core: null, eponyms: null, geom: null, houses: null, areas: null, ready: null };
 
   async function loadFile(name, required) {
@@ -287,7 +304,7 @@ export async function loadPack({ onProgress, baseUrl, appBaseUrl, env: e } = {})
     if (!buf) {
       if (!manifest.files[name]) { if (required) throw new Error(`${name} нет в манифесте`); return null; }
       log.warn('pack', `${name} missing in ${cacheName}, refetching`);
-      await downloadPack({ baseUrl, appBaseUrl, includeTiles: false, manifest, env: e });
+      await downloadPack({ baseUrl, appBaseUrl, includeTiles: false, manifest, city: sc.id, env: e });
       buf = await readCached(env, cacheName, url);
       if (!buf) throw new Error(`${name}: не удалось загрузить`);
     }
@@ -339,15 +356,16 @@ async function networkOnlyLoad(env, u, report, t0) {
 }
 
 /** Readiness info: {version, installedAt, files:{name:{cached, bytes}}, tiles:{key:{cached, bytes}}, ...}. */
-export async function packStatus({ baseUrl, appBaseUrl, env: e } = {}) {
+export async function packStatus({ baseUrl, appBaseUrl, city, env: e } = {}) {
   const env = defaultEnv(e);
-  const u = urls(env, baseUrl, appBaseUrl);
-  const ptr = await getPointer(env);
+  const sc = packScope(city);
+  const u = urls(env, baseUrl, appBaseUrl, sc.id);
+  const ptr = await getPointer(env, sc);
   const res = { version: ptr ? ptr.version : null, installedAt: ptr ? ptr.installedAt : null, files: {}, tiles: {},
     dataComplete: false, tilesComplete: false, cacheAvailable: !!env.caches };
   if (!ptr || !env.caches) return res;
   let cache = null;
-  try { if (await env.caches.has(CACHE_PREFIX + ptr.version)) cache = await env.caches.open(CACHE_PREFIX + ptr.version); } catch { cache = null; }
+  try { if (await env.caches.has(sc.prefix + ptr.version)) cache = await env.caches.open(sc.prefix + ptr.version); } catch { cache = null; }
   const check = async (entry) => !!(cache && (await cache.match(entry.url)));
   let allData = true, allTiles = true;
   for (const entry of dataEntries(ptr.manifest, u)) {
@@ -355,7 +373,7 @@ export async function packStatus({ baseUrl, appBaseUrl, env: e } = {}) {
     res.files[entry.key] = { cached, bytes: entry.bytes };
     allData = allData && cached;
   }
-  const tiles = tileEntries(ptr.manifest, env, baseUrl, appBaseUrl);
+  const tiles = tileEntries(ptr.manifest, env, u.data.href, appBaseUrl);
   for (const entry of tiles) {
     const cached = await check(entry);
     res.tiles[entry.key] = { cached, bytes: entry.bytes };
@@ -363,13 +381,41 @@ export async function packStatus({ baseUrl, appBaseUrl, env: e } = {}) {
   }
   res.dataComplete = allData;
   res.tilesComplete = tiles.length > 0 && allTiles;
+  res.bytes = dataEntries(ptr.manifest, u).reduce((s, x) => s + (x.bytes || 0), 0);
+  res.tilesBytes = tiles.reduce((s, x) => s + (x.bytes || 0), 0);
   return res;
 }
 
-/** Remove the installed pack (pointer + caches). */
-export async function removePack({ env: e } = {}) {
+/**
+ * Short status of a city's installed pack for the city picker, without opening caches file by
+ * file: {city, version, built, installedAt, cached, tiles, bytes} (cached: the version's cache
+ * exists). Never throws.
+ */
+export async function cityPackInfo(city, { env: e } = {}) {
   const env = defaultEnv(e);
-  await env.kv.set(POINTER_KEY, null);
-  if (env.caches) for (const name of await env.caches.keys()) if (name.startsWith(CACHE_PREFIX)) await env.caches.delete(name);
-  log.info('pack', 'pack removed');
+  const sc = packScope(city);
+  const out = { city: sc.id, version: null, built: null, installedAt: null, cached: false, tiles: false, bytes: 0 };
+  try {
+    const ptr = await getPointer(env, sc);
+    if (!ptr || !ptr.version) return out;
+    const m = ptr.manifest || {};
+    out.version = ptr.version;
+    out.built = m.built || null;
+    out.installedAt = ptr.installedAt || null;
+    out.tiles = !!ptr.tiles;
+    out.bytes = Object.values(m.files || {}).reduce((s, x) => s + ((x && x.bytes) || 0), 0);
+    out.cached = env.caches ? await env.caches.has(sc.prefix + ptr.version) : false;
+  } catch (err) {
+    log.warn('pack', `cityPackInfo ${sc.id}: ${err.message}`);
+  }
+  return out;
+}
+
+/** Remove the installed pack of a city (pointer + that city's caches). */
+export async function removePack({ city, env: e } = {}) {
+  const env = defaultEnv(e);
+  const sc = packScope(city);
+  await env.kv.set(sc.pointer, null);
+  if (env.caches) for (const name of await env.caches.keys()) if (ownsCache(name, sc.id)) await env.caches.delete(name);
+  log.info('pack', `pack removed: ${sc.id}`);
 }

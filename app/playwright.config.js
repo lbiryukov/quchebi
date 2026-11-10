@@ -1,8 +1,11 @@
 // E2E on the production build (vite build + vite preview), two phone profiles.
 // Run: cd app && npx playwright test   (first time: npx playwright install chromium webkit)
+// With a preinstalled Chromium of another revision (CI containers):
+//   PW_CHROMIUM_EXECUTABLE=/opt/pw-browsers/chromium npx playwright test --project="Pixel 7"
 import { defineConfig, devices } from '@playwright/test';
 
 const PORT = Number(process.env.E2E_PORT || 4173);
+const CHROMIUM = process.env.PW_CHROMIUM_EXECUTABLE || '';
 
 export default defineConfig({
   testDir: './e2e',
@@ -23,7 +26,7 @@ export default defineConfig({
   },
   projects: [
     { name: 'iPhone 14', use: { ...devices['iPhone 14'] } },
-    { name: 'Pixel 7', use: { ...devices['Pixel 7'] } },
+    { name: 'Pixel 7', use: { ...devices['Pixel 7'], ...(CHROMIUM ? { launchOptions: { executablePath: CHROMIUM } } : {}) } },
   ],
   webServer: {
     command: `node scripts/dev-fixture.mjs && npx vite build && npx vite preview --port ${PORT} --strictPort`,

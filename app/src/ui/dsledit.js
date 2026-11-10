@@ -1,5 +1,6 @@
 // String-level editing of DSL queries for chips: split into top-level atoms, find/replace
 // "key:value" atoms, toggle values inside comma lists. The DSL string stays the source of truth.
+import { parseHouseQuery } from '../search/houses.js';
 
 /** Split text into top-level atoms separated by whitespace outside (), "" and /regex/. */
 export function atoms(text) {
@@ -139,12 +140,19 @@ export function crossSubqueries(text) {
   return out;
 }
 
-/** House number token value from the query, e.g. "3", "=3", "3а", "3?" -> {n, raw, probable, exact}. */
-export function houseQuery(text) {
+/**
+ * House number token value from the query, e.g. "3", "=3", "3а", "3?", "12к2" ->
+ * {n, raw, probable, exact, lit, q}. `q` is the parsed search/houses.js query for the pack
+ * language `lang` (null for есть/нет, ranges and unparseable values); match rows with
+ * houseRowMatches(row, q).
+ */
+export function houseQuery(text, lang = 'ka') {
   const a = findAtom(text, ['дом', 'h']);
   if (!a) return null;
   const raw = a.value.trim();
   const m = /^(=)?(\d+)([^\s?\-]*)(\?)?$/.exec(raw);
-  if (!m) return { raw, n: null };
-  return { raw, exact: Boolean(m[1]), n: Number(m[2]), lit: (m[3] || '').toLowerCase(), probable: Boolean(m[4]) };
+  if (!m) return { raw, n: null, q: null };
+  const pq = parseHouseQuery(raw, { lang });
+  const q = pq.error || pq.kind === 'has' || pq.kind === 'none' || pq.kind === 'range' ? null : pq;
+  return { raw, exact: Boolean(m[1]), n: Number(m[2]), lit: (m[3] || '').toLowerCase(), probable: Boolean(m[4]), q };
 }

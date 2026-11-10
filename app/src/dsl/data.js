@@ -8,6 +8,7 @@ import { skeleton, stripType, normRu } from '../search/normalize.js';
 import { decodePolyline } from '../zone/geo.js';
 import { fold } from './lexer.js';
 import { log } from '../log/log.js';
+import { packLang } from '../store/cities.js';
 
 const CACHE = new WeakMap();
 
@@ -53,7 +54,8 @@ function buildData(index) {
     const g = k ? k.group : null;
     if (g === PLACE_GROUP) {
       isPlace[i] = 1;
-      tier[i] = MINOR_PLACE_KINDS.has(k.code) ? TIER.minorPlace : TIER.place;
+      // new or unknown place kinds (stops, hotels, embassies ...) rank with the minor places
+      tier[i] = MAIN_PLACE_KINDS.has(k.code) ? TIER.place : TIER.minorPlace;
       continue;
     }
     const street = g === 'street*' || g === 'lane*' || (k && k.code === 'square');
@@ -207,13 +209,24 @@ function buildData(index) {
     const k = ixSort ? ixSort[i] : fold(f.ru || f.ka || f.en || '');
     sortKey[i] = /\d/.test(k) ? k.replace(/\d+/g, (m) => m.padStart(6, '0')) : k;
   }
+  // centre of the data (projection origin of distance grids; the pack may be any city)
+  let cLat = 0, cLon = 0, nc = 0;
+  for (let i = 0; i < n; i++) {
+    const c = F[i] && F[i].c;
+    if (c && Number.isFinite(c[0]) && Number.isFinite(c[1])) { cLat += c[0]; cLon += c[1]; nc++; }
+  }
+  const center = nc ? { lat: cLat / nc / 1e5, lon: cLon / nc / 1e5 } : { lat: 0, lon: 0 };
+
   const ordIdx = Array.from({ length: n }, (_, i) => i);
   ordIdx.sort((a, b) => (sortKey[a] < sortKey[b] ? -1 : sortKey[a] > sortKey[b] ? 1 : ((F[a].o || 0) - (F[b].o || 0)) || a - b));
   const nameRank = new Int32Array(n);
   ordIdx.forEach((f, r) => { nameRank[f] = r; });
 
+  let nNotes = 0;
+  for (let i = 0; i < n; i++) if (F[i] && F[i].note) nNotes++;
+
   const d = {
-    index, pack, core, F, n, kinds, fam, E, nE, districts, places,
+    index, pack, core, F, n, kinds, fam, E, nE, districts, places, lang: packLang(pack), center, nNotes, noteSk: null, noteRaw: null,
     curSk, curJoined, allSk, baseSk: null, rawFold: null, kindTypeWords, ruKindName, nameTok: null, loanTok: null,
     old: { f: Int32Array.from(oldF), e: Int32Array.from(oldE), sk: oldSk, raw: oldRaw, m: oldF.length },
     kindOf, kindBits, districtBits, placeBits, isPlace, tier, streetish,
@@ -246,6 +259,14 @@ export const TIER = Object.freeze({ street: 0, other: 1, ordinal: 2, place: 3, m
 export const MINOR_PLACE_KINDS = new Set(['plaque', 'school', 'university', 'residential', 'factory']);
 
 /**
+ * The main places (tier `place`). Every other kind of group place* — the minor ones above and
+ * any kind this list does not know (the Moscow pack adds stops, embassies, hotels, hospitals,
+ * government offices, kindergartens, piers, buildings) — ranks in the low tier `minorPlace`.
+ */
+export const MAIN_PLACE_KINDS = new Set(['landmark', 'museum', 'theatre', 'cinema', 'monument', 'church', 'mosque',
+  'synagogue', 'fortress', 'palace', 'bath', 'stadium', 'mall', 'market', 'station', 'library', 'cemetery']);
+
+/**
  * Russian words for the kind keywords of English place names. A place without a real Russian
  * name (no name:ru, or the pack's ru is only a transliteration of ka) gets a search-only name
  * "<Russian kind words> <en>", so "музей" finds "Museum of Illusions".
@@ -267,6 +288,7 @@ const EN_KIND_RU = {
 export function placeRuKindName(f, kind) {
   if (!kind || kind.group !== PLACE_GROUP || !f || !f.en) return null;
   if (f.ru && skeleton(f.ru) !== skeleton(f.ka)) return null; // a real Russian name
+  if (/[а-яё]/i.test(f.ka || '')) return null; // 'ru' packs: the primary name is Russian
   const words = [];
   for (const w of String(f.en).toLowerCase().split(/[^a-z]+/)) {
     const ru = EN_KIND_RU[w];
@@ -274,6 +296,25 @@ export function placeRuKindName(f, kind) {
   }
   if (!words.length && kind.ru && kind.code !== 'landmark') words.push(kind.ru);
   return words.length ? `${words.join(' ')} ${f.en}` : null;
+}
+
+/**
+ * Notes (core.f[].note) for инфо:: skeletons and folded raw texts, built on first use.
+ * Bare words never search notes.
+ */
+export function noteData(d) {
+  if (!d.noteSk) {
+    const sk = new Array(d.n);
+    const raw = new Array(d.n);
+    for (let i = 0; i < d.n; i++) {
+      const t = d.F[i] && d.F[i].note ? String(d.F[i].note) : '';
+      sk[i] = t ? skeleton(t) : '';
+      raw[i] = t ? fold(t) : '';
+    }
+    d.noteSk = sk;
+    d.noteRaw = raw;
+  }
+  return d;
 }
 
 const TOKEN_SPLIT = /[\s\-–—,.«»"“”„()/№#'’]+/;

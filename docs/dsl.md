@@ -46,7 +46,8 @@ Russian key first, then synonyms (all equivalent).
 | `био` | `bio` | text | substring in eponym `desc` + `occ` + names |
 | `век` | `c` | `19` or `11-12` | eponym lived in that century (overlap of birth..death) |
 | `пол` | `g` | `м`/`ж` (`m`/`f`) | eponym gender |
-| `свой` | `ge` | `да`/`нет` | eponym is Georgian / foreign |
+| `свой` | `ge` | `да`/`нет` (`местный`, `грузин`, `иностранец`) | eponym is local (`o` known and not `"fo"`) / foreign |
+| `инфо` | `info`, `note` | text, quoted, regex, `есть`, `нет` | substring of the skeleton of the note `core.f[].note` |
 | `дом` | `h` | `3`, `=3`, `3а`, `1-9`, `3?`, `есть`, `нет` | house numbers (see Houses) |
 | `домов` | `hn` | `cmp number` | number of known house numbers |
 | `x` | `пересекает`, `cross` | sub, optionally `~compass` | crosses a feature of the subquery |
@@ -94,6 +95,9 @@ buildings). Landmarks have no family and no house numbers of their own: the addr
 of the parent street, so `дом:8 рядом:(тип:музей истори)~50` finds the street of the museum.
 
 ### Eponyms (`кто`, `био`, `век`, `пол`, `свой`)
+`свой:да` = eponyms whose origin `o` is known and not `"fo"` (Tbilisi packs: `"ge"`, Moscow packs:
+`"ru"`); the wording follows the pack language: "грузин" / "не грузин" in Tbilisi, "местный" /
+"не местный" in Moscow, "иностранец" in both.
 A feature's eponym is `eponyms.e[core.fam[f.fam].e]`. `кто:` value resolution order: taxonomy id
 (`lit.poet`), taxonomy alias (`поэт`, group alias `литература` = all children), kind alias
 (`персона` = kind person or persons_multi, `топоним`, `событие`, `природа`, `понятие`, `группа`),
@@ -111,7 +115,36 @@ count (not the zone rule for lines).
 - `дом:3?` — like `дом:3`, plus features where 3 is "probably there": the same-parity side has
   numbers below and above 3 (e.g. 1 and 5, or 1 and 7) but not 3.
 - `дом:есть` / `дом:нет` — has at least one / no house numbers (zone-restricted if zone on).
+
+Packs with `manifest.city.lang = "ru"` (Moscow addresses: rows like "12", "12А", "12 к2", "12 к2 с1",
+"5/7 с2"; `lit` lowercase Cyrillic, `corp` space-separated tokens к = корпус, с = строение; also "вл"):
+- `дом:12` — any row with `n == 12`; `дом:=12` — exactly "12" (no letter, fraction, корпус, строение).
+- `дом:12а` (also Latin `12a`) — letter, normalized to Cyrillic (a→а, b→б, v→в, g→г, d→д, e→е).
+- `дом:12к2`, `дом:12с1`, `дом:12к2с1` (also `корп`, `корпус`, `стр`, `строение`, Latin `k`, `c`/`s`) —
+  `n == 12` and the row's `corp` contains all the given tokens; with `=` exactly those tokens.
+  A letter right before a digit is a корпус/строение marker, a single trailing letter is the литера
+  (`дом:12ак2` = литера а, корпус 2).
+- `дом:5/7`, `дом:5/7с2` — fraction (plus tokens); ranges, `?`, `есть`/`нет` as above.
+Parsing: `parseHouseQuery(value, {lang: 'ru'})` in `search/houses.js`; vectors
+`tests/vectors/house_query_ru.json`. `parse(text, {lang})` takes the pack language; `run()` passes it,
+and `evaluate()` re-reads a `дом:` value parsed for another language.
+
+### Notes (`инфо`)
+`core.f[].note` holds short reference facts (bus routes of a stop, year and architect of a building,
+the inscription of a plaque). `инфо:струков` = skeleton substring (same text rules as bare words),
+`инфо:"арх. Струков"`, `инфо:/регэксп/` (on the folded note), `инфо:есть` / `инфо:нет` = has / has no
+note. Bare words never search notes. Explanation: "с пометкой «струков»", "с пометкой", "без
+пометки". Autocomplete offers `инфо:` only when the pack has notes.
 - `домов>30` — count of house rows (zone-restricted if zone on).
+
+### Kinds of the Moscow pack
+Appended to `core.kinds` (group `place*` unless noted; the list always comes from the loaded
+pack): `бульвар` (street*), `остановка` (остановки, автобус), `посольство`
+(консульство), `гостиница` (отель, хостел), `больница` (клиника, поликлиника, госпиталь),
+`учреждение` (министерство, ведомство, суд), `детсад` (садик), `причал` (пристань), `здание`
+(особняк, наследие, окн). Place kinds the client does not list as main places
+(museum, theatre, cinema, monument, church, mosque, synagogue, fortress, palace, bath, stadium, mall,
+market, station, library, cemetery, landmark) rank in the low tier with plaques and schools.
 
 ### Relations
 - `x:(Q)` — features `f` with a crossing `(f, g)` where `g ∈ eval(Q)`. The subquery is evaluated

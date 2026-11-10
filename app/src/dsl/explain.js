@@ -1,7 +1,7 @@
 // Russian explanation of a parsed query, e.g.
 // "Переулки, пересекающие улицы, проспекты и т.п. (кто: поэт) — в зоне".
 import { fold } from './lexer.js';
-import { COMPASS_RU } from './keys.js';
+import { COMPASS_RU, ownWords } from './keys.js';
 import { describeHouse } from './housequery.js';
 
 // kind name (ru, synonyms, codes) -> "nominative|genitive|instrumental|group" (plural forms)
@@ -15,6 +15,7 @@ const KF = [
   ['спуск descent', 'спуски|спусков|спусками|street*'],
   ['аллея alley', 'аллеи|аллей|аллеями|street*'],
   ['ряд row', 'ряды|рядов|рядами|street*'],
+  ['бульвар boulevard', 'бульвары|бульваров|бульварами|street*'],
   ['переулок lane', 'переулки|переулков|переулками|lane*'],
   ['тупик dead_end', 'тупики|тупиков|тупиками|lane*'],
   ['проезд passage', 'проезды|проездов|проездами|lane*'],
@@ -37,6 +38,15 @@ const KF = [
   ['квартал', 'кварталы|кварталов|кварталами|area*'],
   ['местность', 'местности|местностей|местностями|area*'],
   ['прочее other', 'прочие объекты|прочих объектов|прочими объектами|'],
+  // places of the Moscow pack (group place*)
+  ['остановка stop', 'остановки|остановок|остановками|place*'],
+  ['посольство embassy', 'посольства|посольств|посольствами|place*'],
+  ['гостиница hotel', 'гостиницы|гостиниц|гостиницами|place*'],
+  ['больница hospital', 'больницы|больниц|больницами|place*'],
+  ['учреждение government', 'учреждения|учреждений|учреждениями|place*'],
+  ['детсад kindergarten', 'детсады|детсадов|детсадами|place*'],
+  ['причал pier', 'причалы|причалов|причалами|place*'],
+  ['здание house', 'здания|зданий|зданиями|place*'],
 ];
 const KIND_FORMS = {};
 for (const [names, forms] of KF) {
@@ -84,16 +94,17 @@ function numText(nm, unit = '') {
   return `${op} ${nm.a}${unit}`;
 }
 
-function eponymPart(f, negated) {
+function eponymPart(f, negated, opts = {}) {
   const ne = negated ? 'не ' : '';
+  const ow = ownWords(opts.lang);
   switch (f.key) {
     case 'who': return `кто: ${ne}${joinOr(f.items.map((i) => i.raw))}`;
     case 'bio': return `био: ${ne}${joinOr(f.items.map((i) => (i.mode === 'regex' ? `/${i.value}/` : q(i.value))))}`;
     case 'century': return `век: ${ne}${joinOr(f.nums.map((n) => numText(n)))}`;
     case 'gender': return `пол: ${ne}${f.items.map((i) => (i.value === 'f' ? 'женский' : 'мужской')).join(' или ')}`;
     case 'own': return negated
-      ? (f.items[0].value === 'yes' ? 'не грузин' : 'не иностранец')
-      : f.items.map((i) => (i.value === 'yes' ? 'грузин' : 'иностранец')).join(' или ');
+      ? (f.items[0].value === 'yes' ? ow.notYes : ow.notNo)
+      : f.items.map((i) => (i.value === 'yes' ? ow.yes : ow.no)).join(' или ');
     default: return '';
   }
 }
@@ -125,6 +136,7 @@ function filterPhrase(f, opts) {
     case 'district': return f.items.length === 1 ? `в районе ${placeName(f.items[0], opts)}` : `в районах ${joinOr(f.items.map((i) => placeName(i, opts)))}`;
     case 'in': return `в ${joinOr(f.items.map((i) => placeName(i, opts)))}`;
     case 'house': return f.items.map((i) => describeHouse(i.q)).join(' или ');
+    case 'info': return f.items.map(infoItemText).join(' или ');
     case 'houses': return `с числом домов ${joinOr(f.nums.map((n) => numText(n)))}`;
     case 'len': return `длиной ${joinOr(f.nums.map((n) => numText(n, ' м')))}`;
     case 'ord': return `№ ${joinOr(f.nums.map((n) => numText(n)))}`;
@@ -140,18 +152,26 @@ function filterPhrase(f, opts) {
       return `из семей: ${subText(f.sub, 'nom', opts)}`;
     case 'old':
       if (f.sub.type === 'text') return f.sub.mode === 'regex' ? `с прежним названием по шаблону /${f.sub.value}/` : `с прежним названием ${q(f.sub.value)}`;
-      return `с прежним названием ${oldSubText(f.sub)}`;
+      return `с прежним названием ${oldSubText(f.sub, opts)}`;
     default: return '';
   }
 }
 
-function oldSubText(node) {
+/** One инфо: value: "с пометкой «…»", "с пометкой", "без пометки". */
+function infoItemText(it) {
+  if (it.mode === 'has') return 'с пометкой';
+  if (it.mode === 'none') return 'без пометки';
+  if (it.mode === 'regex') return `с пометкой по шаблону /${it.value}/`;
+  return `с пометкой ${q(it.value)}`;
+}
+
+function oldSubText(node, opts) {
   // only eponym filters and text inside было:(…)
   if (node.type === 'text') return node.mode === 'regex' ? `/${node.value}/` : q(node.value);
-  if (node.type === 'filter') return `(${eponymPart(node, false) || node.key})`;
-  if (node.type === 'not') return `не ${oldSubText(node.item)}`;
-  if (node.type === 'and') return node.items.map(oldSubText).join(' ');
-  if (node.type === 'or') return node.items.map(oldSubText).join(' или ');
+  if (node.type === 'filter') return `(${eponymPart(node, false, opts) || node.key})`;
+  if (node.type === 'not') return `не ${oldSubText(node.item, opts)}`;
+  if (node.type === 'and') return node.items.map((n) => oldSubText(n, opts)).join(' ');
+  if (node.type === 'or') return node.items.map((n) => oldSubText(n, opts)).join(' или ');
   return '';
 }
 
@@ -179,9 +199,9 @@ function describe(node, cs, opts, top) {
   const mods = [];
   for (const it of items) {
     if (it.type === 'filter' && it.key === 'type') types.push(it);
-    else if (it.type === 'filter' && EPONYM_FILTERS.has(it.key)) eponym.push(eponymPart(it, false));
+    else if (it.type === 'filter' && EPONYM_FILTERS.has(it.key)) eponym.push(eponymPart(it, false, opts));
     else if (it.type === 'text') texts.push(it);
-    else if (it.type === 'not' && it.item.type === 'filter' && EPONYM_FILTERS.has(it.item.key)) eponym.push(eponymPart(it.item, true));
+    else if (it.type === 'not' && it.item.type === 'filter' && EPONYM_FILTERS.has(it.item.key)) eponym.push(eponymPart(it.item, true, opts));
     else if (it.type === 'not' && it.item.type === 'text') negTexts.push(it.item);
     else if (it.type === 'not' && it.item.type === 'filter' && it.item.key === 'type') {
       mods.push(`кроме: ${it.item.items.map((i) => kindForms(i).nom).join(' и ')}`);
@@ -216,7 +236,7 @@ function describe(node, cs, opts, top) {
 
 /** OR of filters with the same enumerated key reads better as one filter with a value list. */
 function mergeOr(node) {
-  const keys = new Set(['who', 'type', 'in', 'district', 'house', 'bio', 'gender']);
+  const keys = new Set(['who', 'type', 'in', 'district', 'house', 'bio', 'gender', 'info']);
   if (!node.items.every((n) => n.type === 'filter' && n.key === node.items[0].key && keys.has(n.key) && n.items)) return null;
   return { ...node.items[0], items: node.items.flatMap((n) => n.items) };
 }
@@ -226,7 +246,8 @@ const SORT_RU = { name: 'по имени', len: 'по длине', houses: 'по
 /**
  * explain(ast, opts) -> Russian sentence.
  * opts: {zone: 'default'|'touch'|'whole'|'off'|null — effective zone mode (null = no zone set),
- *        labels: Map(valueItem -> display name) from the evaluator}
+ *        labels: Map(valueItem -> display name) from the evaluator,
+ *        lang: pack language ('ka' | 'ru'): wording of свой: (грузин / местный)}
  * Without opts.zone the zone suffix is omitted.
  */
 export function explain(ast, opts = {}) {

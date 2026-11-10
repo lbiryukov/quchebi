@@ -4,7 +4,7 @@ import { h, icon, toast } from './dom.js';
 import { state, emit, on } from './state.js';
 import { registerScreen, navigate } from './router.js';
 import { mountMap, hooks, currentView } from './mapctl.js';
-import { mainName, ruName, kindRu, placeLabel } from './feature.js';
+import { mainName, secondName, kindRu, placeLabel } from './feature.js';
 import { openCard } from './card.js';
 
 let host;
@@ -97,7 +97,7 @@ function showPopup(i) {
   });
   pop.replaceChildren(
     h('div.ka', mainName(i)),
-    ruName(i) !== mainName(i) ? h('div.small', ruName(i)) : null,
+    secondName(i) ? h('div.small', secondName(i)) : null,
     h('div.small.muted', [kindRu(i), placeLabel(i)].filter(Boolean).join(' · ')),
     h('div.btn-row', open, close),
   );

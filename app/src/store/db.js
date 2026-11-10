@@ -2,12 +2,21 @@
 // zone (+ localStorage mirror), settings, query history, saved queries, notes.
 // Every call is wrapped in try/catch: storage failures are logged and never break the UI.
 //
+// Per-city records (store/cities.js): zone + its mirror, history, saved queries, notes and the
+// city settings (getCitySetting: zoneSkipped, zoneEnabled) use the keys of the current city
+// ('zone' / 'zone:khamovniki', 'quchebi.zone' / 'quchebi.zone.khamovniki'); Tbilisi keeps the
+// legacy unsuffixed keys. Plain settings (theme, game mode, the chosen city) are global.
+//
 //   import * as db from './store/db.js';
 //   await db.setZone({polygon, createdAt: Date.now(), mode: 'draw', name: 'Сололаки'});
 import { createStore, get as idbGet, set as idbSet, del as idbDel } from 'idb-keyval';
 import { log } from '../log/log.js';
+import { cityKey, cityLsKey, currentCityId } from './cities.js';
 
+/** localStorage mirror of the zone of Tbilisi (other cities: zoneLsKey(id)). */
 export const ZONE_LS_KEY = 'quchebi.zone';
+/** localStorage mirror key of the zone of a city. */
+export const zoneLsKey = (city) => cityLsKey(ZONE_LS_KEY, city);
 export const HISTORY_MAX = 100;
 export const SAVED_MAX = 200;
 export const NOTES_MAX = 1000;
@@ -54,13 +63,17 @@ function defaultStorage() {
 
 /**
  * Create a db facade over a kv store and a localStorage-like storage.
- * @param {{kv?: {get,set,del}, storage?: Storage|null}} o
+ * `city` fixes the city of the per-city records; by default it is the current city of the page
+ * (store/cities.js currentCityId(), read on every call).
+ * @param {{kv?: {get,set,del}, storage?: Storage|null, city?: string}} o
  */
 export function createDb(o = {}) {
   let kv = o.kv === undefined ? idbKV() : o.kv;
   if (!kv) kv = memoryKV();
   const storage = o.storage === undefined ? defaultStorage() : o.storage;
   let kvBroken = false;
+  const city = () => (o.city !== undefined ? o.city : currentCityId());
+  const K = (base) => cityKey(base, city());
 
   async function kget(key, def) {
     if (kvBroken) return def;
@@ -106,12 +119,12 @@ export function createDb(o = {}) {
     // ------------------------------------------------------------ zone
     /** Saved zone {polygon, createdAt, mode, name?, enabled?, buffer?} or null. IDB first, then the mirror. */
     async getZone() {
-      const z = await kget('zone', null);
+      const z = await kget(K('zone'), null);
       if (validZone(z)) return z;
-      const m = lsGet(ZONE_LS_KEY);
+      const m = lsGet(zoneLsKey(city()));
       if (validZone(m)) {
         log.warn('db', 'zone restored from localStorage mirror');
-        kset('zone', m);
+        kset(K('zone'), m);
         return m;
       }
       return null;
@@ -120,15 +133,15 @@ export function createDb(o = {}) {
     async setZone(zone) {
       if (!validZone(zone)) throw new Error('setZone: polygon with >= 3 vertices required');
       const z = { createdAt: Date.now(), ...zone };
-      const a = await kset('zone', z);
-      const b = lsSet(ZONE_LS_KEY, z);
+      const a = await kset(K('zone'), z);
+      const b = lsSet(zoneLsKey(city()), z);
       if (!a && !b) log.error('db', 'zone could not be saved anywhere');
       else log.info('db', `zone saved (${z.polygon.length} vertices, idb=${a}, mirror=${b})`);
       return a || b;
     },
     async clearZone() {
-      await kdel('zone');
-      lsDel(ZONE_LS_KEY);
+      await kdel(K('zone'));
+      lsDel(zoneLsKey(city()));
       log.info('db', 'zone cleared');
     },
 
@@ -143,48 +156,51 @@ export function createDb(o = {}) {
       if (value === undefined) delete s[key]; else s[key] = value;
       return kset('settings', s);
     },
+    /** Per-city setting (Tbilisi: the plain key, others: 'key:<city>' in the same settings record). */
+    async getCitySetting(key, def) { return api.getSetting(K(key), def); },
+    async setCitySetting(key, value) { return api.setSetting(K(key), value); },
 
     // ------------------------------------------------------------ history
     /** Query history, newest first. */
-    async getHistory() { const h = await kget('history', []); return Array.isArray(h) ? h : []; },
+    async getHistory() { const h = await kget(K('history'), []); return Array.isArray(h) ? h : []; },
     async addHistory(query) {
       const q = String(query || '').trim();
       if (!q) return false;
       const h = (await api.getHistory()).filter((x) => x !== q);
       h.unshift(q);
-      return kset('history', h.slice(0, HISTORY_MAX));
+      return kset(K('history'), h.slice(0, HISTORY_MAX));
     },
-    async clearHistory() { return kset('history', []); },
+    async clearHistory() { return kset(K('history'), []); },
 
     // ------------------------------------------------------------ saved queries
     /** Saved queries [{q, name, t}], newest first. */
-    async getSaved() { const s = await kget('saved', []); return Array.isArray(s) ? s : []; },
+    async getSaved() { const s = await kget(K('saved'), []); return Array.isArray(s) ? s : []; },
     async addSaved(item) {
       const q = String((item && item.q) || '').trim();
       if (!q) return false;
       const list = (await api.getSaved()).filter((x) => x.q !== q);
       list.unshift({ q, name: (item.name && String(item.name)) || q, t: item.t || Date.now() });
-      return kset('saved', list.slice(0, SAVED_MAX));
+      return kset(K('saved'), list.slice(0, SAVED_MAX));
     },
     async removeSaved(q) {
       const list = (await api.getSaved()).filter((x) => x.q !== q);
-      return kset('saved', list);
+      return kset(K('saved'), list);
     },
 
     // ------------------------------------------------------------ notes
     /** Notes [{t, featureKey, text}], newest first. featureKey should be stable across rebuilds (names/QID). */
-    async getNotes() { const s = await kget('notes', []); return Array.isArray(s) ? s : []; },
+    async getNotes() { const s = await kget(K('notes'), []); return Array.isArray(s) ? s : []; },
     async addNote(note) {
       if (!note || !String(note.text || '').trim()) return false;
       const list = await api.getNotes();
       const t = note.t || Date.now();
       const rest = list.filter((x) => x.t !== t);
       rest.unshift({ ...note, t, text: String(note.text) });
-      return kset('notes', rest.slice(0, NOTES_MAX));
+      return kset(K('notes'), rest.slice(0, NOTES_MAX));
     },
     async removeNote(t) {
       const list = (await api.getNotes()).filter((x) => x.t !== t);
-      return kset('notes', list);
+      return kset(K('notes'), list);
     },
   };
   return api;
@@ -208,6 +224,8 @@ export const clearZone = () => getDb().clearZone();
 export const getSettings = () => getDb().getSettings();
 export const getSetting = (k, d) => getDb().getSetting(k, d);
 export const setSetting = (k, v) => getDb().setSetting(k, v);
+export const getCitySetting = (k, d) => getDb().getCitySetting(k, d);
+export const setCitySetting = (k, v) => getDb().setCitySetting(k, v);
 export const getHistory = () => getDb().getHistory();
 export const addHistory = (q) => getDb().addHistory(q);
 export const clearHistory = () => getDb().clearHistory();

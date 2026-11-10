@@ -1,8 +1,10 @@
 /* Quchebi service worker (vite-plugin-pwa injectManifest).
  * - Precaches the app shell (Workbox); a new version waits until the user confirms
  *   (message SKIP_WAITING), so it never switches mid-game.
- * - Serves the data pack (data/*) and the basemap (tiles/*) from Cache Storage, where
- *   store/pack.js puts them (cache "pack-v<version>"); falls back to the network.
+ * - Serves the data packs (data/*, data/<city>/*) and the basemaps (tiles/<city>.pmtiles) from
+ *   Cache Storage, where store/pack.js puts them (caches "pack-v<version>" for Tbilisi,
+ *   "pack-<city>-v<version>" for other cities; caches.match looks in all of them, URLs differ
+ *   per city, shared fonts/sprites are identical in every cache); falls back to the network.
  * - Basemap fonts/sprites are cache-first with a runtime cache.
  * - PMTiles Range requests are answered from the cached full file (206). */
 import { precacheAndRoute, cleanupOutdatedCaches, createHandlerBoundToURL } from 'workbox-precaching';

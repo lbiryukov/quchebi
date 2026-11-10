@@ -1,6 +1,7 @@
 // Hash router for the six screens (#/search, #/map, #/zone, #/ready, #/log, #/about).
 import { log } from '../log/log.js';
 import { state, emit, on } from './state.js';
+import { whenHistorySettled } from './dom.js';
 
 const SCREENS = ['search', 'map', 'zone', 'ready', 'log', 'about'];
 const NAV_OF = { search: 'search', map: 'map', zone: 'zone', ready: 'ready', log: 'ready', about: 'ready' };
@@ -13,8 +14,10 @@ export function registerScreen(name, { onShow, onHide } = {}) {
 
 export function navigate(name) {
   if (!SCREENS.includes(name)) name = 'search';
-  if (location.hash !== `#/${name}`) location.hash = `#/${name}`;
-  else apply();
+  whenHistorySettled(() => {
+    if (location.hash !== `#/${name}`) location.hash = `#/${name}`;
+    else apply();
+  });
 }
 
 function nameFromHash() {

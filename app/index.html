@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Quchebi: офлайн-поиск улиц Тбилиси для игры «Бегущий город»">
+  <meta name="description" content="Quchebi: офлайн-поиск улиц и мест для игры «Бегущий город»">
   <meta name="theme-color" content="#1D3B6E" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0E131B" media="(prefers-color-scheme: dark)">
   <meta name="mobile-web-app-capable" content="yes">
@@ -16,17 +16,25 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <script>
-    // Apply the saved theme before first paint (mirrored to localStorage by the settings UI).
+    // Apply the saved theme before first paint (mirrored to localStorage by the settings UI);
+    // mark the chosen city (?city= or the localStorage mirror of store/cities.js) so the boot
+    // screen is not shown before the city picker at the first start.
     try {
       var t = localStorage.getItem('quchebi.theme');
       if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
     } catch (e) { /* storage may be blocked */ }
+    try {
+      var c = new URLSearchParams(location.search).get('city') || localStorage.getItem('quchebi.city');
+      if (c) document.documentElement.setAttribute('data-city', c);
+      else document.documentElement.setAttribute('data-need-city', '');
+    } catch (e) { document.documentElement.setAttribute('data-need-city', ''); }
   </script>
   <script type="module" src="./src/main.js"></script>
 </head>
 <body>
   <div id="app" class="app">
     <header class="topbar">
+      <button id="city-chip" class="city-chip" type="button" aria-label="Район. Сменить район" data-testid="city-chip"></button>
       <button id="zone-plate" class="zone-plate none" type="button" aria-label="Зона соревнований">
         <span class="dot" aria-hidden="true"></span><span id="zone-plate-text">Зона не задана</span>
       </button>
@@ -36,6 +44,7 @@
     <main id="screens" class="screens">
       <div id="boot" class="boot" role="status">
         <div class="plate-big"><span class="ka">ქუჩები</span><span class="lat">Quchebi</span></div>
+        <div id="boot-city" class="boot-city"></div>
         <div id="boot-text">Загрузка…</div>
         <div class="progress" aria-hidden="true"><i id="boot-bar"></i></div>
       </div>
@@ -72,6 +81,7 @@
     </nav>
   </div>
 
+  <div id="city-picker" class="picker" role="dialog" aria-modal="true" aria-label="Выбор района" hidden></div>
   <div id="sheet-root"></div>
   <div id="update-banner" class="update-banner" hidden>
     <span class="txt">Доступна новая версия приложения</span>

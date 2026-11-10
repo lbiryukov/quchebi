@@ -3,6 +3,7 @@ import { h } from './dom.js';
 import { registerScreen, navigate } from './router.js';
 import { state } from './state.js';
 import { fmtDate } from './format.js';
+import { switchCity } from './picker.js';
 
 export function initAbout() {
   const root = document.getElementById('screen-about');
@@ -11,11 +12,18 @@ export function initAbout() {
 
 function render(root) {
   const m = state.pack?.manifest;
+  const ru = state.pack?.lang === 'ru' || state.city?.lang === 'ru';
   const link = (href, text) => h('a', { href, target: '_blank', rel: 'noopener' }, text);
   const page = h('div.page',
     h('div.btn-row', h('button.btn.small', { type: 'button', onclick: () => navigate('ready') }, 'Назад')),
     h('div.plate-big', h('span.ka', 'ქუჩები'), h('span.lat', 'Quchebi')),
-    h('p', 'Офлайн-поиск улиц, площадей и других топонимов Тбилиси для игры «Бегущий город»: названия на грузинском, русском и латинице, язык запросов, эпонимы, номера домов, пересечения и зона соревнований.'),
+    h('p', `Офлайн-поиск улиц, площадей, мест и других топонимов для игры «Бегущий город»: ${ru
+      ? 'названия на русском и латинице'
+      : 'названия на грузинском, русском и латинице'}, язык запросов, эпонимы, номера домов, пересечения и зона соревнований.`),
+    h('div.card-box',
+      h('h3', 'Район'),
+      h('p', h('b', state.city?.title || '—'), state.city?.sub ? ` (${state.city.sub})` : ''),
+      h('div.btn-row', h('button.btn.small', { type: 'button', onclick: () => switchCity(), 'data-testid': 'about-city' }, 'Сменить район'))),
     h('div.card-box',
       h('h3', 'Данные и лицензии'),
       h('p', 'Улицы, дома, районы: ', link('https://www.openstreetmap.org/copyright', '© участники OpenStreetMap'), ', лицензия ', link('https://opendatacommons.org/licenses/odbl/', 'ODbL 1.0'), '. Пакет данных — производная база данных OSM и распространяется на тех же условиях.'),

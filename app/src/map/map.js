@@ -5,10 +5,31 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { decodePolyline, circlePolygon } from '../zone/geo.js';
 import { log } from '../log/log.js';
-import { resolveBasemap, buildStyle, BG } from './basemap.js';
+import { resolveBasemap, buildStyle, configureBasemap, BG } from './basemap.js';
 
-const TBILISI = { center: [44.8015, 41.7151], zoom: 12 };
-const MAX_BOUNDS = [[44.45, 41.5], [45.2, 41.95]];
+// Margin around the data / basemap extent the map may be panned to, degrees (lon, lat).
+const BOUNDS_PAD = [0.15, 0.1];
+
+/**
+ * Initial view and pan limits of the current city: from manifest.tiles (store/cities.js
+ * tilesInfo: bbox [w, s, e, n], center [lon, lat, zoom]), else from the extent of the data
+ * ([minLat, minLon, maxLat, maxLon]). Returns {center: [lon, lat], zoom, maxBounds | null}.
+ */
+export function cityView(tiles, extent) {
+  let box = tiles && tiles.bbox ? tiles.bbox.slice() : null;
+  if (!box && extent && extent.every(Number.isFinite)) box = [extent[1], extent[0], extent[3], extent[2]];
+  let center = tiles && tiles.center ? [tiles.center[0], tiles.center[1]] : null;
+  if (!center && box) center = [(box[0] + box[2]) / 2, (box[1] + box[3]) / 2];
+  if (!center) center = [0, 0];
+  let zoom = tiles && tiles.center && Number.isFinite(tiles.center[2]) ? tiles.center[2] : null;
+  if (zoom === null && box) {
+    // fit the extent into ~400 px: 360° / 2^z per 256 px tile
+    const span = Math.max(box[2] - box[0], (box[3] - box[1]) * 1.3, 0.005);
+    zoom = Math.max(10, Math.min(15, Math.floor(Math.log2((360 * 400) / (256 * span)))));
+  }
+  const maxBounds = box ? [[box[0] - BOUNDS_PAD[0], box[1] - BOUNDS_PAD[1]], [box[2] + BOUNDS_PAD[0], box[3] + BOUNDS_PAD[1]]] : null;
+  return { center, zoom: zoom ?? 12, maxBounds };
+}
 
 export const COLORS = {
   light: { res: '#8a2242', sel: '#1d3b6e', selCase: '#ffffff', base: '#9aa6b8', zone: '#23683f', draft: '#8a2242', area: '#1d3b6e', house: '#1d3b6e', text: '#0d1626', halo: '#ffffff', me: '#1a73e8' },
@@ -31,10 +52,14 @@ export function polygonFeature(poly, props = {}) {
 }
 
 /**
- * createMapView(container, {theme, onFeatureTap(i, lngLat), onAreaTap(kind, idx), onMoveEnd(center)})
+ * createMapView(container, {theme, tiles, extent, onFeatureTap(i, lngLat), onAreaTap(kind, idx), onMoveEnd(center)})
+ * `tiles` is the current city's basemap info (store/cities.js tilesInfo), `extent` the data
+ * extent [minLat, minLon, maxLat, maxLon] used when the manifest has no bbox/center.
  * Resolves after the first style load.
  */
 export async function createMapView(container, opts = {}) {
+  configureBasemap(opts.tiles || null);
+  const cv = cityView(opts.tiles || null, opts.extent || null);
   const bm = await resolveBasemap();
   let theme = opts.theme === 'dark' ? 'dark' : 'light';
   const view = {
@@ -50,11 +75,11 @@ export async function createMapView(container, opts = {}) {
   const map = new maplibregl.Map({
     container,
     style: buildStyle(theme, bm),
-    center: TBILISI.center,
-    zoom: TBILISI.zoom,
+    center: cv.center,
+    zoom: cv.zoom,
     minZoom: 10,
     maxZoom: 19,
-    maxBounds: MAX_BOUNDS,
+    maxBounds: cv.maxBounds || undefined,
     dragRotate: false,
     touchPitch: false,
     pitchWithRotate: false,
@@ -103,7 +128,7 @@ export async function createMapView(container, opts = {}) {
     else map.once('load', resolve);
     setTimeout(resolve, 8000);
   });
-  log.info('map', 'map ready', { mode: bm.mode, theme });
+  log.info('map', 'map ready', { mode: bm.mode, theme, center: cv.center, zoom: cv.zoom });
 
   /* ---------- public API ---------- */
 
