@@ -16,10 +16,15 @@ from shapely.geometry import LineString, MultiLineString, MultiPolygon, Point, P
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import linemerge
 
+from pipeline.config import CITY, IS_DEFAULT_CITY
 from pipeline.export.polyline import dedupe_ints, e5, encode_ints
 
-LAT0 = 41.72
-LON0 = 44.80
+if IS_DEFAULT_CITY:
+    LAT0 = 41.72
+    LON0 = 44.80
+else:
+    LAT0 = round((CITY.bbox[1] + CITY.bbox[3]) / 2, 2)
+    LON0 = round((CITY.bbox[0] + CITY.bbox[2]) / 2, 2)
 _M_PER_DEG = 6371008.8 * math.pi / 180.0
 _KX = _M_PER_DEG * math.cos(math.radians(LAT0))
 _KY = _M_PER_DEG

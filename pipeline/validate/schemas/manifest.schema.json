@@ -10,6 +10,9 @@
   "version": {"type": "string", "pattern": "^[0-9]{8}-[1-9][0-9]*$"},
   "built": {"type": "string", "pattern": "^[0-3][0-9]/[01][0-9]/[0-9]{4}$"},
   "osm": {"type": "string", "minLength": 1},
+  "city": {"type": "object", "required": ["id", "title", "lang"], "additionalProperties": false,
+           "properties": {"id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]*$"},
+                          "title": {"type": "string", "minLength": 1}, "lang": {"enum": ["ka", "ru"]}}},
   "files": {
    "type": "object",
    "required": ["core.json", "geom.json", "houses.json", "areas.json", "eponyms.json"],

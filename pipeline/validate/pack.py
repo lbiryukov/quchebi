@@ -18,6 +18,7 @@ from shapely.geometry import LineString, Point, Polygon
 
 from pipeline.export import geom as G
 from pipeline.export.polyline import decode_ints
+from pipeline.config import CITY
 from pipeline.log import get_logger
 
 log = get_logger(__name__)
@@ -25,8 +26,13 @@ log = get_logger(__name__)
 SCHEMAS = Path(__file__).parent / "schemas"
 DATA_FILES = ("core.json", "geom.json", "houses.json", "areas.json", "eponyms.json")
 MAX_SCHEMA_ERRORS = 20
-# Generous Tbilisi envelope in e5 (lat 41.55..41.95, lon 44.50..45.20).
-BBOX_E5 = (4155000, 4450000, 4195000, 4520000)
+# Generous envelope of the city in e5: Tbilisi lat 41.55..41.95, lon 44.50..45.20; another city =
+# its bbox with a margin of about 3 km.
+if CITY.id == "tbilisi":
+    BBOX_E5 = (4155000, 4450000, 4195000, 4520000)
+else:
+    BBOX_E5 = (round((CITY.bbox[1] - 0.03) * 1e5), round((CITY.bbox[0] - 0.05) * 1e5),
+               round((CITY.bbox[3] + 0.03) * 1e5), round((CITY.bbox[2] + 0.05) * 1e5))
 CROSSING_MAX_DIST_M = 30.0     # crossing point -> each street's geometry
 HOUSE_FAR_M = 300.0            # house point -> its street's geometry
 SAMPLES = 15
@@ -126,7 +132,11 @@ def validate_pack(pack_dir: Path | str) -> PackCheck:
         _schema_check(res, name[:-5], obj)
         res.pack[name[:-5]] = obj
     res.stats["sizes"] = sizes
-    _tiles_check(res, manifest, pack_dir.parent)
+    # manifest.tiles paths are relative to the app root: the parent of data/ (Tbilisi) or of
+    # data/<city>/ (other cities)
+    app_root = pack_dir.parent if (pack_dir.parent / "tiles").is_dir() or not (pack_dir.parent.parent / "tiles").is_dir() \
+        else pack_dir.parent.parent
+    _tiles_check(res, manifest, app_root)
     if not all(k in res.pack for k in ("core", "geom", "houses", "areas", "eponyms")):
         return res
     try:
@@ -217,7 +227,7 @@ def _invariants(res: PackCheck) -> None:
                 flag("ar out of range", str(i))
         c = f.get("c", [0, 0])
         if not _in_bbox(*c):
-            res.warn(f"core.f[{i}] ({f.get('ka')}): point {c} outside Tbilisi envelope")
+            res.warn(f"core.f[{i}] ({f.get('ka')}): point {c} outside the city envelope")
         bb = f.get("bb")
         if bb and (bb[0] > bb[2] or bb[1] > bb[3]):
             flag("bb min > max", str(i))
@@ -292,7 +302,7 @@ def _invariants(res: PackCheck) -> None:
         if geoms:
             shapes[i] = G.to_metric(shapely.union_all(geoms) if len(geoms) > 1 else geoms[0])
     if n_out:
-        res.warn(f"geom: {n_out} of {n_vert} vertices outside the Tbilisi envelope")
+        res.warn(f"geom: {n_out} of {n_vert} vertices outside the city envelope")
     res.stats["geom_vertices"] = n_vert
 
     # crossing point close to both geometries (catches index re-mapping bugs)
@@ -355,7 +365,7 @@ def _invariants(res: PackCheck) -> None:
     if range_bad:
         res.warn(f"houses: {range_bad} rows with n_to <= n")
     if out_box:
-        res.warn(f"houses: {out_box} rows outside the Tbilisi envelope")
+        res.warn(f"houses: {out_box} rows outside the city envelope")
     if pts:
         P = G.to_metric(shapely.points(np.array([(p[0], p[1]) for p in pts])))
         S = np.array([shapes[i] for i in pts_idx], dtype=object)

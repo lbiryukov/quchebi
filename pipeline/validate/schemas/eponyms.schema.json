@@ -37,7 +37,7 @@
      "g": {"enum": ["m", "f"]},
      "b": {"type": "integer"},
      "d": {"type": "integer"},
-     "o": {"enum": ["ge", "fo"]},
+     "o": {"enum": ["ge", "ru", "fo"]},
      "desc": {"$ref": "#/$defs/name"},
      "src": {"type": "string", "minLength": 1},
      "conf": {"type": "number", "minimum": 0, "maximum": 1},

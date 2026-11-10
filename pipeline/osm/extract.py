@@ -22,7 +22,7 @@ from pathlib import Path
 import shapely
 from shapely.geometry import LineString, MultiLineString, Point, Polygon
 
-from pipeline.config import INTERIM, TBILISI_BBOX
+from pipeline.config import CITY, CITY_BBOX, INTERIM
 from pipeline.log import get_logger, stage
 from pipeline.osm.geo import as_multipolygon, polygon_from_rings
 from pipeline.osm.model import EXTRACT_VERSION, Extract, OsmObj, OsmWay
@@ -30,9 +30,11 @@ from pipeline.osm.model import EXTRACT_VERSION, Extract, OsmObj, OsmWay
 log = get_logger(__name__)
 
 PLACE_KINDS = ("suburb", "neighbourhood", "quarter")
+#: route=* value of a route relation -> label of the transport in notes ("Автобусы: м3, 15").
+ROUTE_LABEL = {"bus": "bus", "trolleybus": "trolleybus", "tram": "tram", "share_taxi": "bus"}
 NON_LAKE_WATER = {"river", "stream", "canal", "ditch", "drain", "wastewater", "riverbank", "fountain",
                   "moat", "lock", "stream_pool"}
-BBOX_MARGIN = 0.03  # degrees around config.TBILISI_BBOX for the coarse pre-filter
+BBOX_MARGIN = 0.03 if CITY.id == "tbilisi" else 0.005  # degrees around the city bbox (coarse pre-filter)
 EXTRACT_CACHE = INTERIM / "osm_extract.json"
 
 
@@ -63,6 +65,8 @@ def poi_kind(t: dict[str, str]) -> str | None:
 #: Keys that make a named object a landmark candidate (see :func:`landmark_kind`).
 LANDMARK_KEYS = ("tourism", "amenity", "historic", "leisure", "shop", "railway", "building", "aerialway",
                  "landuse", "memorial", "man_made", "public_transport")
+if CITY.extra_kinds:  # bus stops, embassies, government offices, clinics (see extra_kind)
+    LANDMARK_KEYS += ("highway", "office", "diplomatic", "healthcare")
 PLAQUE_MEMORIALS = {"plaque", "blue_plaque", "stolperstein"}
 MONUMENT_ARTWORK = {"statue", "sculpture", "bust", "monument", "stone", "obelisk"}
 WORSHIP_BUILDINGS = {"church": "church", "cathedral": "church", "chapel": "church", "monastery": "church",
@@ -81,6 +85,48 @@ _STADIUM_NAME = re.compile(r"სტადიონ|არენა|სასა�
 STADIUM_MIN_M2 = 5000.0
 
 
+STOP_HIGHWAYS = {"bus_stop"}
+STOP_RAILWAYS = {"tram_stop"}
+
+
+def is_stop(t: dict[str, str]) -> bool:
+    """A named surface-transport stop as passengers see it (a platform / pole, not a stop position)."""
+    if t.get("public_transport") == "stop_position":
+        return False
+    return t.get("highway") in STOP_HIGHWAYS or t.get("railway") in STOP_RAILWAYS or (
+        t.get("public_transport") == "platform" and (t.get("bus") == "yes" or t.get("trolleybus") == "yes"
+                                                     or t.get("tram") == "yes"))
+
+
+def extra_kind(t: dict[str, str]) -> str | None:
+    """Kinds of ``City.extra_kinds`` cities that the common rules do not know (checked first)."""
+    if is_stop(t):
+        return "stop"
+    am, of, tu = t.get("amenity"), t.get("office"), t.get("tourism")
+    if am == "embassy" or of == "diplomatic" or "diplomatic" in t:
+        return "embassy"
+    if am == "ferry_terminal" or (t.get("man_made") == "pier" and t.get("name")):
+        return "pier"
+    return None
+
+
+def extra_kind_late(t: dict[str, str]) -> str | None:
+    """Extra kinds with a lower priority than every common landmark kind (a hospital museum is a
+    museum, a ministry in a palace is a palace)."""
+    am, of, tu, bl = t.get("amenity"), t.get("office"), t.get("tourism"), t.get("building")
+    if tu in ("hotel", "hostel", "guest_house") or bl == "hotel":
+        return "hotel"
+    if am == "hospital" or bl == "hospital" or t.get("healthcare") == "hospital":
+        return "hospital"
+    if am == "clinic" and t.get("operator:type") in ("government", "public"):
+        return "hospital"
+    if of == "government" or am in ("courthouse", "townhall") or bl == "government":
+        return "government"
+    if am == "kindergarten" or bl == "kindergarten":
+        return "kindergarten"
+    return None
+
+
 def landmark_kind(t: dict[str, str], area_m2: float = 0.0) -> str | None:
     """Tag-based landmark kind (group ``place*`` of KIND_TABLE) of a named object, None if not one.
 
@@ -92,11 +138,22 @@ def landmark_kind(t: dict[str, str], area_m2: float = 0.0) -> str | None:
     name = (t.get("name") or "").strip()
     if not name:
         return None
+    if CITY.extra_kinds:
+        k = extra_kind(t)
+        if k:
+            return k
     if "highway" in t or "waterway" in t or "boundary" in t or "place" in t or poi_kind(t):
         return None
     if t.get("public_transport") in ("platform", "stop_position", "stop_area") or \
             t.get("railway") in ("platform", "stop", "subway_entrance", "tram_stop"):
         return None
+    k = _common_landmark_kind(t, name, area_m2)
+    if k in (None, "landmark", "residential", "factory") and CITY.extra_kinds:
+        return extra_kind_late(t) or k
+    return k
+
+
+def _common_landmark_kind(t: dict[str, str], name: str, area_m2: float) -> str | None:
     am, bl, hi, tu = t.get("amenity"), t.get("building"), t.get("historic"), t.get("tourism")
     le, sh, lu, mem, art = t.get("leisure"), t.get("shop"), t.get("landuse"), t.get("memorial"), t.get("artwork_type")
     if mem in PLAQUE_MEMORIALS or (tu == "artwork" and art == "star"):
@@ -168,16 +225,20 @@ def is_place(t: dict[str, str]) -> bool:
 
 
 def is_district(t: dict[str, str]) -> bool:
-    return t.get("boundary") == "administrative" and t.get("admin_level") == "10"
+    return t.get("boundary") == "administrative" and t.get("admin_level") == CITY.district_level
 
 
 def is_tbilisi(t: dict[str, str]) -> bool:
-    return (t.get("boundary") == "administrative" and t.get("admin_level") == "4"
-            and t.get("name:en") == "Tbilisi")
+    """The boundary relation of the city being built (``City.boundary``; Tbilisi by default)."""
+    return all(t.get(k) == v for k, v in CITY.boundary.items())
+
+
+#: True when the boundary relation is itself the (only) district of the pack (a district build).
+BOUNDARY_IS_DISTRICT = CITY.boundary.get("admin_level") == CITY.district_level
 
 
 def _in_bbox(lat: float, lon: float, m: float = BBOX_MARGIN) -> bool:
-    lon0, lat0, lon1, lat1 = TBILISI_BBOX
+    lon0, lat0, lon1, lat1 = CITY_BBOX
     return lat0 - m <= lat <= lat1 + m and lon0 - m <= lon <= lon1 + m
 
 
@@ -209,6 +270,10 @@ def clip_to_boundary(ex: Extract) -> Extract:
     b = ex.boundary
     if b is None:
         raise ValueError("extract has no boundary")
+    if CITY.boundary_buffer_m > 0:
+        from pipeline.osm.geo import to_ll, to_xy
+
+        b = to_ll(to_xy(b).buffer(CITY.boundary_buffer_m))
     shapely.prepare(b)
     before = ex.counts()
 
@@ -233,12 +298,13 @@ def clip_to_boundary(ex: Extract) -> Extract:
 
     ex.highways = keep_ways(ex.highways)
     ex.waterways = keep_ways(ex.waterways)
-    ex.districts = keep_objs(ex.districts, "point")
+    ex.districts = [o for o in ex.districts if shapely.contains(ex.boundary, o.geom.representative_point())
+                    or shapely.touches(ex.boundary, o.geom.representative_point())]
     ex.places = keep_objs(ex.places, "point")
     ex.pois = keep_objs(ex.pois, "intersects")
     ex.addresses = keep_objs(ex.addresses, "point")
     ex.landmarks = keep_objs(ex.landmarks, "point")
-    log.info("clip to Tbilisi: before %s after %s", before, ex.counts())
+    log.info("clip to %s: before %s after %s", CITY.id, before, ex.counts())
     return ex
 
 
@@ -254,9 +320,18 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
         rels: dict[int, dict] = {}
         member_ways: set[int] = set()
         nrel = 0
+        stop_routes: dict[str, set[str]] = {}   # "n123" / "w45" -> route labels ("А м3", "Тб 28")
         for r in osmium.FileProcessor(str(path), osmium.osm.RELATION):
             nrel += 1
             t = r.tags
+            if CITY.extra_kinds and t.get("type") == "route" and t.get("route") in ROUTE_LABEL and t.get("ref"):
+                label = (ROUTE_LABEL[t.get("route")], t.get("ref").strip())
+                for m in r.members:
+                    if m.type in ("n", "w") and (m.role or "").startswith(("platform", "stop")):
+                        stop_routes.setdefault(f"{m.type}{m.ref}", set()).add(label)
+                continue
+            if CITY.extra_kinds and t.get("type") == "public_transport" and t.get("public_transport") == "stop_area":
+                continue
             if not ("boundary" in t or "place" in t or "addr:housenumber" in t or "name" in t):
                 continue
             tags = tags_of(r)
@@ -283,9 +358,9 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
 
     tb = [rid for rid, v in rels.items() if v["kind"] == "tbilisi"]
     if not tb:
-        raise RuntimeError("Tbilisi boundary relation (admin_level=4, name:en=Tbilisi) not found in PBF")
+        raise RuntimeError(f"boundary relation {CITY.boundary} of {CITY.id} not found in PBF")
     if len(tb) > 1:
-        log.warning("several Tbilisi boundary relations: %s; using the first", tb)
+        log.warning("several boundary relations for %s: %s; using the first", CITY.id, tb)
 
     # pass 2: node lists of relation member ways (ways only, no locations: fast)
     member_nodes: dict[int, list[int]] = {}
@@ -299,6 +374,8 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
 
     ex = Extract(source="pbf", snapshot=snapshot, boundary=None,
                  info={"file": path.name, "bytes": path.stat().st_size})
+    if stop_routes:
+        ex.info["stop_routes"] = {k: sorted(v) for k, v in stop_routes.items()}
     way_coords: dict[int, list[tuple[float, float]]] = {}
     # pass 3: tagged nodes and candidate ways with a node-location cache; C++ filters keep the
     # Python loop to named / addressed objects
@@ -338,6 +415,9 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
             wid = o.id
             named = "name" in t
             is_hw = named and "highway" in t
+            if is_hw and CITY.extra_kinds and (t.get("public_transport") == "platform"
+                                               or t.get("highway") in ("platform", "bus_stop")):
+                is_hw = False  # a stop platform mapped as a way: a landmark candidate, not a street
             is_ww = named and "waterway" in t
             has_addr = "addr:housenumber" in t
             maybe_area = named and ("place" in t or "leisure" in t or "natural" in t or "man_made" in t
@@ -422,6 +502,8 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
                     continue
             if v["kind"] == "tbilisi":
                 tb_geom = g if tb_geom is None else tb_geom
+                if BOUNDARY_IS_DISTRICT and not any(o.type == "r" and o.id == rid for o in ex.districts):
+                    ex.districts.append(OsmObj("r", rid, v["tags"], g))
             elif v["kind"] == "district":
                 ex.districts.append(OsmObj("r", rid, v["tags"], g))
             elif v["kind"] == "place":
@@ -439,7 +521,7 @@ def read_pbf(path: Path, snapshot: str | None) -> Extract:
                 if c is not None:
                     ex.addresses.append(OsmObj("r", rid, v["tags"], c))
         if tb_geom is None:
-            raise RuntimeError("Tbilisi boundary relation could not be assembled into a polygon")
+            raise RuntimeError(f"boundary relation of {CITY.id} could not be assembled into a polygon")
         ex.boundary = tb_geom
         out.update(problems=dict(bad), boundary_km2=round(float(shapely.area(_to_xy(tb_geom))) / 1e6, 1))
     return clip_to_boundary(ex)

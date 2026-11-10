@@ -105,6 +105,60 @@ class Landmark:
     names: set[tuple[str, str, str, str]] = field(default_factory=set)
     parent: int | None = None
     parent_how: str | None = None
+    note: str | None = None
+
+
+# ---------------------------------------------------------------------------- notes
+NOTE_MAX = 320
+_ROUTE_RU = {"bus": "Автобусы", "trolleybus": "Троллейбусы", "tram": "Трамваи"}
+_INSCRIPTION_KINDS = {"plaque", "monument", "landmark"}
+
+
+def _route_sort(ref: str):
+    m = re.search(r"\d+", ref)
+    return (int(m.group(0)) if m else 10 ** 6, ref)
+
+
+def _clip(s: str, n: int) -> str:
+    s = re.sub(r"\s+", " ", s.replace("\\n", " ")).strip()
+    return s if len(s) <= n else s[: n - 1].rstrip(" ,;.") + "…"
+
+
+def build_note(kind: str, objs: list[OsmObj], routes: dict[str, list] | None = None) -> str | None:
+    """Short reference text of a landmark from its OSM tags (``core.f[].note``).
+
+    Stops: the routes that call there (route relations). Plaques and monuments: year, author and
+    the inscription. Other kinds: year of construction and architect when tagged.
+    """
+    parts: list[str] = []
+    if kind == "stop" and routes:
+        by: dict[str, set[str]] = defaultdict(set)
+        for o in objs:
+            for mode, ref in routes.get(o.ref, []):
+                by[mode].add(ref)
+        for mode in ("bus", "trolleybus", "tram"):
+            if by.get(mode):
+                parts.append(f"{_ROUTE_RU[mode]}: " + ", ".join(sorted(by[mode], key=_route_sort)))
+    tags: dict[str, str] = {}
+    for o in objs:
+        for k in ("start_date", "architect", "artist_name", "inscription", "inscription:ru", "heritage",
+                  "building:architecture", "country", "target"):
+            if o.tags.get(k) and k not in tags:
+                tags[k] = o.tags[k].strip()
+    year = re.search(r"\b(1[0-9]{3}|20[0-2][0-9])\b", tags.get("start_date", ""))
+    if year and kind != "stop":
+        parts.append(("Открыт" if kind in _INSCRIPTION_KINDS else "Год") + ": " + year.group(1))
+    if tags.get("architect"):
+        parts.append("Архитектор: " + _clip(tags["architect"], 80))
+    if tags.get("artist_name"):
+        parts.append("Автор: " + _clip(tags["artist_name"], 80))
+    if tags.get("heritage"):
+        parts.append("Объект культурного наследия")
+    ins = tags.get("inscription:ru") or tags.get("inscription")
+    if ins and kind in _INSCRIPTION_KINDS:
+        parts.append("Надпись: «" + _clip(ins, 220).strip("«»\"") + "»")
+    note = "; ".join(parts)
+    return _clip(note, NOTE_MAX) if note else None
 
 
 # ---------------------------------------------------------------------------- classification
@@ -239,7 +293,7 @@ def _wikidata(objs: list[OsmObj]) -> str | None:
     return None
 
 
-def build_landmark(cl: list[Cand]) -> Landmark:
+def build_landmark(cl: list[Cand], routes: dict[str, list] | None = None) -> Landmark:
     objs = [c.obj for c in cl]
     # primary object: the specific kind, then polygons, then the longest name list
     kind = _cluster_kind(cl)
@@ -250,11 +304,13 @@ def build_landmark(cl: list[Cand]) -> Landmark:
     ru, gen = (normalize_ru_name(ru_osm), 0) if ru_osm else (generated_ru(ka), 1)
     lm = Landmark(kind=kind, ka=ka, ru=ru, en=en, ru_generated=gen, geom_ll=_geometry(cl),
                   osm_ids=sorted({o.ref for o in objs}), objs=objs, wikidata=_wikidata(objs))
+    lm.note = build_note(kind, objs, routes)
     for o in objs:
         lm.names.update(name_variants(o.tags))
         nm = (o.tags.get("name") or "").strip()
         if nm and nm != ka:
-            lm.names.add(("ka" if re.search(r"[ა-ჰ]", nm) else "lat", nm, "alt", "osm:name"))
+            lang = "ka" if re.search(r"[ა-ჰ]", nm) else "ru" if re.search(r"[А-Яа-яЁё]", nm) else "lat"
+            lm.names.add((lang, nm, "alt", "osm:name"))
     primary = {lm.ka, lm.en} | ({lm.ru} if not lm.ru_generated else set())
     lm.names = {t for t in lm.names if t[1] and t[1] not in primary
                 and not (t[0] == "ru" and not lm.ru_generated and normalize_ru_name(t[1]) == lm.ru)}
@@ -295,6 +351,8 @@ class ExistingIndex:
         Same Georgian name (any name for the generic kind) within EXISTING_DEDUPE_M; monuments and
         plaques are named after persons and are never duplicates of a street or a metro station.
         """
+        if lm.kind == "stop":
+            return None  # a stop is usually named after its street ("Улица Льва Толстого"): both stay
         g = to_xy(lm.geom_ll)
         keys = _name_keys_row(lm.ka, None if lm.ru_generated else lm.ru, lm.en)
         fkeys = keys if lm.kind == GENERIC else _name_keys_row(lm.ka)
@@ -388,7 +446,7 @@ def build_landmarks(con: sqlite3.Connection, ex: Extract) -> tuple[list[Landmark
     out: list[Landmark] = []
     samples: dict[str, list[str]] = defaultdict(list)
     for cl in sorted(clusters, key=lambda c: c[0].obj.ref):
-        lm = build_landmark(cl)
+        lm = build_landmark(cl, ex.info.get("stop_routes"))
         dup = existing.duplicate_of(lm)
         if dup:
             st["dup_" + dup] += 1
@@ -414,10 +472,11 @@ def write_landmarks(con: sqlite3.Connection, lms: list[Landmark]) -> dict:
             lat, lon = representative_point(lm.geom_ll)
             cur = con.execute(
                 "INSERT INTO feature(kind, ka, ru, en, ru_generated, ord, regnal, family_id, parent_id, homonym_group, "
-                "len_m, lat, lon, bbox, geom_wkt, highway, osm_ids, wikidata) "
-                "VALUES (?,?,?,?,?,NULL,NULL,NULL,?,NULL,0,?,?,?,?,NULL,?,?)",
+                "len_m, lat, lon, bbox, geom_wkt, highway, osm_ids, wikidata, note, note_source) "
+                "VALUES (?,?,?,?,?,NULL,NULL,NULL,?,NULL,0,?,?,?,?,NULL,?,?,?,?)",
                 (lm.kind, lm.ka, lm.ru, lm.en, lm.ru_generated, lm.parent, round(lat, 7), round(lon, 7),
-                 bbox_str(lm.geom_ll), wkt(lm.geom_ll), json.dumps(lm.osm_ids), lm.wikidata))
+                 bbox_str(lm.geom_ll), wkt(lm.geom_ll), json.dumps(lm.osm_ids), lm.wikidata, lm.note,
+                 "osm" if lm.note else None))
             fid = cur.lastrowid
             rows += [(fid, lang, nm, k, src) for lang, nm, k, src in sorted(lm.names)]
         con.executemany("INSERT OR IGNORE INTO feature_name(feature_id, lang, name, kind, source) VALUES (?,?,?,?,?)",

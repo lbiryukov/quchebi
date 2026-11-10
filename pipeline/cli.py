@@ -2,6 +2,7 @@
 
     uv run python -m pipeline.cli osm [--offline] [--stages areas,features,...] [--db PATH]
     uv run python -m pipeline.cli all [--offline]
+    uv run python -m pipeline.cli --city khamovniki osm [--offline]   (or QUCHEBI_CITY=khamovniki)
 
 ``all`` runs the OSM import, then (when the packages exist) history, enrich, export and validate
 through their ``main(argv)`` functions. A missing package or entry point is a logged warning.
@@ -77,6 +78,15 @@ def cmd_all(args: argparse.Namespace, rest: list[str]) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
+    if argv[:1] == ["--city"] and len(argv) >= 2:
+        # must happen before any pipeline stage is imported: paths derive from the city
+        import os
+
+        from pipeline import config
+        if config.CITY_ID != argv[1]:
+            os.environ["QUCHEBI_CITY"] = argv[1]
+            os.execv(sys.executable, [sys.executable, "-m", "pipeline.cli", *argv[2:]])
+        argv = argv[2:]
     ap = argparse.ArgumentParser(prog="python -m pipeline.cli", description="Quchebi data pipeline")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("osm", help="OSM import (fetch, areas, features, crossings, houses)", add_help=False)
